@@ -182,7 +182,6 @@ namespace SG
                     {
                         animatorHandler.PlayTargetAnimation("Empty", false);
                     }
-                    inAirTimer = 0;
                     _playerManager.isFalling = false;
                 }
             }

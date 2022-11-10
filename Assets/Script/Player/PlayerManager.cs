@@ -30,17 +30,7 @@ namespace SG
             _cameraHandler = FindObjectOfType<CameraHandler>();
             _interactableUI = FindObjectOfType<InteractableUI>();
         }
-        private void FixedUpdate()
-        {
-            float delta = Time.fixedDeltaTime;
-
-            if (_cameraHandler != null)
-            {
-                _cameraHandler.FollowTarget(delta);
-                _cameraHandler.HandleCameraRotation(delta, _inputHandler.mouseX, _inputHandler.mouseY);
-            }
-        }
-        void Update()
+        private void Update()
         {
             float delta = Time.deltaTime;
             isInteracting = _anim.GetBool("isInteracting");
@@ -48,22 +38,29 @@ namespace SG
 
             _inputHandler.rollFlag = false;
             _inputHandler.attackFlag = false;
-            
-            CheckForInteractableObject();
 
             _inputHandler.TickInput(delta);
+
             _playerLocomotion.HandelMovement(delta);
-            _playerLocomotion.HadleFalling(delta, _playerLocomotion.moveDirection);
-            _playerLocomotion.HandleRolling(delta);
             _playerLocomotion.HandleAttackMovement(delta);
+            _playerLocomotion.HandleRolling(delta);
+            _playerLocomotion.HadleFalling(delta, _playerLocomotion.moveDirection);
+            CheckForInteractableObject();
+
 
         }
         private void LateUpdate()
         {
+            float delta = Time.deltaTime;
             _inputHandler.space_Input = false;
             _inputHandler.rb_Input = false;
             _inputHandler.lb_Input = false;
             _inputHandler.a_Input = false;
+            if (_cameraHandler != null)
+            {
+                _cameraHandler.FollowTarget(delta);
+                _cameraHandler.HandleCameraRotation(delta, _inputHandler.mouseX, _inputHandler.mouseY);
+            }
             if (isFalling)
             {
                 _playerLocomotion.inAirTimer = _playerLocomotion.inAirTimer + Time.deltaTime;

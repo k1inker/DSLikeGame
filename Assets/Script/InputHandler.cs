@@ -41,6 +41,10 @@ namespace SG
                 _inputActions = new PlayerControls();
                 _inputActions.PlayerMovement.Movement.performed += inputActions => _movementInput = inputActions.ReadValue<Vector2>();
                 _inputActions.PlayerMovement.Camera.performed += i => _cameraInput = i.ReadValue<Vector2>();
+                _inputActions.PlayerActions.Roll.performed += i => space_Input = true;
+                _inputActions.PlayerActions.RB.performed += i => rb_Input = true;
+                _inputActions.PlayerActions.LB.performed += i => lb_Input = true;
+                _inputActions.PlayerActions.A.performed += i => a_Input = true;
             }
 
             _inputActions.Enable();
@@ -63,18 +67,14 @@ namespace SG
             MoveInput(delta);
             HandleRollInput(delta);
             HandleAttackInput(delta);
-            HandleInteractingButtonInput(); 
         }
         private void HandleRollInput(float delta)
         {
-            _inputActions.PlayerActions.Roll.performed += i => space_Input = true;
             if (space_Input)
                 rollFlag = true;
         }
         private void HandleAttackInput(float delta)
         {
-            _inputActions.PlayerActions.RB.performed += i => rb_Input = true;
-            _inputActions.PlayerActions.LB.performed += i => lb_Input = true;
             if(rb_Input & _playerInvertory.leftWeapon != null)
             {
                 if (_playerManager.canDoCombo)
@@ -101,10 +101,6 @@ namespace SG
                 attackFlag = true;
                 _playerAttacker.HandleHeavyAttack(_playerInvertory.leftWeapon);
             }
-        }
-        private void HandleInteractingButtonInput()
-        {
-            _inputActions.PlayerActions.A.performed += i => a_Input = true;
         }
     }
 }

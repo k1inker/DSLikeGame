@@ -525,9 +525,9 @@ MonoBehaviour:
   ignoreLayers:
     serializedVersion: 2
     m_Bits: 0
-  lookSpeed: 0.1
-  followSpeed: 0.1
-  pivotSpeed: 0.03
+  lookSpeed: 300
+  followSpeed: 0.06
+  pivotSpeed: 300
   minimumPivot: -35
   maximumPivot: 35
   cameraSphereRadius: 0.2
@@ -5996,8 +5996,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.55
-  m_Center: {x: 0, y: 0, z: 0.3}
+  m_Radius: 0.27
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1969694331
 GameObject:
   m_ObjectHideFlags: 0
@@ -6614,6 +6614,10 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 1.0583434
       objectReference: {fileID: 0}
+    - target: {fileID: 1590276724, guid: fe6f9a1632ddb994d87bd2876326f9fa, type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1590276725, guid: fe6f9a1632ddb994d87bd2876326f9fa, type: 3}
       propertyPath: leftWeapon
       value: 
@@ -6626,6 +6630,14 @@ PrefabInstance:
       propertyPath: interactableUIGameObject
       value: 
       objectReference: {fileID: 1037958106}
+    - target: {fileID: 1590276727, guid: fe6f9a1632ddb994d87bd2876326f9fa, type: 3}
+      propertyPath: _fallingSpeed
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 1590276727, guid: fe6f9a1632ddb994d87bd2876326f9fa, type: 3}
+      propertyPath: _movementSpeed
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 531134345644122562, guid: fe6f9a1632ddb994d87bd2876326f9fa, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
