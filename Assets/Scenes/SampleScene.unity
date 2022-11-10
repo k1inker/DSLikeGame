@@ -524,7 +524,7 @@ MonoBehaviour:
   cameraPivotTransform: {fileID: 809400623}
   ignoreLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
   lookSpeed: 300
   followSpeed: 0.06
   pivotSpeed: 300
@@ -6648,7 +6648,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 991593297265991489, guid: fe6f9a1632ddb994d87bd2876326f9fa, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 991593297265991490, guid: fe6f9a1632ddb994d87bd2876326f9fa, type: 3}
       propertyPath: m_RootOrder
@@ -8196,7 +8196,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6978836009172460448, guid: b9c2b105f5fbb584aa54924937b2e452, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6978836009172460448, guid: b9c2b105f5fbb584aa54924937b2e452, type: 3}
       propertyPath: m_TagString
