@@ -6,8 +6,6 @@ namespace SG
     public class WeaponItem : Item
     {
         public GameObject modelPrefab;
-        public bool isUnarmed;
-
         [Header("Attack Animations")]
         public string OH_Light_Attack_1;
         public string OH_Light_Attack_2;

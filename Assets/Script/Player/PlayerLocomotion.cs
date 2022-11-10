@@ -83,7 +83,6 @@ namespace SG
                 return;
             if (_inputHandler.attackFlag)
             {
-                Debug.Log(3);
                 setMoveDirection();
 
                 float attackSpeedMove = _movementSpeed * 0.5f;
@@ -218,6 +217,7 @@ namespace SG
             moveDirection = _cameraObject.forward * _inputHandler.vertical;
             moveDirection += _cameraObject.right * _inputHandler.horizontal;
             moveDirection.Normalize();
+            moveDirection.y = 0;
         }
         
     }

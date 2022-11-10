@@ -7,10 +7,10 @@ namespace SG
         public Transform targetTransform;
         public Transform cameraTransform;
         public Transform cameraPivotTransform;
+        public LayerMask ignoreLayers;
 
         private Transform _selfTransform;
         private Vector3 _cameraTransformPosition;
-        private LayerMask _ignoreLayers;
         private Vector3 _cameraFollowVelocity = Vector3.zero;
 
         public static CameraHandler singelton;
@@ -36,7 +36,7 @@ namespace SG
             singelton = this;
             _selfTransform = transform;
             _defaultPosition = cameraTransform.position.z;
-            _ignoreLayers = ~(1 << 8 | 1 << 9 | 1 << 10);
+            ignoreLayers = ~(1 << 8 | 1 << 9 | 1 << 10);
             targetTransform = FindObjectOfType<PlayerManager>().transform;  
         }
 
@@ -74,7 +74,7 @@ namespace SG
             direction.Normalize();
 
             if(Physics.SphereCast
-                (cameraPivotTransform.position, cameraSphereRadius, direction, out hit, Mathf.Abs(_targetPosition), _ignoreLayers))
+                (cameraPivotTransform.position, cameraSphereRadius, direction, out hit, Mathf.Abs(_targetPosition), ignoreLayers))
             {
                 float distance = Vector3.Distance(cameraPivotTransform.position, hit.point);
                 _targetPosition = -(distance - cameraCollisionOffset);

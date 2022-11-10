@@ -13,11 +13,18 @@ namespace SG
         {
             _weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
         }
-
-        private void Start()
+        public void LoadWeapon(WeaponItem weaponItemRight, WeaponItem weaponItemLeft)
         {
-            _weaponSlotManager.LoadWeaponOnSlot(rightWeapon, false);
-            _weaponSlotManager.LoadWeaponOnSlot(leftWeapon, true);
+            if (weaponItemLeft != null)
+            {
+                leftWeapon = weaponItemLeft;
+                _weaponSlotManager.LoadWeaponOnSlot(weaponItemLeft, true);
+            }
+            if (weaponItemRight != null)
+            {
+                rightWeapon = weaponItemRight;
+                _weaponSlotManager.LoadWeaponOnSlot(weaponItemRight, false);
+            }
         }
     }
 }

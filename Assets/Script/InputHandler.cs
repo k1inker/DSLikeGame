@@ -18,6 +18,7 @@ namespace SG
         public bool space_Input;
         public bool rb_Input;
         public bool lb_Input;
+        public bool a_Input;
 
         private PlayerControls _inputActions;
         private PlayerAttacker _playerAttacker;
@@ -62,6 +63,7 @@ namespace SG
             MoveInput(delta);
             HandleRollInput(delta);
             HandleAttackInput(delta);
+            HandleInteractingButtonInput(); 
         }
         private void HandleRollInput(float delta)
         {
@@ -73,7 +75,7 @@ namespace SG
         {
             _inputActions.PlayerActions.RB.performed += i => rb_Input = true;
             _inputActions.PlayerActions.LB.performed += i => lb_Input = true;
-            if(rb_Input)
+            if(rb_Input & _playerInvertory.leftWeapon != null)
             {
                 if (_playerManager.canDoCombo)
                 {
@@ -92,13 +94,17 @@ namespace SG
                     _playerAttacker.HandleLightAttack(_playerInvertory.leftWeapon);
                 }
             }
-            if(lb_Input)
+            if(lb_Input & _playerInvertory.leftWeapon != null)
             {
                 if (_playerManager.isInteracting)
                     return;
                 attackFlag = true;
                 _playerAttacker.HandleHeavyAttack(_playerInvertory.leftWeapon);
             }
+        }
+        private void HandleInteractingButtonInput()
+        {
+            _inputActions.PlayerActions.A.performed += i => a_Input = true;
         }
     }
 }
