@@ -16,23 +16,23 @@ namespace SG
         public new Rigidbody rigidbody;
         public GameObject normalCamera;
 
-        [Header("Ground & Air Detection Stats")]
-        [SerializeField]
-        private float _groundDetectionRayStartPoint = 0.3f;
-        [SerializeField]
-        private float _minimumDistanceNeededToFall = 1f;
-        [SerializeField]
-        private float _groundDirectionRayDistance = 0.2f;
-        private LayerMask _ignoreGroundCheck;
-        public float inAirTimer;
+        //[Header("Ground & Air Detection Stats")]
+        //[SerializeField]
+        //private float _groundDetectionRayStartPoint = 0.3f;
+        //[SerializeField]
+        //private float _minimumDistanceNeededToFall = 1f;
+        //[SerializeField]
+        //private float _groundDirectionRayDistance = 0.2f;
+        //private LayerMask _ignoreGroundCheck;
+        //public float inAirTimer;
 
         [Header("Movement Stats")]
         [SerializeField]
         private float _movementSpeed = 5;
         [SerializeField]
         private float _rotationSpeed = 10;
-        [SerializeField]
-        private float _fallingSpeed = 75;
+        //[SerializeField]
+        //private float _fallingSpeed = 75;
 
         void Start()
         {
@@ -45,12 +45,12 @@ namespace SG
             animatorHandler.Initialize();
 
             _playerManager.isGrounded = true;
-            _ignoreGroundCheck = ~(1 << 8 | 1 << 11);
+            //_ignoreGroundCheck = ~(1 << 8 | 1 << 11);
         }
 
         #region Movement 
         private Vector3 _normalVector;
-        private Vector3 _targetPosition;
+        //private Vector3 _targetPosition;
 
         public void HandelMovement(float delta)
         {
@@ -85,7 +85,7 @@ namespace SG
             {
                 setMoveDirection();
 
-                float attackSpeedMove = _movementSpeed * 0.5f;
+                float attackSpeedMove = _movementSpeed * 1f;
                 moveDirection = _selfTransform.forward;
                 rigidbody.velocity = ProjectedVelocity(attackSpeedMove);
             }
@@ -101,7 +101,7 @@ namespace SG
                 setMoveDirection();
 
                 animatorHandler.PlayTargetAnimation("Rolling", true);
-                float rollSpeed = _movementSpeed * 1.3f;
+                float rollSpeed = _movementSpeed * 2f;
                 Quaternion rotation;
                 if (moveDirection != Vector3.zero)
                 {
@@ -141,69 +141,69 @@ namespace SG
 
             _selfTransform.rotation = targetRotation;
         }
-        public void HadleFalling(float delta, Vector3 moveDirection)
-        {
-            _playerManager.isGrounded = false;
-            RaycastHit hit;
-            Vector3 origin = _selfTransform.position;
-            origin.y += _groundDetectionRayStartPoint;
+        //public void HadleFalling(float delta, Vector3 moveDirection)
+        //{
+        //    _playerManager.isGrounded = false;
+        //    RaycastHit hit;
+        //    Vector3 origin = _selfTransform.position;
+        //    origin.y += _groundDetectionRayStartPoint;
 
-            if (Physics.Raycast(origin, _selfTransform.forward, out hit, 0.4f))
-                moveDirection = Vector3.zero;
+        //    if (Physics.Raycast(origin, _selfTransform.forward, out hit, 0.4f))
+        //        moveDirection = Vector3.zero;
 
-            if (_playerManager.isFalling)
-            {
-                rigidbody.AddForce(Vector3.down * _fallingSpeed);
-                rigidbody.AddForce(moveDirection * _fallingSpeed / 10f);
-            }
+        //    if (_playerManager.isFalling)
+        //    {
+        //        rigidbody.AddForce(Vector3.down * _fallingSpeed);
+        //        rigidbody.AddForce(moveDirection * _fallingSpeed / 10f);
+        //    }
 
-            Vector3 dir = moveDirection;
-            dir.Normalize();
-            origin = origin + dir * _groundDirectionRayDistance;
+        //    Vector3 dir = moveDirection;
+        //    dir.Normalize();
+        //    origin = origin + dir * _groundDirectionRayDistance;
 
-            _targetPosition = _selfTransform.position;
+        //    _targetPosition = _selfTransform.position;
 
-            Debug.DrawRay(origin, Vector3.down * _minimumDistanceNeededToFall, Color.red, 0.1f, false);
-            if (Physics.Raycast(origin, Vector3.down, out hit, _minimumDistanceNeededToFall, _ignoreGroundCheck))
-            {
-                _normalVector = hit.normal;
+        //    Debug.DrawRay(origin, Vector3.down * _minimumDistanceNeededToFall, Color.red, 0.1f, false);
+        //    if (Physics.Raycast(origin, Vector3.down, out hit, _minimumDistanceNeededToFall, _ignoreGroundCheck))
+        //    {
+        //        _normalVector = hit.normal;
 
-                _playerManager.isGrounded = true;
+        //        _playerManager.isGrounded = true;
 
-                _targetPosition.y = hit.point.y;
-                if (_playerManager.isFalling)
-                {
-                    if (inAirTimer > 0.5f)
-                    {
-                        //animation приземления EP7
+        //        _targetPosition.y = hit.point.y;
+        //        if (_playerManager.isFalling)
+        //        {
+        //            if (inAirTimer > 0.5f)
+        //            {
+        //                //animation приземления EP7
                                 
-                    }
-                    else
-                    {
-                        animatorHandler.PlayTargetAnimation("Empty", false);
-                    }
-                    _playerManager.isFalling = false;
-                }
-            }
-            else
-            {
-                if (_playerManager.isGrounded)
-                    _playerManager.isGrounded = false;
+        //            }
+        //            else
+        //            {
+        //                animatorHandler.PlayTargetAnimation("Empty", false);
+        //            }
+        //            _playerManager.isFalling = false;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (_playerManager.isGrounded)
+        //            _playerManager.isGrounded = false;
 
-                if (_playerManager.isFalling == false)
-                {
-                    if (_playerManager.isInteracting == false)
-                    {     //animation falling
-                    }
+        //        if (_playerManager.isFalling == false)
+        //        {
+        //            if (_playerManager.isInteracting == false)
+        //            {     //animation falling
+        //            }
 
-                    Vector3 velocity = rigidbody.velocity;
-                    velocity.Normalize();
-                    rigidbody.velocity = velocity * (_movementSpeed / 2);
-                    _playerManager.isFalling = true;
-                }
-            }
-            _selfTransform.position = _targetPosition;
-        }
+        //            Vector3 velocity = rigidbody.velocity;
+        //            velocity.Normalize();
+        //            rigidbody.velocity = velocity * (_movementSpeed / 2);
+        //            _playerManager.isFalling = true;
+        //        }
+        //    }
+        //    _selfTransform.position = _targetPosition;
+        //}
         #endregion
         private Vector3 ProjectedVelocity(float speed)
         {

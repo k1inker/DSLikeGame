@@ -40,14 +40,16 @@ namespace SG
             _inputHandler.attackFlag = false;
 
             _inputHandler.TickInput(delta);
-
+            _playerLocomotion.HandleRolling(delta);
+            //_playerLocomotion.HadleFalling(delta, _playerLocomotion.moveDirection);s
+            
+            CheckForInteractableObject();   
+        }
+        private void FixedUpdate()
+        {
+            float delta = Time.deltaTime;
             _playerLocomotion.HandelMovement(delta);
             _playerLocomotion.HandleAttackMovement(delta);
-            _playerLocomotion.HandleRolling(delta);
-            _playerLocomotion.HadleFalling(delta, _playerLocomotion.moveDirection);
-            CheckForInteractableObject();
-
-
         }
         private void LateUpdate()
         {
@@ -60,10 +62,6 @@ namespace SG
             {
                 _cameraHandler.FollowTarget(delta);
                 _cameraHandler.HandleCameraRotation(delta, _inputHandler.mouseX, _inputHandler.mouseY);
-            }
-            if (isFalling)
-            {
-                _playerLocomotion.inAirTimer = _playerLocomotion.inAirTimer + Time.deltaTime;
             }
         }
 
