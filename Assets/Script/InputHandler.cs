@@ -5,6 +5,9 @@ namespace SG
 {
     public class InputHandler : MonoBehaviour
     {
+        [Header("Input system")]
+        public bool isJoystick = false;
+
         public float horizontal;
         public float vertical;
         public float moveAmount;
@@ -25,6 +28,9 @@ namespace SG
         private PlayerInvertory _playerInvertory;
         private PlayerManager _playerManager;
 
+        [SerializeField]private VariableJoystick _joystick;
+        [SerializeField] private FixedTouchScreen _vectorTouch;
+
         private Vector2 _movementInput;
         private Vector2 _cameraInput;
 
@@ -33,6 +39,7 @@ namespace SG
             _playerAttacker = GetComponent<PlayerAttacker>();
             _playerInvertory = GetComponent<PlayerInvertory>();
             _playerManager = GetComponent<PlayerManager>();
+            _joystick = FindObjectOfType<VariableJoystick>();
         }
         private void OnEnable()
         {
@@ -64,7 +71,10 @@ namespace SG
         }
         public void TickInput(float delta)
         {
-            MoveInput(delta);
+            if(isJoystick)
+                MoveInputJoystick();
+            else
+                MoveInput(delta);
             HandleRollInput(delta);
             HandleAttackInput(delta);
         }
@@ -101,6 +111,26 @@ namespace SG
                 attackFlag = true;
                 _playerAttacker.HandleHeavyAttack(_playerInvertory.leftWeapon);
             }
+        }
+        public void MoveInputJoystick()
+        {
+            horizontal = _joystick.Horizontal;
+            vertical = _joystick.Vertical;
+            moveAmount = Mathf.Clamp01(Mathf.Abs(horizontal) + Mathf.Abs(vertical));
+            mouseX = _vectorTouch.touchDistance.x / 20;
+            mouseY = _vectorTouch.touchDistance.y / 20; 
+        }
+        public void ClickPickUpItem()
+        {
+            a_Input = true;
+        }
+        public void ClickAttack()
+        {
+            rb_Input = true;
+        }
+        public void ClickRoll()
+        {
+            space_Input = true;
         }
     }
 }

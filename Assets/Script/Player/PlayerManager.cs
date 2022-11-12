@@ -18,8 +18,8 @@ namespace SG
         public bool isInteracting;
 
         [Header("Player flag")]
-        public bool isFalling;
-        public bool isGrounded;
+        //public bool isFalling;
+        //public bool isGrounded;
         public bool canDoCombo;
         public bool isAttack;
         void Start()
@@ -48,8 +48,8 @@ namespace SG
         private void FixedUpdate()
         {
             float delta = Time.deltaTime;
-            _playerLocomotion.HandelMovement(delta);
             _playerLocomotion.HandleAttackMovement(delta);
+            _playerLocomotion.HandelMovement(delta);
         }
         private void LateUpdate()
         {

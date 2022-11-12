@@ -44,7 +44,7 @@ namespace SG
             _selfTransform = transform;
             animatorHandler.Initialize();
 
-            _playerManager.isGrounded = true;
+            //_playerManager.isGrounded = true;
             //_ignoreGroundCheck = ~(1 << 8 | 1 << 11);
         }
 
@@ -64,8 +64,12 @@ namespace SG
             if (_playerManager.isInteracting)
                 return;
             setMoveDirection();
-
-            rigidbody.velocity = ProjectedVelocity(_movementSpeed);
+            if (_inputHandler.moveAmount <= 0.52)
+            {
+                rigidbody.velocity = ProjectedVelocity(_movementSpeed / 2);
+            }
+            else
+                rigidbody.velocity = ProjectedVelocity(_movementSpeed);
 
             animatorHandler.UpdateAnimatorValues(_inputHandler.moveAmount, 0);
             if (animatorHandler.canRotate)
@@ -138,8 +142,21 @@ namespace SG
 
             Quaternion buffTransform = Quaternion.LookRotation(targetDir);
             Quaternion targetRotation = Quaternion.Slerp(_selfTransform.rotation, buffTransform, rs * delta);
-
             _selfTransform.rotation = targetRotation;
+        }
+        #endregion
+        private Vector3 ProjectedVelocity(float speed)
+        {
+            moveDirection *= speed;
+            Vector3 projectedVelocity = Vector3.ProjectOnPlane(moveDirection, _normalVector);
+            return projectedVelocity;
+        }
+        private void setMoveDirection()
+        {
+            moveDirection = _cameraObject.forward * _inputHandler.vertical;
+            moveDirection += _cameraObject.right * _inputHandler.horizontal;
+            moveDirection.Normalize();
+            moveDirection.y = 0;
         }
         //public void HadleFalling(float delta, Vector3 moveDirection)
         //{
@@ -204,20 +221,6 @@ namespace SG
         //    }
         //    _selfTransform.position = _targetPosition;
         //}
-        #endregion
-        private Vector3 ProjectedVelocity(float speed)
-        {
-            moveDirection *= speed;
-            Vector3 projectedVelocity = Vector3.ProjectOnPlane(moveDirection, _normalVector);
-            return projectedVelocity;
-        }
-        private void setMoveDirection()
-        {
-            moveDirection = _cameraObject.forward * _inputHandler.vertical;
-            moveDirection += _cameraObject.right * _inputHandler.horizontal;
-            moveDirection.Normalize();
-            moveDirection.y = 0;
-        }
         
     }
 }
