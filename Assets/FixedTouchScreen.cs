@@ -1,40 +1,41 @@
+using SG;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class FixedTouchScreen : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class FixedTouchScreen : MonoBehaviour
 {
-    public Vector2 touchDistance;
-    private Vector2 _pointerOld;
-    private int _pointerID;
-    public bool _pressed;
-    public void OnPointerDown(PointerEventData eventData)
+    public Vector2 moveInput = new Vector2();
+    private RectTransform _areaTouch;
+    private float _area = 0;
+    private Touch _initTouch = new Touch();
+    private void Start()
     {
-        _pressed = true;
-        _pointerID = eventData.pointerId;
-        _pointerOld = eventData.position;
+        _areaTouch = GetComponent<RectTransform>();
+        _area = _areaTouch.rect.width;
     }
-    private void Update()
+    private void FixedUpdate()
     {
-        if(_pressed)
+        float delta = Time.deltaTime;
+        foreach(Touch touch in Input.touches)
         {
-            if(_pointerID >= 0 && _pointerID < Input.touches.Length)
+            if (touch.position.x < _area)
+                continue;
+            if(touch.phase == TouchPhase.Began)
             {
-                touchDistance = Input.touches[_pointerID].position - _pointerOld;
-                _pointerOld -= Input.touches[_pointerID].position;
+                _initTouch = touch;
             }
-            else
+            else if(touch.phase == TouchPhase.Moved)
             {
-                touchDistance = new Vector2(Input.mousePosition.x, Input.mousePosition.y) - _pointerOld;
-                _pointerOld = Input.mousePosition;
+                moveInput.x = _initTouch.position.x- touch.position.x;
+                moveInput.y = _initTouch.position.y - touch.position.y;
+                moveInput.Normalize();
+            }
+            else if (touch.phase == TouchPhase.Ended)
+            {
+                _initTouch = new Touch();
             }
         }
-        else
-        {
-            touchDistance = new Vector2();
-        }
-    }
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        _pressed= false;
+        if (Input.touches.Length == 0 || (Input.touches[0].position.x < _area && Input.touches.Length == 1))
+            moveInput = Vector2.zero;
     }
 }

@@ -117,8 +117,8 @@ namespace SG
             horizontal = _joystick.Horizontal;
             vertical = _joystick.Vertical;
             moveAmount = Mathf.Clamp01(Mathf.Abs(horizontal) + Mathf.Abs(vertical));
-            mouseX = _vectorTouch.touchDistance.x / 20;
-            mouseY = _vectorTouch.touchDistance.y / 20; 
+            mouseX = _vectorTouch.moveInput.x;
+            mouseY = _vectorTouch.moveInput.y; 
         }
         public void ClickPickUpItem()
         {
