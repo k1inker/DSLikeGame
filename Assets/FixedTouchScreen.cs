@@ -18,6 +18,7 @@ public class FixedTouchScreen : MonoBehaviour
         float delta = Time.deltaTime;
         foreach(Touch touch in Input.touches)
         {
+            Debug.Log(touch.phase);
             if (touch.position.x < _area)
                 continue;
             if(touch.phase == TouchPhase.Began)
@@ -33,6 +34,10 @@ public class FixedTouchScreen : MonoBehaviour
             else if (touch.phase == TouchPhase.Ended)
             {
                 _initTouch = new Touch();
+            }
+            else
+            {
+                moveInput = Vector2.zero;
             }
         }
         if (Input.touches.Length == 0 || (Input.touches[0].position.x < _area && Input.touches.Length == 1))

@@ -9,6 +9,7 @@ namespace SG
         private WeaponHolderSlot _leftHandSlot;
         private WeaponHolderSlot _rightHandSlot;
 
+        private Animator _animator;
 
         private DamageCollider _leftHandDamageCollider;
         private DamageCollider _rightHandDamageCollider;
@@ -17,7 +18,7 @@ namespace SG
         private void Awake()
         {
             _playerStats = GetComponentInParent<PlayerStats>();
-
+            _animator = GetComponentInParent<Animator>();
             WeaponHolderSlot[] weaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
             foreach(WeaponHolderSlot weaponSlot in weaponHolderSlots)
             {
@@ -42,6 +43,16 @@ namespace SG
             {
                 _rightHandSlot.LoadWeaponModel(weaponItem);
                 LoadRightWeaponDamageCollider();
+                #region Handle Right Weapon Idle Animation
+                if (weaponItem != null)
+                {
+                    _animator.CrossFade(weaponItem.hold_idle, 0.2f);
+                }
+                else
+                {
+                    _animator.CrossFade("Right Arm Empty", 0.2f);
+                }
+                #endregion
             }
         }
         #region Handle Weapon`s Damage Collider

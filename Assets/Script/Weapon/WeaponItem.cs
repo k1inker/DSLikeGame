@@ -6,6 +6,8 @@ namespace SG
     public class WeaponItem : Item
     {
         public GameObject modelPrefab;
+        [Header("Idle Animations")]
+        public string hold_idle;
         [Header("Attack Animations")]
         public string OH_Light_Attack_1;
         public string OH_Light_Attack_2;

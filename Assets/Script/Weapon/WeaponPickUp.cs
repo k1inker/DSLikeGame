@@ -9,7 +9,7 @@ namespace SG
         [SerializeField] private WeaponItem _weaponLeft;
         private void Start()
         {
-            interactableText = _weaponLeft.itemName;
+            interactableText = _weaponRight.itemName;
         }
         public override void Interact(PlayerManager playerManager)
         {

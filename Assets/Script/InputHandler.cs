@@ -85,13 +85,13 @@ namespace SG
         }
         private void HandleAttackInput(float delta)
         {
-            if(rb_Input & _playerInvertory.leftWeapon != null)
+            if(rb_Input & _playerInvertory.rightWeapon != null)
             {
                 if (_playerManager.canDoCombo)
                 {
                     attackFlag = true;
                     comboFlag = true;
-                    _playerAttacker.HandleWeaponCombo(_playerInvertory.leftWeapon);
+                    _playerAttacker.HandleWeaponCombo(_playerInvertory.rightWeapon);
                     comboFlag = false;
                 }
                 else
@@ -101,15 +101,15 @@ namespace SG
                     if (_playerManager.canDoCombo)
                         return;
                     attackFlag = true;
-                    _playerAttacker.HandleLightAttack(_playerInvertory.leftWeapon);
+                    _playerAttacker.HandleLightAttack(_playerInvertory.rightWeapon);
                 }
             }
-            if(lb_Input & _playerInvertory.leftWeapon != null)
+            if(lb_Input & _playerInvertory.rightWeapon != null)
             {
                 if (_playerManager.isInteracting)
                     return;
                 attackFlag = true;
-                _playerAttacker.HandleHeavyAttack(_playerInvertory.leftWeapon);
+                _playerAttacker.HandleHeavyAttack(_playerInvertory.rightWeapon);
             }
         }
         public void MoveInputJoystick()
