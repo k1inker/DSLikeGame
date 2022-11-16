@@ -4,11 +4,13 @@ namespace SG
 {
     public class AnimatorHandler : MonoBehaviour
     {
-        private PlayerManager _playerManager;
         public Animator anim;
+        
+        private PlayerManager _playerManager;
         private PlayerLocomotion _playerLocomotion;
         private int _vertical;
         private int _horizontal;
+
         public bool canRotate = true;
         public bool canMove = false;
         public void Initialize()
@@ -23,6 +25,13 @@ namespace SG
         {
             anim.applyRootMotion = isInteracting;
             anim.SetBool("isInteracting", isInteracting);
+            anim.CrossFade(targetAnim, 0.2f);
+        }
+        public void PlayTargetAnimation(string targetAnim, bool isInteracting, bool useAnimPosition)
+        {
+            anim.applyRootMotion = isInteracting;
+            anim.SetBool("isInteracting", isInteracting);
+            anim.SetBool("useAnimPosit", useAnimPosition);
             anim.CrossFade(targetAnim, 0.2f);
         }
         public void UpdateAnimatorValues(float verticalMovement, float horizontalMovement)
@@ -76,10 +85,16 @@ namespace SG
         }
         private void OnAnimatorMove()
         {
-            if (_playerManager.isInteracting)
+            if (anim.GetBool("isInteracting") && !anim.GetBool("useAnimPosit"))
+            {
                 return;
+            }
 
             _playerLocomotion.rigidbody.drag = 0;
+            Vector3 deltaPosition = anim.deltaPosition;
+            deltaPosition.y = 0;
+            Vector3 velocity = deltaPosition / Time.deltaTime;
+            _playerLocomotion.rigidbody.velocity = velocity;
         }
     }
 }

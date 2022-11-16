@@ -23,7 +23,7 @@ namespace SG
                 _animatorHandler.anim.SetBool("canDoCombo", false);
                 if (lastAttack == weapon.OH_Light_Attack_1)
                 {
-                    _animatorHandler.PlayTargetAnimation(weapon.OH_Light_Attack_2, true);
+                    _animatorHandler.PlayTargetAnimation(weapon.OH_Light_Attack_2, true, true);
                 }
             }
         }
@@ -32,7 +32,7 @@ namespace SG
             if (weapon == null)
                 return;
             _weaponSlotManager.attackingWeapon = weapon;
-            _animatorHandler.PlayTargetAnimation(weapon.OH_Light_Attack_1, true);
+            _animatorHandler.PlayTargetAnimation(weapon.OH_Light_Attack_1, true, true);
             lastAttack = weapon.OH_Light_Attack_1;
         }
         public void HandleHeavyAttack(WeaponItem weapon)
@@ -40,7 +40,7 @@ namespace SG
             if (weapon == null)
                 return;
             _weaponSlotManager.attackingWeapon = weapon;
-            _animatorHandler.PlayTargetAnimation(weapon.OH_Heavy_Attack_1, true);
+            _animatorHandler.PlayTargetAnimation(weapon.OH_Heavy_Attack_1, true, true);
             lastAttack = weapon.OH_Heavy_Attack_1;
         }
     }

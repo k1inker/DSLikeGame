@@ -7433,6 +7433,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1590276726, guid: fe6f9a1632ddb994d87bd2876326f9fa, type: 3}
+      propertyPath: isAttack
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1590276726, guid: fe6f9a1632ddb994d87bd2876326f9fa, type: 3}
       propertyPath: interactableUIGameObject
       value: 
       objectReference: {fileID: 1037958106}
@@ -7714,13 +7718,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4886903441427367841, guid: fe6f9a1632ddb994d87bd2876326f9fa, type: 3}
       propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed
-        by Humanoid clips.\n\tTransform 'spine'\n\tTransform 'thigh.R'\n\tTransform
-        'upper_arm.R'\n\tTransform 'shoulder.L'\n\tTransform 'thigh.L'\n\tTransform
-        'upper_arm.L'\n\tTransform 'spine.003'\n\tTransform 'foot.R'\n\tTransform
-        'thigh.R'\n\tTransform 'foot.L'\n\tand more ...\n\tFrom animation clip 'HeavyOneSword_Light_attack01'\n\tFrom
-        animation clip 'HeavyOneSword_Light_attack02'"
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5048854713753455478, guid: fe6f9a1632ddb994d87bd2876326f9fa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

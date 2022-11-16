@@ -51,7 +51,6 @@ namespace SG
         #region Movement 
         private Vector3 _normalVector;
         //private Vector3 _targetPosition;
-
         public void HandelMovement(float delta)
         {
             if (!animatorHandler.canMove)
@@ -75,23 +74,6 @@ namespace SG
             if (animatorHandler.canRotate)
             {
                 HandleRotation(delta);
-            }
-        }
-
-
-        public void HandleAttackMovement(float delta)
-        {
-            if (_inputHandler.rollFlag || !animatorHandler.canMove)
-                return;
-            if (_playerManager.isInteracting)
-                return;
-            if (_inputHandler.attackFlag)
-            {
-                setMoveDirection();
-
-                float attackSpeedMove = _movementSpeed * 1f;
-                moveDirection = _selfTransform.forward;
-                rigidbody.velocity = ProjectedVelocity(attackSpeedMove);
             }
         }
 

@@ -21,7 +21,6 @@ namespace SG
         //public bool isFalling;
         //public bool isGrounded;
         public bool canDoCombo;
-        public bool isAttack;
         void Start()
         {
             _inputHandler = GetComponent<InputHandler>();
@@ -48,7 +47,6 @@ namespace SG
         private void FixedUpdate()
         {
             float delta = Time.deltaTime;
-            _playerLocomotion.HandleAttackMovement(delta);
             _playerLocomotion.HandelMovement(delta);
         }
         private void LateUpdate()
