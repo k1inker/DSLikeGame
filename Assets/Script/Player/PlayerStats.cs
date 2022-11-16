@@ -2,15 +2,8 @@ using TMPro;
 using UnityEngine;
 namespace SG
 {
-    public class PlayerStats:MonoBehaviour
+    public class PlayerStats: CharacterStats
     {
-        public int healthLevel = 10;
-        public int maxHealth;
-        public int currentHealth;
-
-        public int staminaLevel = 10;
-        public int maxStamina;
-        public int currentStamina;
 
         public HealthBar healthBar;
         public StaminaBar staminaBar;
@@ -51,11 +44,11 @@ namespace SG
             currentHealth = currentHealth - damage;
 
             healthBar.SetCurrentHealth(currentHealth);
-            _anim.PlayTargetAnimation("Damage", true);
+            _anim.PlayTargetAnimation("Damage", true, true);
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
-                _anim.PlayTargetAnimation("Death", true);
+                _anim.PlayTargetAnimation("Death", true, true);
             }
         }
         public void TakeStaminaDamage(int damage)

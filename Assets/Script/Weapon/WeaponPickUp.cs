@@ -23,7 +23,7 @@ namespace SG
             playerInvertory = playerManager.GetComponent<PlayerInvertory>();
             animatorHandler = playerManager.GetComponentInChildren<AnimatorHandler>();
 
-            animatorHandler.PlayTargetAnimation("Pick Up Item", true);
+            animatorHandler.PlayTargetAnimation("Pick Up Item", true, true);
             playerInvertory.LoadWeapon(_weaponRight, _weaponLeft);
             Destroy(gameObject);
         }

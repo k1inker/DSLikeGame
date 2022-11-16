@@ -67,14 +67,14 @@ namespace SG
         {
             canRotate = false;
         }
-        public void CanMove()
-        {
-            canMove = true;
-        }
-        public void StopMove()
-        {
-            canMove = false;
-        }
+        //public void CanMove()
+        //{
+        //    canMove = true;
+        //}
+        //public void StopMove()
+        //{
+        //    canMove = false;
+        //}
         public void EnableCombo()
         {
             anim.SetBool("canDoCombo", true);

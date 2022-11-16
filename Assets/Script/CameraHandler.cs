@@ -36,7 +36,7 @@ namespace SG
             singelton = this;
             _selfTransform = transform;
             _defaultPosition = cameraTransform.position.z;
-            ignoreLayers = ~(1 << 8 | 1 << 9 | 1 << 10 | 1 << 11);
+            ignoreLayers = ~(1 << 8 | 1 << 9 | 1 << 10);
             targetTransform = FindObjectOfType<PlayerManager>().transform;  
         }
 
