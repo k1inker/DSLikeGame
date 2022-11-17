@@ -1,4 +1,3 @@
-using Newtonsoft.Json.Bson;
 using UnityEngine;
 
 namespace SG
@@ -17,16 +16,19 @@ namespace SG
         public bool rollFlag;
         public bool attackFlag;
         public bool comboFlag;
+        public bool lockOnFlag;
 
         public bool space_Input;
         public bool rb_Input;
         public bool lb_Input;
         public bool a_Input;
+        public bool lockOn_Input;    
 
         private PlayerControls _inputActions;
         private PlayerAttacker _playerAttacker;
         private PlayerInvertory _playerInvertory;
         private PlayerManager _playerManager;
+        private CameraHandler _cameraHandler;
 
         [SerializeField]private VariableJoystick _joystick;
         [SerializeField] private FixedTouchScreen _vectorTouch;
@@ -40,6 +42,7 @@ namespace SG
             _playerInvertory = GetComponent<PlayerInvertory>();
             _playerManager = GetComponent<PlayerManager>();
             _joystick = FindObjectOfType<VariableJoystick>();
+            _cameraHandler = FindObjectOfType<CameraHandler>();
         }
         private void OnEnable()
         {
@@ -52,6 +55,7 @@ namespace SG
                 _inputActions.PlayerActions.RB.performed += i => rb_Input = true;
                 _inputActions.PlayerActions.LB.performed += i => lb_Input = true;
                 _inputActions.PlayerActions.A.performed += i => a_Input = true;
+                _inputActions.PlayerActions.LockOn.performed += i => lockOn_Input = true;
             }
 
             _inputActions.Enable();
@@ -77,6 +81,7 @@ namespace SG
                 MoveInput(delta);
             HandleRollInput(delta);
             HandleAttackInput(delta);
+            HandleLockOnInput(); 
         }
         private void HandleRollInput(float delta)
         {
@@ -112,6 +117,26 @@ namespace SG
                 _playerAttacker.HandleHeavyAttack(_playerInvertory.rightWeapon);
             }
         }
+        private void HandleLockOnInput()
+        {
+            if(lockOn_Input && !lockOnFlag)
+            {
+                _cameraHandler.ClearLockOnTargets();
+                lockOn_Input = false;
+                _cameraHandler.HandleLockOn();
+                if(_cameraHandler.nearestLockOnTarget != null)
+                {
+                    _cameraHandler.currentLockOnTarget = _cameraHandler.nearestLockOnTarget;
+                    lockOnFlag = true;
+                }
+            }
+            else if(lockOn_Input && lockOnFlag)
+            {
+                lockOn_Input = false;
+                lockOnFlag = false;
+                _cameraHandler.ClearLockOnTargets();
+            }
+        }
         public void MoveInputJoystick()
         {
             horizontal = _joystick.Horizontal;
@@ -131,6 +156,10 @@ namespace SG
         public void ClickRoll()
         {
             space_Input = true;
+        }
+        public void ClickLockOn()
+        {
+            lockOn_Input = true;
         }
     }
 }

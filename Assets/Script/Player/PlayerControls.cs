@@ -154,6 +154,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LockOn"",
+                    ""type"": ""Button"",
+                    ""id"": ""89d4faec-3d31-4d14-84a3-e9dd6991077c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -200,6 +209,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""A"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8bbffc6c-5994-4164-8e84-60d452f51478"",
+                    ""path"": ""<Keyboard>/capsLock"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LockOn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -216,6 +236,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_PlayerActions_LB = m_PlayerActions.FindAction("LB", throwIfNotFound: true);
         m_PlayerActions_Roll = m_PlayerActions.FindAction("Roll", throwIfNotFound: true);
         m_PlayerActions_A = m_PlayerActions.FindAction("A", throwIfNotFound: true);
+        m_PlayerActions_LockOn = m_PlayerActions.FindAction("LockOn", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -320,6 +341,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_LB;
     private readonly InputAction m_PlayerActions_Roll;
     private readonly InputAction m_PlayerActions_A;
+    private readonly InputAction m_PlayerActions_LockOn;
     public struct PlayerActionsActions
     {
         private @PlayerControls m_Wrapper;
@@ -328,6 +350,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @LB => m_Wrapper.m_PlayerActions_LB;
         public InputAction @Roll => m_Wrapper.m_PlayerActions_Roll;
         public InputAction @A => m_Wrapper.m_PlayerActions_A;
+        public InputAction @LockOn => m_Wrapper.m_PlayerActions_LockOn;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -349,6 +372,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @A.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnA;
                 @A.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnA;
                 @A.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnA;
+                @LockOn.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLockOn;
+                @LockOn.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLockOn;
+                @LockOn.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLockOn;
             }
             m_Wrapper.m_PlayerActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -365,6 +391,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @A.started += instance.OnA;
                 @A.performed += instance.OnA;
                 @A.canceled += instance.OnA;
+                @LockOn.started += instance.OnLockOn;
+                @LockOn.performed += instance.OnLockOn;
+                @LockOn.canceled += instance.OnLockOn;
             }
         }
     }
@@ -380,5 +409,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnLB(InputAction.CallbackContext context);
         void OnRoll(InputAction.CallbackContext context);
         void OnA(InputAction.CallbackContext context);
+        void OnLockOn(InputAction.CallbackContext context);
     }
 }

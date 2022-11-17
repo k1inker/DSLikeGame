@@ -1,11 +1,8 @@
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem.HID;
-using UnityEngine.Windows;
 
 namespace SG
 {
-    public class PlayerManager : MonoBehaviour
+    public class PlayerManager : CharacterManager 
     {
         private InputHandler _inputHandler;
         private PlayerLocomotion _playerLocomotion;

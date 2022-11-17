@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace SG
 {
-    public class EnemyManager : MonoBehaviour
+    public class EnemyManager : CharacterManager
     {
         private bool _isPreformingAction;
         private EnemyLocomotionManager _enemyLocomotionManager;
