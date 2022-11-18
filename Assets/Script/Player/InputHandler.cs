@@ -22,7 +22,9 @@ namespace SG
         public bool rb_Input;
         public bool lb_Input;
         public bool a_Input;
-        public bool lockOn_Input;    
+        public bool lockOn_Input;
+        public bool lockOnRight_Input;
+        public bool lockOnLeft_Input;
 
         private PlayerControls _inputActions;
         private PlayerAttacker _playerAttacker;
@@ -56,6 +58,8 @@ namespace SG
                 _inputActions.PlayerActions.LB.performed += i => lb_Input = true;
                 _inputActions.PlayerActions.A.performed += i => a_Input = true;
                 _inputActions.PlayerActions.LockOn.performed += i => lockOn_Input = true;
+                _inputActions.PlayerActions.LockOnTargetLeft.performed += i => lockOnLeft_Input = true;
+                _inputActions.PlayerActions.LockOnTargetRight.performed += i => lockOnRight_Input = true;
             }
 
             _inputActions.Enable();
@@ -65,7 +69,7 @@ namespace SG
             _inputActions.Disable();
         }
         
-        public void MoveInput(float delta)
+        public void HandleMoveInput(float delta)
         {
             horizontal = _movementInput.x;
             vertical = _movementInput.y;
@@ -78,7 +82,7 @@ namespace SG
             if(isJoystick)
                 MoveInputJoystick();
             else
-                MoveInput(delta);
+                HandleMoveInput(delta);
             HandleRollInput(delta);
             HandleAttackInput(delta);
             HandleLockOnInput(); 
@@ -121,7 +125,6 @@ namespace SG
         {
             if(lockOn_Input && !lockOnFlag)
             {
-                _cameraHandler.ClearLockOnTargets();
                 lockOn_Input = false;
                 _cameraHandler.HandleLockOn();
                 if(_cameraHandler.nearestLockOnTarget != null)
@@ -136,6 +139,25 @@ namespace SG
                 lockOnFlag = false;
                 _cameraHandler.ClearLockOnTargets();
             }
+            if(lockOnFlag && lockOnLeft_Input)
+            {
+                lockOnLeft_Input = false;
+                _cameraHandler.HandleLockOn();
+                if(_cameraHandler.leftLockTarget != null)
+                {
+                    _cameraHandler.currentLockOnTarget = _cameraHandler.leftLockTarget;
+                }
+            }
+            if(lockOnFlag && lockOnRight_Input)
+            {
+                lockOnRight_Input = false;
+                _cameraHandler.HandleLockOn();
+                if(_cameraHandler.rightLockTarget != null)
+                {
+                    _cameraHandler.currentLockOnTarget = _cameraHandler.rightLockTarget;
+                }
+            }
+            _cameraHandler.SetCameraHeight();
         }
         public void MoveInputJoystick()
         {

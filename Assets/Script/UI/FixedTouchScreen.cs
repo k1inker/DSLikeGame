@@ -42,7 +42,6 @@ public class FixedTouchScreen : MonoBehaviour
                 moveInput = Vector2.zero;
             }
         }
-        Debug.Log(_area);
         if (Input.touches.Length == 0 || (Input.touches[0].position.x < _area && Input.touches.Length == 1))
             moveInput = Vector2.zero;
     }

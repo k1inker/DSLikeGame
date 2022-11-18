@@ -7,6 +7,8 @@ namespace SG
         private PlayerManager _playerManager;
         private Transform _cameraObject;
         private InputHandler _inputHandler;
+        private CameraHandler _cameraHandler;
+
         public Vector3 moveDirection;
 
         private Transform _selfTransform;
@@ -33,8 +35,11 @@ namespace SG
         private float _rotationSpeed = 10;
         //[SerializeField]
         //private float _fallingSpeed = 75;
-
-        void Start()
+        private void Awake()
+        {
+            _cameraHandler = FindObjectOfType<CameraHandler>();
+        }
+        private void Start()
         {
             _playerManager = GetComponent<PlayerManager>();
             rigidbody = GetComponent<Rigidbody>();
@@ -70,7 +75,10 @@ namespace SG
             else
                 rigidbody.velocity = ProjectedVelocity(_movementSpeed);
 
-            animatorHandler.UpdateAnimatorValues(_inputHandler.moveAmount, 0);
+            if (_inputHandler.lockOnFlag)
+                animatorHandler.UpdateAnimatorValues(_inputHandler.vertical, _inputHandler.horizontal);
+            else
+                animatorHandler.UpdateAnimatorValues(_inputHandler.moveAmount, 0);
             if (animatorHandler.canRotate)
             {
                 HandleRotation(delta);
@@ -108,23 +116,57 @@ namespace SG
 
         private void HandleRotation(float delta)
         {
-            Vector3 targetDir = Vector3.zero;
-            float moveOverride = _inputHandler.moveAmount;
+            if (_inputHandler.lockOnFlag)
+            {
+                if (_inputHandler.rollFlag)
+                {
+                    Vector3 targetDirection = Vector2.zero;
+                    targetDirection = _cameraHandler.cameraTransform.forward * _inputHandler.vertical;
+                    targetDirection = _cameraHandler.cameraTransform.right * _inputHandler.horizontal;
+                    targetDirection.Normalize();
+                    targetDirection.y = 0;
 
-            targetDir = _cameraObject.forward * _inputHandler.vertical;
-            targetDir += _cameraObject.right *  _inputHandler.horizontal;
+                    if (targetDirection == Vector3.zero)
+                    {
+                        targetDirection = transform.forward;
+                    }
+                    Quaternion buff = Quaternion.LookRotation(targetDirection);
+                    Quaternion targetRotation = Quaternion.Slerp(transform.rotation, buff, _rotationSpeed * Time.deltaTime);
 
-            targetDir.Normalize();
-            targetDir.y = 0;
+                    transform.rotation = targetRotation;
+                }
+                else
+                {
+                    Vector3 rotationDirection = moveDirection;
+                    rotationDirection = _cameraHandler.currentLockOnTarget.transform.position - transform.position;
+                    rotationDirection.y = 0;
+                    rotationDirection.Normalize();
 
-            if (targetDir == Vector3.zero)
-                targetDir = _selfTransform.forward;
+                    Quaternion buff = Quaternion.LookRotation(rotationDirection);
+                    Quaternion targetRotation = Quaternion.Slerp(transform.rotation, buff, _rotationSpeed * Time.deltaTime);
+                    transform.rotation = targetRotation;
+                }
+            }
+            else
+            {
+                Vector3 targetDir = Vector3.zero;
+                float moveOverride = _inputHandler.moveAmount;
 
-            float rs = _rotationSpeed;
+                targetDir = _cameraObject.forward * _inputHandler.vertical;
+                targetDir += _cameraObject.right * _inputHandler.horizontal;
 
-            Quaternion buffTransform = Quaternion.LookRotation(targetDir);
-            Quaternion targetRotation = Quaternion.Slerp(_selfTransform.rotation, buffTransform, rs * delta);
-            _selfTransform.rotation = targetRotation;
+                targetDir.Normalize();
+                targetDir.y = 0;
+
+                if (targetDir == Vector3.zero)
+                    targetDir = _selfTransform.forward;
+
+                float rs = _rotationSpeed;
+
+                Quaternion buffTransform = Quaternion.LookRotation(targetDir);
+                Quaternion targetRotation = Quaternion.Slerp(_selfTransform.rotation, buffTransform, rs * delta);
+                _selfTransform.rotation = targetRotation;
+            }
         }
         #endregion
         private Vector3 ProjectedVelocity(float speed)

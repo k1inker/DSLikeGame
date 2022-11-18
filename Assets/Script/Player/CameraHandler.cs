@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace SG
@@ -10,10 +11,13 @@ namespace SG
         public Transform cameraPivotTransform;
         public LayerMask ignoreLayers;
 
+
+        private PlayerManager _playerManager;
         private InputHandler _inputHandler;
         private Transform _selfTransform;
         private Vector3 _cameraTransformPosition;
         private Vector3 _cameraFollowVelocity = Vector3.zero;
+        private LayerMask _enviromentLayer;
 
         public static CameraHandler singelton;
 
@@ -32,12 +36,16 @@ namespace SG
         public float cameraSphereRadius = 0.2f;
         public float cameraCollisionOffset = 0.2f;
         public float minimumCollisionOffset = 0.2f;
+        public float lockedPivotPosition = 2.25f;
+        public float unlockedPivotPosition = 1.65f;
 
-        public Transform currentLockOnTarget;
+        public CharacterManager currentLockOnTarget;
 
         private List<CharacterManager> _availableTargets = new List<CharacterManager>();
+        public CharacterManager leftLockTarget;
+        public CharacterManager rightLockTarget;
+        public CharacterManager nearestLockOnTarget;
         public float maximumLockOnDisctance = 30;
-        public Transform nearestLockOnTarget;
         private void Awake()
         {
             singelton = this;
@@ -45,9 +53,13 @@ namespace SG
             _defaultPosition = cameraTransform.position.z;
             ignoreLayers = ~(1 << 8 | 1 << 9 | 1 << 10);
             targetTransform = FindObjectOfType<PlayerManager>().transform;
-            _inputHandler =FindObjectOfType<InputHandler>();
+            _inputHandler = FindObjectOfType<InputHandler>();
+            _playerManager = FindObjectOfType<PlayerManager>();
         }
-
+        private void Start()
+        {
+            _enviromentLayer = LayerMask.NameToLayer("Enviroment");
+        }
         public void FollowTarget(float delta)
         {
             Vector3 targetPosition = Vector3.SmoothDamp(_selfTransform.position, targetTransform.position, ref _cameraFollowVelocity, delta / followSpeed);
@@ -79,14 +91,14 @@ namespace SG
             {
                 float velocity = 0;
 
-                Vector3 dir = currentLockOnTarget.position - transform.position;
+                Vector3 dir = currentLockOnTarget.transform.position - transform.position;
                 dir.Normalize();
                 dir.y = 0;
                 
                 Quaternion targetRotation = Quaternion.LookRotation(dir);
                 transform.rotation = targetRotation;
 
-                dir = currentLockOnTarget.position - cameraPivotTransform.position;
+                dir = currentLockOnTarget.transform.position - cameraPivotTransform.position;
                 dir.Normalize();
 
                 Vector3 eulerAngle = targetRotation.eulerAngles;
@@ -119,7 +131,12 @@ namespace SG
         }
         public void HandleLockOn()
         {
+            _availableTargets.Clear();
+
             float shortestDistance = Mathf.Infinity;
+            float shortestDistanceOfLeftTarget = -Mathf.Infinity;
+            float shortestDistanceOfRightTarget = Mathf.Infinity;
+
             Collider[] colliders = Physics.OverlapSphere(targetTransform.position, 13);
 
             for(int i =0; i < colliders.Length; i++)
@@ -131,12 +148,17 @@ namespace SG
                     Vector3 lockTargetDirection = character.transform.position - targetTransform.position;
                     float distanceFromTarget = Vector3.Distance(targetTransform.position, character.transform.position);
                     float vievwableAngle = Vector3.Angle(lockTargetDirection, cameraTransform.forward);
+                    RaycastHit hit;
 
                     if(character.transform.root != targetTransform.transform.root
                         && vievwableAngle > -50 && vievwableAngle < 50
                         && distanceFromTarget <= maximumLockOnDisctance)
                     {
-                        _availableTargets.Add(character);
+                        if (Physics.Linecast(_playerManager.lockOnTransform.position, character.lockOnTransform.position, out hit))
+                        {
+                            if(hit.transform.gameObject.layer != _enviromentLayer)
+                                _availableTargets.Add(character);
+                        }
                     }
                 }
             }
@@ -146,7 +168,28 @@ namespace SG
                 if(distanceFromTarget < shortestDistance)
                 {
                     shortestDistance = distanceFromTarget;
-                    nearestLockOnTarget = _availableTargets[k].lockOnTransform;
+                    nearestLockOnTarget = _availableTargets[k];
+                }
+
+                if(_inputHandler.lockOnFlag)
+                {
+                    Vector3 relativeEnemyPosition = _inputHandler.transform.InverseTransformDirection(_availableTargets[k].transform.position);
+                    float distanceFromLeftTarget = relativeEnemyPosition.x;
+                    float distanceFromRightTarget = relativeEnemyPosition.x;
+
+                    if (relativeEnemyPosition.x >= 0.00 && distanceFromRightTarget < shortestDistanceOfRightTarget
+                        && _availableTargets[k] != currentLockOnTarget)
+                    {
+                        shortestDistanceOfRightTarget = distanceFromRightTarget;
+                        rightLockTarget = _availableTargets[k];
+                    }
+                    else if (relativeEnemyPosition.x <= 0.00 && distanceFromLeftTarget > shortestDistanceOfLeftTarget
+                        && _availableTargets[k] != currentLockOnTarget)
+                    {
+                        shortestDistanceOfLeftTarget = distanceFromLeftTarget;
+                        leftLockTarget = _availableTargets[k];
+                    }
+
                 }
             }
         }
@@ -154,6 +197,21 @@ namespace SG
         {
             _availableTargets.Clear();
             currentLockOnTarget = null;
+        }
+        public void SetCameraHeight()
+        {
+            Vector3 velocity = Vector3.zero;
+            Vector3 newLockedPosition = new Vector3(0, lockedPivotPosition);
+            Vector3 newUnlockedPosition = new Vector3(0, unlockedPivotPosition);
+
+            if(currentLockOnTarget != null)
+            {
+                cameraPivotTransform.transform.localPosition = Vector3.SmoothDamp(cameraPivotTransform.transform.localPosition, newLockedPosition, ref velocity, Time.deltaTime);
+            }
+            else
+            {
+                cameraPivotTransform.transform.localPosition = Vector3.SmoothDamp(cameraPivotTransform.transform.localPosition, newUnlockedPosition, ref velocity, Time.deltaTime);
+            }
         }
     }
 }
