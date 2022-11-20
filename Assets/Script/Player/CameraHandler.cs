@@ -176,18 +176,19 @@ namespace SG
                     Vector3 relativeEnemyPosition = _inputHandler.transform.InverseTransformDirection(_availableTargets[k].transform.position);
                     float distanceFromLeftTarget = relativeEnemyPosition.x;
                     float distanceFromRightTarget = relativeEnemyPosition.x;
+                    Debug.Log(_availableTargets[k] +":"+relativeEnemyPosition.x);
 
-                    if (relativeEnemyPosition.x >= 0.00 && distanceFromRightTarget < shortestDistanceOfRightTarget
-                        && _availableTargets[k] != currentLockOnTarget)
-                    {
-                        shortestDistanceOfRightTarget = distanceFromRightTarget;
-                        rightLockTarget = _availableTargets[k];
-                    }
-                    else if (relativeEnemyPosition.x <= 0.00 && distanceFromLeftTarget > shortestDistanceOfLeftTarget
+                    if (relativeEnemyPosition.x <= 0.00 && distanceFromLeftTarget > shortestDistanceOfLeftTarget
                         && _availableTargets[k] != currentLockOnTarget)
                     {
                         shortestDistanceOfLeftTarget = distanceFromLeftTarget;
                         leftLockTarget = _availableTargets[k];
+                    }
+                    else if (relativeEnemyPosition.x >= 0.00 && distanceFromRightTarget < shortestDistanceOfRightTarget
+                        && _availableTargets[k] != currentLockOnTarget)
+                    {
+                        shortestDistanceOfRightTarget = distanceFromRightTarget;
+                        rightLockTarget = _availableTargets[k];
                     }
 
                 }
