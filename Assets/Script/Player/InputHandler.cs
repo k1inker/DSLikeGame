@@ -32,7 +32,7 @@ namespace SG
         private PlayerManager _playerManager;
         private CameraHandler _cameraHandler;
 
-        [SerializeField]private VariableJoystick _joystick;
+        [SerializeField] private VariableJoystick _joystick;
         [SerializeField] private FixedTouchScreen _vectorTouch;
 
         private Vector2 _movementInput;
@@ -43,6 +43,7 @@ namespace SG
             _playerAttacker = GetComponent<PlayerAttacker>();
             _playerInvertory = GetComponent<PlayerInvertory>();
             _playerManager = GetComponent<PlayerManager>();
+
             _joystick = FindObjectOfType<VariableJoystick>();
             _cameraHandler = FindObjectOfType<CameraHandler>();
         }
@@ -182,6 +183,14 @@ namespace SG
         public void ClickLockOn()
         {
             lockOn_Input = true;
+        }
+        public void SwipeLockOnRight()
+        {
+            lockOnRight_Input = true;
+        }
+        public void SwipeLockOnLeft()
+        {
+            lockOnLeft_Input = true;
         }
     }
 }

@@ -830,9 +830,9 @@ MonoBehaviour:
   ignoreLayers:
     serializedVersion: 2
     m_Bits: 2147483647
-  lookSpeed: 200
+  lookSpeed: 100
   followSpeed: 0.06
-  pivotSpeed: 100
+  pivotSpeed: 150
   minimumPivot: -35
   maximumPivot: 35
   cameraSphereRadius: 0.2
@@ -7258,8 +7258,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01afac9869e727c48a68d55cdae52858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveInput: {x: 0, y: 0}
   _areaWindow: {fileID: 2133583953}
+  moveInput: {x: 0, y: 0}
 --- !u!114 &2010691847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7423,7 +7423,7 @@ PrefabInstance:
       objectReference: {fileID: 1198280335}
     - target: {fileID: 1590276728, guid: fe6f9a1632ddb994d87bd2876326f9fa, type: 3}
       propertyPath: isJoystick
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1590276728, guid: fe6f9a1632ddb994d87bd2876326f9fa, type: 3}
       propertyPath: _vectorTouch
