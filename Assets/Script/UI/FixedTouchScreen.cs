@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace SG
+namespace DS
 {
     public class FixedTouchScreen : MonoBehaviour
     {

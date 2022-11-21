@@ -1,6 +1,6 @@
 using TMPro;
 using UnityEngine;
-namespace SG
+namespace DS
 {
     public class PlayerStats: CharacterStats
     {

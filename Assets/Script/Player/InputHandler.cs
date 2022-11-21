@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SG
+namespace DS
 {
     public class InputHandler : MonoBehaviour
     {

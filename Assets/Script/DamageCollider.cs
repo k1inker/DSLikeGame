@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SG
+namespace DS
 {
     public class DamageCollider : MonoBehaviour
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SG
+namespace DS
 {
     [CreateAssetMenu(menuName ="Items/Weapon Item")]
     public class WeaponItem : Item

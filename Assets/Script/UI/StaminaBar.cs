@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SG
+namespace DS
 {
     public class StaminaBar : MonoBehaviour
     {

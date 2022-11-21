@@ -1,12 +1,10 @@
 using UnityEngine;
 
-namespace SG
+namespace DS
 {
-    public class AnimatorHandler : MonoBehaviour
+    public class AnimatorHandler : AnimatorManager
     {
-        public Animator anim;
-        
-        private PlayerManager _playerManager;
+
         private PlayerLocomotion _playerLocomotion;
         private int _vertical;
         private int _horizontal;
@@ -15,24 +13,10 @@ namespace SG
         public bool canMove = false;
         public void Initialize()
         {
-            _playerManager = GetComponentInParent<PlayerManager>();
             anim = GetComponent<Animator>();
             _playerLocomotion = GetComponentInParent<PlayerLocomotion>();
             _vertical = Animator.StringToHash("Vertical");
             _horizontal = Animator.StringToHash("Horizontal");
-        }
-        public void PlayTargetAnimation(string targetAnim, bool isInteracting)
-        {
-            anim.applyRootMotion = isInteracting;
-            anim.SetBool("isInteracting", isInteracting);
-            anim.CrossFade(targetAnim, 0.2f);
-        }
-        public void PlayTargetAnimation(string targetAnim, bool isInteracting, bool useAnimPosition)
-        {
-            anim.applyRootMotion = isInteracting;
-            anim.SetBool("isInteracting", isInteracting);
-            anim.SetBool("useAnimPosit", useAnimPosition);
-            anim.CrossFade(targetAnim, 0.2f);
         }
         public void UpdateAnimatorValues(float verticalMovement, float horizontalMovement)
         {
@@ -67,14 +51,6 @@ namespace SG
         {
             canRotate = false;
         }
-        //public void CanMove()
-        //{
-        //    canMove = true;
-        //}
-        //public void StopMove()
-        //{
-        //    canMove = false;
-        //}
         public void EnableCombo()
         {
             anim.SetBool("canDoCombo", true);

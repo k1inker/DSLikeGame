@@ -1,7 +1,7 @@
 using System.Net;
 using UnityEngine;
 
-namespace SG
+namespace DS
 {
     public class PlayerAttacker : MonoBehaviour
     {

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace SG
+namespace DS
 {
     public class CameraHandler : MonoBehaviour
     {

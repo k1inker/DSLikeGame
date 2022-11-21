@@ -321,6 +321,8 @@ MonoBehaviour:
   lb_Input: 0
   a_Input: 0
   lockOn_Input: 0
+  lockOnRight_Input: 0
+  lockOnLeft_Input: 0
   _joystick: {fileID: 0}
   _vectorTouch: {fileID: 0}
 --- !u!114 &991593298721975602
