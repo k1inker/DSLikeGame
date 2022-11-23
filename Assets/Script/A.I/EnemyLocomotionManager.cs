@@ -10,10 +10,8 @@ namespace DS
         private EnemyAnimatorManager _enemyAnimatorManager;
         private NavMeshAgent _navmeshAgent;
         
-        [SerializeField] private LayerMask _detectionLayer;
 
         public Rigidbody enemyRigidbody;
-        public CharacterStats currentTarget;
         public float distanceFromTarget;
         public float stoppingDistance = 1f;
 
@@ -30,31 +28,13 @@ namespace DS
             _navmeshAgent.enabled = false;
             enemyRigidbody.isKinematic = false;
         }
-        public void HandleDetection()
-        {
-            Collider[] colliders = Physics.OverlapSphere(transform.position, _enemyManager.detectionRadius, _detectionLayer);
-            for(int i = 0; i < colliders.Length; i++)
-            {
-                CharacterStats characterStats = colliders[i].GetComponent<CharacterStats>();
-                if(characterStats != null)
-                {
-                    Vector3 targetDirection = characterStats.transform.position - transform.position;
-                    float viewableAngle = Vector3.Angle(targetDirection, transform.forward);
-
-                    if(viewableAngle > _enemyManager.minimumDetectionAngle && viewableAngle < _enemyManager.maximumDetectionAngle)
-                    {
-                        currentTarget = characterStats;   
-                    }    
-                }
-            }
-        }
         public void HandleMoveToTarget()
         {
             if (_enemyManager.isPerformingAction)
                 return;
 
-            Vector3 targetDirection = currentTarget.transform.position - transform.position;
-            distanceFromTarget = Vector3.Distance(currentTarget.transform.position, transform.position);
+            Vector3 targetDirection = _enemyManager.currentTarget.transform.position - transform.position;
+            distanceFromTarget = Vector3.Distance(_enemyManager.currentTarget.transform.position, transform.position);
             float viewableAngle = Vector3.Angle(targetDirection, transform.forward);
 
             if(_enemyManager.isPerformingAction)
@@ -82,7 +62,7 @@ namespace DS
             //Rotate manualy
             if(_enemyManager.isPerformingAction)
             {
-                Vector3 direction = currentTarget.transform.position - transform.position;
+                Vector3 direction = _enemyManager.currentTarget.transform.position - transform.position;
                 direction.y = 0;
                 direction.Normalize();
 
@@ -101,7 +81,7 @@ namespace DS
                 Vector3 targetVelocity = enemyRigidbody.velocity;
 
                 _navmeshAgent.enabled = true;
-                _navmeshAgent.SetDestination(currentTarget.transform.position);
+                _navmeshAgent.SetDestination(_enemyManager.currentTarget.transform.position);
                 enemyRigidbody.velocity = targetVelocity;
                 transform.rotation = Quaternion.Slerp(transform.rotation, _navmeshAgent.transform.rotation, rotationSpeed / Time.deltaTime);
             }
