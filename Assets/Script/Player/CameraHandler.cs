@@ -30,14 +30,15 @@ namespace DS
         private float _lookAngle;
         private float _pivotAngle;
 
-        public float minimumPivot = -35;
-        public float maximumPivot = 35;
+        [SerializeField] private float minimumPivot = -35;
+        [SerializeField] private float maximumPivot = 35;
 
-        public float cameraSphereRadius = 0.2f;
-        public float cameraCollisionOffset = 0.2f;
-        public float minimumCollisionOffset = 0.2f;
-        public float lockedPivotPosition = 2.25f;
-        public float unlockedPivotPosition = 1.65f;
+        [SerializeField] private float cameraSphereRadius = 0.2f;
+        [SerializeField] private float cameraCollisionOffset = 0.2f;
+        [SerializeField] private float minimumCollisionOffset = 0.2f;
+        [SerializeField] private float lockedPivotRotationX = 12;
+        [SerializeField] private float lockedPivotPosition = 2.25f;
+        [SerializeField] private float unlockedPivotPosition = 1.65f;
 
         public CharacterManager currentLockOnTarget;
 
@@ -89,8 +90,6 @@ namespace DS
             }
             else
             {
-                float velocity = 0;
-
                 Vector3 dir = currentLockOnTarget.transform.position - transform.position;
                 dir.Normalize();
                 dir.y = 0;
@@ -103,6 +102,7 @@ namespace DS
 
                 Vector3 eulerAngle = targetRotation.eulerAngles;
                 eulerAngle.y = 0;
+                eulerAngle.x = lockedPivotRotationX;
                 cameraPivotTransform.localEulerAngles = eulerAngle;
             }
         }  
@@ -151,7 +151,7 @@ namespace DS
                     RaycastHit hit;
 
                     if(character.transform.root != targetTransform.transform.root
-                        && vievwableAngle > -50 && vievwableAngle < 50
+                        && vievwableAngle > -70 && vievwableAngle < 70
                         && distanceFromTarget <= maximumLockOnDisctance)
                     {
                         if (Physics.Linecast(_playerManager.lockOnTransform.position, character.lockOnTransform.position, out hit))
@@ -203,7 +203,6 @@ namespace DS
             Vector3 velocity = Vector3.zero;
             Vector3 newLockedPosition = new Vector3(0, lockedPivotPosition);
             Vector3 newUnlockedPosition = new Vector3(0, unlockedPivotPosition);
-
             if(currentLockOnTarget != null)
             {
                 cameraPivotTransform.transform.localPosition = Vector3.SmoothDamp(cameraPivotTransform.transform.localPosition, newLockedPosition, ref velocity, Time.deltaTime);
