@@ -4,6 +4,10 @@ namespace DS
 {
     public class AttackState : State
     {
+        [SerializeField] private CombatStanceState combatStanceState;
+
+        [SerializeField] private EnemyAttackAction[] enemyAttacks;
+        [SerializeField] private EnemyAttackAction currentAttack;
         /// <summary>
         /// Select attack in attacks score
         /// if attack is not able on distance or angle, select A new attack
@@ -13,7 +17,81 @@ namespace DS
         /// <returns>combat stance state</returns>
         public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorManager enemyAnimatorManager)
         {
-            return this;
+            Vector3 targetDirection = enemyManager.currentTarget.transform.position - transform.position;
+            float viewableAngle = Vector3.Angle(targetDirection, transform.forward);
+            if (enemyManager.isPerformingAction)
+                return combatStanceState;
+
+            if (currentAttack != null)
+            {
+                if (enemyManager.distanceFromTarget < currentAttack.minimumDistanceToAttack)
+                    return this;
+                else if (enemyManager.distanceFromTarget < currentAttack.maximumDistanceToAttack)
+                { 
+                    if(enemyManager.viewableAngle <= currentAttack.maximumAttackAngle &&
+                        enemyManager.viewableAngle >= currentAttack.minimumAttackAngle)
+                    {
+                        if(enemyManager.currentRecoveryTime <= 0 && !enemyManager.isPerformingAction)
+                        {
+                            enemyAnimatorManager.anim.SetFloat("Vertical", 0, 0.1f, Time.deltaTime);
+                            enemyAnimatorManager.anim.SetFloat("Horizontal", 0, 0.1f, Time.deltaTime);
+                            enemyAnimatorManager.PlayTargetAnimation(currentAttack.actionAnimation, true);
+                            enemyManager.isPerformingAction = true;
+                            enemyManager.currentRecoveryTime = currentAttack.recoveryTime;
+                            currentAttack = null;
+                            return combatStanceState;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                GetNewAttack(enemyManager);
+            }
+            return combatStanceState;
+        }
+
+        private void GetNewAttack(EnemyManager enemyManager)
+        {
+            Vector3 targetDirection = enemyManager.currentTarget.transform.position - transform.position;
+            float viewableAngle = Vector3.Angle(targetDirection, transform.forward);
+            enemyManager.distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, transform.position);
+
+            int maxScore = 0;
+            for (int i = 0; i < enemyAttacks.Length; i++)
+            {
+                EnemyAttackAction enemyAttackAction = enemyAttacks[i];
+                if (InRange(enemyManager, enemyAttackAction, viewableAngle))
+                    maxScore += enemyAttackAction.attackScore;
+            }
+            int randomValue = Random.Range(0, maxScore);
+            int temporaryScore = 0;
+
+            for (int i = 0; i < enemyAttacks.Length; i++)
+            {
+                EnemyAttackAction enemyAttackAction = enemyAttacks[i];
+                if (InRange(enemyManager, enemyAttackAction, viewableAngle))
+                {
+                    if (currentAttack != null)
+                        return;
+
+                    temporaryScore += enemyAttackAction.attackScore;
+
+                    if (temporaryScore > randomValue)
+                    {
+                        currentAttack = enemyAttackAction;
+                    }
+                }
+            }
+        }
+        private bool InRange(EnemyManager enemyManager,EnemyAttackAction enemyAttackAction, float viewableAngle)
+        {
+            if (enemyManager.distanceFromTarget <= enemyAttackAction.maximumDistanceToAttack
+                && enemyManager.distanceFromTarget >= enemyAttackAction.minimumDistanceToAttack)
+                if (viewableAngle <= enemyAttackAction.maximumAttackAngle
+                    && viewableAngle >= enemyAttackAction.minimumAttackAngle)
+                    return true;
+            return false;
         }
     }
 }
