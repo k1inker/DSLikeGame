@@ -16,15 +16,12 @@ namespace DS
 
         [Header("A.I Setting")]
         public float detectionRadius = 10;
-
-        public float distanceFromTarget;
         public float rotationSpeed = 15;
         public float maximumAttackRange = 1.5f;
 
         public bool isPerformingAction;
         public float maximumDetectionAngle = 50;
         public float minimumDetectionAngle = -50;
-        public float viewableAngle;
 
         public float currentRecoveryTime = 0;
         private void Awake()

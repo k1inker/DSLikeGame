@@ -18,18 +18,19 @@ namespace DS
         public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorManager enemyAnimatorManager)
         {
             Vector3 targetDirection = enemyManager.currentTarget.transform.position - transform.position;
-            float viewableAngle = Vector3.Angle(targetDirection, transform.forward);
+            float viewableAngle = Vector3.Angle(targetDirection, enemyManager.transform.forward);
+            float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
             if (enemyManager.isPerformingAction)
                 return combatStanceState;
 
             if (currentAttack != null)
             {
-                if (enemyManager.distanceFromTarget < currentAttack.minimumDistanceToAttack)
+                if (distanceFromTarget < currentAttack.minimumDistanceToAttack)
                     return this;
-                else if (enemyManager.distanceFromTarget < currentAttack.maximumDistanceToAttack)
+                else if (distanceFromTarget < currentAttack.maximumDistanceToAttack)
                 { 
-                    if(enemyManager.viewableAngle <= currentAttack.maximumAttackAngle &&
-                        enemyManager.viewableAngle >= currentAttack.minimumAttackAngle)
+                    if(viewableAngle <= currentAttack.maximumAttackAngle &&
+                        viewableAngle >= currentAttack.minimumAttackAngle)
                     {
                         if(enemyManager.currentRecoveryTime <= 0 && !enemyManager.isPerformingAction)
                         {
@@ -54,14 +55,15 @@ namespace DS
         private void GetNewAttack(EnemyManager enemyManager)
         {
             Vector3 targetDirection = enemyManager.currentTarget.transform.position - transform.position;
-            float viewableAngle = Vector3.Angle(targetDirection, transform.forward);
-            enemyManager.distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, transform.position);
+            
+            float viewableAngle = Vector3.Angle(targetDirection, enemyManager.transform.forward);
+            float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
 
             int maxScore = 0;
             for (int i = 0; i < enemyAttacks.Length; i++)
             {
                 EnemyAttackAction enemyAttackAction = enemyAttacks[i];
-                if (InRange(enemyManager, enemyAttackAction, viewableAngle))
+                if (InRange(enemyAttackAction, viewableAngle, distanceFromTarget))
                     maxScore += enemyAttackAction.attackScore;
             }
             int randomValue = Random.Range(0, maxScore);
@@ -70,7 +72,7 @@ namespace DS
             for (int i = 0; i < enemyAttacks.Length; i++)
             {
                 EnemyAttackAction enemyAttackAction = enemyAttacks[i];
-                if (InRange(enemyManager, enemyAttackAction, viewableAngle))
+                if (InRange(enemyAttackAction, viewableAngle, distanceFromTarget))
                 {
                     if (currentAttack != null)
                         return;
@@ -84,10 +86,10 @@ namespace DS
                 }
             }
         }
-        private bool InRange(EnemyManager enemyManager,EnemyAttackAction enemyAttackAction, float viewableAngle)
+        private bool InRange(EnemyAttackAction enemyAttackAction, float viewableAngle, float distanceFromTarget)
         {
-            if (enemyManager.distanceFromTarget <= enemyAttackAction.maximumDistanceToAttack
-                && enemyManager.distanceFromTarget >= enemyAttackAction.minimumDistanceToAttack)
+            if (distanceFromTarget <= enemyAttackAction.maximumDistanceToAttack
+                && distanceFromTarget >= enemyAttackAction.minimumDistanceToAttack)
                 if (viewableAngle <= enemyAttackAction.maximumAttackAngle
                     && viewableAngle >= enemyAttackAction.minimumAttackAngle)
                     return true;
