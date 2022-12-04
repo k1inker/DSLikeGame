@@ -20,8 +20,10 @@ namespace DS
             return maxHealth;
         }
 
-        public void TakeDamege(int damage)
+        public void TakeDamage(int damage)
         {
+            if (isDead)
+                return;
             currentHealth = currentHealth - damage;
 
 
@@ -31,6 +33,7 @@ namespace DS
             {
                 currentHealth = 0;
                 _anim.Play("Death");
+                isDead = true;
             }
         }
     }

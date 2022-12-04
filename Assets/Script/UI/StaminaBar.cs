@@ -10,12 +10,12 @@ namespace DS
         {
             _slider = GetComponent<Slider>();
         }
-        public void SetMaxStamina(int maxStamina)
+        public void SetMaxStamina(float maxStamina)
         {
             _slider.maxValue = maxStamina;
             _slider.value = maxStamina;
         }
-        public void SetCurrentStamina(int currentStamina)
+        public void SetCurrentStamina(float currentStamina)
         {
             _slider.value = currentStamina;
         }

@@ -18,10 +18,10 @@ namespace DS
         private void PickUpItem(PlayerManager playerManager)
         {
             PlayerInvertory playerInvertory;
-            AnimatorHandler animatorHandler;
+            PlayerAnimatorManager animatorHandler;
 
             playerInvertory = playerManager.GetComponent<PlayerInvertory>();
-            animatorHandler = playerManager.GetComponentInChildren<AnimatorHandler>();
+            animatorHandler = playerManager.GetComponentInChildren<PlayerAnimatorManager>();
 
             animatorHandler.PlayTargetAnimation("Pick Up Item", true, true);
             playerInvertory.LoadWeapon(_weaponRight, _weaponLeft);

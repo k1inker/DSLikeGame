@@ -32,7 +32,7 @@ namespace DS
 
                 if(playerStats != null)
                 {
-                    playerStats.TakeDamege(currentWeaponDamage);
+                    playerStats.TakeDamage(currentWeaponDamage);
                 }
             }
             if(other.tag == "Enemy")
@@ -41,7 +41,7 @@ namespace DS
 
                 if(enemyStats != null)
                 {
-                    enemyStats.TakeDamege(currentWeaponDamage);
+                    enemyStats.TakeDamage(currentWeaponDamage);
                 }
             }
         }

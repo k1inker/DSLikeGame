@@ -14,7 +14,6 @@ namespace DS
         public float mouseY;
 
         public bool rollFlag;
-        public bool attackFlag;
         public bool comboFlag;
         public bool lockOnFlag;
 
@@ -31,6 +30,7 @@ namespace DS
         private PlayerInvertory _playerInvertory;
         private PlayerManager _playerManager;
         private CameraHandler _cameraHandler;
+        private PlayerAnimatorManager _animatorHandler;
 
         [SerializeField] private VariableJoystick _joystick;
         [SerializeField] private FixedTouchScreen _vectorTouch;
@@ -40,9 +40,10 @@ namespace DS
 
         private void Awake()
         {
-            _playerAttacker = GetComponent<PlayerAttacker>();
+            _playerAttacker = GetComponentInChildren<PlayerAttacker>();
             _playerInvertory = GetComponent<PlayerInvertory>();
             _playerManager = GetComponent<PlayerManager>();
+            _animatorHandler = GetComponentInChildren<PlayerAnimatorManager>();
 
             _joystick = FindObjectOfType<VariableJoystick>();
             _cameraHandler = FindObjectOfType<CameraHandler>();
@@ -97,28 +98,12 @@ namespace DS
         {
             if(rb_Input & _playerInvertory.rightWeapon != null)
             {
-                if (_playerManager.canDoCombo)
-                {
-                    attackFlag = true;
-                    comboFlag = true;
-                    _playerAttacker.HandleWeaponCombo(_playerInvertory.rightWeapon);
-                    comboFlag = false;
-                }
-                else
-                {
-                    if (_playerManager.isInteracting)
-                        return;
-                    if (_playerManager.canDoCombo)
-                        return;
-                    attackFlag = true;
-                    _playerAttacker.HandleLightAttack(_playerInvertory.rightWeapon);
-                }
+                _playerAttacker.HandleRBAttack();
             }
             if(lb_Input & _playerInvertory.rightWeapon != null)
             {
                 if (_playerManager.isInteracting)
                     return;
-                attackFlag = true;
                 _playerAttacker.HandleHeavyAttack(_playerInvertory.rightWeapon);
             }
         }

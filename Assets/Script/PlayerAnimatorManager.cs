@@ -1,16 +1,15 @@
+using TMPro;
 using UnityEngine;
 
 namespace DS
 {
-    public class AnimatorHandler : AnimatorManager
+    public class PlayerAnimatorManager : AnimatorManager
     {
 
         private PlayerLocomotion _playerLocomotion;
         private int _vertical;
         private int _horizontal;
 
-        public bool canRotate = true;
-        public bool canMove = false;
         public void Initialize()
         {
             anim = GetComponent<Animator>();
@@ -45,11 +44,11 @@ namespace DS
         }
         public void CanRotate()
         {
-            canRotate = true;
+            anim.SetBool("canRotate", true);
         }
         public void StopRotation()
         {
-            canRotate = false;
+            anim.SetBool("canRotate", false);
         }
         public void EnableCombo()
         {
@@ -58,6 +57,14 @@ namespace DS
         public void DisableCombo()
         {
             anim.SetBool("canDoCombo", false);
+        }
+        public void EnableInvulnerable()
+        {
+            anim.SetBool("isInvulnerable", true);
+        }
+        public void DisableInvulnerable()
+        {
+            anim.SetBool("isInvulnerable", false);
         }
         private void OnAnimatorMove()
         {

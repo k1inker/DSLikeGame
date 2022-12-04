@@ -8,49 +8,45 @@ namespace DS
         private Transform _cameraObject;
         private InputHandler _inputHandler;
         private CameraHandler _cameraHandler;
+        private PlayerStats _playerStats;
 
         public Vector3 moveDirection;
-
         private Transform _selfTransform;
+
         [HideInInspector]
-        public AnimatorHandler animatorHandler;
+        public PlayerAnimatorManager animatorHandler;
 
         public new Rigidbody rigidbody;
         public GameObject normalCamera;
-
-        //[Header("Ground & Air Detection Stats")]
-        //[SerializeField]
-        //private float _groundDetectionRayStartPoint = 0.3f;
-        //[SerializeField]
-        //private float _minimumDistanceNeededToFall = 1f;
-        //[SerializeField]
-        //private float _groundDirectionRayDistance = 0.2f;
-        //private LayerMask _ignoreGroundCheck;
-        //public float inAirTimer;
 
         [Header("Movement Stats")]
         [SerializeField]
         private float _movementSpeed = 5;
         [SerializeField]
         private float _rotationSpeed = 10;
-        //[SerializeField]
-        //private float _fallingSpeed = 75;
+
+        [SerializeField] private CapsuleCollider _characterCollider;
+        [SerializeField] private CapsuleCollider _characterCollisionBlockerCollied;
+
+        [Header("Stamina cost")]
+        [SerializeField] private float _rollStaminaCost = 15f;
         private void Awake()
         {
             _cameraHandler = FindObjectOfType<CameraHandler>();
+            _playerManager = GetComponent<PlayerManager>();
+            _inputHandler = GetComponent<InputHandler>();
+            _playerStats = GetComponent<PlayerStats>();
+            rigidbody = GetComponent<Rigidbody>();
+            animatorHandler = GetComponentInChildren<PlayerAnimatorManager>();
         }
         private void Start()
         {
-            _playerManager = GetComponent<PlayerManager>();
-            rigidbody = GetComponent<Rigidbody>();
-            _inputHandler = GetComponent<InputHandler>();
-            animatorHandler = GetComponentInChildren<AnimatorHandler>();
+            
             _cameraObject = Camera.main.transform;
             _selfTransform = transform;
             animatorHandler.Initialize();
 
-            //_playerManager.isGrounded = true;
-            //_ignoreGroundCheck = ~(1 << 8 | 1 << 11);
+            Physics.IgnoreCollision(_characterCollider, _characterCollisionBlockerCollied, true);
         }
 
         #region Movement 
@@ -58,36 +54,32 @@ namespace DS
         //private Vector3 _targetPosition;
         public void HandelMovement(float delta)
         {
-            if (!animatorHandler.canMove)
-            {
-                rigidbody.velocity = Vector3.zero;
-                return;
-            }
             if (_inputHandler.rollFlag)
                 return;
             if (_playerManager.isInteracting)
                 return;
             setMoveDirection();
+
             if (_inputHandler.moveAmount <= 0.52)
             {
                 rigidbody.velocity = ProjectedVelocity(_movementSpeed / 2);
             }
             else
+            {
                 rigidbody.velocity = ProjectedVelocity(_movementSpeed);
+            }
 
             if (_inputHandler.lockOnFlag)
                 animatorHandler.UpdateAnimatorValues(_inputHandler.vertical, _inputHandler.horizontal);
             else
                 animatorHandler.UpdateAnimatorValues(_inputHandler.moveAmount, 0);
-            if (animatorHandler.canRotate)
-            {
-                HandleRotation(delta);
-            }
         }
 
         public void HandleRolling(float delta)
         {
-            if (_playerManager.isInteracting || !animatorHandler.canMove)
+            if (_playerManager.isInteracting)
+                return;
+            if (_playerStats.currentStamina < _rollStaminaCost)
                 return;
 
             if(_inputHandler.rollFlag)
@@ -102,6 +94,7 @@ namespace DS
                     rotation = Quaternion.LookRotation(moveDirection);
                     rigidbody.velocity = ProjectedVelocity(rollSpeed);
                     _selfTransform.rotation = rotation;
+                    _playerStats.TakeStaminaDamage(_rollStaminaCost);
                 }
                 else
                 {
@@ -112,60 +105,61 @@ namespace DS
 
             }
         }
-
-
-        private void HandleRotation(float delta)
+        public void HandleRotation(float delta)
         {
-            if (_inputHandler.lockOnFlag)
+            if (animatorHandler.canRotate)
             {
-                if (_inputHandler.rollFlag)
+                if (_inputHandler.lockOnFlag)
                 {
-                    Vector3 targetDirection = Vector2.zero;
-                    targetDirection = _cameraHandler.cameraTransform.forward * _inputHandler.vertical;
-                    targetDirection = _cameraHandler.cameraTransform.right * _inputHandler.horizontal;
-                    targetDirection.Normalize();
-                    targetDirection.y = 0;
-
-                    if (targetDirection == Vector3.zero)
+                    if (_inputHandler.rollFlag)
                     {
-                        targetDirection = transform.forward;
-                    }
-                    Quaternion buff = Quaternion.LookRotation(targetDirection);
-                    Quaternion targetRotation = Quaternion.Slerp(transform.rotation, buff, _rotationSpeed * Time.deltaTime);
+                        Vector3 targetDirection = Vector2.zero;
+                        targetDirection = _cameraHandler.cameraTransform.forward * _inputHandler.vertical;
+                        targetDirection = _cameraHandler.cameraTransform.right * _inputHandler.horizontal;
+                        targetDirection.Normalize();
+                        targetDirection.y = 0;
 
-                    transform.rotation = targetRotation;
+                        if (targetDirection == Vector3.zero)
+                        {
+                            targetDirection = transform.forward;
+                        }
+                        Quaternion buff = Quaternion.LookRotation(targetDirection);
+                        Quaternion targetRotation = Quaternion.Slerp(transform.rotation, buff, _rotationSpeed * Time.deltaTime);
+
+                        transform.rotation = targetRotation;
+                    }
+                    else
+                    {
+                        Vector3 rotationDirection = moveDirection;
+                        rotationDirection = _cameraHandler.currentLockOnTarget.transform.position - transform.position;
+                        rotationDirection.y = 0;
+                        rotationDirection.Normalize();
+
+                        Quaternion buff = Quaternion.LookRotation(rotationDirection);
+                        Quaternion targetRotation = Quaternion.Slerp(transform.rotation, buff, _rotationSpeed * Time.deltaTime);
+                        transform.rotation = targetRotation;
+                    }
                 }
                 else
                 {
-                    Vector3 rotationDirection = moveDirection;
-                    rotationDirection = _cameraHandler.currentLockOnTarget.transform.position - transform.position;
-                    rotationDirection.y = 0;
-                    rotationDirection.Normalize();
+                    Vector3 targetDir = Vector3.zero;
+                    float moveOverride = _inputHandler.moveAmount;
 
-                    Quaternion buff = Quaternion.LookRotation(rotationDirection);
-                    Quaternion targetRotation = Quaternion.Slerp(transform.rotation, buff, _rotationSpeed * Time.deltaTime);
-                    transform.rotation = targetRotation;
+                    targetDir = _cameraObject.forward * _inputHandler.vertical;
+                    targetDir += _cameraObject.right * _inputHandler.horizontal;
+
+                    targetDir.Normalize();
+                    targetDir.y = 0;
+
+                    if (targetDir == Vector3.zero)
+                        targetDir = _selfTransform.forward;
+
+                    float rs = _rotationSpeed;
+
+                    Quaternion buffTransform = Quaternion.LookRotation(targetDir);
+                    Quaternion targetRotation = Quaternion.Slerp(_selfTransform.rotation, buffTransform, rs * delta);
+                    _selfTransform.rotation = targetRotation;
                 }
-            }
-            else
-            {
-                Vector3 targetDir = Vector3.zero;
-                float moveOverride = _inputHandler.moveAmount;
-
-                targetDir = _cameraObject.forward * _inputHandler.vertical;
-                targetDir += _cameraObject.right * _inputHandler.horizontal;
-
-                targetDir.Normalize();
-                targetDir.y = 0;
-
-                if (targetDir == Vector3.zero)
-                    targetDir = _selfTransform.forward;
-
-                float rs = _rotationSpeed;
-
-                Quaternion buffTransform = Quaternion.LookRotation(targetDir);
-                Quaternion targetRotation = Quaternion.Slerp(_selfTransform.rotation, buffTransform, rs * delta);
-                _selfTransform.rotation = targetRotation;
             }
         }
         #endregion
@@ -182,69 +176,5 @@ namespace DS
             moveDirection.Normalize();
             moveDirection.y = 0;
         }
-        //public void HadleFalling(float delta, Vector3 moveDirection)
-        //{
-        //    _playerManager.isGrounded = false;
-        //    RaycastHit hit;
-        //    Vector3 origin = _selfTransform.position;
-        //    origin.y += _groundDetectionRayStartPoint;
-
-        //    if (Physics.Raycast(origin, _selfTransform.forward, out hit, 0.4f))
-        //        moveDirection = Vector3.zero;
-
-        //    if (_playerManager.isFalling)
-        //    {
-        //        rigidbody.AddForce(Vector3.down * _fallingSpeed);
-        //        rigidbody.AddForce(moveDirection * _fallingSpeed / 10f);
-        //    }
-
-        //    Vector3 dir = moveDirection;
-        //    dir.Normalize();
-        //    origin = origin + dir * _groundDirectionRayDistance;
-
-        //    _targetPosition = _selfTransform.position;
-
-        //    Debug.DrawRay(origin, Vector3.down * _minimumDistanceNeededToFall, Color.red, 0.1f, false);
-        //    if (Physics.Raycast(origin, Vector3.down, out hit, _minimumDistanceNeededToFall, _ignoreGroundCheck))
-        //    {
-        //        _normalVector = hit.normal;
-
-        //        _playerManager.isGrounded = true;
-
-        //        _targetPosition.y = hit.point.y;
-        //        if (_playerManager.isFalling)
-        //        {
-        //            if (inAirTimer > 0.5f)
-        //            {
-        //                //animation приземления EP7
-                                
-        //            }
-        //            else
-        //            {
-        //                animatorHandler.PlayTargetAnimation("Empty", false);
-        //            }
-        //            _playerManager.isFalling = false;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        if (_playerManager.isGrounded)
-        //            _playerManager.isGrounded = false;
-
-        //        if (_playerManager.isFalling == false)
-        //        {
-        //            if (_playerManager.isInteracting == false)
-        //            {     //animation falling
-        //            }
-
-        //            Vector3 velocity = rigidbody.velocity;
-        //            velocity.Normalize();
-        //            rigidbody.velocity = velocity * (_movementSpeed / 2);
-        //            _playerManager.isFalling = true;
-        //        }
-        //    }
-        //    _selfTransform.position = _targetPosition;
-        //}
-        
     }
 }

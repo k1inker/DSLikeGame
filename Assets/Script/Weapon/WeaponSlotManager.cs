@@ -5,6 +5,8 @@ namespace DS
     public class WeaponSlotManager : MonoBehaviour
     {
         public WeaponItem attackingWeapon;
+
+        private PlayerManager _playerManager;
         
         private WeaponHolderSlot _leftHandSlot;
         private WeaponHolderSlot _rightHandSlot;
@@ -17,8 +19,11 @@ namespace DS
         private PlayerStats _playerStats;
         private void Awake()
         {
+            _playerManager = GetComponentInParent<PlayerManager>();
             _playerStats = GetComponentInParent<PlayerStats>();
             _animator = GetComponentInParent<Animator>();
+
+
             WeaponHolderSlot[] weaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
             foreach(WeaponHolderSlot weaponSlot in weaponHolderSlots)
             {
@@ -65,21 +70,21 @@ namespace DS
         {
             _rightHandDamageCollider = _rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
         }
-        public void OpenRightDamageCollider()
+        public void OpenDamageCollider()
         {
-            _rightHandDamageCollider.EnableDamageCollider();
+            if (_playerManager.isUsingRightHand)
+            {
+                _rightHandDamageCollider.EnableDamageCollider();
+            }
+            else if(_playerManager.isUsingLeftHand)
+            {
+                _leftHandDamageCollider.EnableDamageCollider();
+            }
         }
-        public void OpenLeftDamageCollider()
-        {
-            _leftHandDamageCollider.EnableDamageCollider();
-        }
-        public void CloseRightDamageCollider()
+        public void CloseDamageCollider()
         {
             _rightHandDamageCollider.DisableDamageCollider();
-        }
-        public void CloseLeftDamageCollider()
-        {
-            _leftHandDamageCollider.DisableDamageCollider();
+            _leftHandDamageCollider?.DisableDamageCollider();
         }
         #endregion
         #region Handle Weapon`s Stamina Drainage

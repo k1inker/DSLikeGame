@@ -10,7 +10,7 @@ namespace DS
 
             if(pl != null)
             {
-                pl.TakeDamege(damage);
+                pl.TakeDamage(damage);
             }
         }
     }

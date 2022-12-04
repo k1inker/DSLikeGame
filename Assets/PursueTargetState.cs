@@ -80,7 +80,7 @@ namespace DS
                 {
                     enemyManager.transform.rotation = Quaternion.RotateTowards(enemyManager.transform.rotation, rotationToApplyToStaticEnemy, enemyManager.navmeshAgent.angularSpeed * Time.deltaTime);
                 }
-                //Vector3 relativeDirection = transform.InverseTransformDirection( enemyManager.navmeshAgent.desiredVelocity);
+                //Vector3 relativeDirection = transform.InverseTransformDirection(enemyManager.navmeshAgent.desiredVelocity);
                 //Vector3 targetVelocity = enemyManager.enemyRigidbody.velocity;
 
                 //enemyManager.navmeshAgent.enabled = true;

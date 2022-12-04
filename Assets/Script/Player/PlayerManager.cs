@@ -9,35 +9,42 @@ namespace DS
         private Animator _anim;
         private CameraHandler _cameraHandler;
         private InteractableUI _interactableUI;
+        private PlayerStats _playerStats;
+        private PlayerAnimatorManager _playerAnimatorManager;
         
         public GameObject interactableUIGameObject;
 
         public bool isInteracting;
 
         [Header("Player flag")]
-        //public bool isFalling;
-        //public bool isGrounded;
         public bool canDoCombo;
-        void Start()
+        public bool isUsingRightHand;
+        public bool isUsingLeftHand;
+        public bool isInvulnerable;
+        private void Awake()
         {
             _inputHandler = GetComponent<InputHandler>();
             _anim = GetComponentInChildren<Animator>();
             _playerLocomotion = GetComponent<PlayerLocomotion>();
             _cameraHandler = FindObjectOfType<CameraHandler>();
             _interactableUI = FindObjectOfType<InteractableUI>();
+            _playerStats = GetComponent<PlayerStats>();
+            _playerAnimatorManager = GetComponentInChildren<PlayerAnimatorManager>();
         }
         private void Update()
         {
             float delta = Time.deltaTime;
             isInteracting = _anim.GetBool("isInteracting");
             canDoCombo = _anim.GetBool("canDoCombo");
-
+            isUsingLeftHand = _anim.GetBool("isUsingLeftHand");
+            isUsingRightHand = _anim.GetBool("isUsingRightHand");
+            isInvulnerable = _anim.GetBool("isInvulnerable");
             _inputHandler.rollFlag = false;
-            _inputHandler.attackFlag = false;
 
             _inputHandler.TickInput(delta);
+            _playerAnimatorManager.canRotate = _anim.GetBool("canRotate");
             _playerLocomotion.HandleRolling(delta);
-            //_playerLocomotion.HadleFalling(delta, _playerLocomotion.moveDirection);s
+            _playerStats.RegenerateStamina();
             
             CheckForInteractableObject();   
         }
@@ -45,6 +52,7 @@ namespace DS
         {
             float delta = Time.deltaTime;
             _playerLocomotion.HandelMovement(delta);
+            _playerLocomotion.HandleRotation(delta);
         }
         private void LateUpdate()
         {
