@@ -47,7 +47,6 @@ MonoBehaviour:
   combatStanceState: {fileID: 1991476418}
   enemyAttacks:
   - {fileID: 11400000, guid: e377af1c552f1bd448c53263c8ab60cc, type: 2}
-  - {fileID: 11400000, guid: 811c93c653655844dbef0c41036f1ac9, type: 2}
   currentAttack: {fileID: 0}
 --- !u!1 &1082573543
 GameObject:
@@ -96,7 +95,7 @@ MonoBehaviour:
   pursueTargetState: {fileID: 1986859768}
   _detectionLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 2048
 --- !u!1 &1172521089
 GameObject:
   m_ObjectHideFlags: 0
@@ -1651,6 +1650,7 @@ GameObject:
   - component: {fileID: 5690560901148107358}
   - component: {fileID: 5690560901148107356}
   - component: {fileID: 251105631019371133}
+  - component: {fileID: 1494929494}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
@@ -1726,6 +1726,7 @@ MonoBehaviour:
   staminaLevel: 10
   maxStamina: 0
   currentStamina: 0
+  isDead: 0
 --- !u!114 &251105631019371133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1748,9 +1749,24 @@ MonoBehaviour:
   rotationSpeed: 15
   maximumAttackRange: 1.5
   isPerformingAction: 0
+  isInteracting: 0
   maximumDetectionAngle: 50
   minimumDetectionAngle: -50
   currentRecoveryTime: 0
+--- !u!114 &1494929494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5690560901148107346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fddb08d43f136f488c1f376e5d3f24b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterCollider: {fileID: 5690560901148107359}
+  _characterCollisionBlockerCollied: {fileID: 1979251504}
 --- !u!1 &5751043780051752582
 GameObject:
   m_ObjectHideFlags: 0
@@ -1852,6 +1868,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
+  canRotate: 1
 --- !u!114 &868140433
 MonoBehaviour:
   m_ObjectHideFlags: 0

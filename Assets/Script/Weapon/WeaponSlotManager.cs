@@ -7,6 +7,7 @@ namespace DS
         public WeaponItem attackingWeapon;
 
         private PlayerManager _playerManager;
+        private PlayerInvertory _playerInvertory;
         
         private WeaponHolderSlot _leftHandSlot;
         private WeaponHolderSlot _rightHandSlot;
@@ -22,7 +23,7 @@ namespace DS
             _playerManager = GetComponentInParent<PlayerManager>();
             _playerStats = GetComponentInParent<PlayerStats>();
             _animator = GetComponentInParent<Animator>();
-
+            _playerInvertory = GetComponentInParent<PlayerInvertory>();
 
             WeaponHolderSlot[] weaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
             foreach(WeaponHolderSlot weaponSlot in weaponHolderSlots)
@@ -64,11 +65,12 @@ namespace DS
         private void LoadLeftWeaponDamageCollider()
         {
             _leftHandDamageCollider = _leftHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
-
+            _leftHandDamageCollider.currentWeaponDamage = _playerInvertory.leftWeapon.baseDamage;
         }
         private void LoadRightWeaponDamageCollider()
         {
             _rightHandDamageCollider = _rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
+            _rightHandDamageCollider.currentWeaponDamage = _playerInvertory.rightWeapon.baseDamage;
         }
         public void OpenDamageCollider()
         {

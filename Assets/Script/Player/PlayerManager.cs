@@ -34,15 +34,19 @@ namespace DS
         private void Update()
         {
             float delta = Time.deltaTime;
+
             isInteracting = _anim.GetBool("isInteracting");
             canDoCombo = _anim.GetBool("canDoCombo");
             isUsingLeftHand = _anim.GetBool("isUsingLeftHand");
             isUsingRightHand = _anim.GetBool("isUsingRightHand");
             isInvulnerable = _anim.GetBool("isInvulnerable");
+            _playerAnimatorManager.canRotate = _anim.GetBool("canRotate");
+
+            _anim.SetBool("isDead", _playerStats.isDead);
+
             _inputHandler.rollFlag = false;
 
             _inputHandler.TickInput(delta);
-            _playerAnimatorManager.canRotate = _anim.GetBool("canRotate");
             _playerLocomotion.HandleRolling(delta);
             _playerStats.RegenerateStamina();
             

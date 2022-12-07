@@ -51,7 +51,7 @@ namespace DS
 
         #region Movement 
         private Vector3 _normalVector;
-        //private Vector3 _targetPosition;
+        private Vector3 _targetPosition;
         public void HandelMovement(float delta)
         {
             if (_inputHandler.rollFlag)

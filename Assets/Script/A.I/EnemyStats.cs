@@ -4,10 +4,10 @@ namespace DS
 {
     public class EnemyStats : CharacterStats
     {
-        private Animator _anim;
+        private EnemyAnimatorManager _enemyAnimatorManager;
         private void Awake()
         {
-            _anim = GetComponentInChildren<Animator>();
+            _enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
         }
         private void Start()
         {
@@ -24,15 +24,16 @@ namespace DS
         {
             if (isDead)
                 return;
+
             currentHealth = currentHealth - damage;
 
 
-            _anim.Play("Damage");
+            _enemyAnimatorManager.PlayTargetAnimation("Damage",true);
 
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
-                _anim.Play("Death");
+                _enemyAnimatorManager.PlayTargetAnimation("Death", true);
                 isDead = true;
             }
         }

@@ -19,7 +19,12 @@ namespace DS
         public float rotationSpeed = 15;
         public float maximumAttackRange = 1.5f;
 
+        [Header("Combat Flags")]
+        public bool canDoCombo;
+
+
         public bool isPerformingAction;
+        public bool isInteracting;
         public float maximumDetectionAngle = 50;
         public float minimumDetectionAngle = -50;
 
@@ -39,10 +44,15 @@ namespace DS
         private void Update()
         {
             HandleRecoveryTimer();
-        }
-        private void FixedUpdate()
-        {
             HandleStateMachine();
+            isInteracting = enemyAnimatorManager.anim.GetBool("isInteracting");
+            canDoCombo = enemyAnimatorManager.anim.GetBool("canDoCombo");   
+            enemyAnimatorManager.anim.SetBool("isDead", _enemyStats.isDead);
+        }
+        private void LateUpdate()
+        {
+            navmeshAgent.transform.localPosition = Vector3.zero;
+            navmeshAgent.transform.localRotation = Quaternion.identity;   
         }
         private void HandleStateMachine()
         {

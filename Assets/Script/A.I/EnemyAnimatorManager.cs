@@ -10,6 +10,30 @@ namespace DS
             anim = GetComponent<Animator>();
             _enemyManager = GetComponentInParent<EnemyManager>();
         }
+        public void CanRotate()
+        {
+            anim.SetBool("canRotate", true);
+        }
+        public void StopRotation()
+        {
+            anim.SetBool("canRotate", false);
+        }
+        public void EnableCombo()
+        {
+            anim.SetBool("canDoCombo", true);
+        }
+        public void DisableCombo()
+        {
+            anim.SetBool("canDoCombo", false);
+        }
+        public void EnableInvulnerable()
+        {
+            anim.SetBool("isInvulnerable", true);
+        }
+        public void DisableInvulnerable()
+        {
+            anim.SetBool("isInvulnerable", false);
+        }
         private void OnAnimatorMove()
         {
             float delta = Time.deltaTime;
