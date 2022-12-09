@@ -9,7 +9,7 @@ namespace DS
         [SerializeField] private EnemyAttackAction[] enemyAttacks;
         [SerializeField] private EnemyAttackAction currentAttack;
 
-        private bool _isComboing = false;
+        private bool _willDoCombo = false;
         /// <summary>
         /// Select attack in attacks score
         /// if attack is not able on distance or angle, select A new attack
@@ -25,10 +25,10 @@ namespace DS
             }
             else if(enemyManager.isInteracting && enemyManager.canDoCombo)
             {
-                if (_isComboing)
+                if (_willDoCombo)
                 {
+                    _willDoCombo = false;
                     enemyAnimatorManager.PlayTargetAnimation(currentAttack.actionAnimation, true);
-                    _isComboing = false;
                 }
             }
 
@@ -59,8 +59,9 @@ namespace DS
                             enemyAnimatorManager.anim.SetFloat("Horizontal", 0, 0.1f, Time.deltaTime);
                             enemyAnimatorManager.PlayTargetAnimation(currentAttack.actionAnimation, true);
                             enemyManager.isPerformingAction = true;
-                           
-                            if(currentAttack.canCombo)
+                            RollComboChance(enemyManager);
+
+                            if(currentAttack.canCombo && _willDoCombo)
                             {
                                 currentAttack = currentAttack.comboNextAction;
                                 return this;
@@ -81,6 +82,16 @@ namespace DS
             }
             return combatStanceState;
         }
+
+        private void RollComboChance(EnemyManager enemyManager)
+        {
+            float comboChance = Random.Range(0, 100);
+            if(enemyManager.AIPerfomCombos && comboChance <= enemyManager.comboLikeliHood)
+            {
+                _willDoCombo = true;
+            }
+        }
+
         private void HandleRotateTowardsTarget(EnemyManager enemyManager, float distanceFromTarget)
         {
             //Rotate manualy
@@ -124,7 +135,7 @@ namespace DS
                     enemyManager.transform.rotation = Quaternion.RotateTowards(enemyManager.transform.rotation, rotationToApplyToStaticEnemy, enemyManager.navmeshAgent.angularSpeed * Time.deltaTime);
                 }
                 //Vector3 relativeDirection = transform.InverseTransformDirection(enemyManager.navmeshAgent.desiredVelocity);
-                //Vector3 targetVelocity = enemyManager.enemyRigidbody.velocity;
+                //Ve ctor3 targetVelocity = enemyManager.enemyRigidbody.velocity;
 
                 //enemyManager.navmeshAgent.enabled = true;
                 //enemyManager.navmeshAgent.SetDestination(enemyManager.currentTarget.transform.position);

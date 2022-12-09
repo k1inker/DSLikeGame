@@ -22,6 +22,9 @@ namespace DS
         [Header("Combat Flags")]
         public bool canDoCombo;
 
+        [Header("A.I Combat Settings")]
+        public bool AIPerfomCombos;
+        public float comboLikeliHood;
 
         public bool isPerformingAction;
         public bool isInteracting;

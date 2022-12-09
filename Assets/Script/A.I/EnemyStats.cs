@@ -5,6 +5,7 @@ namespace DS
     public class EnemyStats : CharacterStats
     {
         private EnemyAnimatorManager _enemyAnimatorManager;
+        [SerializeField] private UIEnemyHealthBar _enemyHealthBar;
         private void Awake()
         {
             _enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
@@ -13,6 +14,7 @@ namespace DS
         {
             maxHealth = SetMaxHealthFromHealthLevel();
             currentHealth = maxHealth;
+            _enemyHealthBar.SetMaxHealth(maxHealth);
         }
         private int SetMaxHealthFromHealthLevel()
         {
@@ -26,7 +28,7 @@ namespace DS
                 return;
 
             currentHealth = currentHealth - damage;
-
+            _enemyHealthBar.SetHealth(currentHealth);
 
             _enemyAnimatorManager.PlayTargetAnimation("Damage",true);
 
