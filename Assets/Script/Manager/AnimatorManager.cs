@@ -19,7 +19,7 @@ namespace DS
             anim.applyRootMotion = isInteracting;
             anim.SetBool("canRotate", false);
             anim.SetBool("isInteracting", isInteracting);
-            anim.SetBool("useAnimPosit", useAnimPosition);
+            anim.SetBool("rootPosit", useAnimPosition);
             anim.CrossFade(targetAnim, 0.2f);
         }
     }

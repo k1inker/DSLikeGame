@@ -68,7 +68,7 @@ namespace DS
         }
         private void OnAnimatorMove()
         {
-            if (anim.GetBool("isInteracting") && !anim.GetBool("useAnimPosit"))
+            if (anim.GetBool("isInteracting") && !anim.GetBool("rootPosit"))
             {
                 return;
             }
