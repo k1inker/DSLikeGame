@@ -7,7 +7,7 @@ namespace DS
     {
 
         [SerializeField] private HealthBar _healthBar;
-        [SerializeField] private StaminaBar staminaBar;
+        [SerializeField] private StaminaBar _staminaBar;
         private PlayerAnimatorManager _anim;
 
         private float _staminaRegenAmount = 30;
@@ -15,8 +15,6 @@ namespace DS
         private PlayerManager _playerManager;
         private void Awake()
         {
-            _healthBar = FindObjectOfType<HealthBar>();
-            staminaBar = FindObjectOfType<StaminaBar>();
             _playerManager = GetComponent<PlayerManager>();
             _anim = GetComponentInChildren<PlayerAnimatorManager>();
         }
@@ -28,7 +26,8 @@ namespace DS
 
             maxStamina = SetMaxStaminaFromHealthLevel();
             currentStamina = maxStamina;
-            staminaBar.SetMaxStamina(maxStamina);
+            _staminaBar.SetMaxStamina(maxStamina);
+
         }
         private float SetMaxStaminaFromHealthLevel()
         {
@@ -50,18 +49,18 @@ namespace DS
             currentHealth = currentHealth - damage;
 
             _healthBar.SetCurrentHealth(currentHealth);
-            _anim.PlayTargetAnimation("Damage", true, true);
+            _anim.PlayTargetAnimationWithRootMotion("Damage", true);
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
-                _anim.PlayTargetAnimation("Death", true, true);
+                _anim.PlayTargetAnimationWithRootMotion("Death", true);
                 isDead = true;
             }
         }
         public void TakeStaminaDamage(float damage)
         {
             currentStamina = currentStamina - damage;
-            staminaBar.SetCurrentStamina(currentStamina);   
+            _staminaBar.SetCurrentStamina(currentStamina);   
         }
         public void RegenerateStamina()
         {
@@ -75,7 +74,7 @@ namespace DS
                 if (currentStamina < maxStamina && _staminaRegenTimer > 1f)
                 {
                     currentStamina += _staminaRegenAmount * Time.deltaTime;
-                    staminaBar.SetCurrentStamina(Mathf.RoundToInt(currentStamina));
+                    _staminaBar.SetCurrentStamina(Mathf.RoundToInt(currentStamina));
                 }
             }
         }

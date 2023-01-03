@@ -23,7 +23,7 @@ namespace DS
             playerInvertory = playerManager.GetComponent<PlayerInvertory>();
             animatorHandler = playerManager.GetComponentInChildren<PlayerAnimatorManager>();
 
-            animatorHandler.PlayTargetAnimation("Pick Up Item", true, true);
+            animatorHandler.PlayTargetAnimationWithRootMotion("Pick Up Item", true);
             playerInvertory.LoadWeapon(_weaponRight, _weaponLeft);
             Destroy(gameObject);
         }

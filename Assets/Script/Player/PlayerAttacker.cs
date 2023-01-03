@@ -30,7 +30,7 @@ namespace DS
                 _animatorHandler.anim.SetBool("canDoCombo", false);
                 if (lastAttack == weapon.OH_Light_Attack_1)
                 {
-                    _animatorHandler.PlayTargetAnimation(weapon.OH_Light_Attack_2, true, true);
+                    _animatorHandler.PlayTargetAnimationWithRootMotion(weapon.OH_Light_Attack_2, true);
                 }
             }
         }
@@ -41,7 +41,7 @@ namespace DS
             if (weapon == null)
                 return;
             _weaponSlotManager.attackingWeapon = weapon;
-            _animatorHandler.PlayTargetAnimation(weapon.OH_Light_Attack_1, true, true);
+            _animatorHandler.PlayTargetAnimationWithRootMotion(weapon.OH_Light_Attack_1, true);
             lastAttack = weapon.OH_Light_Attack_1;
         }
         public void HandleHeavyAttack(WeaponItem weapon)
@@ -51,7 +51,7 @@ namespace DS
             if (weapon == null)
                 return;
             _weaponSlotManager.attackingWeapon = weapon;
-            _animatorHandler.PlayTargetAnimation(weapon.OH_Heavy_Attack_1, true, true);
+            _animatorHandler.PlayTargetAnimationWithRootMotion(weapon.OH_Heavy_Attack_1, true);
             lastAttack = weapon.OH_Heavy_Attack_1;
         }
         public void HandleRBAttack()
