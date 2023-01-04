@@ -6,6 +6,12 @@ namespace DS
     {
         public AttackState attackState;
         public PursueTargetState pusueTargetState;
+
+        [SerializeField] private EnemyAttackAction[] enemyAttacks;
+
+        private bool _randomDestinationSet = false;
+        private float _horizontalMovementValue = 0;
+        private float _verticalMovementValue = 0;
         /// <summary>
         /// check attack range
         /// if in attack range return attack state
@@ -17,21 +23,41 @@ namespace DS
         /// </returns>
         public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorManager enemyAnimatorManager)
         {
-            if (enemyManager.isInteracting)
-                return this;
-
             float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
+            enemyAnimatorManager.anim.SetFloat("Vertical", _verticalMovementValue, 0.2f, Time.deltaTime);
+            enemyAnimatorManager.anim.SetFloat("Horizontal", _horizontalMovementValue, 0.2f, Time.deltaTime);
+            attackState.hasPerformedAttack = false;
+
+            if (enemyManager.isInteracting)
+            {
+                enemyAnimatorManager.anim.SetFloat("Vertical", 0);
+                enemyAnimatorManager.anim.SetFloat("Horizontal", 0);
+
+                return this;
+            }
+
+            if(distanceFromTarget > enemyManager.maximumAggroRadius)
+                return pusueTargetState;
+
+            if(!_randomDestinationSet)
+            {
+                _randomDestinationSet = true;
+                DecideCirclingAction(enemyAnimatorManager);
+            }
 
             HandleRotateTowardsTarget(enemyManager,distanceFromTarget);
-            if (enemyManager.isPerformingAction)
-                enemyAnimatorManager.anim.SetFloat("Vertical", 0, 0.1f, Time.deltaTime);
 
-            if (enemyManager.currentRecoveryTime <= 0 && distanceFromTarget <= enemyManager.maximumAttackRange)
+
+            if (enemyManager.currentRecoveryTime <= 0 && attackState.currentAttack != null)
+            {
+                _randomDestinationSet = false;
                 return attackState;
-            else if(distanceFromTarget > enemyManager.maximumAttackRange)
-                return pusueTargetState;
+            }
             else
-                return this;
+            {
+                GetNewAttack(enemyManager);
+            }
+            return this;
         }
         private void HandleRotateTowardsTarget(EnemyManager enemyManager, float distanceFromTarget)
         {
@@ -84,5 +110,69 @@ namespace DS
                 enemyManager.transform.rotation = Quaternion.Slerp(enemyManager.transform.rotation, enemyManager.navmeshAgent.transform.rotation, enemyManager.rotationSpeed / Time.deltaTime);
             }
         }
+        private void GetNewAttack(EnemyManager enemyManager)
+        {
+            Vector3 targetDirection = enemyManager.currentTarget.transform.position - transform.position;
+
+            float viewableAngle = Vector3.Angle(targetDirection, enemyManager.transform.forward);
+            float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
+
+            int maxScore = 0;
+            for (int i = 0; i < enemyAttacks.Length; i++)
+            {
+                EnemyAttackAction enemyAttackAction = enemyAttacks[i];
+                if (InRange(enemyAttackAction, viewableAngle, distanceFromTarget))
+                    maxScore += enemyAttackAction.attackScore;
+            }
+            int randomValue = Random.Range(0, maxScore);
+            int temporaryScore = 0;
+
+            for (int i = 0; i < enemyAttacks.Length; i++)
+            {
+                EnemyAttackAction enemyAttackAction = enemyAttacks[i];
+                if (InRange(enemyAttackAction, viewableAngle, distanceFromTarget))
+                {
+                    if (attackState.currentAttack != null)
+                        return;
+
+                    temporaryScore += enemyAttackAction.attackScore;
+
+                    if (temporaryScore > randomValue)
+                    {
+                        attackState.currentAttack = enemyAttackAction;
+                    }
+                }
+            }
+        }
+
+        private void DecideCirclingAction(EnemyAnimatorManager enemyAnimatorManager)
+        {
+            WalkAroundTarget(enemyAnimatorManager);
+        }
+        private void WalkAroundTarget(EnemyAnimatorManager enemyAnimatorManager)
+        {
+            _verticalMovementValue = 0.5f;
+
+            _horizontalMovementValue = Random.Range(-1, 1);
+
+            if(_horizontalMovementValue <= 1 && _horizontalMovementValue >= 0)
+            {
+                _horizontalMovementValue = 0.5f;
+            }
+            else if(_horizontalMovementValue >= -1 && _horizontalMovementValue < 0)
+            {
+                _horizontalMovementValue = -0.5f;
+            }
+        }
+        private bool InRange(EnemyAttackAction enemyAttackAction, float viewableAngle, float distanceFromTarget)
+        {
+            if (distanceFromTarget <= enemyAttackAction.maximumDistanceToAttack
+                && distanceFromTarget >= enemyAttackAction.minimumDistanceToAttack)
+                if (viewableAngle <= enemyAttackAction.maximumAttackAngle
+                    && viewableAngle >= enemyAttackAction.minimumAttackAngle)
+                    return true;
+            return false;
+        }
+
     }
 }

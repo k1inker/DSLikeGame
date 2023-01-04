@@ -6,4 +6,5 @@ public class CharacterManager : MonoBehaviour
 
     [Header("Movement Flags")]
     public bool isRotatingWithRootMotion;
+    public bool canRotate;
 }

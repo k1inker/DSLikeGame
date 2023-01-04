@@ -17,7 +17,7 @@ namespace DS
         [Header("A.I Setting")]
         public float detectionRadius = 10;
         public float rotationSpeed = 15;
-        public float maximumAttackRange = 1.5f;
+        public float maximumAggroRadius = 1.5f;
 
         [Header("Combat Flags")]
         public bool canDoCombo;
@@ -51,7 +51,8 @@ namespace DS
 
             isRotatingWithRootMotion = enemyAnimatorManager.anim.GetBool("isRotatingWithRootMotion");
             isInteracting = enemyAnimatorManager.anim.GetBool("isInteracting");
-            canDoCombo = enemyAnimatorManager.anim.GetBool("canDoCombo");   
+            canDoCombo = enemyAnimatorManager.anim.GetBool("canDoCombo");
+            canRotate = enemyAnimatorManager.anim.GetBool("canRotate");
             enemyAnimatorManager.anim.SetBool("isDead", _enemyStats.isDead);
         }
         private void LateUpdate()
