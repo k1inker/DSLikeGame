@@ -9,11 +9,11 @@ namespace DS
         private void Awake()
         {
             _enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
+            maxHealth = SetMaxHealthFromHealthLevel();
+            currentHealth = maxHealth;
         }
         private void Start()
         {
-            maxHealth = SetMaxHealthFromHealthLevel();
-            currentHealth = maxHealth;
             _enemyHealthBar.SetMaxHealth(maxHealth);
         }
         private int SetMaxHealthFromHealthLevel()
