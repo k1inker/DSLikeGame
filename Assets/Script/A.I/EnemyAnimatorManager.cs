@@ -5,10 +5,14 @@ namespace DS
     public class EnemyAnimatorManager : AnimatorManager
     {
         private EnemyManager _enemyManager;
+        private EnemyBossManager _enemyBossManager;
+        private EnemyStats _enemyStats;
         private void Awake()
         {
             anim = GetComponent<Animator>();
             _enemyManager = GetComponentInParent<EnemyManager>();
+            _enemyBossManager = GetComponentInParent<EnemyBossManager>();
+            _enemyStats = GetComponentInParent<EnemyStats>();
         }
         public void CanRotate()
         {
@@ -33,6 +37,11 @@ namespace DS
         public void DisableInvulnerable()
         {
             anim.SetBool("isInvulnerable", false);
+        }
+        public void InstatiateBossParticleFX()
+        {
+            BossFXTransform bossFXTransform = GetComponentInChildren<BossFXTransform>();
+            GameObject phaseFX = Instantiate(_enemyBossManager.particleFX, bossFXTransform.transform);
         }
         private void OnAnimatorMove()
         {

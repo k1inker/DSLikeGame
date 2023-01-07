@@ -24,6 +24,7 @@ namespace DS
 
         [Header("A.I Combat Settings")]
         public bool AIPerfomCombos;
+        public bool isPhaseShifting;
         public float comboLikeliHood;
 
         public bool isPerformingAction;
@@ -51,6 +52,8 @@ namespace DS
 
             isRotatingWithRootMotion = enemyAnimatorManager.anim.GetBool("isRotatingWithRootMotion");
             isInteracting = enemyAnimatorManager.anim.GetBool("isInteracting");
+            isPhaseShifting = enemyAnimatorManager.anim.GetBool("isPhaseShifting");
+            isInvulnerable = enemyAnimatorManager.anim.GetBool("isInvulnerable");
             canDoCombo = enemyAnimatorManager.anim.GetBool("canDoCombo");
             canRotate = enemyAnimatorManager.anim.GetBool("canRotate");
             enemyAnimatorManager.anim.SetBool("isDead", _enemyStats.isDead);

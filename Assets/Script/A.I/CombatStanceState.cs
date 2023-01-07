@@ -9,9 +9,9 @@ namespace DS
 
         [SerializeField] private EnemyAttackAction[] enemyAttacks;
 
-        private bool _randomDestinationSet = false;
-        private float _horizontalMovementValue = 0;
-        private float _verticalMovementValue = 0;
+        protected bool _randomDestinationSet = false;
+        protected float _horizontalMovementValue = 0;
+        protected float _verticalMovementValue = 0;
         /// <summary>
         /// check attack range
         /// if in attack range return attack state
@@ -59,7 +59,7 @@ namespace DS
             }
             return this;
         }
-        private void HandleRotateTowardsTarget(EnemyManager enemyManager, float distanceFromTarget)
+        protected void HandleRotateTowardsTarget(EnemyManager enemyManager, float distanceFromTarget)
         {
             //Rotate manualy
             if (enemyManager.isPerformingAction)
@@ -110,7 +110,7 @@ namespace DS
                 enemyManager.transform.rotation = Quaternion.Slerp(enemyManager.transform.rotation, enemyManager.navmeshAgent.transform.rotation, enemyManager.rotationSpeed / Time.deltaTime);
             }
         }
-        private void GetNewAttack(EnemyManager enemyManager)
+        protected virtual void GetNewAttack(EnemyManager enemyManager)
         {
             Vector3 targetDirection = enemyManager.currentTarget.transform.position - transform.position;
 
@@ -144,12 +144,11 @@ namespace DS
                 }
             }
         }
-
-        private void DecideCirclingAction(EnemyAnimatorManager enemyAnimatorManager)
+        protected void DecideCirclingAction(EnemyAnimatorManager enemyAnimatorManager)
         {
             WalkAroundTarget(enemyAnimatorManager);
         }
-        private void WalkAroundTarget(EnemyAnimatorManager enemyAnimatorManager)
+        protected void WalkAroundTarget(EnemyAnimatorManager enemyAnimatorManager)
         {
             _verticalMovementValue = 0.5f;
 
@@ -164,7 +163,7 @@ namespace DS
                 _horizontalMovementValue = -0.5f;
             }
         }
-        private bool InRange(EnemyAttackAction enemyAttackAction, float viewableAngle, float distanceFromTarget)
+        protected bool InRange(EnemyAttackAction enemyAttackAction, float viewableAngle, float distanceFromTarget)
         {
             if (distanceFromTarget <= enemyAttackAction.maximumDistanceToAttack
                 && distanceFromTarget >= enemyAttackAction.minimumDistanceToAttack)

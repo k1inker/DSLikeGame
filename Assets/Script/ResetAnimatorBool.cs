@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class ResetAnimatorBool : StateMachineBehaviour
 {
+    [SerializeField] private string _isInvulnerable = "isInvulnerable";
+    [SerializeField] private bool _isInvulnerableStatus = false;
+
     [SerializeField] private string _isInteractingBool = "isInteracting";
     [SerializeField] private bool _isInteractingStatus = false;
 
@@ -20,5 +23,6 @@ public class ResetAnimatorBool : StateMachineBehaviour
         animator.SetBool(_canRotateBool, _canRotateStatus);
         animator.SetBool(_isRootPossition, _isRootPossitionStatus);
         animator.SetBool(_isRootRotation, _isRootRotationStatus);
+        animator.SetBool(_isInvulnerable, _isInvulnerableStatus);
     }
 }

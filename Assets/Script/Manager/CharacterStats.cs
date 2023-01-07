@@ -15,5 +15,6 @@ namespace DS
         public float currentStamina;
 
         public bool isDead = false;
+
     }
 }
