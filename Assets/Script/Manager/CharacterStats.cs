@@ -14,7 +14,42 @@ namespace DS
         public float maxStamina;
         public float currentStamina;
 
-        public bool isDead = false;
+        [Header("Poise")]
+        public float totalPoiseDefence;
+        public float currentPoiseDefence;
+        public float offensivePoiseBonus;
+        public float totalPoiseResetTime = 15;
+        public float poiseResetTimer = 0;
 
+        public bool isDead = false;
+        private void Start()
+        {
+            currentPoiseDefence = totalPoiseDefence;
+        }
+        protected virtual void Update()
+        {
+            HandlePoiseResetTimer();
+        }
+        public virtual void HandlePoiseResetTimer()
+        {
+            if(poiseResetTimer > 0)
+            {
+                poiseResetTimer = poiseResetTimer - Time.deltaTime;
+            }
+            else
+            {
+                currentPoiseDefence = totalPoiseDefence;
+            }
+        }
+        public virtual void TakeDamageNoAnimation(int damage)
+        {
+            currentHealth -= damage;
+
+            if (currentHealth <= 0)
+            {
+                currentHealth = 0;
+                isDead = true;
+            }
+        }
     }
 }

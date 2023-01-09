@@ -66,11 +66,13 @@ namespace DS
         {
             _leftHandDamageCollider = _leftHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
             _leftHandDamageCollider.currentWeaponDamage = _playerInvertory.leftWeapon.baseDamage;
+            _leftHandDamageCollider.poiseBreak = _playerInvertory.leftWeapon.poiseBreak;
         }
         private void LoadRightWeaponDamageCollider()
         {
             _rightHandDamageCollider = _rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
             _rightHandDamageCollider.currentWeaponDamage = _playerInvertory.rightWeapon.baseDamage;
+            _rightHandDamageCollider.poiseBreak = _playerInvertory.rightWeapon.poiseBreak;
         }
         public void OpenDamageCollider()
         {

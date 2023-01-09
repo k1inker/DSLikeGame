@@ -8,6 +8,11 @@ namespace DS
     {
         Collider damageCollider;
 
+        [Header("Poise")]
+        public float poiseBreak;
+        public float offensivePoiseBonus;
+
+        [Header("Damage")]
         public int currentWeaponDamage = 25;
         private void Awake()
         {
@@ -32,7 +37,16 @@ namespace DS
 
                 if(playerStats != null)
                 {
-                    playerStats.TakeDamage(currentWeaponDamage);
+                    playerStats.poiseResetTimer = playerStats.totalPoiseResetTime;
+                    playerStats.currentPoiseDefence = playerStats.totalPoiseDefence - poiseBreak;
+                    if (playerStats.currentPoiseDefence > poiseBreak)
+                    {
+                        playerStats.TakeDamageNoAnimation(currentWeaponDamage);
+                    }
+                    else
+                    {
+                        playerStats.TakeDamage(currentWeaponDamage);
+                    }
                 }
             }
             if(other.tag == "Enemy")
@@ -41,7 +55,9 @@ namespace DS
 
                 if(enemyStats != null)
                 {
-                    if(enemyStats.isBoss)
+                    enemyStats.poiseResetTimer = enemyStats.totalPoiseResetTime;
+                    enemyStats.currentPoiseDefence = enemyStats.totalPoiseDefence - poiseBreak;
+                    if(enemyStats.currentPoiseDefence > poiseBreak)
                     {
                         enemyStats.TakeDamageNoAnimation(currentWeaponDamage);
                     }

@@ -29,11 +29,11 @@ namespace DS
             maxHealth = healthLevel * 10;
             return maxHealth;
         }
-        public void TakeDamageNoAnimation(int damage)
+        override public void TakeDamageNoAnimation(int damage)
         {
             currentHealth -= damage;
 
-            if(!isBoss)
+            if (!isBoss)
             {
                 _enemyHealthBar.SetHealth(currentHealth);
             }
