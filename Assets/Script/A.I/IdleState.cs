@@ -16,7 +16,7 @@ namespace DS
             Collider[] colliders = Physics.OverlapSphere(enemyManager.transform.position, enemyManager.detectionRadius, _detectionLayer);
             for (int i = 0; i < colliders.Length; i++)
             {
-                CharacterStats characterStats = colliders[i].GetComponent<CharacterStats>();
+                CharacterStatsManager characterStats = colliders[i].GetComponent<CharacterStatsManager>();
                 if (characterStats != null)
                 {
                     Vector3 targetDirection = characterStats.transform.position - enemyManager.transform.position;
@@ -32,7 +32,11 @@ namespace DS
 
             #region Handle Switching Next State
             if (enemyManager.currentTarget != null)
+            {
+                if (enemyStats.isBoss)
+                    enemyStats.enemyBossManager.bossHealthBar.SetHealthBarToActive();
                 return pursueTargetState;
+            }
             else
                 return this;
             #endregion

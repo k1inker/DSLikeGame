@@ -33,12 +33,12 @@ namespace DS
         {
             if(other.tag == "Player")
             {
-                PlayerStats playerStats = other.GetComponent<PlayerStats>();
+                PlayerStatsManager playerStats = other.GetComponent<PlayerStatsManager>();
 
                 if(playerStats != null)
                 {
                     playerStats.poiseResetTimer = playerStats.totalPoiseResetTime;
-                    playerStats.currentPoiseDefence = playerStats.totalPoiseDefence - poiseBreak;
+                    playerStats.currentPoiseDefence = playerStats.currentPoiseDefence - poiseBreak;
                     if (playerStats.currentPoiseDefence > poiseBreak)
                     {
                         playerStats.TakeDamageNoAnimation(currentWeaponDamage);
@@ -56,7 +56,7 @@ namespace DS
                 if(enemyStats != null)
                 {
                     enemyStats.poiseResetTimer = enemyStats.totalPoiseResetTime;
-                    enemyStats.currentPoiseDefence = enemyStats.totalPoiseDefence - poiseBreak;
+                    enemyStats.currentPoiseDefence = enemyStats.currentPoiseDefence - poiseBreak;
                     if(enemyStats.currentPoiseDefence > poiseBreak)
                     {
                         enemyStats.TakeDamageNoAnimation(currentWeaponDamage);

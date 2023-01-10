@@ -5,11 +5,11 @@ namespace DS
     public class PlayerManager : CharacterManager 
     {
         private InputHandler _inputHandler;
-        private PlayerLocomotion _playerLocomotion;
-        private Animator _anim;
+        private PlayerLocomotionManager _playerLocomotionManager;
+        private Animator _animator;
         private CameraHandler _cameraHandler;
         private InteractableUI _interactableUI;
-        private PlayerStats _playerStats;
+        private PlayerStatsManager _playerStatsManager;
         private PlayerAnimatorManager _playerAnimatorManager;
         
         public GameObject interactableUIGameObject;
@@ -22,40 +22,41 @@ namespace DS
         public bool isUsingLeftHand;
         private void Awake()
         {
-            _inputHandler = GetComponent<InputHandler>();
-            _anim = GetComponentInChildren<Animator>();
-            _playerLocomotion = GetComponent<PlayerLocomotion>();
             _cameraHandler = FindObjectOfType<CameraHandler>();
             _interactableUI = FindObjectOfType<InteractableUI>();
-            _playerStats = GetComponent<PlayerStats>();
-            _playerAnimatorManager = GetComponentInChildren<PlayerAnimatorManager>();
+
+            _inputHandler = GetComponent<InputHandler>();
+            _animator = GetComponent<Animator>();
+            _playerLocomotionManager = GetComponent<PlayerLocomotionManager>();
+            _playerStatsManager = GetComponent<PlayerStatsManager>();
+            _playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
         }
         private void Update()
         {
             float delta = Time.deltaTime;
 
-            isInteracting = _anim.GetBool("isInteracting");
-            canDoCombo = _anim.GetBool("canDoCombo");
-            isUsingLeftHand = _anim.GetBool("isUsingLeftHand");
-            isUsingRightHand = _anim.GetBool("isUsingRightHand");
-            isInvulnerable = _anim.GetBool("isInvulnerable");
-            _playerAnimatorManager.canRotate = _anim.GetBool("canRotate");
+            isInteracting = _animator.GetBool("isInteracting");
+            canDoCombo = _animator.GetBool("canDoCombo");
+            isUsingLeftHand = _animator.GetBool("isUsingLeftHand");
+            isUsingRightHand = _animator.GetBool("isUsingRightHand");
+            isInvulnerable = _animator.GetBool("isInvulnerable");
+            _playerAnimatorManager.canRotate = _animator.GetBool("canRotate");
 
-            _anim.SetBool("isDead", _playerStats.isDead);
+            _animator.SetBool("isDead", _playerStatsManager.isDead);
 
             _inputHandler.rollFlag = false;
 
             _inputHandler.TickInput(delta);
-            _playerLocomotion.HandleRolling(delta);
-            _playerStats.RegenerateStamina();
+            _playerLocomotionManager.HandleRolling(delta);
+            _playerStatsManager.RegenerateStamina();
             
             CheckForInteractableObject();   
         }
         private void FixedUpdate()
         {
             float delta = Time.deltaTime;
-            _playerLocomotion.HandelMovement(delta);
-            _playerLocomotion.HandleRotation(delta);
+            _playerLocomotionManager.HandelMovement(delta);
+            _playerLocomotionManager.HandleRotation(delta);
         }
         private void LateUpdate()
         {

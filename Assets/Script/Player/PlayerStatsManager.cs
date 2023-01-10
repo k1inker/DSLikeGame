@@ -3,20 +3,21 @@ using TMPro;
 using UnityEngine;
 namespace DS
 {
-    public class PlayerStats: CharacterStats
+    public class PlayerStatsManager : CharacterStatsManager
     {
 
         [SerializeField] private HealthBar _healthBar;
         [SerializeField] private StaminaBar _staminaBar;
-        private PlayerAnimatorManager _anim;
+
+        private PlayerAnimatorManager _playerAnimatorManager;
+        private PlayerManager _playerManager;
 
         private float _staminaRegenAmount = 30;
         private float _staminaRegenTimer = 0;
-        private PlayerManager _playerManager;
         private void Awake()
         {
             _playerManager = GetComponent<PlayerManager>();
-            _anim = GetComponentInChildren<PlayerAnimatorManager>();
+            _playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
         }
         private void Start()
         {
@@ -49,11 +50,11 @@ namespace DS
             currentHealth = currentHealth - damage;
 
             _healthBar.SetCurrentHealth(currentHealth);
-            _anim.PlayTargetAnimationWithRootMotion("Damage", true);
+            _playerAnimatorManager.PlayTargetAnimationWithRootMotion("Damage", true);
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
-                _anim.PlayTargetAnimationWithRootMotion("Death", true);
+                _playerAnimatorManager.PlayTargetAnimationWithRootMotion("Death", true);
                 isDead = true;
             }
         }
@@ -76,6 +77,17 @@ namespace DS
                     currentStamina += _staminaRegenAmount * Time.deltaTime;
                     _staminaBar.SetCurrentStamina(Mathf.RoundToInt(currentStamina));
                 }
+            }
+        }
+        public override void HandlePoiseResetTimer()
+        {
+            if (poiseResetTimer > 0)
+            {
+                poiseResetTimer = poiseResetTimer - Time.deltaTime;
+            }
+            else if(poiseResetTimer <= 0 && !_playerManager.isInteracting)
+            {
+                currentPoiseDefence = totalPoiseDefence;
             }
         }
     }

@@ -25510,6 +25510,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0.1001
+    functionName: GrantWeaponAttackingPoiseBonus
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.36703333
     functionName: CanRotate
     data: 
@@ -25526,6 +25533,13 @@ AnimationClip:
     messageOptions: 0
   - time: 0.46713334
     functionName: OpenDamageCollider
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.73406667
+    functionName: ResetWeaponAttackingPoiseBonus
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

@@ -6,14 +6,14 @@ namespace DS
     public class PlayerAnimatorManager : AnimatorManager
     {
 
-        private PlayerLocomotion _playerLocomotion;
+        private PlayerLocomotionManager _playerLocomotionManager;
         private int _vertical;
         private int _horizontal;
 
         public void Initialize()
         {
-            anim = GetComponent<Animator>();
-            _playerLocomotion = GetComponentInParent<PlayerLocomotion>();
+            animator = GetComponent<Animator>();
+            _playerLocomotionManager = GetComponent<PlayerLocomotionManager>();
             _vertical = Animator.StringToHash("Vertical");
             _horizontal = Animator.StringToHash("Horizontal");
         }
@@ -39,45 +39,45 @@ namespace DS
             else valueHorizontal = 0;
             #endregion
 
-            anim.SetFloat(_vertical, valueVertical, 0.1f, Time.deltaTime);
-            anim.SetFloat(_horizontal, valueHorizontal, 0.1f, Time.deltaTime);
+            animator.SetFloat(_vertical, valueVertical, 0.1f, Time.deltaTime);
+            animator.SetFloat(_horizontal, valueHorizontal, 0.1f, Time.deltaTime);
         }
         public void CanRotate()
         {
-            anim.SetBool("canRotate", true);
+            animator.SetBool("canRotate", true);
         }
         public void StopRotation()
         {
-            anim.SetBool("canRotate", false);
+            animator.SetBool("canRotate", false);
         }
         public void EnableCombo()
         {
-            anim.SetBool("canDoCombo", true);
+            animator.SetBool("canDoCombo", true);
         }
         public void DisableCombo()
         {
-            anim.SetBool("canDoCombo", false);
+            animator.SetBool("canDoCombo", false);
         }
         public void EnableInvulnerable()
         {
-            anim.SetBool("isInvulnerable", true);
+            animator.SetBool("isInvulnerable", true);
         }
         public void DisableInvulnerable()
         {
-            anim.SetBool("isInvulnerable", false);
+            animator.SetBool("isInvulnerable", false);
         }
         private void OnAnimatorMove()
         {
-            if (anim.GetBool("isInteracting") && !anim.GetBool("rootPosit"))
+            if (animator.GetBool("isInteracting") && !animator.GetBool("rootPosit"))
             {
                 return;
             }
 
-            _playerLocomotion.rigidbody.drag = 0;
-            Vector3 deltaPosition = anim.deltaPosition;
+            _playerLocomotionManager.rigidbody.drag = 0;
+            Vector3 deltaPosition = animator.deltaPosition;
             deltaPosition.y = 0;
             Vector3 velocity = deltaPosition / Time.deltaTime;
-            _playerLocomotion.rigidbody.velocity = velocity;
+            _playerLocomotionManager.rigidbody.velocity = velocity;
         }
     }
 }

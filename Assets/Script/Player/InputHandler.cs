@@ -26,11 +26,11 @@ namespace DS
         public bool lockOnLeft_Input;
 
         private PlayerControls _inputActions;
-        private PlayerAttacker _playerAttacker;
-        private PlayerInvertory _playerInvertory;
+        private PlayerCombatManager _playerCombatManager;
+        private PlayerInvertoryManager _playerInvertoryManager;
         private PlayerManager _playerManager;
         private CameraHandler _cameraHandler;
-        private PlayerAnimatorManager _animatorHandler;
+        private PlayerAnimatorManager _playerAnimatorManager;
 
         [SerializeField] private VariableJoystick _joystick;
         [SerializeField] private FixedTouchScreen _vectorTouch;
@@ -40,10 +40,10 @@ namespace DS
 
         private void Awake()
         {
-            _playerAttacker = GetComponentInChildren<PlayerAttacker>();
-            _playerInvertory = GetComponent<PlayerInvertory>();
+            _playerCombatManager = GetComponent<PlayerCombatManager>();
+            _playerInvertoryManager = GetComponent<PlayerInvertoryManager>();
             _playerManager = GetComponent<PlayerManager>();
-            _animatorHandler = GetComponentInChildren<PlayerAnimatorManager>();
+            _playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
 
             _joystick = FindObjectOfType<VariableJoystick>();
             _cameraHandler = FindObjectOfType<CameraHandler>();
@@ -96,15 +96,15 @@ namespace DS
         }
         private void HandleAttackInput(float delta)
         {
-            if(rb_Input & _playerInvertory.rightWeapon != null)
+            if(rb_Input & _playerInvertoryManager.rightWeapon != null)
             {
-                _playerAttacker.HandleRBAttack();
+                _playerCombatManager.HandleRBAttack();
             }
-            if(lb_Input & _playerInvertory.rightWeapon != null)
+            if(lb_Input & _playerInvertoryManager.rightWeapon != null)
             {
                 if (_playerManager.isInteracting)
                     return;
-                _playerAttacker.HandleHeavyAttack(_playerInvertory.rightWeapon);
+                _playerCombatManager.HandleHeavyAttack(_playerInvertoryManager.rightWeapon);
             }
         }
         private void HandleLockOnInput()

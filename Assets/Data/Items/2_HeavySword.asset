@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemIcon: {fileID: 0}
   itemName: Heavy Katana
-  modelPrefab: {fileID: 5577781858704980654, guid: 0b0a1f179f8d09447ad336f7ce91cc6b, type: 3}
+  modelPrefab: {fileID: 3268690295800217633, guid: de74834f3364813488d6be8d88dbb396, type: 3}
   baseDamage: 30
   criticalDamageMultiplier: 4
+  poiseBreak: 25
+  offensivePoiseBonus: 75
   hold_idle: Two_Handle_Idle
   OH_Light_Attack_1: 2_Heavy_Light_attack_01
   OH_Light_Attack_2: 2_Heavy_Light_attack_02

@@ -6,7 +6,7 @@ namespace DS
         public int damage = 25;
         private void OnTriggerEnter(Collider other)
         {
-            PlayerStats pl = other.GetComponent<PlayerStats>();
+            PlayerStatsManager pl = other.GetComponent<PlayerStatsManager>();
 
             if(pl != null)
             {

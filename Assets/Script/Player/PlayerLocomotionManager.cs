@@ -2,28 +2,25 @@
 
 namespace DS
 {
-    public class PlayerLocomotion : MonoBehaviour
+    public class PlayerLocomotionManager : MonoBehaviour
     {
         private PlayerManager _playerManager;
         private Transform _cameraObject;
         private InputHandler _inputHandler;
         private CameraHandler _cameraHandler;
-        private PlayerStats _playerStats;
+        private PlayerStatsManager _playerStatsManager;
 
         public Vector3 moveDirection;
         private Transform _selfTransform;
 
-        [HideInInspector]
-        public PlayerAnimatorManager animatorHandler;
+        private PlayerAnimatorManager _playerAnimatorManager;
 
         public new Rigidbody rigidbody;
         public GameObject normalCamera;
 
         [Header("Movement Stats")]
-        [SerializeField]
-        private float _movementSpeed = 5;
-        [SerializeField]
-        private float _rotationSpeed = 10;
+        [SerializeField] private float _movementSpeed = 5;
+        [SerializeField] private float _rotationSpeed = 10;
 
         [SerializeField] private CapsuleCollider _characterCollider;
         [SerializeField] private CapsuleCollider _characterCollisionBlockerCollied;
@@ -35,16 +32,16 @@ namespace DS
             _cameraHandler = FindObjectOfType<CameraHandler>();
             _playerManager = GetComponent<PlayerManager>();
             _inputHandler = GetComponent<InputHandler>();
-            _playerStats = GetComponent<PlayerStats>();
+            _playerStatsManager = GetComponent<PlayerStatsManager>();
             rigidbody = GetComponent<Rigidbody>();
-            animatorHandler = GetComponentInChildren<PlayerAnimatorManager>();
+            _playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
         }
         private void Start()
         {
             
             _cameraObject = Camera.main.transform;
             _selfTransform = transform;
-            animatorHandler.Initialize();
+            _playerAnimatorManager.Initialize();
 
             Physics.IgnoreCollision(_characterCollider, _characterCollisionBlockerCollied, true);
         }
@@ -70,23 +67,23 @@ namespace DS
             }
 
             if (_inputHandler.lockOnFlag)
-                animatorHandler.UpdateAnimatorValues(_inputHandler.vertical, _inputHandler.horizontal);
+                _playerAnimatorManager.UpdateAnimatorValues(_inputHandler.vertical, _inputHandler.horizontal);
             else
-                animatorHandler.UpdateAnimatorValues(_inputHandler.moveAmount, 0);
+                _playerAnimatorManager.UpdateAnimatorValues(_inputHandler.moveAmount, 0);
         }
 
         public void HandleRolling(float delta)
         {
             if (_playerManager.isInteracting)
                 return;
-            if (_playerStats.currentStamina < _rollStaminaCost)
+            if (_playerStatsManager.currentStamina < _rollStaminaCost)
                 return;
 
             if(_inputHandler.rollFlag)
             {
                 setMoveDirection();
 
-                animatorHandler.PlayTargetAnimation("Rolling", true);
+                _playerAnimatorManager.PlayTargetAnimation("Rolling", true);
                 float rollSpeed = _movementSpeed * 2f;
                 Quaternion rotation;
                 if (moveDirection != Vector3.zero)
@@ -94,7 +91,7 @@ namespace DS
                     rotation = Quaternion.LookRotation(moveDirection);
                     rigidbody.velocity = ProjectedVelocity(rollSpeed);
                     _selfTransform.rotation = rotation;
-                    _playerStats.TakeStaminaDamage(_rollStaminaCost);
+                    _playerStatsManager.TakeStaminaDamage(_rollStaminaCost);
                 }
                 else
                 {
@@ -107,7 +104,7 @@ namespace DS
         }
         public void HandleRotation(float delta)
         {
-            if (animatorHandler.canRotate)
+            if (_playerAnimatorManager.canRotate)
             {
                 if (_inputHandler.lockOnFlag)
                 {

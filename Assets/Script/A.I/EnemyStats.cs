@@ -2,20 +2,20 @@ using UnityEngine;
 
 namespace DS
 {
-    public class EnemyStats : CharacterStats
+    public class EnemyStats : CharacterStatsManager
     {
         [SerializeField] private UIEnemyHealthBar _enemyHealthBar;
 
         private EnemyManager _enemyManager;
         private EnemyAnimatorManager _enemyAnimatorManager;
-        private EnemyBossManager _enemyBossManager;
+        public EnemyBossManager enemyBossManager;
 
         public bool isBoss;
         private void Awake()
         {
             _enemyManager = GetComponent<EnemyManager>();
             _enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
-            _enemyBossManager = GetComponent<EnemyBossManager>();
+            enemyBossManager = GetComponent<EnemyBossManager>();
             maxHealth = SetMaxHealthFromHealthLevel();
             currentHealth = maxHealth;
         }
@@ -37,9 +37,9 @@ namespace DS
             {
                 _enemyHealthBar.SetHealth(currentHealth);
             }
-            else if(isBoss && _enemyBossManager != null)
+            else if(isBoss && enemyBossManager != null)
             {
-                _enemyBossManager.UpdateBossHealthBar(currentHealth, maxHealth);
+                enemyBossManager.UpdateBossHealthBar(currentHealth, maxHealth);
             }
 
             if (currentHealth <= 0)
@@ -59,9 +59,9 @@ namespace DS
             {
                 _enemyHealthBar.SetHealth(currentHealth);
             }
-            else if(isBoss && _enemyBossManager != null)
+            else if(isBoss && enemyBossManager != null)
             {
-                _enemyBossManager.UpdateBossHealthBar(currentHealth, maxHealth);
+                enemyBossManager.UpdateBossHealthBar(currentHealth, maxHealth);
             }
 
             _enemyAnimatorManager.PlayTargetAnimation(damageAnimation, true);

@@ -16,7 +16,7 @@ MonoBehaviour:
   canCombo: 1
   comboNextAction: {fileID: 11400000, guid: 72eec07400f9da2409db99e389519556, type: 2}
   attackScore: 3
-  recoveryTime: 2
+  recoveryTime: 3
   maximumAttackAngle: 35
   minimumAttackAngle: -35
   minimumDistanceToAttack: 0

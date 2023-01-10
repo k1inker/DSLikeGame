@@ -17,6 +17,8 @@ MonoBehaviour:
   modelPrefab: {fileID: 4870658549548040292, guid: e63761594266c894cb6804f0c1262e27, type: 3}
   baseDamage: 25
   criticalDamageMultiplier: 4
+  poiseBreak: 20
+  offensivePoiseBonus: 0
   hold_idle: Right Arm Empty
   OH_Light_Attack_1: 1_Easy_Light_attack_01
   OH_Light_Attack_2: 1_Easy_Light_attack_02

@@ -1,29 +1,29 @@
-using UnityEngine;
+    using UnityEngine;
 
 namespace DS
 {
-    public class PlayerInvertory : MonoBehaviour
+    public class PlayerInvertoryManager : MonoBehaviour
     {
-        private WeaponSlotManager _weaponSlotManager;
+        private PlayerWeaponSlotManager _playerWeaponSlotManager;
 
         public WeaponItem rightWeapon;
         public WeaponItem leftWeapon;
 
         private void Awake()
         {
-            _weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
+            _playerWeaponSlotManager = GetComponent<PlayerWeaponSlotManager>();
         }
         public void LoadWeapon(WeaponItem weaponItemRight, WeaponItem weaponItemLeft)
         {
             if (weaponItemLeft != null)
             {
                 leftWeapon = weaponItemLeft;
-                _weaponSlotManager.LoadWeaponOnSlot(weaponItemLeft, true);
+                _playerWeaponSlotManager.LoadWeaponOnSlot(weaponItemLeft, true);
             }
             if (weaponItemRight != null)
             {
                 rightWeapon = weaponItemRight;
-                _weaponSlotManager.LoadWeaponOnSlot(weaponItemRight, false);
+                _playerWeaponSlotManager.LoadWeaponOnSlot(weaponItemRight, false);
             }
         }
     }

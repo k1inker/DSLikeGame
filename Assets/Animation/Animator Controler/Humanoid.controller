@@ -86,6 +86,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 305c9c37b8d4d634f9471355b7c38d2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isInvulnerable: isInvulnerable
+  _isInvulnerableStatus: 0
   _isInteractingBool: isInteracting
   _isInteractingStatus: 0
   _canRotateBool: canRotate

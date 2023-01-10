@@ -30651,6 +30651,13 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0.16683334
+    functionName: GrantWeaponAttackingPoiseBonus
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.23356667
     functionName: CanRotate
     data: 
@@ -30688,6 +30695,13 @@ AnimationClip:
     messageOptions: 0
   - time: 0.5672333
     functionName: EnableCombo
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.6339667
+    functionName: ResetWeaponAttackingPoiseBonus
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

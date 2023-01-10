@@ -12,7 +12,18 @@ namespace DS
 
         private DamageCollider _leftHandDamageCollider;
         private DamageCollider _rightHandDamageCollider;
+
+        private EnemyStats _enemyStats;
         private void Awake()
+        {
+            _enemyStats = GetComponentInParent<EnemyStats>();
+            LoadWeaponHolderSlots();
+        }
+        private void Start()
+        {
+            LoadWeaponOnBothHands();
+        }
+        private void LoadWeaponHolderSlots()
         {
             WeaponHolderSlot[] weaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
             foreach (WeaponHolderSlot weaponSlot in weaponHolderSlots)
@@ -27,11 +38,6 @@ namespace DS
                 }
             }
         }
-        private void Start()
-        {
-            LoadWeaponOnBothHands();
-        }
-
         private void LoadWeaponOnBothHands()
         {
             if (rightHandWeapon != null)
@@ -43,7 +49,6 @@ namespace DS
                 LoadWeaponSlot(leftHandWeapon, true);
             }
         }
-
         public void LoadWeaponSlot(WeaponItem weapon, bool isLeft)
         {
             if (isLeft)
@@ -91,6 +96,14 @@ namespace DS
         public void DisableCombo()
         {
 
+        }
+        public void GrantWeaponAttackingPoiseBonus()
+        {
+            _enemyStats.currentPoiseDefence = _enemyStats.currentPoiseDefence + _enemyStats.offensivePoiseBonus;
+        }
+        public void ResetWeaponAttackingPoiseBonus()
+        {
+            _enemyStats.currentPoiseDefence = _enemyStats.totalPoiseDefence;
         }
     }
     

@@ -30100,6 +30100,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0.5416667
+    functionName: GrantWeaponAttackingPoiseBonus
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.5833333
     functionName: StopRotation
     data: 
@@ -30123,6 +30130,13 @@ AnimationClip:
     messageOptions: 0
   - time: 0.9166667
     functionName: CloseDamageCollider
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.0416666
+    functionName: ResetWeaponAttackingPoiseBonus
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

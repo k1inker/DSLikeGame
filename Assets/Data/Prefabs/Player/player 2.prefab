@@ -566,7 +566,10 @@ GameObject:
   - component: {fileID: 1590276726}
   - component: {fileID: 1590276727}
   - component: {fileID: 1590276728}
-  - component: {fileID: 991593298721975602}
+  - component: {fileID: 991593298721975603}
+  - component: {fileID: 991593298721975604}
+  - component: {fileID: 991593298721975605}
+  - component: {fileID: 991593298721975612}
   m_Layer: 11
   m_Name: player 2
   m_TagString: Player
@@ -649,12 +652,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lockOnTransform: {fileID: 1355968054}
+  isInvulnerable: 0
+  isRotatingWithRootMotion: 0
+  canRotate: 0
   interactableUIGameObject: {fileID: 0}
   isInteracting: 0
   canDoCombo: 0
   isUsingRightHand: 0
   isUsingLeftHand: 0
-  isInvulnerable: 0
 --- !u!114 &1590276727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -668,14 +673,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDirection: {x: 0, y: 0, z: 0}
-  animatorHandler: {fileID: 0}
   rigidbody: {fileID: 0}
   normalCamera: {fileID: 0}
   _movementSpeed: 4
   _rotationSpeed: 18
   _characterCollider: {fileID: 1590276723}
   _characterCollisionBlockerCollied: {fileID: 1274665923}
-  _rollStaminaCost: 15
+  _rollStaminaCost: 16.48
 --- !u!114 &1590276728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -706,7 +710,47 @@ MonoBehaviour:
   lockOnLeft_Input: 0
   _joystick: {fileID: 0}
   _vectorTouch: {fileID: 0}
---- !u!114 &991593298721975602
+--- !u!114 &991593298721975603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991593297265991489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37769b7f55e02b74d9788b8edbba324b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackingWeapon: {fileID: 0}
+--- !u!114 &991593298721975604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991593297265991489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6a46bc63cbe5b249a46631edc7600db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastAttack: 
+--- !u!114 &991593298721975605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991593297265991489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55adb9a399db8c64fb538d3893f112d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 1915462305733429039}
+  canRotate: 1
+--- !u!114 &991593298721975612
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -724,9 +768,14 @@ MonoBehaviour:
   staminaLevel: 10
   maxStamina: 0
   currentStamina: 0
+  totalPoiseDefence: 0
+  currentPoiseDefence: 0
+  offensivePoiseBonus: 0
+  totalPoiseResetTime: 15
+  poiseResetTimer: 0
   isDead: 0
   _healthBar: {fileID: 0}
-  staminaBar: {fileID: 0}
+  _staminaBar: {fileID: 0}
 --- !u!1 &1104742789329339113
 GameObject:
   m_ObjectHideFlags: 0
@@ -1963,9 +2012,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5509373512518311253}
   - component: {fileID: 1915462305733429039}
-  - component: {fileID: 5509373512518311256}
-  - component: {fileID: 5509373512518311255}
-  - component: {fileID: 5509373512518311254}
   m_Layer: 0
   m_Name: FROG_3UPGRADE (3)
   m_TagString: Untagged
@@ -2022,46 +2068,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5509373512518311256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5133798639338637295}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55adb9a399db8c64fb538d3893f112d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anim: {fileID: 0}
-  canRotate: 1
---- !u!114 &5509373512518311255
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5133798639338637295}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37769b7f55e02b74d9788b8edbba324b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackingWeapon: {fileID: 0}
---- !u!114 &5509373512518311254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5133798639338637295}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6a46bc63cbe5b249a46631edc7600db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lastAttack: 
 --- !u!1 &5194578104998723177
 GameObject:
   m_ObjectHideFlags: 0

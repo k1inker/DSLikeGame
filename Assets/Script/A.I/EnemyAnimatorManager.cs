@@ -9,34 +9,34 @@ namespace DS
         private EnemyStats _enemyStats;
         private void Awake()
         {
-            anim = GetComponent<Animator>();
+            animator = GetComponent<Animator>();
             _enemyManager = GetComponentInParent<EnemyManager>();
             _enemyBossManager = GetComponentInParent<EnemyBossManager>();
             _enemyStats = GetComponentInParent<EnemyStats>();
         }
         public void CanRotate()
         {
-            anim.SetBool("canRotate", true);
+            animator.SetBool("canRotate", true);
         }
         public void StopRotation()
         {
-            anim.SetBool("canRotate", false);
+            animator.SetBool("canRotate", false);
         }
         public void EnableCombo()
         {
-            anim.SetBool("canDoCombo", true);
+            animator.SetBool("canDoCombo", true);
         }
         public void DisableCombo()
         {
-            anim.SetBool("canDoCombo", false);
+            animator.SetBool("canDoCombo", false);
         }
         public void EnableInvulnerable()
         {
-            anim.SetBool("isInvulnerable", true);
+            animator.SetBool("isInvulnerable", true);
         }
         public void DisableInvulnerable()
         {
-            anim.SetBool("isInvulnerable", false);
+            animator.SetBool("isInvulnerable", false);
         }
         public void InstatiateBossParticleFX()
         {
@@ -47,14 +47,14 @@ namespace DS
         {
             float delta = Time.deltaTime;
             _enemyManager.enemyRigidbody.drag = 0;
-            Vector3 deltaPosition = anim.deltaPosition;
+            Vector3 deltaPosition = animator.deltaPosition;
             deltaPosition.y = 0;
             Vector3 velocity = deltaPosition / delta;
             _enemyManager.enemyRigidbody.velocity = velocity;
 
             if(_enemyManager.isRotatingWithRootMotion)
             {
-                _enemyManager.transform.rotation *=anim.deltaRotation;
+                _enemyManager.transform.rotation *=animator.deltaRotation;
             }
         }
     }

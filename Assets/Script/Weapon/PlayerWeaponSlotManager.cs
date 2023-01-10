@@ -2,12 +2,12 @@ using UnityEngine;
 
 namespace DS
 {
-    public class WeaponSlotManager : MonoBehaviour
+    public class PlayerWeaponSlotManager : MonoBehaviour
     {
         public WeaponItem attackingWeapon;
 
         private PlayerManager _playerManager;
-        private PlayerInvertory _playerInvertory;
+        private PlayerInvertoryManager _playerInvertoryManager;
         
         private WeaponHolderSlot _leftHandSlot;
         private WeaponHolderSlot _rightHandSlot;
@@ -17,14 +17,17 @@ namespace DS
         private DamageCollider _leftHandDamageCollider;
         private DamageCollider _rightHandDamageCollider;
 
-        private PlayerStats _playerStats;
+        private PlayerStatsManager _playerStatsManager;
         private void Awake()
         {
-            _playerManager = GetComponentInParent<PlayerManager>();
-            _playerStats = GetComponentInParent<PlayerStats>();
-            _animator = GetComponentInParent<Animator>();
-            _playerInvertory = GetComponentInParent<PlayerInvertory>();
-
+            _playerManager = GetComponent<PlayerManager>();
+            _playerStatsManager = GetComponent<PlayerStatsManager>();
+            _animator = GetComponent<Animator>();
+            _playerInvertoryManager = GetComponent<PlayerInvertoryManager>();
+            LoadWeaponHolderSlots();
+        }
+        private void LoadWeaponHolderSlots()
+        {
             WeaponHolderSlot[] weaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
             foreach(WeaponHolderSlot weaponSlot in weaponHolderSlots)
             {
@@ -37,6 +40,7 @@ namespace DS
                     _rightHandSlot = weaponSlot;
                 }
             }
+
         }
         public void LoadWeaponOnSlot(WeaponItem weaponItem, bool isLeft)
         {
@@ -61,18 +65,19 @@ namespace DS
                 #endregion
             }
         }
+
         #region Handle Weapon`s Damage Collider
         private void LoadLeftWeaponDamageCollider()
         {
             _leftHandDamageCollider = _leftHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
-            _leftHandDamageCollider.currentWeaponDamage = _playerInvertory.leftWeapon.baseDamage;
-            _leftHandDamageCollider.poiseBreak = _playerInvertory.leftWeapon.poiseBreak;
+            _leftHandDamageCollider.currentWeaponDamage = _playerInvertoryManager.leftWeapon.baseDamage;
+            _leftHandDamageCollider.poiseBreak = _playerInvertoryManager.leftWeapon.poiseBreak;
         }
         private void LoadRightWeaponDamageCollider()
         {
             _rightHandDamageCollider = _rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
-            _rightHandDamageCollider.currentWeaponDamage = _playerInvertory.rightWeapon.baseDamage;
-            _rightHandDamageCollider.poiseBreak = _playerInvertory.rightWeapon.poiseBreak;
+            _rightHandDamageCollider.currentWeaponDamage = _playerInvertoryManager.rightWeapon.baseDamage;
+            _rightHandDamageCollider.poiseBreak = _playerInvertoryManager.rightWeapon.poiseBreak;
         }
         public void OpenDamageCollider()
         {
@@ -87,19 +92,32 @@ namespace DS
         }
         public void CloseDamageCollider()
         {
-            _rightHandDamageCollider.DisableDamageCollider();
-            _leftHandDamageCollider?.DisableDamageCollider();
+            if(_rightHandDamageCollider != null)
+                _rightHandDamageCollider.DisableDamageCollider();
+
+            if(_leftHandDamageCollider != null)
+                _leftHandDamageCollider?.DisableDamageCollider();
         }
         #endregion
+
         #region Handle Weapon`s Stamina Drainage
         public void DrainStaminaLightAttack()
         {
-            _playerStats.TakeStaminaDamage(Mathf.RoundToInt(attackingWeapon.baseStamina * attackingWeapon.lightAttackMultiplier));
+            _playerStatsManager.TakeStaminaDamage(Mathf.RoundToInt(attackingWeapon.baseStamina * attackingWeapon.lightAttackMultiplier));
         }
         public void DrainStaminaHeavyAttack()
         {
-            _playerStats.TakeStaminaDamage(Mathf.RoundToInt(attackingWeapon.baseStamina * attackingWeapon.heavyAttackMultiplier));
+            _playerStatsManager.TakeStaminaDamage(Mathf.RoundToInt(attackingWeapon.baseStamina * attackingWeapon.heavyAttackMultiplier));
         }
         #endregion
+
+        public void GrantWeaponAttackingPoiseBonus()
+        {
+            _playerStatsManager.currentPoiseDefence = _playerStatsManager.currentPoiseDefence + attackingWeapon.offensivePoiseBonus;
+        }
+        public void ResetWeaponAttackingPoiseBonus()
+        {
+            _playerStatsManager.currentPoiseDefence = _playerStatsManager.totalPoiseDefence;
+        }
     }
 }
