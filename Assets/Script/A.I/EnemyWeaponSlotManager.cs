@@ -13,10 +13,10 @@ namespace DS
         private DamageCollider _leftHandDamageCollider;
         private DamageCollider _rightHandDamageCollider;
 
-        private EnemyStats _enemyStats;
+        private EnemyStatsManager _enemyStatsManager;
         private void Awake()
         {
-            _enemyStats = GetComponentInParent<EnemyStats>();
+            _enemyStatsManager = GetComponent<EnemyStatsManager>();
             LoadWeaponHolderSlots();
         }
         private void Start()
@@ -99,11 +99,11 @@ namespace DS
         }
         public void GrantWeaponAttackingPoiseBonus()
         {
-            _enemyStats.currentPoiseDefence = _enemyStats.currentPoiseDefence + _enemyStats.offensivePoiseBonus;
+            _enemyStatsManager.currentPoiseDefence = _enemyStatsManager.currentPoiseDefence + _enemyStatsManager.offensivePoiseBonus;
         }
         public void ResetWeaponAttackingPoiseBonus()
         {
-            _enemyStats.currentPoiseDefence = _enemyStats.totalPoiseDefence;
+            _enemyStatsManager.currentPoiseDefence = _enemyStatsManager.totalPoiseDefence;
         }
     }
     

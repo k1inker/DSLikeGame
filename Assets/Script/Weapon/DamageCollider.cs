@@ -51,7 +51,7 @@ namespace DS
             }
             if(other.tag == "Enemy")
             {
-                EnemyStats enemyStats = other.GetComponent<EnemyStats>();
+                EnemyStatsManager enemyStats = other.GetComponent<EnemyStatsManager>();
 
                 if(enemyStats != null)
                 {

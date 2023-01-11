@@ -13,10 +13,6 @@ namespace DS
             _slider = GetComponentInChildren<Slider>();
             bossName = GetComponentInChildren<Text>();
         }
-        private void Start()
-        {
-            SetHealthBarInactive();
-        }
         public void SetBossName(string name)
         {
             bossName.text = name;

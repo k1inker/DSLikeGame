@@ -2,19 +2,19 @@ using UnityEngine;
 
 namespace DS
 {
-    public class EnemyStats : CharacterStatsManager
+    public class EnemyStatsManager : CharacterStatsManager
     {
         [SerializeField] private UIEnemyHealthBar _enemyHealthBar;
 
-        private EnemyManager _enemyManager;
         private EnemyAnimatorManager _enemyAnimatorManager;
         public EnemyBossManager enemyBossManager;
 
         public bool isBoss;
         private void Awake()
         {
-            _enemyManager = GetComponent<EnemyManager>();
-            _enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
+            _enemyHealthBar = FindObjectOfType<UIEnemyHealthBar>();
+
+            _enemyAnimatorManager = GetComponent<EnemyAnimatorManager>();
             enemyBossManager = GetComponent<EnemyBossManager>();
             maxHealth = SetMaxHealthFromHealthLevel();
             currentHealth = maxHealth;
@@ -31,7 +31,7 @@ namespace DS
         }
         override public void TakeDamageNoAnimation(int damage)
         {
-            currentHealth -= damage;
+            base.TakeDamageNoAnimation(damage);
 
             if (!isBoss)
             {
@@ -41,19 +41,12 @@ namespace DS
             {
                 enemyBossManager.UpdateBossHealthBar(currentHealth, maxHealth);
             }
-
-            if (currentHealth <= 0)
-            {
-                currentHealth = 0;
-                isDead = true;
-            }
         }
-        public void TakeDamage(int damage, string damageAnimation = "Damage")
+        public override void TakeDamage(int damage, string damageAnimation = "Damage")
         {
             if (isDead)
                 return;
-
-            currentHealth = currentHealth - damage;
+            base.TakeDamage(damage, damageAnimation = "Damage");
 
             if (!isBoss)
             {
@@ -64,7 +57,7 @@ namespace DS
                 enemyBossManager.UpdateBossHealthBar(currentHealth, maxHealth);
             }
 
-            _enemyAnimatorManager.PlayTargetAnimation(damageAnimation, true);
+            _enemyAnimatorManager.PlayTargetAnimationWithRootMotion(damageAnimation, true);
 
             if (currentHealth <= 0)
             {

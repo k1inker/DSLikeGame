@@ -10,7 +10,7 @@ namespace DS
         /// if target is found switch to the Pursue state 
         /// </summary>
         /// <returns>if target not found return this state</returns>
-        public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorManager enemyAnimatorManager)
+        public override State Tick(EnemyManager enemyManager, EnemyStatsManager enemyStats, EnemyAnimatorManager enemyAnimatorManager)
         {
             #region Handle Enemy Target Detection
             Collider[] colliders = Physics.OverlapSphere(enemyManager.transform.position, enemyManager.detectionRadius, _detectionLayer);
@@ -33,8 +33,6 @@ namespace DS
             #region Handle Switching Next State
             if (enemyManager.currentTarget != null)
             {
-                if (enemyStats.isBoss)
-                    enemyStats.enemyBossManager.bossHealthBar.SetHealthBarToActive();
                 return pursueTargetState;
             }
             else

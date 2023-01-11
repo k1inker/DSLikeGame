@@ -6,7 +6,7 @@ namespace DS
     {
         public CombatStanceState combatStanceState;
 
-        public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorManager enemyAnimatorManager)
+        public override State Tick(EnemyManager enemyManager, EnemyStatsManager enemyStats, EnemyAnimatorManager enemyAnimatorManager)
         {
             enemyAnimatorManager.animator.SetFloat("Vertical", 0);
             enemyAnimatorManager.animator.SetFloat("Horizontal", 0);

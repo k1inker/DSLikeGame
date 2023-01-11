@@ -5,7 +5,7 @@ namespace DS
 {
     public class EnemyManager : CharacterManager
     {
-        private EnemyStats _enemyStats;
+        private EnemyStatsManager _enemyStatsManager;
 
         [SerializeField] private State currentState;
 
@@ -18,9 +18,6 @@ namespace DS
         public float detectionRadius = 10;
         public float rotationSpeed = 15;
         public float maximumAggroRadius = 1.5f;
-
-        [Header("Combat Flags")]
-        public bool canDoCombo;
 
         [Header("A.I Combat Settings")]
         public bool AIPerfomCombos;
@@ -35,8 +32,8 @@ namespace DS
         public float currentRecoveryTime = 0;
         private void Awake()
         {
-            enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
-            _enemyStats = GetComponent<EnemyStats>();
+            enemyAnimatorManager = GetComponent<EnemyAnimatorManager>();
+            _enemyStatsManager = GetComponent<EnemyStatsManager>();
             navmeshAgent = GetComponentInChildren<NavMeshAgent>();
             enemyRigidbody = GetComponent<Rigidbody>();
             navmeshAgent.enabled = false;
@@ -56,7 +53,7 @@ namespace DS
             isInvulnerable = enemyAnimatorManager.animator.GetBool("isInvulnerable");
             canDoCombo = enemyAnimatorManager.animator.GetBool("canDoCombo");
             canRotate = enemyAnimatorManager.animator.GetBool("canRotate");
-            enemyAnimatorManager.animator.SetBool("isDead", _enemyStats.isDead);
+            enemyAnimatorManager.animator.SetBool("isDead", _enemyStatsManager.isDead);
         }
         private void LateUpdate()
         {
@@ -67,7 +64,7 @@ namespace DS
         {
             if(currentState != null)
             {
-                State nextState = currentState.Tick(this, _enemyStats, enemyAnimatorManager);
+                State nextState = currentState.Tick(this, _enemyStatsManager, enemyAnimatorManager);
                 if(nextState != null)
                 {
                     SwitchToNextState(nextState);

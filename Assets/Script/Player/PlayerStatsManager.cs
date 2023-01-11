@@ -5,9 +5,8 @@ namespace DS
 {
     public class PlayerStatsManager : CharacterStatsManager
     {
-
-        [SerializeField] private HealthBar _healthBar;
-        [SerializeField] private StaminaBar _staminaBar;
+        private HealthBar _healthBar;
+        private StaminaBar _staminaBar;
 
         private PlayerAnimatorManager _playerAnimatorManager;
         private PlayerManager _playerManager;
@@ -16,6 +15,9 @@ namespace DS
         private float _staminaRegenTimer = 0;
         private void Awake()
         {
+            _healthBar = FindObjectOfType<HealthBar>();
+            _staminaBar = FindObjectOfType<StaminaBar>();
+
             _playerManager = GetComponent<PlayerManager>();
             _playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
         }
@@ -40,23 +42,27 @@ namespace DS
             maxHealth = healthLevel * 10;
             return maxHealth;
         }
-
-        public void TakeDamage(int damage)
+        public override void TakeDamage(int damage, string damageAnimation = "Damage")
         {
             if (_playerManager.isInvulnerable)
                 return;
-            if(isDead)
+            if (isDead)
                 return;
-            currentHealth = currentHealth - damage;
-
+            base.TakeDamage(damage, damageAnimation = "Damage");
             _healthBar.SetCurrentHealth(currentHealth);
-            _playerAnimatorManager.PlayTargetAnimationWithRootMotion("Damage", true);
+            _playerAnimatorManager.PlayTargetAnimationWithRootMotion(damageAnimation, true);
+
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
-                _playerAnimatorManager.PlayTargetAnimationWithRootMotion("Death", true);
                 isDead = true;
+                _playerAnimatorManager.PlayTargetAnimationWithRootMotion("Death", true);
             }
+        }
+        public override void TakeDamageNoAnimation(int damage)
+        {
+            base.TakeDamageNoAnimation(damage);
+            _healthBar.SetCurrentHealth(currentHealth);
         }
         public void TakeStaminaDamage(float damage)
         {

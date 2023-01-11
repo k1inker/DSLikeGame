@@ -21,7 +21,7 @@ namespace DS
         /// if cool down after attack return this state
         /// if target out of range return purseTarget state
         /// </returns>
-        public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorManager enemyAnimatorManager)
+        public override State Tick(EnemyManager enemyManager, EnemyStatsManager enemyStats, EnemyAnimatorManager enemyAnimatorManager)
         {
             float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
             enemyAnimatorManager.animator.SetFloat("Vertical", _verticalMovementValue, 0.2f, Time.deltaTime);

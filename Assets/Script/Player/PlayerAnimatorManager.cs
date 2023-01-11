@@ -10,9 +10,9 @@ namespace DS
         private int _vertical;
         private int _horizontal;
 
-        public void Initialize()
+        protected override void Awake()
         {
-            animator = GetComponent<Animator>();
+            base.Awake();
             _playerLocomotionManager = GetComponent<PlayerLocomotionManager>();
             _vertical = Animator.StringToHash("Vertical");
             _horizontal = Animator.StringToHash("Horizontal");
@@ -41,30 +41,6 @@ namespace DS
 
             animator.SetFloat(_vertical, valueVertical, 0.1f, Time.deltaTime);
             animator.SetFloat(_horizontal, valueHorizontal, 0.1f, Time.deltaTime);
-        }
-        public void CanRotate()
-        {
-            animator.SetBool("canRotate", true);
-        }
-        public void StopRotation()
-        {
-            animator.SetBool("canRotate", false);
-        }
-        public void EnableCombo()
-        {
-            animator.SetBool("canDoCombo", true);
-        }
-        public void DisableCombo()
-        {
-            animator.SetBool("canDoCombo", false);
-        }
-        public void EnableInvulnerable()
-        {
-            animator.SetBool("isInvulnerable", true);
-        }
-        public void DisableInvulnerable()
-        {
-            animator.SetBool("isInvulnerable", false);
         }
         private void OnAnimatorMove()
         {

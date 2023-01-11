@@ -51,5 +51,9 @@ namespace DS
                 isDead = true;
             }
         }
+        public virtual void TakeDamage(int damage, string damageAnimation = "Damage")
+        {
+            currentHealth = currentHealth - damage;
+        }
     }
 }

@@ -41,7 +41,6 @@ namespace DS
             
             _cameraObject = Camera.main.transform;
             _selfTransform = transform;
-            _playerAnimatorManager.Initialize();
 
             Physics.IgnoreCollision(_characterCollider, _characterCollisionBlockerCollied, true);
         }

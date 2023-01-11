@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace DS
 {
@@ -16,14 +17,11 @@ namespace DS
 
         public bool isInteracting;
 
-        [Header("Player flag")]
-        public bool canDoCombo;
-        public bool isUsingRightHand;
-        public bool isUsingLeftHand;
         private void Awake()
         {
             _cameraHandler = FindObjectOfType<CameraHandler>();
             _interactableUI = FindObjectOfType<InteractableUI>();
+            interactableUIGameObject = _interactableUI.transform.GetChild(0).gameObject;
 
             _inputHandler = GetComponent<InputHandler>();
             _animator = GetComponent<Animator>();
