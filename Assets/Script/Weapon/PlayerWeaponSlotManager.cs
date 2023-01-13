@@ -2,20 +2,13 @@ using UnityEngine;
 
 namespace DS
 {
-    public class PlayerWeaponSlotManager : MonoBehaviour
+    public class PlayerWeaponSlotManager : CharacterWeaponSlotManager
     {
         public WeaponItem attackingWeapon;
 
         private PlayerManager _playerManager;
         private PlayerInvertoryManager _playerInvertoryManager;
-        
-        private WeaponHolderSlot _leftHandSlot;
-        private WeaponHolderSlot _rightHandSlot;
-
         private Animator _animator;
-
-        private DamageCollider _leftHandDamageCollider;
-        private DamageCollider _rightHandDamageCollider;
 
         private PlayerStatsManager _playerStatsManager;
         private void Awake()
@@ -33,11 +26,11 @@ namespace DS
             {
                 if(weaponSlot.isLeftHandSlot)
                 {
-                    _leftHandSlot = weaponSlot;
+                    leftHandSlot = weaponSlot;
                 }
                 else if(weaponSlot.isRightHandSlot)
                 {
-                    _rightHandSlot = weaponSlot;
+                    rightHandSlot = weaponSlot;
                 }
             }
 
@@ -46,12 +39,12 @@ namespace DS
         {
             if(isLeft)
             {
-                _leftHandSlot.LoadWeaponModel(weaponItem);
+                leftHandSlot.LoadWeaponModel(weaponItem);
                 LoadLeftWeaponDamageCollider();
             }
             else
             {
-                _rightHandSlot.LoadWeaponModel(weaponItem);
+                rightHandSlot.LoadWeaponModel(weaponItem);
                 LoadRightWeaponDamageCollider();
                 #region Handle Right Weapon Idle Animation
                 if (weaponItem != null)
@@ -69,34 +62,34 @@ namespace DS
         #region Handle Weapon`s Damage Collider
         private void LoadLeftWeaponDamageCollider()
         {
-            _leftHandDamageCollider = _leftHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
-            _leftHandDamageCollider.currentWeaponDamage = _playerInvertoryManager.leftWeapon.baseDamage;
-            _leftHandDamageCollider.poiseBreak = _playerInvertoryManager.leftWeapon.poiseBreak;
+            leftHandDamageCollider = leftHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
+            leftHandDamageCollider.currentWeaponDamage = _playerInvertoryManager.leftWeapon.baseDamage;
+            leftHandDamageCollider.poiseBreak = _playerInvertoryManager.leftWeapon.poiseBreak;
         }
         private void LoadRightWeaponDamageCollider()
         {
-            _rightHandDamageCollider = _rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
-            _rightHandDamageCollider.currentWeaponDamage = _playerInvertoryManager.rightWeapon.baseDamage;
-            _rightHandDamageCollider.poiseBreak = _playerInvertoryManager.rightWeapon.poiseBreak;
+            rightHandDamageCollider = rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
+            rightHandDamageCollider.currentWeaponDamage = _playerInvertoryManager.rightWeapon.baseDamage;
+            rightHandDamageCollider.poiseBreak = _playerInvertoryManager.rightWeapon.poiseBreak;
         }
         public void OpenDamageCollider()
         {
             if (_playerManager.isUsingRightHand)
             {
-                _rightHandDamageCollider.EnableDamageCollider();
+                rightHandDamageCollider.EnableDamageCollider();
             }
             else if(_playerManager.isUsingLeftHand)
             {
-                _leftHandDamageCollider.EnableDamageCollider();
+                leftHandDamageCollider.EnableDamageCollider();
             }
         }
         public void CloseDamageCollider()
         {
-            if(_rightHandDamageCollider != null)
-                _rightHandDamageCollider.DisableDamageCollider();
+            if(rightHandDamageCollider != null)
+                rightHandDamageCollider.DisableDamageCollider();
 
-            if(_leftHandDamageCollider != null)
-                _leftHandDamageCollider?.DisableDamageCollider();
+            if(leftHandDamageCollider != null)
+                leftHandDamageCollider?.DisableDamageCollider();
         }
         #endregion
 

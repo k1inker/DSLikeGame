@@ -25,7 +25,6 @@ namespace DS
         public float comboLikeliHood;
 
         public bool isPerformingAction;
-        public bool isInteracting;
         public float maximumDetectionAngle = 50;
         public float minimumDetectionAngle = -50;
 

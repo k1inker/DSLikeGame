@@ -2,16 +2,10 @@ using UnityEngine;
 
 namespace DS
 {
-    public class EnemyWeaponSlotManager : MonoBehaviour
+    public class EnemyWeaponSlotManager : CharacterWeaponSlotManager
     {
         [SerializeField] private WeaponItem rightHandWeapon;
         [SerializeField] private WeaponItem leftHandWeapon;
-
-        private WeaponHolderSlot _rightHandSlot;
-        private WeaponHolderSlot _leftHandSlot;
-
-        private DamageCollider _leftHandDamageCollider;
-        private DamageCollider _rightHandDamageCollider;
 
         private EnemyStatsManager _enemyStatsManager;
         private void Awake()
@@ -30,11 +24,11 @@ namespace DS
             {
                 if (weaponSlot.isLeftHandSlot)
                 {
-                    _leftHandSlot = weaponSlot;
+                    leftHandSlot = weaponSlot;
                 }
                 else if (weaponSlot.isRightHandSlot)
                 {
-                    _rightHandSlot = weaponSlot;
+                    rightHandSlot = weaponSlot;
                 }
             }
         }
@@ -53,12 +47,12 @@ namespace DS
         {
             if (isLeft)
             {
-                _leftHandSlot.LoadWeaponModel(weapon);
+                leftHandSlot.LoadWeaponModel(weapon);
                 LoadWeaponsDamageCollider(true);
             }
             else
             {
-                _rightHandSlot.LoadWeaponModel(weapon);
+                rightHandSlot.LoadWeaponModel(weapon);
                 LoadWeaponsDamageCollider(false);
             }
         }
@@ -66,20 +60,20 @@ namespace DS
         {
             if(isLeft)
             {
-                _leftHandDamageCollider = _leftHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
+                leftHandDamageCollider = leftHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
             }
             else
             {
-                _rightHandDamageCollider = _rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
+                rightHandDamageCollider = rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
             }
         }
         public void OpenDamageCollider()
         {
-            _rightHandDamageCollider.EnableDamageCollider();
+            rightHandDamageCollider.EnableDamageCollider();
         }
         public void CloseDamageCollider()
         {
-            _rightHandDamageCollider.DisableDamageCollider();
+            rightHandDamageCollider.DisableDamageCollider();
         }
         public void DrainStaminaLightAttack()
         {

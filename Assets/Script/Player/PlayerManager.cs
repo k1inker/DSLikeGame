@@ -15,8 +15,6 @@ namespace DS
         
         public GameObject interactableUIGameObject;
 
-        public bool isInteracting;
-
         private void Awake()
         {
             _cameraHandler = FindObjectOfType<CameraHandler>();

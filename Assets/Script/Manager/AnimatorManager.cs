@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace DS
@@ -5,11 +6,14 @@ namespace DS
     public class AnimatorManager : MonoBehaviour
     {
         public Animator animator;
-
+        protected CharacterManager _characterManager;
+        protected CharacterStatsManager _characterStatsManager;
         public bool canRotate = true;
         protected virtual void Awake()
         {
             animator = GetComponent<Animator>();
+            _characterManager = GetComponent<CharacterManager>();
+            _characterStatsManager = GetComponent<CharacterStatsManager>();
         }
         public void PlayTargetAnimation(string targetAnim, bool isInteracting)
         {
