@@ -6,16 +6,22 @@ namespace DS
     {
         private EnemyManager _enemyManager;
         private EnemyBossManager _enemyBossManager;
+        private EnemyEffectsManager _enemyEffectsManager;
         protected override void Awake()
         {
             base.Awake();
             _enemyManager = GetComponent<EnemyManager>();
             _enemyBossManager = GetComponent<EnemyBossManager>();
+            _enemyEffectsManager = GetComponent<EnemyEffectsManager>();
         }
         public void InstatiateBossParticleFX()
         {
             BossFXTransform bossFXTransform = GetComponentInChildren<BossFXTransform>();
             GameObject phaseFX = Instantiate(_enemyBossManager.particleFX, bossFXTransform.transform);
+        }
+        public void PlayWeaponTrailFX()
+        {
+            _enemyEffectsManager.PlayWeaponFX(false);
         }
         private void OnAnimatorMove()
         {

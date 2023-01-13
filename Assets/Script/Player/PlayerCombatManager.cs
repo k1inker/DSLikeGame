@@ -11,15 +11,18 @@ namespace DS
         private PlayerManager _playerManager;
         private PlayerInvertoryManager _playerInvertoryManager;
         private PlayerStatsManager _playerStatsManager;
+        private PlayerEffectsManager _playerEffectsManager;
+
         public string lastAttack;
         private void Awake()
         {
-            _playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
-            _playerWeaponSlotManager = GetComponent<PlayerWeaponSlotManager>();
             _inputHandler = GetComponent<InputHandler>();
-            _playerInvertoryManager = GetComponent<PlayerInvertoryManager>();
             _playerManager = GetComponent<PlayerManager>();
             _playerStatsManager = GetComponent<PlayerStatsManager>();
+            _playerEffectsManager = GetComponent<PlayerEffectsManager>();
+            _playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
+            _playerInvertoryManager = GetComponent<PlayerInvertoryManager>();
+            _playerWeaponSlotManager = GetComponent<PlayerWeaponSlotManager>();
         }
         public void HandleWeaponCombo(WeaponItem weapon)
         {
@@ -60,6 +63,7 @@ namespace DS
             {
                 _inputHandler.comboFlag = true;
                 HandleWeaponCombo(_playerInvertoryManager.rightWeapon);
+                _playerEffectsManager.PlayWeaponFX(false);
                 _inputHandler.comboFlag = false;
             }
             else
@@ -72,6 +76,7 @@ namespace DS
                 _playerAnimatorManager.animator.SetBool("isUsingRightHand", true);
                 HandleLightAttack(_playerInvertoryManager.rightWeapon);
             }
+            _playerEffectsManager.PlayWeaponFX(false);
         }
     }
 }

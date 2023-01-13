@@ -47,18 +47,20 @@ namespace DS
 
             return rotateTowardsTargetState;
         }
+        private void AttackTarget(EnemyAnimatorManager enemyAnimatorManager, EnemyManager enemyManager)
+        {
+            enemyAnimatorManager.PlayTargetAnimation(currentAttack.actionAnimation, true);
+            enemyAnimatorManager.PlayWeaponTrailFX();
+            enemyManager.currentRecoveryTime = currentAttack.recoveryTime;
+            hasPerformedAttack = true;
+        }
         private void AttackTargetWithCombo(EnemyAnimatorManager enemyAnimatorManager, EnemyManager enemyManager)
         {
             _willDoCombo = false;
             enemyAnimatorManager.PlayTargetAnimation(currentAttack.actionAnimation, true);
+            enemyAnimatorManager.PlayWeaponTrailFX();
             enemyManager.currentRecoveryTime = currentAttack.recoveryTime;
             currentAttack = null;
-        }
-        private void AttackTarget(EnemyAnimatorManager enemyAnimatorManager, EnemyManager enemyManager)
-        {
-            enemyAnimatorManager.PlayTargetAnimation(currentAttack.actionAnimation, true);
-            enemyManager.currentRecoveryTime = currentAttack.recoveryTime;
-            hasPerformedAttack = true;
         }
         private void RollComboChance(EnemyManager enemyManager)
         {

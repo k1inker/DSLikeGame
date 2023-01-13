@@ -41,6 +41,10 @@ namespace DS
             {
                 enemyBossManager.UpdateBossHealthBar(currentHealth, maxHealth);
             }
+            if (currentHealth <= 0)
+            {
+                HandleDeath();
+            }
         }
         public override void TakeDamage(int damage, string damageAnimation = "Damage")
         {

@@ -205,13 +205,14 @@ GameObject:
   - component: {fileID: 6311667402728304404}
   - component: {fileID: 6311667402728304405}
   - component: {fileID: 6311667402728304406}
+  - component: {fileID: 1589699024}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &105729980561208690
 Transform:
   m_ObjectHideFlags: 0
@@ -310,6 +311,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 709bc3732b12c344a836ad51779f10e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftHandSlot: {fileID: 0}
+  rightHandSlot: {fileID: 0}
+  leftHandDamageCollider: {fileID: 0}
+  rightHandDamageCollider: {fileID: 0}
   rightHandWeapon: {fileID: 11400000, guid: a9a60e17b95806c489f462ad52a99bd0, type: 2}
   leftHandWeapon: {fileID: 0}
 --- !u!114 &6311667402728304404
@@ -388,6 +393,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _characterCollider: {fileID: 6311667402728304401}
   _characterCollisionBlockerCollied: {fileID: 6204533698961596779}
+--- !u!114 &1589699024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737588099542282184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5d7479e4e26e949b2462b51aa1d975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rightWeaponFX: {fileID: 0}
+  leftWeaponFX: {fileID: 0}
 --- !u!1 &932649988643916033
 GameObject:
   m_ObjectHideFlags: 0
@@ -1427,7 +1446,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

@@ -8,9 +8,11 @@ namespace DS
         [SerializeField] private WeaponItem leftHandWeapon;
 
         private EnemyStatsManager _enemyStatsManager;
+        private EnemyEffectsManager _enemyEffectsManager;
         private void Awake()
         {
             _enemyStatsManager = GetComponent<EnemyStatsManager>();
+            _enemyEffectsManager = GetComponent<EnemyEffectsManager>();
             LoadWeaponHolderSlots();
         }
         private void Start()
@@ -61,10 +63,12 @@ namespace DS
             if(isLeft)
             {
                 leftHandDamageCollider = leftHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
+                _enemyEffectsManager.leftWeaponFX = leftHandSlot.currentWeaponModel.GetComponentInChildren<WeaponFX>();
             }
             else
             {
                 rightHandDamageCollider = rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
+                _enemyEffectsManager.rightWeaponFX = rightHandSlot.currentWeaponModel.GetComponentInChildren<WeaponFX>();
             }
         }
         public void OpenDamageCollider()

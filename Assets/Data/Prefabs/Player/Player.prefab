@@ -321,6 +321,7 @@ GameObject:
   - component: {fileID: 1041890825892287472}
   - component: {fileID: 1041890825892287475}
   - component: {fileID: 1041890825892287474}
+  - component: {fileID: 6632851799119795744}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -454,13 +455,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lockOnTransform: {fileID: 792651360}
   isInvulnerable: 0
-  isRotatingWithRootMotion: 0
-  canRotate: 0
-  interactableUIGameObject: {fileID: 0}
-  isInteracting: 0
   canDoCombo: 0
   isUsingRightHand: 0
   isUsingLeftHand: 0
+  isRotatingWithRootMotion: 0
+  canRotate: 0
+  isInteracting: 0
+  interactableUIGameObject: {fileID: 0}
 --- !u!114 &1041890825892287470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -531,6 +532,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37769b7f55e02b74d9788b8edbba324b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftHandSlot: {fileID: 0}
+  rightHandSlot: {fileID: 0}
+  leftHandDamageCollider: {fileID: 0}
+  rightHandDamageCollider: {fileID: 0}
   attackingWeapon: {fileID: 0}
 --- !u!114 &1041890825892287474
 MonoBehaviour:
@@ -545,6 +550,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lastAttack: 
+--- !u!114 &6632851799119795744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041890825892287467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf0e3b9800ddc1d4db6d9aefbca3d23a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rightWeaponFX: {fileID: 0}
+  leftWeaponFX: {fileID: 0}
 --- !u!1 &1676372496160358104
 GameObject:
   m_ObjectHideFlags: 0
