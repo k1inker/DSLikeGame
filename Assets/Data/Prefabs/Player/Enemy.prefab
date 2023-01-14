@@ -212,7 +212,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &105729980561208690
 Transform:
   m_ObjectHideFlags: 0
@@ -405,6 +405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5d7479e4e26e949b2462b51aa1d975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bloodSplaterFX: {fileID: 8718586458559291700, guid: af0672b1a4d754844948d420412207e6, type: 3}
   rightWeaponFX: {fileID: 0}
   leftWeaponFX: {fileID: 0}
 --- !u!1 &932649988643916033
@@ -1446,7 +1447,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

@@ -289,7 +289,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3290028886759669193, guid: a055830f2b622d54281698c48177ba6f, type: 3}
       propertyPath: lengthInSec
-      value: 0.6
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3290028886759669193, guid: a055830f2b622d54281698c48177ba6f, type: 3}
+      propertyPath: useUnscaledTime
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3290028886759669193, guid: a055830f2b622d54281698c48177ba6f, type: 3}
       propertyPath: moveWithTransform

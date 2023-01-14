@@ -822,6 +822,7 @@ GameObject:
   - component: {fileID: 6371553474860930337}
   - component: {fileID: 6371553474860930338}
   - component: {fileID: 6371553474860930393}
+  - component: {fileID: 322119056}
   m_Layer: 9
   m_Name: Boss
   m_TagString: Enemy
@@ -927,7 +928,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 709bc3732b12c344a836ad51779f10e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rightHandWeapon: {fileID: 11400000, guid: a9a60e17b95806c489f462ad52a99bd0, type: 2}
+  leftHandSlot: {fileID: 0}
+  rightHandSlot: {fileID: 0}
+  leftHandDamageCollider: {fileID: 0}
+  rightHandDamageCollider: {fileID: 0}
+  rightHandWeapon: {fileID: 11400000, guid: 216682d4235a50b4385933d5159f79f6, type: 2}
   leftHandWeapon: {fileID: 0}
 --- !u!114 &6371553474860930336
 MonoBehaviour:
@@ -941,21 +946,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac8e368fe4ed734418b2533d5f0d5e01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthLevel: 10
+  healthLevel: 15
   maxHealth: 0
   currentHealth: 10
   staminaLevel: 10
   maxStamina: 0
   currentStamina: 0
-  totalPoiseDefence: 50
+  totalPoiseDefence: 100
   currentPoiseDefence: 0
   offensivePoiseBonus: 0
-  totalPoiseResetTime: 15
+  totalPoiseResetTime: 3
   poiseResetTimer: 0
   isDead: 0
   _enemyHealthBar: {fileID: 0}
   enemyBossManager: {fileID: 0}
-  isBoss: 0
+  isBoss: 1
 --- !u!114 &6371553474860930337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -970,8 +975,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lockOnTransform: {fileID: 6371553474945109111}
   isInvulnerable: 0
+  canDoCombo: 0
+  isUsingRightHand: 0
+  isUsingLeftHand: 0
   isRotatingWithRootMotion: 0
   canRotate: 0
+  isInteracting: 0
   currentState: {fileID: 6371553476277634346}
   enemyAnimatorManager: {fileID: 0}
   navmeshAgent: {fileID: 0}
@@ -980,12 +989,10 @@ MonoBehaviour:
   detectionRadius: 10
   rotationSpeed: 15
   maximumAggroRadius: 6
-  canDoCombo: 0
   AIPerfomCombos: 1
   isPhaseShifting: 0
   comboLikeliHood: 50
   isPerformingAction: 0
-  isInteracting: 0
   maximumDetectionAngle: 50
   minimumDetectionAngle: -50
   currentRecoveryTime: 0
@@ -1017,6 +1024,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bossName: Bess
   particleFX: {fileID: 5282451973980527689, guid: 13be7e5f1693b5a4585e6447d7041aad, type: 3}
+--- !u!114 &322119056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6371553474860930339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5d7479e4e26e949b2462b51aa1d975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bloodSplaterFX: {fileID: 8718586458559291700, guid: af0672b1a4d754844948d420412207e6, type: 3}
+  rightWeaponFX: {fileID: 0}
+  leftWeaponFX: {fileID: 0}
 --- !u!1 &6371553474945109104
 GameObject:
   m_ObjectHideFlags: 0

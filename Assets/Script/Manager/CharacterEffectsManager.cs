@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class CharacterEffectsManager : MonoBehaviour
 {
+    [Header("Damage FX")]
+    public GameObject bloodSplaterFX;
+
+    [Header("WeaponFX")]
     public WeaponFX rightWeaponFX;
     public WeaponFX leftWeaponFX;
     public virtual void PlayWeaponFX(bool isLeft)
@@ -21,5 +25,9 @@ public class CharacterEffectsManager : MonoBehaviour
                 leftWeaponFX.PlayWeaponFX();
             }
         }
+    }
+    public virtual void PlayBloodSplatterFX(Vector3 bloodSplatterLocation)
+    {
+        GameObject blood = Instantiate(bloodSplaterFX, bloodSplatterLocation, Quaternion.identity);
     }
 }

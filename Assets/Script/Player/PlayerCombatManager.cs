@@ -63,7 +63,6 @@ namespace DS
             {
                 _inputHandler.comboFlag = true;
                 HandleWeaponCombo(_playerInvertoryManager.rightWeapon);
-                _playerEffectsManager.PlayWeaponFX(false);
                 _inputHandler.comboFlag = false;
             }
             else

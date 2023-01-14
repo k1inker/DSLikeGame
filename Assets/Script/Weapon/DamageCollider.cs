@@ -27,16 +27,22 @@ namespace DS
         {
             damageCollider.enabled = false;
         }
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter(Collider collision)
         {
-            if(other.tag == "Player")
+            if(collision.tag == "Player")
             {
-                PlayerStatsManager playerStats = other.GetComponent<PlayerStatsManager>();
+                PlayerStatsManager playerStats = collision.GetComponent<PlayerStatsManager>();
+                CharacterManager playerManager = collision.GetComponent<CharacterManager>();
+                CharacterEffectsManager playerEffectsManager = collision.GetComponent <CharacterEffectsManager>();
 
                 if(playerStats != null)
                 {
                     playerStats.poiseResetTimer = playerStats.totalPoiseResetTime;
                     playerStats.currentPoiseDefence = playerStats.currentPoiseDefence - poiseBreak;
+
+                    Vector3 hitPoint = collision.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
+                    playerEffectsManager.PlayBloodSplatterFX(hitPoint);
+
                     if (playerStats.currentPoiseDefence > poiseBreak)
                     {
                         playerStats.TakeDamageNoAnimation(currentWeaponDamage);
@@ -44,24 +50,32 @@ namespace DS
                     else
                     {
                         playerStats.TakeDamage(currentWeaponDamage);
+                        playerStats.currentPoiseDefence = playerStats.totalPoiseDefence;
                     }
                 }
             }
-            if(other.tag == "Enemy")
+            if(collision.tag == "Enemy")
             {
-                EnemyStatsManager enemyStats = other.GetComponent<EnemyStatsManager>();
+                EnemyStatsManager enemyStats = collision.GetComponent<EnemyStatsManager>();
+                //CharacterManager enemyManager = collision.GetComponent<CharacterManager>();
+                CharacterEffectsManager enemyEffectsManager = collision.GetComponent<CharacterEffectsManager>();
 
-                if(enemyStats != null)
+                if (enemyStats != null)
                 {
                     enemyStats.poiseResetTimer = enemyStats.totalPoiseResetTime;
                     enemyStats.currentPoiseDefence = enemyStats.currentPoiseDefence - poiseBreak;
-                    if(enemyStats.currentPoiseDefence > poiseBreak)
+
+                    Vector3 hitPoint = collision.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
+                    enemyEffectsManager.PlayBloodSplatterFX(hitPoint);
+
+                    if (enemyStats.currentPoiseDefence > poiseBreak)
                     {
                         enemyStats.TakeDamageNoAnimation(currentWeaponDamage);
                     }
                     else
                     {
-                        enemyStats. TakeDamage(currentWeaponDamage);
+                        enemyStats.TakeDamage(currentWeaponDamage);
+                        enemyStats.currentPoiseDefence = enemyStats.totalPoiseDefence;
                     }
                 }
             }

@@ -494,10 +494,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a92fb574c14c2ad47aaff4d6301be619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthLevel: 10
+  healthLevel: 100
   maxHealth: 0
   currentHealth: 0
-  staminaLevel: 10
+  staminaLevel: 35
   maxStamina: 0
   currentStamina: 0
   totalPoiseDefence: 0
@@ -562,6 +562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf0e3b9800ddc1d4db6d9aefbca3d23a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bloodSplaterFX: {fileID: 8718586458559291700, guid: af0672b1a4d754844948d420412207e6, type: 3}
   rightWeaponFX: {fileID: 0}
   leftWeaponFX: {fileID: 0}
 --- !u!1 &1676372496160358104
@@ -2328,14 +2329,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8818769867824311978}
-  m_LocalRotation: {x: -0.7071067, y: -0.000000030908616, z: 0.000000030908623, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5942805089738872940}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!137 &7528824825901303905
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
