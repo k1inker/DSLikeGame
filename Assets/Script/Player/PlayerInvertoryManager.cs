@@ -12,6 +12,7 @@ namespace DS
         private void Awake()
         {
             _playerWeaponSlotManager = GetComponent<PlayerWeaponSlotManager>();
+            LoadWeapon(rightWeapon,leftWeapon);
         }
         public void LoadWeapon(WeaponItem weaponItemRight, WeaponItem weaponItemLeft)
         {

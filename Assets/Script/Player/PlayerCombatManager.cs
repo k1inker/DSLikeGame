@@ -1,4 +1,3 @@
-using System.Net;
 using UnityEngine;
 
 namespace DS
@@ -12,6 +11,7 @@ namespace DS
         private PlayerInvertoryManager _playerInvertoryManager;
         private PlayerStatsManager _playerStatsManager;
         private PlayerEffectsManager _playerEffectsManager;
+        private BlockingCollider _blockingCollider;
 
         public string lastAttack;
         private void Awake()
@@ -20,10 +20,40 @@ namespace DS
             _playerManager = GetComponent<PlayerManager>();
             _playerStatsManager = GetComponent<PlayerStatsManager>();
             _playerEffectsManager = GetComponent<PlayerEffectsManager>();
+            _blockingCollider = GetComponentInChildren<BlockingCollider>();
             _playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
             _playerInvertoryManager = GetComponent<PlayerInvertoryManager>();
             _playerWeaponSlotManager = GetComponent<PlayerWeaponSlotManager>();
         }
+
+        #region Input Action
+        public void HandleLBAction()
+        {
+            PerformLBBlockingAction();
+        }
+        public void HandleRBAttack()
+        {
+            if (_playerManager.canDoCombo)
+            {
+                _inputHandler.comboFlag = true;
+                HandleWeaponCombo(_playerInvertoryManager.rightWeapon);
+                _inputHandler.comboFlag = false;
+            }
+            else
+            {
+                if (_playerManager.isInteracting)
+                    return;
+                if (_playerManager.canDoCombo)
+                    return;
+
+                _playerAnimatorManager.animator.SetBool("isUsingRightHand", true);
+                HandleLightAttack(_playerInvertoryManager.rightWeapon);
+            }
+            _playerEffectsManager.PlayWeaponFX(false);
+        }
+        #endregion
+
+        #region Attack Actions
         public void HandleWeaponCombo(WeaponItem weapon)
         {
             if ((weapon.baseStamina * weapon.lightAttackMultiplier) > _playerStatsManager.currentStamina)
@@ -57,25 +87,21 @@ namespace DS
             _playerAnimatorManager.PlayTargetAnimationWithRootMotion(weapon.OH_Heavy_Attack_1, true);
             lastAttack = weapon.OH_Heavy_Attack_1;
         }
-        public void HandleRBAttack()
-        {
-            if (_playerManager.canDoCombo)
-            {
-                _inputHandler.comboFlag = true;
-                HandleWeaponCombo(_playerInvertoryManager.rightWeapon);
-                _inputHandler.comboFlag = false;
-            }
-            else
-            {
-                if (_playerManager.isInteracting)
-                    return;
-                if (_playerManager.canDoCombo)
-                    return;
+        #endregion
 
-                _playerAnimatorManager.animator.SetBool("isUsingRightHand", true);
-                HandleLightAttack(_playerInvertoryManager.rightWeapon);
-            }
-            _playerEffectsManager.PlayWeaponFX(false);
+        #region Defence Actions
+        private void PerformLBBlockingAction()
+        {
+            if (_playerManager.isInteracting)
+                return;
+
+            if (_playerManager.isBlocking)
+                return;
+
+            _playerAnimatorManager.PlayTargetAnimation("Block Start", false, true);
+            _blockingCollider.EnableBlockingCollider();
+            _playerManager.isBlocking = true;
         }
+        #endregion
     }
 }

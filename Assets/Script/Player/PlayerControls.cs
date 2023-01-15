@@ -129,7 +129,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""LB"",
+                    ""name"": ""RBH"",
                     ""type"": ""Button"",
                     ""id"": ""b9eb1f89-7eab-4d46-97ce-514b01a39880"",
                     ""expectedControlType"": ""Button"",
@@ -181,13 +181,22 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LB"",
+                    ""type"": ""Button"",
+                    ""id"": ""c628dbaa-c4b1-469b-9826-df34d2a94b99"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
                     ""id"": ""56f2d238-1215-44f1-803d-5bdd3e5fb9e5"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -202,7 +211,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""LB"",
+                    ""action"": ""RBH"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -260,6 +269,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Lock On Target Left"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8e118909-36f5-4d53-8cc0-e8b348b4a176"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LB"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -273,12 +293,13 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         // PlayerActions
         m_PlayerActions = asset.FindActionMap("PlayerActions", throwIfNotFound: true);
         m_PlayerActions_RB = m_PlayerActions.FindAction("RB", throwIfNotFound: true);
-        m_PlayerActions_LB = m_PlayerActions.FindAction("LB", throwIfNotFound: true);
+        m_PlayerActions_RBH = m_PlayerActions.FindAction("RBH", throwIfNotFound: true);
         m_PlayerActions_Roll = m_PlayerActions.FindAction("Roll", throwIfNotFound: true);
         m_PlayerActions_A = m_PlayerActions.FindAction("A", throwIfNotFound: true);
         m_PlayerActions_LockOn = m_PlayerActions.FindAction("LockOn", throwIfNotFound: true);
         m_PlayerActions_LockOnTargetRight = m_PlayerActions.FindAction("Lock On Target Right", throwIfNotFound: true);
         m_PlayerActions_LockOnTargetLeft = m_PlayerActions.FindAction("Lock On Target Left", throwIfNotFound: true);
+        m_PlayerActions_LB = m_PlayerActions.FindAction("LB", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -380,23 +401,25 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_PlayerActions;
     private IPlayerActionsActions m_PlayerActionsActionsCallbackInterface;
     private readonly InputAction m_PlayerActions_RB;
-    private readonly InputAction m_PlayerActions_LB;
+    private readonly InputAction m_PlayerActions_RBH;
     private readonly InputAction m_PlayerActions_Roll;
     private readonly InputAction m_PlayerActions_A;
     private readonly InputAction m_PlayerActions_LockOn;
     private readonly InputAction m_PlayerActions_LockOnTargetRight;
     private readonly InputAction m_PlayerActions_LockOnTargetLeft;
+    private readonly InputAction m_PlayerActions_LB;
     public struct PlayerActionsActions
     {
         private @PlayerControls m_Wrapper;
         public PlayerActionsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @RB => m_Wrapper.m_PlayerActions_RB;
-        public InputAction @LB => m_Wrapper.m_PlayerActions_LB;
+        public InputAction @RBH => m_Wrapper.m_PlayerActions_RBH;
         public InputAction @Roll => m_Wrapper.m_PlayerActions_Roll;
         public InputAction @A => m_Wrapper.m_PlayerActions_A;
         public InputAction @LockOn => m_Wrapper.m_PlayerActions_LockOn;
         public InputAction @LockOnTargetRight => m_Wrapper.m_PlayerActions_LockOnTargetRight;
         public InputAction @LockOnTargetLeft => m_Wrapper.m_PlayerActions_LockOnTargetLeft;
+        public InputAction @LB => m_Wrapper.m_PlayerActions_LB;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -409,9 +432,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @RB.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnRB;
                 @RB.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnRB;
                 @RB.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnRB;
-                @LB.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLB;
-                @LB.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLB;
-                @LB.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLB;
+                @RBH.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnRBH;
+                @RBH.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnRBH;
+                @RBH.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnRBH;
                 @Roll.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnRoll;
                 @Roll.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnRoll;
                 @Roll.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnRoll;
@@ -427,6 +450,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @LockOnTargetLeft.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLockOnTargetLeft;
                 @LockOnTargetLeft.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLockOnTargetLeft;
                 @LockOnTargetLeft.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLockOnTargetLeft;
+                @LB.started -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLB;
+                @LB.performed -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLB;
+                @LB.canceled -= m_Wrapper.m_PlayerActionsActionsCallbackInterface.OnLB;
             }
             m_Wrapper.m_PlayerActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -434,9 +460,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @RB.started += instance.OnRB;
                 @RB.performed += instance.OnRB;
                 @RB.canceled += instance.OnRB;
-                @LB.started += instance.OnLB;
-                @LB.performed += instance.OnLB;
-                @LB.canceled += instance.OnLB;
+                @RBH.started += instance.OnRBH;
+                @RBH.performed += instance.OnRBH;
+                @RBH.canceled += instance.OnRBH;
                 @Roll.started += instance.OnRoll;
                 @Roll.performed += instance.OnRoll;
                 @Roll.canceled += instance.OnRoll;
@@ -452,6 +478,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @LockOnTargetLeft.started += instance.OnLockOnTargetLeft;
                 @LockOnTargetLeft.performed += instance.OnLockOnTargetLeft;
                 @LockOnTargetLeft.canceled += instance.OnLockOnTargetLeft;
+                @LB.started += instance.OnLB;
+                @LB.performed += instance.OnLB;
+                @LB.canceled += instance.OnLB;
             }
         }
     }
@@ -464,11 +493,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     public interface IPlayerActionsActions
     {
         void OnRB(InputAction.CallbackContext context);
-        void OnLB(InputAction.CallbackContext context);
+        void OnRBH(InputAction.CallbackContext context);
         void OnRoll(InputAction.CallbackContext context);
         void OnA(InputAction.CallbackContext context);
         void OnLockOn(InputAction.CallbackContext context);
         void OnLockOnTargetRight(InputAction.CallbackContext context);
         void OnLockOnTargetLeft(InputAction.CallbackContext context);
+        void OnLB(InputAction.CallbackContext context);
     }
 }

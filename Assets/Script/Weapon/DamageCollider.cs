@@ -33,7 +33,22 @@ namespace DS
             {
                 PlayerStatsManager playerStats = collision.GetComponent<PlayerStatsManager>();
                 CharacterManager playerManager = collision.GetComponent<CharacterManager>();
+                BlockingCollider shield = collision.transform.GetComponentInChildren<BlockingCollider>();
                 CharacterEffectsManager playerEffectsManager = collision.GetComponent <CharacterEffectsManager>();
+
+                if(playerManager != null)
+                {
+                    if(shield != null && playerManager.isBlocking && playerStats != null)
+                    {
+                        playerStats.TakeDamage(0, "Block Guard");
+                        if(playerStats.currentStamina <= 0)
+                        {
+                            playerStats.TakeDamage(0, "Destroy Block Guard");
+                        }
+                        playerStats.TakeStaminaDamage(15);
+                        return;
+                    }
+                }
 
                 if(playerStats != null)
                 {
@@ -57,9 +72,18 @@ namespace DS
             if(collision.tag == "Enemy")
             {
                 EnemyStatsManager enemyStats = collision.GetComponent<EnemyStatsManager>();
-                //CharacterManager enemyManager = collision.GetComponent<CharacterManager>();
+                CharacterManager enemyManager = collision.GetComponent<CharacterManager>();
+                BlockingCollider shield = collision.transform.GetComponentInChildren<BlockingCollider>();
                 CharacterEffectsManager enemyEffectsManager = collision.GetComponent<CharacterEffectsManager>();
 
+                if (enemyManager != null)
+                {
+                    if (shield != null && enemyManager.isBlocking && enemyStats != null)
+                    {
+                        enemyStats.TakeDamage(0, "Block Guard");
+                        return;
+                    }
+                }
                 if (enemyStats != null)
                 {
                     enemyStats.poiseResetTimer = enemyStats.totalPoiseResetTime;

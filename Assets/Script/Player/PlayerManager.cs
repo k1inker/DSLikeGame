@@ -39,6 +39,7 @@ namespace DS
             _playerAnimatorManager.canRotate = _animator.GetBool("canRotate");
 
             _animator.SetBool("isDead", _playerStatsManager.isDead);
+            _animator.SetBool("isBlocking", isBlocking);
 
             _inputHandler.rollFlag = false;
 
@@ -59,7 +60,7 @@ namespace DS
             float delta = Time.deltaTime;
             _inputHandler.space_Input = false;
             _inputHandler.rb_Input = false;
-            _inputHandler.lb_Input = false;
+            _inputHandler.rbh_Input = false;
             _inputHandler.a_Input = false;
             if (_cameraHandler != null)
             {

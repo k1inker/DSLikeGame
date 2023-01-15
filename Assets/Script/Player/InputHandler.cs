@@ -19,6 +19,7 @@ namespace DS
 
         public bool space_Input;
         public bool rb_Input;
+        public bool rbh_Input;
         public bool lb_Input;
         public bool a_Input;
         public bool lockOn_Input;
@@ -26,11 +27,12 @@ namespace DS
         public bool lockOnLeft_Input;
 
         private PlayerControls _inputActions;
-        private PlayerCombatManager _playerCombatManager;
-        private PlayerInvertoryManager _playerInvertoryManager;
-        private PlayerManager _playerManager;
         private CameraHandler _cameraHandler;
+        private PlayerManager _playerManager;
+        private BlockingCollider _blockingCollider;
+        private PlayerCombatManager _playerCombatManager;
         private PlayerAnimatorManager _playerAnimatorManager;
+        private PlayerInvertoryManager _playerInvertoryManager;
 
         [SerializeField] private VariableJoystick _joystick;
         [SerializeField] private FixedTouchScreen _vectorTouch;
@@ -40,15 +42,16 @@ namespace DS
 
         private void Awake()
         {
-            _playerCombatManager = GetComponent<PlayerCombatManager>();
-            _playerInvertoryManager = GetComponent<PlayerInvertoryManager>();
             _playerManager = GetComponent<PlayerManager>();
+            _playerCombatManager = GetComponent<PlayerCombatManager>();
             _playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
+            _blockingCollider = GetComponentInChildren<BlockingCollider>();
+            _playerInvertoryManager = GetComponent<PlayerInvertoryManager>();
 
             _joystick = FindObjectOfType<VariableJoystick>();
             _cameraHandler = FindObjectOfType<CameraHandler>();
         }
-        private void OnEnable()
+        private void OnEnable() 
         {
             if(_inputActions == null)
             {
@@ -58,10 +61,13 @@ namespace DS
                 _inputActions.PlayerActions.Roll.performed += i => space_Input = true;
                 _inputActions.PlayerActions.RB.performed += i => rb_Input = true;
                 _inputActions.PlayerActions.LB.performed += i => lb_Input = true;
+                _inputActions.PlayerActions.LB.canceled += i => lb_Input = false;
+                //_inputActions.PlayerActions.RBH.performed += i => rbh_Input = true;
                 _inputActions.PlayerActions.A.performed += i => a_Input = true;
                 _inputActions.PlayerActions.LockOn.performed += i => lockOn_Input = true;
                 _inputActions.PlayerActions.LockOnTargetLeft.performed += i => lockOnLeft_Input = true;
                 _inputActions.PlayerActions.LockOnTargetRight.performed += i => lockOnRight_Input = true;
+
             }
 
             _inputActions.Enable();
@@ -70,7 +76,6 @@ namespace DS
         {
             _inputActions.Disable();
         }
-        
         public void HandleMoveInput(float delta)
         {
             horizontal = _movementInput.x;
@@ -86,7 +91,7 @@ namespace DS
             else
                 HandleMoveInput(delta);
             HandleRollInput(delta);
-            HandleAttackInput(delta);
+            HandleCombatInput(delta);
             HandleLockOnInput(); 
         }
         private void HandleRollInput(float delta)
@@ -94,17 +99,30 @@ namespace DS
             if (space_Input)
                 rollFlag = true;
         }
-        private void HandleAttackInput(float delta)
+
+        private void HandleCombatInput(float delta)
         {
             if(rb_Input & _playerInvertoryManager.rightWeapon != null)
             {
                 _playerCombatManager.HandleRBAttack();
             }
-            if(lb_Input & _playerInvertoryManager.rightWeapon != null)
+            if(rbh_Input & _playerInvertoryManager.rightWeapon != null)
             {
                 if (_playerManager.isInteracting)
                     return;
-                _playerCombatManager.HandleHeavyAttack(_playerInvertoryManager.rightWeapon);
+                //_playerCombatManager.HandleHeavyAttack(_playerInvertoryManager.rightWeapon);
+            }
+            if(lb_Input)
+            {
+                _playerCombatManager.HandleLBAction();
+            }
+            else
+            {
+                _playerManager.isBlocking = false;
+                if(_blockingCollider.blockingCollider.enabled)
+                {
+                    _blockingCollider.DisableBlockingCollider();
+                }
             }
         }
         private void HandleLockOnInput()
@@ -145,6 +163,8 @@ namespace DS
             }
             _cameraHandler.SetCameraHeight();
         }
+
+        #region Handle Mobile Inputs
         public void MoveInputJoystick()
         {
             horizontal = _joystick.Horizontal;
@@ -177,5 +197,6 @@ namespace DS
         {
             lockOnLeft_Input = true;
         }
+        #endregion
     }
 }
