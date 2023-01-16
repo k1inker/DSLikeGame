@@ -15,14 +15,13 @@ MonoBehaviour:
   itemIcon: {fileID: 0}
   itemName: Easy Sword
   modelPrefab: {fileID: 4870658549548040292, guid: e63761594266c894cb6804f0c1262e27, type: 3}
+  weaponController: {fileID: 22100000, guid: 93d02c2c5179e9945be3df5783372f71, type: 2}
+  offHandIdleAnimation: 
+  weaponType: 0
   baseDamage: 25
   criticalDamageMultiplier: 4
   poiseBreak: 20
   offensivePoiseBonus: 0
-  hold_idle: Right Arm Empty
-  OH_Light_Attack_1: 1_Easy_Light_attack_01
-  OH_Light_Attack_2: 1_Easy_Light_attack_02
-  OH_Heavy_Attack_1: 
   baseStamina: 15
   lightAttackMultiplier: 1
   heavyAttackMultiplier: 2

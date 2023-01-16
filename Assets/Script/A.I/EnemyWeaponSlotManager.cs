@@ -63,11 +63,16 @@ namespace DS
             if(isLeft)
             {
                 leftHandDamageCollider = leftHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
+                leftHandDamageCollider.teamIDNumber = _enemyStatsManager.teamIDNumber;
+
                 _enemyEffectsManager.leftWeaponFX = leftHandSlot.currentWeaponModel.GetComponentInChildren<WeaponFX>();
             }
             else
             {
                 rightHandDamageCollider = rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
+                rightHandDamageCollider.teamIDNumber = _enemyStatsManager.teamIDNumber;
+
+
                 _enemyEffectsManager.rightWeaponFX = rightHandSlot.currentWeaponModel.GetComponentInChildren<WeaponFX>();
             }
         }

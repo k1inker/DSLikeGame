@@ -13,6 +13,12 @@ namespace DS
         private PlayerEffectsManager _playerEffectsManager;
         private BlockingCollider _blockingCollider;
 
+        [Header("Attack Animations")]
+        private string OH_Light_Attack_1 = "1_Heavy_Light_attack_01";
+        private string OH_Light_Attack_2 = "1_Heavy_Light_attack_02";
+        private string OH_Heavy_Attack_1 = "1_Heavy_Heavy_attack_01";
+        private string OH_Heavy_Attack_2 = "1_Heavy_Heavy_attack_02";
+
         public string lastAttack;
         private void Awake()
         {
@@ -25,13 +31,22 @@ namespace DS
             _playerInvertoryManager = GetComponent<PlayerInvertoryManager>();
             _playerWeaponSlotManager = GetComponent<PlayerWeaponSlotManager>();
         }
-
-        #region Input Action
+        public void HandleRBAttack()
+        {
+            PerformRBMeleeAction();
+        }
         public void HandleLBAction()
         {
-            PerformLBBlockingAction();
+            if (_playerInvertoryManager.leftWeapon.weaponType == WeaponType.Shield)
+            {
+                PerformLBBlockingAction();
+            }
+            else if (_playerInvertoryManager.leftWeapon.weaponType == WeaponType.EasySword)
+            {
+                //do attack
+            }
         }
-        public void HandleRBAttack()
+        private void PerformRBMeleeAction()
         {
             if (_playerManager.canDoCombo)
             {
@@ -51,45 +66,6 @@ namespace DS
             }
             _playerEffectsManager.PlayWeaponFX(false);
         }
-        #endregion
-
-        #region Attack Actions
-        public void HandleWeaponCombo(WeaponItem weapon)
-        {
-            if ((weapon.baseStamina * weapon.lightAttackMultiplier) > _playerStatsManager.currentStamina)
-                return;
-            if (_inputHandler.comboFlag)
-            { 
-                _playerAnimatorManager.animator.SetBool("canDoCombo", false);
-                if (lastAttack == weapon.OH_Light_Attack_1)
-                {
-                    _playerAnimatorManager.PlayTargetAnimationWithRootMotion(weapon.OH_Light_Attack_2, true);
-                }
-            }
-        }
-        public void HandleLightAttack(WeaponItem weapon)
-        {
-            if ((weapon.baseStamina * weapon.lightAttackMultiplier) > _playerStatsManager.currentStamina)
-                return;
-            if (weapon == null)
-                return;
-            _playerWeaponSlotManager.attackingWeapon = weapon;
-            _playerAnimatorManager.PlayTargetAnimationWithRootMotion(weapon.OH_Light_Attack_1, true);
-            lastAttack = weapon.OH_Light_Attack_1;
-        }
-        public void HandleHeavyAttack(WeaponItem weapon)
-        {
-            if (weapon.baseStamina * weapon.heavyAttackMultiplier > _playerStatsManager.currentStamina)
-                return;
-            if (weapon == null)
-                return;
-            _playerWeaponSlotManager.attackingWeapon = weapon;
-            _playerAnimatorManager.PlayTargetAnimationWithRootMotion(weapon.OH_Heavy_Attack_1, true);
-            lastAttack = weapon.OH_Heavy_Attack_1;
-        }
-        #endregion
-
-        #region Defence Actions
         private void PerformLBBlockingAction()
         {
             if (_playerManager.isInteracting)
@@ -102,6 +78,42 @@ namespace DS
             _blockingCollider.EnableBlockingCollider();
             _playerManager.isBlocking = true;
         }
-        #endregion
+        public void HandleWeaponCombo(WeaponItem weapon)
+        {
+            if ((weapon.baseStamina * weapon.lightAttackMultiplier) > _playerStatsManager.currentStamina)
+                return;
+            if (_inputHandler.comboFlag)
+            { 
+                _playerAnimatorManager.animator.SetBool("canDoCombo", false);
+                if (lastAttack == OH_Light_Attack_1)
+                {
+                    _playerAnimatorManager.PlayTargetAnimationWithRootMotion(OH_Light_Attack_2, true);
+                }
+                else if(lastAttack == OH_Heavy_Attack_1)
+                {
+                    _playerAnimatorManager.PlayTargetAnimationWithRootMotion(OH_Heavy_Attack_2, true);
+                }
+            }
+        }
+        public void HandleLightAttack(WeaponItem weapon)
+        {
+            if ((weapon.baseStamina * weapon.lightAttackMultiplier) > _playerStatsManager.currentStamina)
+                return;
+            if (weapon == null)
+                return;
+            _playerWeaponSlotManager.attackingWeapon = weapon;
+            _playerAnimatorManager.PlayTargetAnimationWithRootMotion(OH_Light_Attack_1, true);
+            lastAttack = OH_Light_Attack_1;
+        }
+        public void HandleHeavyAttack(WeaponItem weapon)
+        {
+            if (weapon.baseStamina * weapon.heavyAttackMultiplier > _playerStatsManager.currentStamina)
+                return;
+            if (weapon == null)
+                return;
+            _playerWeaponSlotManager.attackingWeapon = weapon;
+            _playerAnimatorManager.PlayTargetAnimationWithRootMotion(OH_Heavy_Attack_1, true);
+            lastAttack = OH_Heavy_Attack_1;
+        }
     }
 }

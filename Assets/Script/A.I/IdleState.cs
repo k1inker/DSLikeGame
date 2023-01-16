@@ -17,14 +17,18 @@ namespace DS
             for (int i = 0; i < colliders.Length; i++)
             {
                 CharacterStatsManager characterStats = colliders[i].GetComponent<CharacterStatsManager>();
+                
                 if (characterStats != null)
                 {
-                    Vector3 targetDirection = characterStats.transform.position - enemyManager.transform.position;
-                    float viewableAngle = Vector3.Angle(targetDirection, enemyManager.transform.forward);
-
-                    if (viewableAngle > enemyManager.minimumDetectionAngle && viewableAngle < enemyManager.maximumDetectionAngle)
+                    if (characterStats.teamIDNumber != enemyStats.teamIDNumber)
                     {
-                        enemyManager.currentTarget = characterStats;
+                        Vector3 targetDirection = characterStats.transform.position - enemyManager.transform.position;
+                        float viewableAngle = Vector3.Angle(targetDirection, enemyManager.transform.forward);
+
+                        if (viewableAngle > enemyManager.minimumDetectionAngle && viewableAngle < enemyManager.maximumDetectionAngle)
+                        {
+                            enemyManager.currentTarget = characterStats;
+                        }
                     }
                 }
             }

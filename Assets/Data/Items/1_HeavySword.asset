@@ -15,14 +15,13 @@ MonoBehaviour:
   itemIcon: {fileID: 0}
   itemName: Heavy Sword
   modelPrefab: {fileID: 5577781858704980654, guid: 0b0a1f179f8d09447ad336f7ce91cc6b, type: 3}
+  weaponController: {fileID: 22100000, guid: 55f05a7fde2a4d14289a0d533cca0b88, type: 2}
+  offHandIdleAnimation: Right_Arm_Idle_Heavy
+  weaponType: 1
   baseDamage: 25
   criticalDamageMultiplier: 4
   poiseBreak: 25
   offensivePoiseBonus: 75
-  hold_idle: Right_Arm_Idle_Heavy
-  OH_Light_Attack_1: 1_Heavy_Light_attack_01
-  OH_Light_Attack_2: 1_Heavy_Light_attack_02
-  OH_Heavy_Attack_1: 
   baseStamina: 25
   lightAttackMultiplier: 1
   heavyAttackMultiplier: 2

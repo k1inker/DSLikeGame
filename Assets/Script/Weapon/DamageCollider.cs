@@ -4,11 +4,15 @@ namespace DS
 {
     public class DamageCollider : MonoBehaviour
     {
-        Collider damageCollider;
+        private Collider damageCollider;
+
+        [Header("Team I.D")]
+        public int teamIDNumber = 0;
 
         [Header("Poise")]
         public float poiseBreak;
         public float offensivePoiseBonus;
+
 
         [Header("Damage")]
         public int currentWeaponDamage = 25;
@@ -29,77 +33,47 @@ namespace DS
         }
         private void OnTriggerEnter(Collider collision)
         {
-            if(collision.tag == "Player")
+            if(collision.tag == "Character")
             {
-                PlayerStatsManager playerStats = collision.GetComponent<PlayerStatsManager>();
-                CharacterManager playerManager = collision.GetComponent<CharacterManager>();
+                CharacterStatsManager characterStatsManager = collision.GetComponent<CharacterStatsManager>();
+                CharacterManager characterManager = collision.GetComponent<CharacterManager>();
                 BlockingCollider shield = collision.transform.GetComponentInChildren<BlockingCollider>();
                 CharacterEffectsManager playerEffectsManager = collision.GetComponent <CharacterEffectsManager>();
 
-                if(playerManager != null)
+                if (characterStatsManager.teamIDNumber == teamIDNumber)
+                    return;
+
+                if(characterManager != null)
                 {
-                    if(shield != null && playerManager.isBlocking && playerStats != null)
+
+                    if(shield != null && characterManager.isBlocking && characterStatsManager != null)
                     {
-                        playerStats.TakeDamage(0, "Block Guard");
-                        if(playerStats.currentStamina <= 0)
-                        {
-                            playerStats.TakeDamage(0, "Destroy Block Guard");
-                        }
-                        playerStats.TakeStaminaDamage(15);
+                        characterStatsManager.TakeDamage(0, "Block Guard");
+                        //if(characterStatsManager.currentStamina <= 0)
+                        //{
+                        //    characterStatsManager.TakeDamage(0, "Destroy Block Guard");
+                        //}
+                        //characterStatsManager.TakeStaminaDamage(15);
                         return;
                     }
                 }
 
-                if(playerStats != null)
+                if(characterStatsManager != null)
                 {
-                    playerStats.poiseResetTimer = playerStats.totalPoiseResetTime;
-                    playerStats.currentPoiseDefence = playerStats.currentPoiseDefence - poiseBreak;
+                    characterStatsManager.poiseResetTimer = characterStatsManager.totalPoiseResetTime;
+                    characterStatsManager.currentPoiseDefence = characterStatsManager.currentPoiseDefence - poiseBreak;
 
                     Vector3 hitPoint = collision.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
                     playerEffectsManager.PlayBloodSplatterFX(hitPoint);
 
-                    if (playerStats.currentPoiseDefence > poiseBreak)
+                    if (characterStatsManager.currentPoiseDefence > poiseBreak)
                     {
-                        playerStats.TakeDamageNoAnimation(currentWeaponDamage);
+                        characterStatsManager.TakeDamageNoAnimation(currentWeaponDamage);
                     }
                     else
                     {
-                        playerStats.TakeDamage(currentWeaponDamage);
-                        playerStats.currentPoiseDefence = playerStats.totalPoiseDefence;
-                    }
-                }
-            }
-            if(collision.tag == "Enemy")
-            {
-                EnemyStatsManager enemyStats = collision.GetComponent<EnemyStatsManager>();
-                CharacterManager enemyManager = collision.GetComponent<CharacterManager>();
-                BlockingCollider shield = collision.transform.GetComponentInChildren<BlockingCollider>();
-                CharacterEffectsManager enemyEffectsManager = collision.GetComponent<CharacterEffectsManager>();
-
-                if (enemyManager != null)
-                {
-                    if (shield != null && enemyManager.isBlocking && enemyStats != null)
-                    {
-                        enemyStats.TakeDamage(0, "Block Guard");
-                        return;
-                    }
-                }
-                if (enemyStats != null)
-                {
-                    enemyStats.poiseResetTimer = enemyStats.totalPoiseResetTime;
-                    enemyStats.currentPoiseDefence = enemyStats.currentPoiseDefence - poiseBreak;
-
-                    Vector3 hitPoint = collision.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
-                    enemyEffectsManager.PlayBloodSplatterFX(hitPoint);
-
-                    if (enemyStats.currentPoiseDefence > poiseBreak)
-                    {
-                        enemyStats.TakeDamageNoAnimation(currentWeaponDamage);
-                    }
-                    else
-                    {
-                        enemyStats.TakeDamage(currentWeaponDamage);
-                        enemyStats.currentPoiseDefence = enemyStats.totalPoiseDefence;
+                        characterStatsManager.TakeDamage(currentWeaponDamage);
+                        characterStatsManager.currentPoiseDefence = characterStatsManager.totalPoiseDefence;
                     }
                 }
             }

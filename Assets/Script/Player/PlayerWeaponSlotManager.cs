@@ -8,16 +8,18 @@ namespace DS
 
         private Animator _animator;
         private PlayerManager _playerManager;
-        private PlayerInvertoryManager _playerInvertoryManager;
-        private PlayerEffectsManager _playerEffectsManager;
-
         private PlayerStatsManager _playerStatsManager;
+        private PlayerEffectsManager _playerEffectsManager;
+        private PlayerAnimatorManager _playerAnimatorManager;
+        private PlayerInvertoryManager _playerInvertoryManager;
+
         private void Awake()
         {
             _animator = GetComponent<Animator>();
             _playerManager = GetComponent<PlayerManager>();
             _playerStatsManager = GetComponent<PlayerStatsManager>();
-            _playerEffectsManager = GetComponent<PlayerEffectsManager>();   
+            _playerEffectsManager = GetComponent<PlayerEffectsManager>();
+            _playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
             _playerInvertoryManager = GetComponent<PlayerInvertoryManager>();
             LoadWeaponHolderSlots();
         }
@@ -43,21 +45,14 @@ namespace DS
             {
                 leftHandSlot.LoadWeaponModel(weaponItem);
                 LoadLeftWeaponDamageCollider();
+                _playerAnimatorManager.PlayTargetAnimation(weaponItem.offHandIdleAnimation, false, true);
             }
             else
             {
                 rightHandSlot.LoadWeaponModel(weaponItem);
                 LoadRightWeaponDamageCollider();
-                #region Handle Right Weapon Idle Animation
-                if (weaponItem != null)
-                {
-                    _animator.CrossFade(weaponItem.hold_idle, 0.2f);
-                }
-                else
-                {
-                    _animator.CrossFade("Right Arm Empty", 0.2f);
-                }
-                #endregion
+                _playerAnimatorManager.PlayTargetAnimation(weaponItem.offHandIdleAnimation, false, true);
+                _playerAnimatorManager.animator.runtimeAnimatorController = weaponItem.weaponController;
             }
         }
 
@@ -65,15 +60,23 @@ namespace DS
         private void LoadLeftWeaponDamageCollider()
         {
             leftHandDamageCollider = leftHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
+
             leftHandDamageCollider.currentWeaponDamage = _playerInvertoryManager.leftWeapon.baseDamage;
             leftHandDamageCollider.poiseBreak = _playerInvertoryManager.leftWeapon.poiseBreak;
+
+            leftHandDamageCollider.teamIDNumber = _playerStatsManager.teamIDNumber;
+
             _playerEffectsManager.leftWeaponFX = leftHandSlot.currentWeaponModel.GetComponentInChildren<WeaponFX>();
         }
         private void LoadRightWeaponDamageCollider()
         {
             rightHandDamageCollider = rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
+
             rightHandDamageCollider.currentWeaponDamage = _playerInvertoryManager.rightWeapon.baseDamage;
             rightHandDamageCollider.poiseBreak = _playerInvertoryManager.rightWeapon.poiseBreak;
+
+            rightHandDamageCollider.teamIDNumber = _playerStatsManager.teamIDNumber;
+
             _playerEffectsManager.rightWeaponFX = rightHandSlot.currentWeaponModel.GetComponentInChildren<WeaponFX>();
         }
         public void OpenDamageCollider()

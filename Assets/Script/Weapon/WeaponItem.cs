@@ -7,6 +7,13 @@ namespace DS
     {
         public GameObject modelPrefab;
 
+        [Header("Animator Replacer")]
+        public AnimatorOverrideController weaponController;
+        public string offHandIdleAnimation;
+
+        [Header("WeaponType")]
+        public WeaponType weaponType;
+
         [Header("Damage")]
         public int baseDamage = 25;
         public int criticalDamageMultiplier = 4;
@@ -14,14 +21,6 @@ namespace DS
         [Header("Poise")]
         public float poiseBreak;
         public float offensivePoiseBonus;
-
-        [Header("Idle Animations")]
-        public string hold_idle;
-
-        [Header("Attack Animations")]
-        public string OH_Light_Attack_1;
-        public string OH_Light_Attack_2;
-        public string OH_Heavy_Attack_1;
 
         [Header("Stamina Costs")]
         public int baseStamina;
