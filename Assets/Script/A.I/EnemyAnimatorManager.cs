@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace DS
 {
-    public class EnemyAnimatorManager : AnimatorManager
+    public class EnemyAnimatorManager : CharacterAnimatorManager
     {
         private EnemyManager _enemyManager;
         private EnemyBossManager _enemyBossManager;

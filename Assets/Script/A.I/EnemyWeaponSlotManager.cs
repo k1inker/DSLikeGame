@@ -19,33 +19,7 @@ namespace DS
         {
             LoadWeaponOnBothHands();
         }
-        private void LoadWeaponHolderSlots()
-        {
-            WeaponHolderSlot[] weaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
-            foreach (WeaponHolderSlot weaponSlot in weaponHolderSlots)
-            {
-                if (weaponSlot.isLeftHandSlot)
-                {
-                    leftHandSlot = weaponSlot;
-                }
-                else if (weaponSlot.isRightHandSlot)
-                {
-                    rightHandSlot = weaponSlot;
-                }
-            }
-        }
-        private void LoadWeaponOnBothHands()
-        {
-            if (rightHandWeapon != null)
-            {
-                LoadWeaponSlot(rightHandWeapon, false);
-            }
-            if (leftHandWeapon != null)
-            {
-                LoadWeaponSlot(leftHandWeapon, true);
-            }
-        }
-        public void LoadWeaponSlot(WeaponItem weapon, bool isLeft)
+        public override void LoadWeaponOnSlot(WeaponItem weapon, bool isLeft)
         {
             if (isLeft)
             {
@@ -76,14 +50,6 @@ namespace DS
                 _enemyEffectsManager.rightWeaponFX = rightHandSlot.currentWeaponModel.GetComponentInChildren<WeaponFX>();
             }
         }
-        public void OpenDamageCollider()
-        {
-            rightHandDamageCollider.EnableDamageCollider();
-        }
-        public void CloseDamageCollider()
-        {
-            rightHandDamageCollider.DisableDamageCollider();
-        }
         public void DrainStaminaLightAttack()
         {
 
@@ -107,6 +73,17 @@ namespace DS
         public void ResetWeaponAttackingPoiseBonus()
         {
             _enemyStatsManager.currentPoiseDefence = _enemyStatsManager.totalPoiseDefence;
+        }
+        private void LoadWeaponOnBothHands()
+        {
+            if (rightHandWeapon != null)
+            {
+                //LoadWeaponSlot(rightHandWeapon, false);
+            }
+            if (leftHandWeapon != null)
+            {
+                //LoadWeaponSlot(leftHandWeapon, true);
+            }
         }
     }
     

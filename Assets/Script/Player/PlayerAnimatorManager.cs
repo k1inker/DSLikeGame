@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DS
 {
-    public class PlayerAnimatorManager : AnimatorManager
+    public class PlayerAnimatorManager : CharacterAnimatorManager
     {
 
         private PlayerLocomotionManager _playerLocomotionManager;

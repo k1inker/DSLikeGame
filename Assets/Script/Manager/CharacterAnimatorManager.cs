@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DS
 {
-    public class AnimatorManager : MonoBehaviour
+    public class CharacterAnimatorManager : MonoBehaviour
     {
         public Animator animator;
         protected CharacterManager _characterManager;
