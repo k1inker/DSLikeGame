@@ -30,9 +30,10 @@ namespace DS
         private CameraHandler _cameraHandler;
         private PlayerManager _playerManager;
         private BlockingCollider _blockingCollider;
+        private PlayerStatsManager _playerStatsManager;
         private PlayerCombatManager _playerCombatManager;
         private PlayerAnimatorManager _playerAnimatorManager;
-        private PlayerInvertoryManager _playerInvertoryManager;
+        private PlayerWeaponSlotManager _playerWeaponSlotManager;
 
         [SerializeField] private VariableJoystick _joystick;
         [SerializeField] private FixedTouchScreen _vectorTouch;
@@ -46,7 +47,8 @@ namespace DS
             _playerCombatManager = GetComponent<PlayerCombatManager>();
             _playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
             _blockingCollider = GetComponentInChildren<BlockingCollider>();
-            _playerInvertoryManager = GetComponent<PlayerInvertoryManager>();
+            _playerWeaponSlotManager = GetComponent<PlayerWeaponSlotManager>();
+            _playerStatsManager = GetComponent<PlayerStatsManager>();
 
             _joystick = FindObjectOfType<VariableJoystick>();
             _cameraHandler = FindObjectOfType<CameraHandler>();
@@ -62,7 +64,7 @@ namespace DS
                 _inputActions.PlayerActions.RB.performed += i => rb_Input = true;
                 _inputActions.PlayerActions.LB.performed += i => lb_Input = true;
                 _inputActions.PlayerActions.LB.canceled += i => lb_Input = false;
-                //_inputActions.PlayerActions.RBH.performed += i => rbh_Input = true;
+                _inputActions.PlayerActions.RBH.performed += i => rbh_Input = true;
                 _inputActions.PlayerActions.A.performed += i => a_Input = true;
                 _inputActions.PlayerActions.LockOn.performed += i => lockOn_Input = true;
                 _inputActions.PlayerActions.LockOnTargetLeft.performed += i => lockOnLeft_Input = true;
@@ -86,6 +88,8 @@ namespace DS
         }
         public void TickInput(float delta)
         {
+            if (_playerStatsManager.isDead)
+                return;
             if(isJoystick)
                 MoveInputJoystick();
             else
@@ -102,15 +106,15 @@ namespace DS
 
         private void HandleCombatInput(float delta)
         {
-            if(rb_Input & _playerInvertoryManager.rightWeapon != null)
+            if(rb_Input & _playerWeaponSlotManager.rightWeapon != null)
             {
                 _playerCombatManager.HandleRBAttack();
             }
-            if(rbh_Input & _playerInvertoryManager.rightWeapon != null)
+            if(rbh_Input & _playerWeaponSlotManager.rightWeapon != null)
             {
                 if (_playerManager.isInteracting)
                     return;
-                //_playerCombatManager.HandleHeavyAttack(_playerInvertoryManager.rightWeapon);
+                _playerCombatManager.HandleHeavyAttack(_playerWeaponSlotManager.rightWeapon);
             }
             if(lb_Input)
             {

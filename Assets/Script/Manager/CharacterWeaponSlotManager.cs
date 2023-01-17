@@ -4,10 +4,15 @@ namespace DS
 {
     public class CharacterWeaponSlotManager : MonoBehaviour
     {
-        private CharacterManager _characterManager;
-        private CharacterStatsManager _characterStatsManager;
-        private CharacterEffectsManager _characterEffectsManager;
-        private CharacterAnimatorManager _characterAnimatorManager;
+        protected CharacterManager _characterManager;
+        protected CharacterStatsManager _characterStatsManager;
+        protected CharacterEffectsManager _characterEffectsManager;
+        protected CharacterAnimatorManager _characterAnimatorManager;
+
+        [Header("Weapons")]
+        public WeaponItem rightWeapon;
+        public WeaponItem leftWeapon;
+        public WeaponItem attackingWeapon;
 
         [Header("Weapon Slots")]
         public WeaponHolderSlot leftHandSlot;
@@ -16,12 +21,19 @@ namespace DS
         [Header("Weapon Collider")]
         public DamageCollider leftHandDamageCollider;
         public DamageCollider rightHandDamageCollider;
-        private void Awake()
+
+        protected virtual void Awake()
         {
             _characterManager = GetComponent<CharacterManager>();
             _characterStatsManager = GetComponent<CharacterStatsManager>();
             _characterEffectsManager = GetComponent<CharacterEffectsManager>();
             _characterAnimatorManager = GetComponent<CharacterAnimatorManager>();
+            LoadWeaponHolderSlots();
+            //LoadWeapon(rightWeapon, leftWeapon);
+        }
+        private void Start()
+        {
+            LoadWeapon(rightWeapon, leftWeapon);
         }
         protected virtual void LoadWeaponHolderSlots()
         {
@@ -38,7 +50,20 @@ namespace DS
                 }
             }
         }
-        public virtual void LoadWeaponOnSlot(WeaponItem weaponItem, bool isLeft)
+        public void LoadWeapon(WeaponItem weaponItemRight, WeaponItem weaponItemLeft)
+        {
+            if (weaponItemLeft != null)
+            {
+                leftWeapon = weaponItemLeft;
+                LoadWeaponOnSlots(weaponItemLeft, true);
+            }
+            if (weaponItemRight != null)
+            {
+                rightWeapon = weaponItemRight;
+                LoadWeaponOnSlots(weaponItemRight, false);
+            }
+        }
+        protected virtual void LoadWeaponOnSlots(WeaponItem weaponItem, bool isLeft)
         {
             if (isLeft)
             {
@@ -49,16 +74,16 @@ namespace DS
             {
                 rightHandSlot.LoadWeaponModel(weaponItem);
                 LoadRightWeaponDamageCollider();
-                _characterAnimatorManager.PlayTargetAnimation(weaponItem.offHandIdleAnimation, false, true);
                 _characterAnimatorManager.animator.runtimeAnimatorController = weaponItem.weaponController;
             }
+            _characterAnimatorManager.PlayTargetAnimation(weaponItem.offHandIdleAnimation, false, true);
         }   
         protected virtual void LoadLeftWeaponDamageCollider()
         {
             leftHandDamageCollider = leftHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
 
-            //leftHandDamageCollider.currentWeaponDamage = _playerInvertoryManager.leftWeapon.baseDamage;
-            //leftHandDamageCollider.poiseBreak = _playerInvertoryManager.leftWeapon.poiseBreak;
+            leftHandDamageCollider.currentWeaponDamage = leftWeapon.baseDamage;
+            leftHandDamageCollider.poiseBreak = leftWeapon.poiseBreak;
 
             leftHandDamageCollider.teamIDNumber = _characterStatsManager.teamIDNumber;
 
@@ -68,14 +93,14 @@ namespace DS
         {
             rightHandDamageCollider = rightHandSlot.currentWeaponModel.GetComponentInChildren<DamageCollider>();
 
-            //rightHandDamageCollider.currentWeaponDamage = _playerInvertoryManager.rightWeapon.baseDamage;
-            //rightHandDamageCollider.poiseBreak = _playerInvertoryManager.rightWeapon.poiseBreak;
+            rightHandDamageCollider.currentWeaponDamage = rightWeapon.baseDamage;
+            rightHandDamageCollider.poiseBreak = rightWeapon.poiseBreak;
 
             rightHandDamageCollider.teamIDNumber = _characterStatsManager.teamIDNumber;
 
             _characterEffectsManager.rightWeaponFX = rightHandSlot.currentWeaponModel.GetComponentInChildren<WeaponFX>();
         }
-        public void OpenDamageCollider()
+        protected virtual void OpenDamageCollider()
         {
             if (_characterManager.isUsingRightHand)
             {
@@ -86,7 +111,7 @@ namespace DS
                 leftHandDamageCollider.EnableDamageCollider();
             }
         }
-        public void CloseDamageCollider()
+        protected virtual void CloseDamageCollider()
         {
             if (rightHandDamageCollider != null)
             {
@@ -97,6 +122,33 @@ namespace DS
             {
                 leftHandDamageCollider?.DisableDamageCollider();
             }
+        }
+        public virtual void GrantWeaponAttackingPoiseBonus()
+        {
+            _characterStatsManager.currentPoiseDefence = _characterStatsManager.currentPoiseDefence + attackingWeapon.offensivePoiseBonus;
+        }
+        public virtual void ResetWeaponAttackingPoiseBonus()
+        {
+            _characterStatsManager.currentPoiseDefence = _characterStatsManager.totalPoiseDefence;
+        }
+        protected void LoadWeaponOnBothHands()
+        {
+            if (rightWeapon != null)
+            {
+                LoadWeaponOnSlots(rightWeapon, false);
+            }
+            if (leftWeapon != null)
+            {
+                LoadWeaponOnSlots(leftWeapon, true);
+            }
+        }
+        public virtual void DrainStaminaLightAttack()
+        {
+
+        }
+        public virtual void DrainStaminaHeavyAttack()
+        {
+
         }
     }
 }

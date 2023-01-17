@@ -64,9 +64,9 @@ namespace DS
             base.TakeDamageNoAnimation(damage);
             _healthBar.SetCurrentHealth(currentHealth);
         }
-        public void TakeStaminaDamage(float damage)
+        public override void TakeStaminaDamage(float damage)
         {
-            currentStamina = currentStamina - damage;
+            base.TakeStaminaDamage(damage);
             _staminaBar.SetCurrentStamina(currentStamina);   
         }
         public void RegenerateStamina()

@@ -15,6 +15,6 @@ namespace DS
         public float minimumAttackAngle = -35;
 
         public float minimumDistanceToAttack = 0;
-        public float maximumDistanceToAttack = 3;
+        public float maximumDistanceToAttack = 2;
     }
 }

@@ -73,6 +73,7 @@ namespace DS
         {
             currentHealth = 0;
             _enemyAnimatorManager.PlayTargetAnimation("Death", true);
+
             isDead = true;
         }
     }

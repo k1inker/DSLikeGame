@@ -46,12 +46,14 @@ namespace DS
             HandleRecoveryTimer();
             HandleStateMachine();
 
+            isUsingLeftHand = enemyAnimatorManager.animator.GetBool("isUsingLeftHand");
+            isUsingRightHand = enemyAnimatorManager.animator.GetBool("isUsingRightHand");
             isRotatingWithRootMotion = enemyAnimatorManager.animator.GetBool("isRotatingWithRootMotion");
             isInteracting = enemyAnimatorManager.animator.GetBool("isInteracting");
-            isPhaseShifting = enemyAnimatorManager.animator.GetBool("isPhaseShifting");
             isInvulnerable = enemyAnimatorManager.animator.GetBool("isInvulnerable");
             canDoCombo = enemyAnimatorManager.animator.GetBool("canDoCombo");
             canRotate = enemyAnimatorManager.animator.GetBool("canRotate");
+            isPhaseShifting = enemyAnimatorManager.animator.GetBool("isPhaseShifting");
             enemyAnimatorManager.animator.SetBool("isDead", _enemyStatsManager.isDead);
         }
         private void LateUpdate()

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d409179a241972448b1ba47b50fde3f, type: 3}
   m_Name: Attack 01
   m_EditorClassIdentifier: 
-  actionAnimation: 1_Heavy_Light_attack_01
+  actionAnimation: 1_Heavy_Light_attack_01 1
   canCombo: 1
   comboNextAction: {fileID: 11400000, guid: 811c93c653655844dbef0c41036f1ac9, type: 2}
   attackScore: 3

@@ -4,14 +4,13 @@ namespace DS
 {
     public class PlayerCombatManager : MonoBehaviour
     {
-        private PlayerAnimatorManager _playerAnimatorManager;
         private InputHandler _inputHandler;
-        private PlayerWeaponSlotManager _playerWeaponSlotManager;
         private PlayerManager _playerManager;
-        private PlayerInvertoryManager _playerInvertoryManager;
+        private BlockingCollider _blockingCollider;
         private PlayerStatsManager _playerStatsManager;
         private PlayerEffectsManager _playerEffectsManager;
-        private BlockingCollider _blockingCollider;
+        private PlayerAnimatorManager _playerAnimatorManager;
+        private PlayerWeaponSlotManager _playerWeaponSlotManager;
 
         [Header("Attack Animations")]
         private string OH_Light_Attack_1 = "1_Heavy_Light_attack_01";
@@ -28,20 +27,25 @@ namespace DS
             _playerEffectsManager = GetComponent<PlayerEffectsManager>();
             _blockingCollider = GetComponentInChildren<BlockingCollider>();
             _playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
-            _playerInvertoryManager = GetComponent<PlayerInvertoryManager>();
             _playerWeaponSlotManager = GetComponent<PlayerWeaponSlotManager>();
         }
         public void HandleRBAttack()
         {
+            if (_playerWeaponSlotManager.rightWeapon == null)
+                return;
+            
             PerformRBMeleeAction();
         }
         public void HandleLBAction()
         {
-            if (_playerInvertoryManager.leftWeapon.weaponType == WeaponType.Shield)
+            if(_playerWeaponSlotManager.leftWeapon == null)
+                return;
+
+            if (_playerWeaponSlotManager.leftWeapon.weaponType == WeaponType.Shield) 
             {
                 PerformLBBlockingAction();
             }
-            else if (_playerInvertoryManager.leftWeapon.weaponType == WeaponType.EasySword)
+            else if (_playerWeaponSlotManager.leftWeapon.weaponType == WeaponType.EasySword)
             {
                 //do attack
             }
@@ -51,7 +55,7 @@ namespace DS
             if (_playerManager.canDoCombo)
             {
                 _inputHandler.comboFlag = true;
-                HandleWeaponCombo(_playerInvertoryManager.rightWeapon);
+                HandleWeaponCombo(_playerWeaponSlotManager.rightWeapon);
                 _inputHandler.comboFlag = false;
             }
             else
@@ -62,7 +66,7 @@ namespace DS
                     return;
 
                 _playerAnimatorManager.animator.SetBool("isUsingRightHand", true);
-                HandleLightAttack(_playerInvertoryManager.rightWeapon);
+                HandleLightAttack(_playerWeaponSlotManager.rightWeapon);
             }
             _playerEffectsManager.PlayWeaponFX(false);
         }

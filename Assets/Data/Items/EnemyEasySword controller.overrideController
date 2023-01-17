@@ -6,8 +6,8 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: EasySword controller
-  m_Controller: {fileID: 9100000, guid: 0daf6eeb9d8c356438520a28ee229628, type: 2}
+  m_Name: EnemyEasySword controller
+  m_Controller: {fileID: 9100000, guid: 1284de8511d7d78449566a01f5d3238e, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: aa9b938c24cc1794ea3339c2bf5206ba, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: aa9b938c24cc1794ea3339c2bf5206ba, type: 2}

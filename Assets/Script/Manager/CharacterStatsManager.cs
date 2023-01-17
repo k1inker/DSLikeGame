@@ -33,7 +33,7 @@ namespace DS
         }
         public virtual void HandlePoiseResetTimer()
         {
-            if(poiseResetTimer > 0)
+            if (poiseResetTimer > 0)
             {
                 poiseResetTimer = poiseResetTimer - Time.deltaTime;
             }
@@ -55,6 +55,10 @@ namespace DS
         public virtual void TakeDamage(int damage, string damageAnimation = "Damage")
         {
             currentHealth = currentHealth - damage;
+        }
+        public virtual void TakeStaminaDamage(float damage)
+        {
+            currentStamina = currentStamina - damage;
         }
     }
 }

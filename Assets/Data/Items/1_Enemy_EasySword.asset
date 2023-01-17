@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d2c730d7a6005646a3ca94d49eaa4a7, type: 3}
-  m_Name: 1_EasySword
+  m_Name: 1_Enemy_EasySword
   m_EditorClassIdentifier: 
   itemIcon: {fileID: 0}
   itemName: Easy Sword
   modelPrefab: {fileID: 4870658549548040292, guid: e63761594266c894cb6804f0c1262e27, type: 3}
   weaponController: {fileID: 22100000, guid: 93d02c2c5179e9945be3df5783372f71, type: 2}
-  offHandIdleAnimation: 
+  offHandIdleAnimation: Left Arm Empty
   weaponType: 0
   baseDamage: 25
   criticalDamageMultiplier: 4

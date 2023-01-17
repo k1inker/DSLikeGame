@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1799346235
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1799346236}
+  m_Layer: 9
+  m_Name: Ovveride Right Hand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1799346236
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799346235}
+  m_LocalRotation: {x: 0.57860947, y: 0.00000017043187, z: -0.00000014310339, w: 0.8156048}
+  m_LocalPosition: {x: 0.11, y: 0.049, z: -0.031}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6371553475889165309}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 70.706, y: 0, z: 0}
 --- !u!1 &6371553474318164081
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,12 +959,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 709bc3732b12c344a836ad51779f10e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rightWeapon: {fileID: 11400000, guid: 216682d4235a50b4385933d5159f79f6, type: 2}
+  leftWeapon: {fileID: 0}
+  attackingWeapon: {fileID: 0}
   leftHandSlot: {fileID: 0}
   rightHandSlot: {fileID: 0}
   leftHandDamageCollider: {fileID: 0}
   rightHandDamageCollider: {fileID: 0}
-  rightHandWeapon: {fileID: 11400000, guid: 216682d4235a50b4385933d5159f79f6, type: 2}
-  leftHandWeapon: {fileID: 0}
 --- !u!114 &6371553474860930336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1902,6 +1934,7 @@ Transform:
   - {fileID: 6371553474807559785}
   - {fileID: 6371553475409319046}
   - {fileID: 6371553475518994309}
+  - {fileID: 1799346236}
   m_Father: {fileID: 6371553476034347073}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1917,7 +1950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71914c1d6ad628148abc88e70b6cbd86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentOverride: {fileID: 6371553475889165309}
+  parentOverride: {fileID: 1799346236}
   isLeftHandSlot: 0
   isRightHandSlot: 1
   currentWeaponModel: {fileID: 0}
