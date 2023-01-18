@@ -103,7 +103,6 @@ namespace DS
             if (space_Input)
                 rollFlag = true;
         }
-
         private void HandleCombatInput(float delta)
         {
             if(rb_Input & _playerWeaponSlotManager.rightWeapon != null)

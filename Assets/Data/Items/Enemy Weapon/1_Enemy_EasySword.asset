@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d2c730d7a6005646a3ca94d49eaa4a7, type: 3}
-  m_Name: Shield
+  m_Name: 1_Enemy_EasySword
   m_EditorClassIdentifier: 
   itemIcon: {fileID: 0}
-  itemName: Shield
-  modelPrefab: {fileID: 3737415715194810486, guid: 0950731404ef9e44f9a91ad2d5f12994, type: 3}
-  weaponController: {fileID: 22100000, guid: 92a8d5eeae22a764693a9972caa90e10, type: 2}
-  offHandIdleAnimation: Left Arm Empty
-  weaponType: 3
+  itemName: Easy Sword
+  modelPrefab: {fileID: 4870658549548040292, guid: e63761594266c894cb6804f0c1262e27, type: 3}
+  weaponController: {fileID: 22100000, guid: 93d02c2c5179e9945be3df5783372f71, type: 2}
+  offHandIdleAnimation: Right_Arm_Idle
+  weaponType: 0
   baseDamage: 25
   criticalDamageMultiplier: 4
-  poiseBreak: 0
+  poiseBreak: 20
   offensivePoiseBonus: 0
-  baseStamina: 0
-  lightAttackMultiplier: 0
-  heavyAttackMultiplier: 0
+  baseStamina: 15
+  lightAttackMultiplier: 1
+  heavyAttackMultiplier: 2

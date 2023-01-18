@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: HeavyKatana Controller
+  m_Controller: {fileID: 9100000, guid: 0daf6eeb9d8c356438520a28ee229628, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: d50c057bdf2ae204a9eeabdb004f0378, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 7c3bbae583e5e6c4b96b76a05954d4cb, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: f0610142987256a438b22685f40f0f92, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 91c178b1dae705f488c2f6c065214f8f, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 73814613df31c2e48935dfba0b6b550f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: c3a5a148ca2a94c41aec84ecdeab9fdc, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 4f2487a02392d644a9cf820fb7508e2e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d2fddf0b67b793940ba66284604f7add, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 089eaddb9335bac4795ae9ec8ece1a7b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 7b2b9c7a45b1b0142889d9c41084119c, type: 2}

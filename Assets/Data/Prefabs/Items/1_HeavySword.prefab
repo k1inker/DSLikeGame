@@ -69,15 +69,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5577781858275236473}
-  m_LocalRotation: {x: 0.32341245, y: -0.4069525, z: -0.4979387, w: 0.69415504}
-  m_LocalPosition: {x: 0.385, y: -0.914, z: 0.542}
+  m_LocalRotation: {x: 0.33771512, y: -0.39516363, z: -0.5223696, w: 0.67596173}
+  m_LocalPosition: {x: 0.334, y: -0.971, z: 0.456}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9179799383378554129}
   m_Father: {fileID: 5577781858704980653}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 2.506, y: -62.611, z: -72.83}
+  m_LocalEulerAnglesHint: {x: 2.506, y: -62.611, z: -76.916}
 --- !u!1 &5577781858704980654
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,6 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401b5b69b1bb73b48837b5e36c20f714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  teamIDNumber: 0
   poiseBreak: 0
   offensivePoiseBonus: 0
   currentWeaponDamage: 25

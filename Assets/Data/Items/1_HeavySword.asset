@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: Heavy Sword
   modelPrefab: {fileID: 5577781858704980654, guid: 0b0a1f179f8d09447ad336f7ce91cc6b, type: 3}
   weaponController: {fileID: 22100000, guid: 55f05a7fde2a4d14289a0d533cca0b88, type: 2}
-  offHandIdleAnimation: Right_Arm_Idle_Heavy
+  offHandIdleAnimation: Right_Arm_Idle
   weaponType: 1
   baseDamage: 25
   criticalDamageMultiplier: 4

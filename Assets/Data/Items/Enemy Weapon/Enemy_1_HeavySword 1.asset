@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d2c730d7a6005646a3ca94d49eaa4a7, type: 3}
-  m_Name: Shield
+  m_Name: Enemy_1_HeavySword 1
   m_EditorClassIdentifier: 
   itemIcon: {fileID: 0}
-  itemName: Shield
-  modelPrefab: {fileID: 3737415715194810486, guid: 0950731404ef9e44f9a91ad2d5f12994, type: 3}
-  weaponController: {fileID: 22100000, guid: 92a8d5eeae22a764693a9972caa90e10, type: 2}
-  offHandIdleAnimation: Left Arm Empty
-  weaponType: 3
+  itemName: Heavy Sword
+  modelPrefab: {fileID: 5577781858704980654, guid: 0b0a1f179f8d09447ad336f7ce91cc6b, type: 3}
+  weaponController: {fileID: 22100000, guid: ff3286b2eeba9754fad9f68fedf123f7, type: 2}
+  offHandIdleAnimation: Right_Arm_Idle
+  weaponType: 1
   baseDamage: 25
   criticalDamageMultiplier: 4
-  poiseBreak: 0
-  offensivePoiseBonus: 0
-  baseStamina: 0
-  lightAttackMultiplier: 0
-  heavyAttackMultiplier: 0
+  poiseBreak: 25
+  offensivePoiseBonus: 75
+  baseStamina: 25
+  lightAttackMultiplier: 1
+  heavyAttackMultiplier: 2

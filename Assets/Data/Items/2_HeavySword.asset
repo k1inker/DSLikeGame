@@ -15,8 +15,8 @@ MonoBehaviour:
   itemIcon: {fileID: 0}
   itemName: Heavy Katana
   modelPrefab: {fileID: 3268690295800217633, guid: de74834f3364813488d6be8d88dbb396, type: 3}
-  weaponController: {fileID: 0}
-  offHandIdleAnimation: 
+  weaponController: {fileID: 22100000, guid: b031520583d958a4fad099a338105807, type: 2}
+  offHandIdleAnimation: Two_Handle_Idle
   weaponType: 2
   baseDamage: 30
   criticalDamageMultiplier: 4

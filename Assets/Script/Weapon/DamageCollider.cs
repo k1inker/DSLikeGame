@@ -13,9 +13,10 @@ namespace DS
         public float poiseBreak;
         public float offensivePoiseBonus;
 
-
         [Header("Damage")]
         public int currentWeaponDamage = 25;
+
+        private bool _shieldHasBeenHit;
         private void Awake()
         {
             damageCollider = GetComponent<Collider>();
@@ -35,6 +36,8 @@ namespace DS
         {
             if(collision.tag == "Character")
             {
+                _shieldHasBeenHit = false;
+
                 CharacterStatsManager characterStatsManager = collision.GetComponent<CharacterStatsManager>();
                 CharacterManager characterManager = collision.GetComponent<CharacterManager>();
                 BlockingCollider shield = collision.transform.GetComponentInChildren<BlockingCollider>();
@@ -43,23 +46,12 @@ namespace DS
                 if (characterStatsManager.teamIDNumber == teamIDNumber)
                     return;
 
-                if(characterManager != null)
-                {
-
-                    if(shield != null && characterManager.isBlocking && characterStatsManager != null)
-                    {
-                        characterStatsManager.TakeDamage(0, "Block Guard");
-                        //if(characterStatsManager.currentStamina <= 0)
-                        //{
-                        //    characterStatsManager.TakeDamage(0, "Destroy Block Guard");
-                        //}
-                        //characterStatsManager.TakeStaminaDamage(15);
-                        return;
-                    }
-                }
+                CheckForBlock(characterManager, shield, characterStatsManager);
 
                 if(characterStatsManager != null)
                 {
+                    if(_shieldHasBeenHit)
+                        return;
                     characterStatsManager.poiseResetTimer = characterStatsManager.totalPoiseResetTime;
                     characterStatsManager.currentPoiseDefence = characterStatsManager.currentPoiseDefence - poiseBreak;
 
@@ -75,6 +67,23 @@ namespace DS
                         characterStatsManager.TakeDamage(currentWeaponDamage);
                         characterStatsManager.currentPoiseDefence = characterStatsManager.totalPoiseDefence;
                     }
+                }
+            }
+        }
+        private void CheckForBlock(CharacterManager characterManager, BlockingCollider shield, CharacterStatsManager characterStatsManager)
+        {
+            if (characterManager != null)
+            {
+                if (shield != null && characterManager.isBlocking && characterStatsManager != null)
+                {
+                    characterStatsManager.TakeDamage(0, "Block Guard");
+                    _shieldHasBeenHit = true;
+                    //if(characterStatsManager.currentStamina <= 0)
+                    //{
+                    //    characterStatsManager.TakeDamage(0, "Destroy Block Guard");
+                    //}
+                    //characterStatsManager.TakeStaminaDamage(15);
+                    return;
                 }
             }
         }
