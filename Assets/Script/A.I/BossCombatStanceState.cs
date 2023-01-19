@@ -7,14 +7,14 @@ namespace DS
         [Header("Second Phase Attacks")]
         [SerializeField] private EnemyAttackAction[] secondPhaseAttacks;
         public bool hasPhaseShifted;
-        protected override void GetNewAttack(EnemyManager enemyManager)
+        protected override void GetNewAttack(EnemyManager enemy)
         {
             if (hasPhaseShifted)
             {
-                Vector3 targetDirection = enemyManager.currentTarget.transform.position - transform.position;
+                Vector3 targetDirection = enemy.currentTarget.transform.position - transform.position;
 
-                float viewableAngle = Vector3.Angle(targetDirection, enemyManager.transform.forward);
-                float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
+                float viewableAngle = Vector3.Angle(targetDirection, enemy.transform.forward);
+                float distanceFromTarget = Vector3.Distance(enemy.currentTarget.transform.position, enemy.transform.position);
 
                 int maxScore = 0;
                 for (int i = 0; i < secondPhaseAttacks.Length; i++)
@@ -45,7 +45,7 @@ namespace DS
             }
             else
             {
-                base.GetNewAttack(enemyManager);
+                base.GetNewAttack(enemy);
             }
         }
     }

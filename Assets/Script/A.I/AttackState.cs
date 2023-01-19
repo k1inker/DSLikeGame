@@ -19,26 +19,26 @@ namespace DS
         /// set attack recovery timer 
         /// </summary>
         /// <returns>combat stance state</returns>
-        public override State Tick(EnemyManager enemyManager, EnemyStatsManager enemyStats, EnemyAnimatorManager enemyAnimatorManager)
+        public override State Tick(EnemyManager enemy)
         {
-            float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
+            float distanceFromTarget = Vector3.Distance(enemy.currentTarget.transform.position, enemy.transform.position);
 
-            RotateTowardsTargetWhilstAttacking(enemyManager);
+            RotateTowardsTargetWhilstAttacking(enemy);
 
-            if(distanceFromTarget > enemyManager.maximumAggroRadius)
+            if(distanceFromTarget > enemy.maximumAggroRadius)
             {
                 return pursueTargetState;
             }
 
-            if(_willDoCombo && enemyManager.canDoCombo)
+            if(_willDoCombo && enemy.canDoCombo)
             {
-                AttackTargetWithCombo(enemyAnimatorManager, enemyManager);
+                AttackTargetWithCombo(enemy);
                 
             }
             if(!hasPerformedAttack)
             {
-                AttackTarget(enemyAnimatorManager,enemyManager);
-                RollComboChance(enemyManager);
+                AttackTarget(enemy);
+                RollComboChance(enemy);
             }
             if(_willDoCombo && hasPerformedAttack)
             {
@@ -47,24 +47,24 @@ namespace DS
 
             return rotateTowardsTargetState;
         }
-        private void AttackTarget(EnemyAnimatorManager enemyAnimatorManager, EnemyManager enemyManager)
+        private void AttackTarget(EnemyManager enemy)
         {
-            enemyAnimatorManager.animator.SetBool("isUsingRightHand", currentAttack.isRightHandedAction);
-            enemyAnimatorManager.animator.SetBool("isUsingLeftHand", !currentAttack.isRightHandedAction);
-            enemyAnimatorManager.PlayTargetAnimation(currentAttack.actionAnimation, true);
-            enemyAnimatorManager.PlayWeaponTrailFX();
-            enemyManager.currentRecoveryTime = currentAttack.recoveryTime;
+            enemy.animator.SetBool("isUsingRightHand", currentAttack.isRightHandedAction);
+            enemy.animator.SetBool("isUsingLeftHand", !currentAttack.isRightHandedAction);
+            enemy.enemyAnimatorManager.PlayTargetAnimation(currentAttack.actionAnimation, true);
+            enemy.enemyAnimatorManager.PlayWeaponTrailFX();
+            enemy.currentRecoveryTime = currentAttack.recoveryTime;
             hasPerformedAttack = true;
         }
-        private void AttackTargetWithCombo(EnemyAnimatorManager enemyAnimatorManager, EnemyManager enemyManager)
+        private void AttackTargetWithCombo(EnemyManager enemy)
         {
-            enemyAnimatorManager.animator.SetBool("isUsingRightHand", currentAttack.isRightHandedAction);
-            enemyAnimatorManager.animator.SetBool("isUsingLeftHand", !currentAttack.isRightHandedAction);
+            enemy.animator.SetBool("isUsingRightHand", currentAttack.isRightHandedAction);
+            enemy.animator.SetBool("isUsingLeftHand", !currentAttack.isRightHandedAction);
 
             _willDoCombo = false;
-            enemyAnimatorManager.PlayTargetAnimation(currentAttack.actionAnimation, true);
-            enemyAnimatorManager.PlayWeaponTrailFX();
-            enemyManager.currentRecoveryTime = currentAttack.recoveryTime;
+            enemy.enemyAnimatorManager.PlayTargetAnimation(currentAttack.actionAnimation, true);
+            enemy.enemyAnimatorManager.PlayWeaponTrailFX();
+            enemy.currentRecoveryTime = currentAttack.recoveryTime;
             currentAttack = null;
         }
         private void RollComboChance(EnemyManager enemyManager)
@@ -84,7 +84,6 @@ namespace DS
                 }
             }
         }
-
         private void RotateTowardsTargetWhilstAttacking(EnemyManager enemyManager)
         {
             //Rotate manualy
@@ -105,28 +104,6 @@ namespace DS
             //Rotate with navmesh
             else
             {
-                //enemyManager.navmeshAgent.enabled = true;
-                //enemyManager.navmeshAgent.SetDestination(enemyManager.currentTarget.transform.position);
-
-                //float rotationToApplyToDynamicEnemy = Quaternion.Angle(enemyManager.transform.rotation, Quaternion.LookRotation(enemyManager.navmeshAgent.desiredVelocity.normalized));
-                //if (distanceFromTarget > 5) enemyManager.navmeshAgent.angularSpeed = 500f;
-                //else if (distanceFromTarget < 5 && Mathf.Abs(rotationToApplyToDynamicEnemy) < 30) enemyManager.navmeshAgent.angularSpeed = 50f;
-                //else if (distanceFromTarget < 5 && Mathf.Abs(rotationToApplyToDynamicEnemy) > 30) enemyManager.navmeshAgent.angularSpeed = 500f;
-
-                //Vector3 targetDirection = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
-                //Quaternion rotationToApplyToStaticEnemy = Quaternion.LookRotation(targetDirection);
-
-
-                //if (enemyManager.navmeshAgent.desiredVelocity.magnitude > 0)
-                //{
-                //    enemyManager.navmeshAgent.updateRotation = false;
-                //    enemyManager.transform.rotation = Quaternion.RotateTowards(enemyManager.transform.rotation,
-                //    Quaternion.LookRotation(enemyManager.navmeshAgent.desiredVelocity.normalized), enemyManager.navmeshAgent.angularSpeed * Time.deltaTime);
-                //}
-                //else
-                //{
-                //    enemyManager.transform.rotation = Quaternion.RotateTowards(enemyManager.transform.rotation, rotationToApplyToStaticEnemy, enemyManager.navmeshAgent.angularSpeed * Time.deltaTime);
-                //}
                 Vector3 relativeDirection = transform.InverseTransformDirection(enemyManager.navmeshAgent.desiredVelocity);
                 Vector3 targetVelocity = enemyManager.enemyRigidbody.velocity;
 

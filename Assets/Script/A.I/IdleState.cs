@@ -10,24 +10,24 @@ namespace DS
         /// if target is found switch to the Pursue state 
         /// </summary>
         /// <returns>if target not found return this state</returns>
-        public override State Tick(EnemyManager enemyManager, EnemyStatsManager enemyStats, EnemyAnimatorManager enemyAnimatorManager)
+        public override State Tick(EnemyManager enemy)
         {
             #region Handle Enemy Target Detection
-            Collider[] colliders = Physics.OverlapSphere(enemyManager.transform.position, enemyManager.detectionRadius, _detectionLayer);
+            Collider[] colliders = Physics.OverlapSphere(enemy.transform.position, enemy.detectionRadius, _detectionLayer);
             for (int i = 0; i < colliders.Length; i++)
             {
                 CharacterStatsManager characterStats = colliders[i].GetComponent<CharacterStatsManager>();
                 
                 if (characterStats != null)
                 {
-                    if (characterStats.teamIDNumber != enemyStats.teamIDNumber)
+                    if (characterStats.teamIDNumber != enemy.enemyStatsManager.teamIDNumber)
                     {
-                        Vector3 targetDirection = characterStats.transform.position - enemyManager.transform.position;
-                        float viewableAngle = Vector3.Angle(targetDirection, enemyManager.transform.forward);
+                        Vector3 targetDirection = characterStats.transform.position - enemy.transform.position;
+                        float viewableAngle = Vector3.Angle(targetDirection, enemy.transform.forward);
 
-                        if (viewableAngle > enemyManager.minimumDetectionAngle && viewableAngle < enemyManager.maximumDetectionAngle)
+                        if (viewableAngle > enemy.minimumDetectionAngle && viewableAngle < enemy.maximumDetectionAngle)
                         {
-                            enemyManager.currentTarget = characterStats;
+                            enemy.currentTarget = characterStats;
                         }
                     }
                 }
@@ -35,7 +35,7 @@ namespace DS
             #endregion
 
             #region Handle Switching Next State
-            if (enemyManager.currentTarget != null)
+            if (enemy.currentTarget != null)
             {
                 return pursueTargetState;
             }

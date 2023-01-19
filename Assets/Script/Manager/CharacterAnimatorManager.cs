@@ -5,61 +5,56 @@ namespace DS
 {
     public class CharacterAnimatorManager : MonoBehaviour
     {
-        public Animator animator;
-        protected CharacterManager _characterManager;
-        protected CharacterStatsManager _characterStatsManager;
-        public bool canRotate = true;
+        protected CharacterManager _character;
         protected virtual void Awake()
         {
-            animator = GetComponent<Animator>();
-            _characterManager = GetComponent<CharacterManager>();
-            _characterStatsManager = GetComponent<CharacterStatsManager>();
+            _character = GetComponent<CharacterManager>();
         }
         public void PlayTargetAnimation(string targetAnim, bool isInteracting, bool canRotate = false)
         {
-            animator.applyRootMotion = isInteracting;
-            animator.SetBool("canRotate", canRotate);
-            animator.SetBool("isInteracting", isInteracting);
-            animator.CrossFade(targetAnim, 0.2f);
+            _character.animator.applyRootMotion = isInteracting;
+            _character.animator.SetBool("canRotate", canRotate);
+            _character.animator.SetBool("isInteracting", isInteracting);
+            _character.animator.CrossFade(targetAnim, 0.2f);
         }
         public void PlayTargetAnimationWithRootMotion(string targetAnim, bool isInteracting)
         {
-            animator.applyRootMotion = isInteracting;
-            animator.SetBool("canRotate", false);
-            animator.SetBool("isInteracting", isInteracting);
-            animator.SetBool("rootPosit", true);
-            animator.CrossFade(targetAnim, 0.2f);
+            _character.animator.applyRootMotion = isInteracting;
+            _character.animator.SetBool("canRotate", false);
+            _character.animator.SetBool("isInteracting", isInteracting);
+            _character.animator.SetBool("rootPosit", true);
+            _character.animator.CrossFade(targetAnim, 0.2f);
         }
         public void PlayTargetAnimationWithRootRotation(string targetAnim, bool isInteracting)
         {
-            animator.applyRootMotion = isInteracting;
-            animator.SetBool("isRotatingWithRootMotion", true);
-            animator.SetBool("isInteracting", isInteracting);
-            animator.CrossFade(targetAnim, 0.2f);
+            _character.animator.applyRootMotion = isInteracting;
+            _character.animator.SetBool("isRotatingWithRootMotion", true);
+            _character.animator.SetBool("isInteracting", isInteracting);
+            _character.animator.CrossFade(targetAnim, 0.2f);
         }
         public virtual void CanRotate()
         {
-            animator.SetBool("canRotate", true);
+            _character.animator.SetBool("canRotate", true);
         }
         public virtual void StopRotation()
         {
-            animator.SetBool("canRotate", false);
+            _character.animator.SetBool("canRotate", false);
         }
         public virtual void EnableCombo()
         {
-            animator.SetBool("canDoCombo", true);
+            _character.animator.SetBool("canDoCombo", true);
         }
         public virtual void DisableCombo()
         {
-            animator.SetBool("canDoCombo", false);
+            _character.animator.SetBool("canDoCombo", false);
         }
         public virtual void EnableInvulnerable()
         {
-            animator.SetBool("isInvulnerable", true);
+            _character.animator.SetBool("isInvulnerable", true);
         }
         public virtual void DisableInvulnerable()
         {
-            animator.SetBool("isInvulnerable", false);
+            _character.animator.SetBool("isInvulnerable", false);
         }
     }
 }

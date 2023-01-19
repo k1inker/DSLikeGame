@@ -5,14 +5,16 @@ namespace DS
 {
     public class EnemyManager : CharacterManager
     {
-        private EnemyStatsManager _enemyStatsManager;
 
         [SerializeField] private State currentState;
 
-        public EnemyAnimatorManager enemyAnimatorManager;
-        public NavMeshAgent navmeshAgent;
-        public CharacterStatsManager currentTarget;
         public Rigidbody enemyRigidbody;
+        public NavMeshAgent navmeshAgent;
+        public EnemyBossManager enemyBossManager;
+        public EnemyStatsManager enemyStatsManager;
+        public CharacterStatsManager currentTarget;
+        public EnemyEffectsManager enemyEffectsManager;
+        public EnemyAnimatorManager enemyAnimatorManager;
 
         [Header("A.I Setting")]
         public float detectionRadius = 10;
@@ -29,12 +31,15 @@ namespace DS
         public float minimumDetectionAngle = -50;
 
         public float currentRecoveryTime = 0;
-        private void Awake()
+        protected override void Awake()
         {
-            enemyAnimatorManager = GetComponent<EnemyAnimatorManager>();
-            _enemyStatsManager = GetComponent<EnemyStatsManager>();
-            navmeshAgent = GetComponentInChildren<NavMeshAgent>();
+            base.Awake();
             enemyRigidbody = GetComponent<Rigidbody>();
+            enemyBossManager = GetComponent<EnemyBossManager>();
+            enemyStatsManager = GetComponent<EnemyStatsManager>();
+            navmeshAgent = GetComponentInChildren<NavMeshAgent>();
+            enemyEffectsManager = GetComponent<EnemyEffectsManager>();
+            enemyAnimatorManager = GetComponent<EnemyAnimatorManager>();
             navmeshAgent.enabled = false;
         }
         private void Start()
@@ -46,15 +51,16 @@ namespace DS
             HandleRecoveryTimer();
             HandleStateMachine();
 
-            isUsingLeftHand = enemyAnimatorManager.animator.GetBool("isUsingLeftHand");
-            isUsingRightHand = enemyAnimatorManager.animator.GetBool("isUsingRightHand");
-            isRotatingWithRootMotion = enemyAnimatorManager.animator.GetBool("isRotatingWithRootMotion");
-            isInteracting = enemyAnimatorManager.animator.GetBool("isInteracting");
-            isInvulnerable = enemyAnimatorManager.animator.GetBool("isInvulnerable");
-            canDoCombo = enemyAnimatorManager.animator.GetBool("canDoCombo");
-            canRotate = enemyAnimatorManager.animator.GetBool("canRotate");
-            isPhaseShifting = enemyAnimatorManager.animator.GetBool("isPhaseShifting");
-            enemyAnimatorManager.animator.SetBool("isDead", _enemyStatsManager.isDead);
+            isUsingLeftHand = animator.GetBool("isUsingLeftHand");
+            isUsingRightHand = animator.GetBool("isUsingRightHand");
+            isRotatingWithRootMotion = animator.GetBool("isRotatingWithRootMotion");
+            isInteracting = animator.GetBool("isInteracting");
+            isInvulnerable = animator.GetBool("isInvulnerable");
+            canDoCombo = animator.GetBool("canDoCombo");
+            canRotate = animator.GetBool("canRotate");
+            isPhaseShifting = animator.GetBool("isPhaseShifting");
+
+            animator.SetBool("isDead", isDead);
         }
         private void LateUpdate()
         {
@@ -65,7 +71,7 @@ namespace DS
         {
             if(currentState != null)
             {
-                State nextState = currentState.Tick(this, _enemyStatsManager, enemyAnimatorManager);
+                State nextState = currentState.Tick(this);
                 if(nextState != null)
                 {
                     SwitchToNextState(nextState);

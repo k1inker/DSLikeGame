@@ -1,20 +1,13 @@
 ﻿using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace DS
 {
     public class PlayerLocomotionManager : MonoBehaviour
     {
-        private PlayerManager _playerManager;
-        private Transform _cameraObject;
-        private InputHandler _inputHandler;
-        private CameraHandler _cameraHandler;
-        private PlayerStatsManager _playerStatsManager;
+        private PlayerManager _player;
 
         public Vector3 moveDirection;
-        private Transform _selfTransform;
-
-        private PlayerAnimatorManager _playerAnimatorManager;
-
         public new Rigidbody rigidbody;
         public GameObject normalCamera;
 
@@ -29,19 +22,11 @@ namespace DS
         [SerializeField] private float _rollStaminaCost = 15f;
         private void Awake()
         {
-            _cameraHandler = FindObjectOfType<CameraHandler>();
-            _playerManager = GetComponent<PlayerManager>();
-            _inputHandler = GetComponent<InputHandler>();
-            _playerStatsManager = GetComponent<PlayerStatsManager>();
+            _player = GetComponent<PlayerManager>();
             rigidbody = GetComponent<Rigidbody>();
-            _playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
         }
         private void Start()
         {
-            
-            _cameraObject = Camera.main.transform;
-            _selfTransform = transform;
-
             Physics.IgnoreCollision(_characterCollider, _characterCollisionBlockerCollied, true);
         }
 
@@ -50,13 +35,13 @@ namespace DS
         private Vector3 _targetPosition;
         public void HandelMovement(float delta)
         {
-            if (_inputHandler.rollFlag)
+            if (_player.inputHandler.rollFlag)
                 return;
-            if (_playerManager.isInteracting)
+            if (_player.isInteracting)
                 return;
             setMoveDirection();
 
-            if (_inputHandler.moveAmount <= 0.52)
+            if (_player.inputHandler.moveAmount <= 0.52)
             {
                 rigidbody.velocity = ProjectedVelocity(_movementSpeed / 2);
             }
@@ -65,36 +50,36 @@ namespace DS
                 rigidbody.velocity = ProjectedVelocity(_movementSpeed);
             }
 
-            if (_inputHandler.lockOnFlag)
-                _playerAnimatorManager.UpdateAnimatorValues(_inputHandler.vertical, _inputHandler.horizontal);
+            if (_player.inputHandler.lockOnFlag)
+                _player.playerAnimatorManager.UpdateAnimatorValues(_player.inputHandler.vertical, _player.inputHandler.horizontal);
             else
-                _playerAnimatorManager.UpdateAnimatorValues(_inputHandler.moveAmount, 0);
+                _player.playerAnimatorManager.UpdateAnimatorValues(_player.inputHandler.moveAmount, 0);
         }
 
         public void HandleRolling(float delta)
         {
-            if (_playerManager.isInteracting)
+            if (_player.isInteracting)
                 return;
-            if (_playerStatsManager.currentStamina < _rollStaminaCost)
+            if (_player.playerStatsManager.currentStamina < _rollStaminaCost)
                 return;
 
-            if(_inputHandler.rollFlag)
+            if(_player.inputHandler.rollFlag)
             {
                 setMoveDirection();
 
-                _playerAnimatorManager.PlayTargetAnimation("Rolling", true);
+                _player.playerAnimatorManager.PlayTargetAnimation("Rolling", true);
                 float rollSpeed = _movementSpeed * 2f;
                 Quaternion rotation;
                 if (moveDirection != Vector3.zero)
                 {
                     rotation = Quaternion.LookRotation(moveDirection);
                     rigidbody.velocity = ProjectedVelocity(rollSpeed);
-                    _selfTransform.rotation = rotation;
-                    _playerStatsManager.TakeStaminaDamage(_rollStaminaCost);
+                    _player.transform.rotation = rotation;
+                    _player.playerStatsManager.TakeStaminaDamage(_rollStaminaCost);
                 }
                 else
                 {
-                    moveDirection = _selfTransform.forward;
+                    moveDirection = _player.transform.forward;
 
                     rigidbody.velocity = ProjectedVelocity(rollSpeed);
                 }
@@ -103,15 +88,15 @@ namespace DS
         }
         public void HandleRotation(float delta)
         {
-            if (_playerAnimatorManager.canRotate)
+            if (_player.canRotate)
             {
-                if (_inputHandler.lockOnFlag)
+                if (_player.inputHandler.lockOnFlag)
                 {
-                    if (_inputHandler.rollFlag)
+                    if (_player.inputHandler.rollFlag)
                     {
                         Vector3 targetDirection = Vector2.zero;
-                        targetDirection = _cameraHandler.cameraTransform.forward * _inputHandler.vertical;
-                        targetDirection = _cameraHandler.cameraTransform.right * _inputHandler.horizontal;
+                        targetDirection = _player.cameraHandler.cameraTransform.forward * _player.inputHandler.vertical;
+                        targetDirection = _player.cameraHandler.cameraTransform.right * _player.inputHandler.horizontal;
                         targetDirection.Normalize();
                         targetDirection.y = 0;
 
@@ -127,7 +112,7 @@ namespace DS
                     else
                     {
                         Vector3 rotationDirection = moveDirection;
-                        rotationDirection = _cameraHandler.currentLockOnTarget.transform.position - transform.position;
+                        rotationDirection = _player.cameraHandler.currentLockOnTarget.transform.position - transform.position;
                         rotationDirection.y = 0;
                         rotationDirection.Normalize();
 
@@ -139,22 +124,22 @@ namespace DS
                 else
                 {
                     Vector3 targetDir = Vector3.zero;
-                    float moveOverride = _inputHandler.moveAmount;
+                    float moveOverride = _player.inputHandler.moveAmount;
 
-                    targetDir = _cameraObject.forward * _inputHandler.vertical;
-                    targetDir += _cameraObject.right * _inputHandler.horizontal;
+                    targetDir = _player.cameraHandler.cameraTransform.forward * _player.inputHandler.vertical;
+                    targetDir += _player.cameraHandler.cameraTransform.right * _player.inputHandler.horizontal;
 
                     targetDir.Normalize();
                     targetDir.y = 0;
 
                     if (targetDir == Vector3.zero)
-                        targetDir = _selfTransform.forward;
+                        targetDir = _player.transform.forward;
 
                     float rs = _rotationSpeed;
 
                     Quaternion buffTransform = Quaternion.LookRotation(targetDir);
-                    Quaternion targetRotation = Quaternion.Slerp(_selfTransform.rotation, buffTransform, rs * delta);
-                    _selfTransform.rotation = targetRotation;
+                    Quaternion targetRotation = Quaternion.Slerp(_player.transform.rotation, buffTransform, rs * delta);
+                    _player.transform.rotation = targetRotation;
                 }
             }
         }
@@ -167,8 +152,8 @@ namespace DS
         }
         private void setMoveDirection()
         {
-            moveDirection = _cameraObject.forward * _inputHandler.vertical;
-            moveDirection += _cameraObject.right * _inputHandler.horizontal;
+            moveDirection = _player.cameraHandler.cameraTransform.forward * _player.inputHandler.vertical;
+            moveDirection += _player.cameraHandler.cameraTransform.right * _player.inputHandler.horizontal;
             moveDirection.Normalize();
             moveDirection.y = 0;
         }

@@ -6,16 +6,16 @@ namespace DS
     {
         [SerializeField] private UIEnemyHealthBar _enemyHealthBar;
 
-        private EnemyAnimatorManager _enemyAnimatorManager;
-        public EnemyBossManager enemyBossManager;
+        private EnemyManager _enemy;
 
         public bool isBoss;
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _enemyHealthBar = FindObjectOfType<UIEnemyHealthBar>();
 
-            _enemyAnimatorManager = GetComponent<EnemyAnimatorManager>();
-            enemyBossManager = GetComponent<EnemyBossManager>();
+            _enemy = GetComponent<EnemyManager>();
+
             maxHealth = SetMaxHealthFromHealthLevel();
             currentHealth = maxHealth;
         }
@@ -37,9 +37,9 @@ namespace DS
             {
                 _enemyHealthBar.SetHealth(currentHealth);
             }
-            else if(isBoss && enemyBossManager != null)
+            else if(isBoss && _enemy.enemyBossManager != null)
             {
-                enemyBossManager.UpdateBossHealthBar(currentHealth, maxHealth);
+                _enemy.enemyBossManager.UpdateBossHealthBar(currentHealth, maxHealth);
             }
             if (currentHealth <= 0)
             {
@@ -48,7 +48,7 @@ namespace DS
         }
         public override void TakeDamage(int damage, string damageAnimation = "Damage")
         {
-            if (isDead)
+            if (_enemy.isDead)
                 return;
             base.TakeDamage(damage, damageAnimation = "Damage");
 
@@ -56,12 +56,12 @@ namespace DS
             {
                 _enemyHealthBar.SetHealth(currentHealth);
             }
-            else if(isBoss && enemyBossManager != null)
+            else if(isBoss && _enemy.enemyBossManager != null)
             {
-                enemyBossManager.UpdateBossHealthBar(currentHealth, maxHealth);
+                _enemy.enemyBossManager.UpdateBossHealthBar(currentHealth, maxHealth);
             }
 
-            _enemyAnimatorManager.PlayTargetAnimationWithRootMotion(damageAnimation, true);
+            _enemy.enemyAnimatorManager.PlayTargetAnimationWithRootMotion(damageAnimation, true);
 
             if (currentHealth <= 0)
             {
@@ -72,9 +72,9 @@ namespace DS
         private void HandleDeath()
         {
             currentHealth = 0;
-            _enemyAnimatorManager.PlayTargetAnimation("Death", true);
+            _enemy.enemyAnimatorManager.PlayTargetAnimation("Death", true);
 
-            isDead = true;
+            _enemy.isDead = true;
         }
     }
 }

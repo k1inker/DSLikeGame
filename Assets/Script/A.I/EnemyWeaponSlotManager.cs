@@ -6,11 +6,11 @@ namespace DS
     {
         public override void GrantWeaponAttackingPoiseBonus()
         {
-            _characterStatsManager.currentPoiseDefence = _characterStatsManager.currentPoiseDefence + _characterStatsManager.offensivePoiseBonus;
+            _character.characterStatsManager.currentPoiseDefence = _character.characterStatsManager.currentPoiseDefence + _character.characterStatsManager.offensivePoiseBonus;
         }
         public override void ResetWeaponAttackingPoiseBonus()
         {
-            _characterStatsManager.currentPoiseDefence = _characterStatsManager.totalPoiseDefence;
+            _character.characterStatsManager.currentPoiseDefence = _character.characterStatsManager.totalPoiseDefence;
         }
     }
     

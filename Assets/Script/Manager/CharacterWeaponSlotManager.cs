@@ -4,10 +4,7 @@ namespace DS
 {
     public class CharacterWeaponSlotManager : MonoBehaviour
     {
-        protected CharacterManager _characterManager;
-        protected CharacterStatsManager _characterStatsManager;
-        protected CharacterEffectsManager _characterEffectsManager;
-        protected CharacterAnimatorManager _characterAnimatorManager;
+        protected CharacterManager _character;
 
         [Header("Weapons")]
         public WeaponItem rightWeapon;
@@ -24,12 +21,8 @@ namespace DS
 
         protected virtual void Awake()
         {
-            _characterManager = GetComponent<CharacterManager>();
-            _characterStatsManager = GetComponent<CharacterStatsManager>();
-            _characterEffectsManager = GetComponent<CharacterEffectsManager>();
-            _characterAnimatorManager = GetComponent<CharacterAnimatorManager>();
+            _character = GetComponent<CharacterManager>();
             LoadWeaponHolderSlots();
-            //LoadWeapon(rightWeapon, leftWeapon);
         }
         private void Start()
         {
@@ -69,14 +62,14 @@ namespace DS
             {
                 leftHandSlot.LoadWeaponModel(weaponItem);
                 LoadLeftWeaponDamageCollider();
-                _characterAnimatorManager.PlayTargetAnimation(weaponItem.offHandIdleAnimation, false, true);
+                _character.characterAnimatorManager.PlayTargetAnimation(weaponItem.offHandIdleAnimation, false, true);
             }
             else
             {
                 rightHandSlot.LoadWeaponModel(weaponItem);
                 LoadRightWeaponDamageCollider();
-                _characterAnimatorManager.animator.runtimeAnimatorController = weaponItem.weaponController;
-                _characterAnimatorManager.PlayTargetAnimation(weaponItem.offHandIdleAnimation, false, true);
+                _character.animator.runtimeAnimatorController = weaponItem.weaponController;
+                _character.characterAnimatorManager.PlayTargetAnimation(weaponItem.offHandIdleAnimation, false, true);
             }
         }   
         protected virtual void LoadLeftWeaponDamageCollider()
@@ -86,9 +79,9 @@ namespace DS
             leftHandDamageCollider.currentWeaponDamage = leftWeapon.baseDamage;
             leftHandDamageCollider.poiseBreak = leftWeapon.poiseBreak;
 
-            leftHandDamageCollider.teamIDNumber = _characterStatsManager.teamIDNumber;
+            leftHandDamageCollider.teamIDNumber = _character.characterStatsManager.teamIDNumber;
 
-            _characterEffectsManager.leftWeaponFX = leftHandSlot.currentWeaponModel.GetComponentInChildren<WeaponFX>();
+            _character.characterEffectsManager.leftWeaponFX = leftHandSlot.currentWeaponModel.GetComponentInChildren<WeaponFX>();
         }
         protected virtual void LoadRightWeaponDamageCollider()
         {
@@ -97,17 +90,17 @@ namespace DS
             rightHandDamageCollider.currentWeaponDamage = rightWeapon.baseDamage;
             rightHandDamageCollider.poiseBreak = rightWeapon.poiseBreak;
 
-            rightHandDamageCollider.teamIDNumber = _characterStatsManager.teamIDNumber;
+            rightHandDamageCollider.teamIDNumber = _character.characterStatsManager.teamIDNumber;
 
-            _characterEffectsManager.rightWeaponFX = rightHandSlot.currentWeaponModel.GetComponentInChildren<WeaponFX>();
+            _character.characterEffectsManager.rightWeaponFX = rightHandSlot.currentWeaponModel.GetComponentInChildren<WeaponFX>();
         }
         protected virtual void OpenDamageCollider()
         {
-            if (_characterManager.isUsingRightHand)
+            if (_character.isUsingRightHand)
             {
                 rightHandDamageCollider.EnableDamageCollider();
             }
-            else if (_characterManager.isUsingLeftHand)
+            else if (_character.isUsingLeftHand)
             {
                 leftHandDamageCollider.EnableDamageCollider();
             }
@@ -126,11 +119,11 @@ namespace DS
         }
         public virtual void GrantWeaponAttackingPoiseBonus()
         {
-            _characterStatsManager.currentPoiseDefence = _characterStatsManager.currentPoiseDefence + attackingWeapon.offensivePoiseBonus;
+            _character.characterStatsManager.currentPoiseDefence = _character.characterStatsManager.currentPoiseDefence + attackingWeapon.offensivePoiseBonus;
         }
         public virtual void ResetWeaponAttackingPoiseBonus()
         {
-            _characterStatsManager.currentPoiseDefence = _characterStatsManager.totalPoiseDefence;
+            _character.characterStatsManager.currentPoiseDefence = _character.characterStatsManager.totalPoiseDefence;
         }
         protected void LoadWeaponOnBothHands()
         {

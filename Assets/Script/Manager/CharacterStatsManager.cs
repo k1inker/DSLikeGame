@@ -4,6 +4,8 @@ namespace DS
 {
     public class CharacterStatsManager : MonoBehaviour
     {
+        private CharacterManager _characterManager;
+
         [Header("Team I.D")]
         public int teamIDNumber = 0;
 
@@ -21,8 +23,10 @@ namespace DS
         public float offensivePoiseBonus;
         public float totalPoiseResetTime = 15;
         public float poiseResetTimer = 0;
-
-        public bool isDead = false;
+        protected virtual void Awake()
+        {
+            _characterManager = GetComponent<CharacterManager>();
+        }
         private void Start()
         {
             currentPoiseDefence = totalPoiseDefence;
@@ -44,16 +48,16 @@ namespace DS
         }
         public virtual void TakeDamageNoAnimation(int damage)
         {
-            currentHealth -= damage;
+            if (_characterManager.isDead)
+                return;
 
-            if (currentHealth <= 0)
-            {
-                currentHealth = 0;
-                isDead = true;
-            }
+            currentHealth -= damage;
         }
         public virtual void TakeDamage(int damage, string damageAnimation = "Damage")
         {
+            if (_characterManager.isDead)
+                return;
+
             currentHealth = currentHealth - damage;
         }
         public virtual void TakeStaminaDamage(float damage)

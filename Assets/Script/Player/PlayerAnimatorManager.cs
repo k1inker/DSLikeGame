@@ -1,19 +1,19 @@
 using TMPro;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace DS
 {
     public class PlayerAnimatorManager : CharacterAnimatorManager
     {
-
-        private PlayerLocomotionManager _playerLocomotionManager;
+        private PlayerManager _player;
         private int _vertical;
         private int _horizontal;
 
         protected override void Awake()
         {
             base.Awake();
-            _playerLocomotionManager = GetComponent<PlayerLocomotionManager>();
+            _player = GetComponent<PlayerManager>();
             _vertical = Animator.StringToHash("Vertical");
             _horizontal = Animator.StringToHash("Horizontal");
         }
@@ -39,21 +39,21 @@ namespace DS
             else valueHorizontal = 0;
             #endregion
 
-            animator.SetFloat(_vertical, valueVertical, 0.1f, Time.deltaTime);
-            animator.SetFloat(_horizontal, valueHorizontal, 0.1f, Time.deltaTime);
+            _player.animator.SetFloat(_vertical, valueVertical, 0.1f, Time.deltaTime);
+            _player.animator.SetFloat(_horizontal, valueHorizontal, 0.1f, Time.deltaTime);
         }
         private void OnAnimatorMove()
         {
-            if (animator.GetBool("isInteracting") && !animator.GetBool("rootPosit"))
+            if (_player.animator.GetBool("isInteracting") && !_player.animator.GetBool("rootPosit"))
             {
                 return;
             }
 
-            _playerLocomotionManager.rigidbody.drag = 0;
-            Vector3 deltaPosition = animator.deltaPosition;
+            _player.playerLocomotionManager.rigidbody.drag = 0;
+            Vector3 deltaPosition = _player.animator.deltaPosition;
             deltaPosition.y = 0;
             Vector3 velocity = deltaPosition / Time.deltaTime;
-            _playerLocomotionManager.rigidbody.velocity = velocity;
+            _player.playerLocomotionManager.rigidbody.velocity = velocity;
         }
     }
 }

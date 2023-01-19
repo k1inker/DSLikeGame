@@ -5,74 +5,87 @@ namespace DS
 {
     public class PlayerManager : CharacterManager 
     {
-        private InputHandler _inputHandler;
-        private PlayerLocomotionManager _playerLocomotionManager;
-        private Animator _animator;
-        private CameraHandler _cameraHandler;
-        private InteractableUI _interactableUI;
-        private PlayerStatsManager _playerStatsManager;
-        private PlayerAnimatorManager _playerAnimatorManager;
+        [Header("Player")]
+        public InputHandler inputHandler;
+        public PlayerStatsManager playerStatsManager;
+        public PlayerCombatManager playerCombatManager;
+        public PlayerAnimatorManager playerAnimatorManager;
+        public PlayerLocomotionManager playerLocomotionManager;
+        public PlayerWeaponSlotManager playerWeaponSlotManager;
+        public PlayerEffectsManager playerEffectsManager;
+
+        [Header("Camera")]
+        public CameraHandler cameraHandler;
         
+        [Header("Colliders")]
+        public BlockingCollider blockingCollider;
+
+        [Header("Interactable")]
+        private InteractableUI _interactableUI;
         public GameObject interactableUIGameObject;
 
-        private void Awake()
+        protected override void Awake()
         {
-            _cameraHandler = FindObjectOfType<CameraHandler>();
+            base.Awake();
+            cameraHandler = FindObjectOfType<CameraHandler>();
             _interactableUI = FindObjectOfType<InteractableUI>();
             interactableUIGameObject = _interactableUI.transform.GetChild(0).gameObject;
 
-            _inputHandler = GetComponent<InputHandler>();
-            _animator = GetComponent<Animator>();
-            _playerLocomotionManager = GetComponent<PlayerLocomotionManager>();
-            _playerStatsManager = GetComponent<PlayerStatsManager>();
-            _playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
+            inputHandler = GetComponent<InputHandler>();
+            playerStatsManager = GetComponent<PlayerStatsManager>();
+            playerCombatManager = GetComponent<PlayerCombatManager>();
+            playerEffectsManager = GetComponent<PlayerEffectsManager>();
+            playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
+            playerLocomotionManager = GetComponent<PlayerLocomotionManager>();
+            playerWeaponSlotManager = GetComponent<PlayerWeaponSlotManager>();
+            blockingCollider = GetComponentInChildren<BlockingCollider>();
         }
         private void Update()
         {
             float delta = Time.deltaTime;
 
-            isInteracting = _animator.GetBool("isInteracting");
-            canDoCombo = _animator.GetBool("canDoCombo");
-            isUsingLeftHand = _animator.GetBool("isUsingLeftHand");
-            isUsingRightHand = _animator.GetBool("isUsingRightHand");
-            isInvulnerable = _animator.GetBool("isInvulnerable");
-            _playerAnimatorManager.canRotate = _animator.GetBool("canRotate");
+            isInteracting = animator.GetBool("isInteracting");
+            canDoCombo = animator.GetBool("canDoCombo");
+            isUsingLeftHand = animator.GetBool("isUsingLeftHand");
+            isUsingRightHand = animator.GetBool("isUsingRightHand");
+            isInvulnerable = animator.GetBool("isInvulnerable");
+            canRotate = animator.GetBool("canRotate");
 
-            _animator.SetBool("isDead", _playerStatsManager.isDead);
-            _animator.SetBool("isBlocking", isBlocking);
+            animator.SetBool("isDead", isDead);
+            animator.SetBool("isBlocking", isBlocking);
 
-            _inputHandler.rollFlag = false;
+            inputHandler.rollFlag = false;
 
-            _inputHandler.TickInput(delta);
-            _playerLocomotionManager.HandleRolling(delta);
-            _playerStatsManager.RegenerateStamina();
+            inputHandler.TickInput(delta);
+            playerLocomotionManager.HandleRolling(delta);
+            playerStatsManager.RegenerateStamina();
             
             CheckForInteractableObject();   
         }
         private void FixedUpdate()
         {
             float delta = Time.deltaTime;
-            _playerLocomotionManager.HandelMovement(delta);
-            _playerLocomotionManager.HandleRotation(delta);
+            playerLocomotionManager.HandelMovement(delta);
+            playerLocomotionManager.HandleRotation(delta);
         }
         private void LateUpdate()
         {
             float delta = Time.deltaTime;
-            _inputHandler.space_Input = false;
-            _inputHandler.rb_Input = false;
-            _inputHandler.rbh_Input = false;
-            _inputHandler.a_Input = false;
-            if (_cameraHandler != null)
+            inputHandler.space_Input = false;
+            inputHandler.rb_Input = false;
+            inputHandler.rbh_Input = false;
+            inputHandler.a_Input = false;
+            if (cameraHandler != null)
             {
-                _cameraHandler.FollowTarget(delta);
-                _cameraHandler.HandleCameraRotation(delta, _inputHandler.mouseX, _inputHandler.mouseY);
+                cameraHandler.FollowTarget(delta);
+                cameraHandler.HandleCameraRotation(delta, inputHandler.mouseX, inputHandler.mouseY);
             }
         }
 
         public void CheckForInteractableObject()
         {
             RaycastHit hit;
-            if(Physics.SphereCast(transform.position, 0.3f,transform.forward, out hit,1f, _cameraHandler.ignoreLayers))
+            if(Physics.SphereCast(transform.position, 0.3f,transform.forward, out hit,1f, cameraHandler.ignoreLayers))
             {
                 if(hit.collider.tag == "Interactable")
                 {
@@ -82,7 +95,7 @@ namespace DS
                         string interactableText = interactableObject.interactableText;
                         _interactableUI.interactableText.text = interactableText;
                         interactableUIGameObject.SetActive(true);
-                        if (_inputHandler.a_Input)
+                        if (inputHandler.a_Input)
                         {
                             hit.collider.GetComponent<Interactable>().Interact(this);
                         }

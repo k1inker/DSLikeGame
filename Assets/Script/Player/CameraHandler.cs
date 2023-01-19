@@ -11,7 +11,6 @@ namespace DS
         public Transform cameraPivotTransform;
         public LayerMask ignoreLayers;
 
-
         private PlayerManager _playerManager;
         private InputHandler _inputHandler;
         private Transform _selfTransform;

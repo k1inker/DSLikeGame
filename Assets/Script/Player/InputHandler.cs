@@ -4,6 +4,13 @@ namespace DS
 {
     public class InputHandler : MonoBehaviour
     {
+
+        [SerializeField] private VariableJoystick _joystick;
+        [SerializeField] private FixedTouchScreen _vectorTouch;
+        
+        private PlayerControls _inputActions;
+        private PlayerManager _player;
+
         [Header("Input system")]
         public bool isJoystick = false;
 
@@ -26,32 +33,14 @@ namespace DS
         public bool lockOnRight_Input;
         public bool lockOnLeft_Input;
 
-        private PlayerControls _inputActions;
-        private CameraHandler _cameraHandler;
-        private PlayerManager _playerManager;
-        private BlockingCollider _blockingCollider;
-        private PlayerStatsManager _playerStatsManager;
-        private PlayerCombatManager _playerCombatManager;
-        private PlayerAnimatorManager _playerAnimatorManager;
-        private PlayerWeaponSlotManager _playerWeaponSlotManager;
-
-        [SerializeField] private VariableJoystick _joystick;
-        [SerializeField] private FixedTouchScreen _vectorTouch;
-
         private Vector2 _movementInput;
         private Vector2 _cameraInput;
 
         private void Awake()
         {
-            _playerManager = GetComponent<PlayerManager>();
-            _playerCombatManager = GetComponent<PlayerCombatManager>();
-            _playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
-            _blockingCollider = GetComponentInChildren<BlockingCollider>();
-            _playerWeaponSlotManager = GetComponent<PlayerWeaponSlotManager>();
-            _playerStatsManager = GetComponent<PlayerStatsManager>();
+            _player = GetComponent<PlayerManager>();
 
             _joystick = FindObjectOfType<VariableJoystick>();
-            _cameraHandler = FindObjectOfType<CameraHandler>();
         }
         private void OnEnable() 
         {
@@ -88,7 +77,7 @@ namespace DS
         }
         public void TickInput(float delta)
         {
-            if (_playerStatsManager.isDead)
+            if (_player.isDead)
                 return;
             if(isJoystick)
                 MoveInputJoystick();
@@ -105,26 +94,26 @@ namespace DS
         }
         private void HandleCombatInput(float delta)
         {
-            if(rb_Input & _playerWeaponSlotManager.rightWeapon != null)
+            if(rb_Input & _player.playerWeaponSlotManager.rightWeapon != null)
             {
-                _playerCombatManager.HandleRBAttack();
+                _player.playerCombatManager.HandleRBAttack();
             }
-            if(rbh_Input & _playerWeaponSlotManager.rightWeapon != null)
+            if(rbh_Input & _player.playerWeaponSlotManager.rightWeapon != null)
             {
-                if (_playerManager.isInteracting)
+                if (_player.isInteracting)
                     return;
-                _playerCombatManager.HandleHeavyAttack(_playerWeaponSlotManager.rightWeapon);
+                _player.playerCombatManager.HandleHeavyAttack(_player.playerWeaponSlotManager.rightWeapon);
             }
             if(lb_Input)
             {
-                _playerCombatManager.HandleLBAction();
+                _player.playerCombatManager.HandleLBAction();
             }
             else
             {
-                _playerManager.isBlocking = false;
-                if(_blockingCollider.blockingCollider.enabled)
+                _player.isBlocking = false;
+                if(_player.blockingCollider.blockingCollider.enabled)
                 {
-                    _blockingCollider.DisableBlockingCollider();
+                    _player.blockingCollider.DisableBlockingCollider();
                 }
             }
         }
@@ -133,10 +122,10 @@ namespace DS
             if(lockOn_Input && !lockOnFlag)
             {
                 lockOn_Input = false;
-                _cameraHandler.HandleLockOn();
-                if(_cameraHandler.nearestLockOnTarget != null)
+                _player.cameraHandler.HandleLockOn();
+                if(_player.cameraHandler.nearestLockOnTarget != null)
                 {
-                    _cameraHandler.currentLockOnTarget = _cameraHandler.nearestLockOnTarget;
+                    _player.cameraHandler.currentLockOnTarget = _player.cameraHandler.nearestLockOnTarget;
                     lockOnFlag = true;
                 }
             }
@@ -144,27 +133,27 @@ namespace DS
             {
                 lockOn_Input = false;
                 lockOnFlag = false;
-                _cameraHandler.ClearLockOnTargets();
+                _player.cameraHandler.ClearLockOnTargets();
             }
             if(lockOnFlag && lockOnLeft_Input)
             {
                 lockOnLeft_Input = false;
-                _cameraHandler.HandleLockOn();
-                if(_cameraHandler.leftLockTarget != null)
+                _player.cameraHandler.HandleLockOn();
+                if(_player.cameraHandler.leftLockTarget != null)
                 {
-                    _cameraHandler.currentLockOnTarget = _cameraHandler.leftLockTarget;
+                    _player.cameraHandler.currentLockOnTarget = _player.cameraHandler.leftLockTarget;
                 }
             }
             if(lockOnFlag && lockOnRight_Input)
             {
                 lockOnRight_Input = false;
-                _cameraHandler.HandleLockOn();
-                if(_cameraHandler.rightLockTarget != null)
+                _player.cameraHandler.HandleLockOn();
+                if(_player.cameraHandler.rightLockTarget != null)
                 {
-                    _cameraHandler.currentLockOnTarget = _cameraHandler.rightLockTarget;
+                    _player.cameraHandler.currentLockOnTarget = _player.cameraHandler.rightLockTarget;
                 }
             }
-            _cameraHandler.SetCameraHeight();
+            _player.cameraHandler.SetCameraHeight();
         }
 
         #region Handle Mobile Inputs

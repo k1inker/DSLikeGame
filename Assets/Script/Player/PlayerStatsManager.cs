@@ -5,21 +5,20 @@ namespace DS
 {
     public class PlayerStatsManager : CharacterStatsManager
     {
+        private PlayerManager _player;
+       
         private HealthBar _healthBar;
         private StaminaBar _staminaBar;
 
-        private PlayerAnimatorManager _playerAnimatorManager;
-        private PlayerManager _playerManager;
-
         private float _staminaRegenAmount = 30;
         private float _staminaRegenTimer = 0;
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _healthBar = FindObjectOfType<HealthBar>();
             _staminaBar = FindObjectOfType<StaminaBar>();
 
-            _playerManager = GetComponent<PlayerManager>();
-            _playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
+            _player = GetComponent<PlayerManager>();
         }
         private void Start()
         {
@@ -44,19 +43,19 @@ namespace DS
         }
         public override void TakeDamage(int damage, string damageAnimation = "Damage")
         {
-            if (_playerManager.isInvulnerable)
+            if (_player.isInvulnerable)
                 return;
-            if (isDead)
+            if (_player.isDead)
                 return;
             base.TakeDamage(damage, damageAnimation = "Damage");
             _healthBar.SetCurrentHealth(currentHealth);
-            _playerAnimatorManager.PlayTargetAnimationWithRootMotion(damageAnimation, true);
+            _player.playerAnimatorManager.PlayTargetAnimationWithRootMotion(damageAnimation, true);
 
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
-                isDead = true;
-                _playerAnimatorManager.PlayTargetAnimationWithRootMotion("Death", true);
+                _player.isDead = true;
+                _player.playerAnimatorManager.PlayTargetAnimationWithRootMotion("Death", true);
             }
         }
         public override void TakeDamageNoAnimation(int damage)
@@ -71,7 +70,7 @@ namespace DS
         }
         public void RegenerateStamina()
         {
-            if(_playerManager.isInteracting)
+            if(_player.isInteracting)
             {
                 _staminaRegenTimer = 0;
             }
@@ -91,7 +90,7 @@ namespace DS
             {
                 poiseResetTimer = poiseResetTimer - Time.deltaTime;
             }
-            else if(poiseResetTimer <= 0 && !_playerManager.isInteracting)
+            else if(poiseResetTimer <= 0 && !_player.isInteracting)
             {
                 currentPoiseDefence = totalPoiseDefence;
             }
