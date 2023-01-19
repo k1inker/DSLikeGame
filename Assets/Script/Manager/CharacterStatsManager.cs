@@ -52,6 +52,7 @@ namespace DS
                 return;
 
             currentHealth -= damage;
+            _characterManager.characterSFXManager.PlayRandomDamageSFX();
         }
         public virtual void TakeDamage(int damage, string damageAnimation = "Damage")
         {
@@ -59,6 +60,7 @@ namespace DS
                 return;
 
             currentHealth = currentHealth - damage;
+            _characterManager.characterSFXManager.PlayRandomDamageSFX();
         }
         public virtual void TakeStaminaDamage(float damage)
         {

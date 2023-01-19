@@ -9,10 +9,10 @@ namespace DS
         public InputHandler inputHandler;
         public PlayerStatsManager playerStatsManager;
         public PlayerCombatManager playerCombatManager;
+        public PlayerEffectsManager playerEffectsManager;
         public PlayerAnimatorManager playerAnimatorManager;
         public PlayerLocomotionManager playerLocomotionManager;
         public PlayerWeaponSlotManager playerWeaponSlotManager;
-        public PlayerEffectsManager playerEffectsManager;
 
         [Header("Camera")]
         public CameraHandler cameraHandler;
@@ -71,9 +71,9 @@ namespace DS
         private void LateUpdate()
         {
             float delta = Time.deltaTime;
-            inputHandler.space_Input = false;
-            inputHandler.rb_Input = false;
-            inputHandler.rbh_Input = false;
+            inputHandler._space_Input = false;
+            inputHandler.tap_rb_Input = false;
+            inputHandler.hold_rbh_Input = false;
             inputHandler.a_Input = false;
             if (cameraHandler != null)
             {

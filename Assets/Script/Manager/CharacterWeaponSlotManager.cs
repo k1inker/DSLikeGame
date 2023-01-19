@@ -96,6 +96,8 @@ namespace DS
         }
         protected virtual void OpenDamageCollider()
         {
+            _character.characterSFXManager.PlayRandomWeaponWhoosh();
+
             if (_character.isUsingRightHand)
             {
                 rightHandDamageCollider.EnableDamageCollider();

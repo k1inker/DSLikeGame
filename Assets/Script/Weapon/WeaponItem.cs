@@ -26,5 +26,8 @@ namespace DS
         public int baseStamina;
         public float lightAttackMultiplier;
         public float heavyAttackMultiplier;
+
+        [Header("SFX")]
+        public AudioClip[] weaponWhooshes;
     }
 }

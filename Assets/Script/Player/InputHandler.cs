@@ -24,9 +24,9 @@ namespace DS
         public bool comboFlag;
         public bool lockOnFlag;
 
-        public bool space_Input;
-        public bool rb_Input;
-        public bool rbh_Input;
+        public bool _space_Input;
+        public bool tap_rb_Input;
+        public bool hold_rbh_Input;
         public bool lb_Input;
         public bool a_Input;
         public bool lockOn_Input;
@@ -49,16 +49,19 @@ namespace DS
                 _inputActions = new PlayerControls();
                 _inputActions.PlayerMovement.Movement.performed += inputActions => _movementInput = inputActions.ReadValue<Vector2>();
                 _inputActions.PlayerMovement.Camera.performed += i => _cameraInput = i.ReadValue<Vector2>();
-                _inputActions.PlayerActions.Roll.performed += i => space_Input = true;
-                _inputActions.PlayerActions.RB.performed += i => rb_Input = true;
+                _inputActions.PlayerActions.Roll.performed += i => _space_Input = true;
+                _inputActions.PlayerActions.RB.performed += i => tap_rb_Input = true;
+
                 _inputActions.PlayerActions.LB.performed += i => lb_Input = true;
                 _inputActions.PlayerActions.LB.canceled += i => lb_Input = false;
-                _inputActions.PlayerActions.RBH.performed += i => rbh_Input = true;
+
+                _inputActions.PlayerActions.RBH.performed += i => hold_rbh_Input = true;
+                _inputActions.PlayerActions.RBH.canceled += i => hold_rbh_Input = false;
+
                 _inputActions.PlayerActions.A.performed += i => a_Input = true;
                 _inputActions.PlayerActions.LockOn.performed += i => lockOn_Input = true;
                 _inputActions.PlayerActions.LockOnTargetLeft.performed += i => lockOnLeft_Input = true;
                 _inputActions.PlayerActions.LockOnTargetRight.performed += i => lockOnRight_Input = true;
-
             }
 
             _inputActions.Enable();
@@ -89,16 +92,16 @@ namespace DS
         }
         private void HandleRollInput(float delta)
         {
-            if (space_Input)
+            if (_space_Input)
                 rollFlag = true;
         }
         private void HandleCombatInput(float delta)
         {
-            if(rb_Input & _player.playerWeaponSlotManager.rightWeapon != null)
+            if(tap_rb_Input & _player.playerWeaponSlotManager.rightWeapon != null)
             {
                 _player.playerCombatManager.HandleRBAttack();
             }
-            if(rbh_Input & _player.playerWeaponSlotManager.rightWeapon != null)
+            if(hold_rbh_Input & _player.playerWeaponSlotManager.rightWeapon != null)
             {
                 if (_player.isInteracting)
                     return;
@@ -171,11 +174,11 @@ namespace DS
         }
         public void ClickAttack()
         {
-            rb_Input = true;
+            tap_rb_Input = true;
         }
         public void ClickRoll()
         {
-            space_Input = true;
+            _space_Input = true;
         }
         public void ClickLockOn()
         {

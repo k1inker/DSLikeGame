@@ -313,8 +313,6 @@ GameObject:
   - component: {fileID: 6043397868222534443}
   - component: {fileID: 1041890825892287466}
   - component: {fileID: 1041890825892287469}
-  - component: {fileID: 1041890825892287477}
-  - component: {fileID: 1041890825892287468}
   - component: {fileID: 1041890825892287471}
   - component: {fileID: 1041890825892287470}
   - component: {fileID: 1041890825892287473}
@@ -322,6 +320,7 @@ GameObject:
   - component: {fileID: 1041890825892287475}
   - component: {fileID: 1041890825892287474}
   - component: {fileID: 6632851799119795744}
+  - component: {fileID: 607173668559547282}
   m_Layer: 11
   m_Name: Player
   m_TagString: Character
@@ -397,51 +396,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &1041890825892287477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1041890825892287467}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ccca0c1a3719d440a7ece1811376d6a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isJoystick: 0
-  horizontal: 0
-  vertical: 0
-  moveAmount: 0
-  mouseX: 0
-  mouseY: 0
-  rollFlag: 0
-  comboFlag: 0
-  lockOnFlag: 0
-  space_Input: 0
-  rb_Input: 0
-  rbh_Input: 0
-  lb_Input: 0
-  a_Input: 0
-  lockOn_Input: 0
-  lockOnRight_Input: 0
-  lockOnLeft_Input: 0
-  _joystick: {fileID: 0}
-  _vectorTouch: {fileID: 0}
---- !u!114 &1041890825892287468
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1041890825892287467}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f6ca30bf50585e45be0a1eb93c0f677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rightWeapon: {fileID: 11400000, guid: a9a60e17b95806c489f462ad52a99bd0, type: 2}
-  leftWeapon: {fileID: 11400000, guid: 81508d96a468c75458e80229b9b0161a, type: 2}
 --- !u!114 &1041890825892287471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -454,6 +408,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 125067f1635942249a3fa5a5582f7564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  characterAnimatorManager: {fileID: 0}
+  characterWeaponSlotManager: {fileID: 0}
+  characterEffectsManager: {fileID: 0}
+  characterStatsManager: {fileID: 0}
   lockOnTransform: {fileID: 792651360}
   isInvulnerable: 0
   canDoCombo: 0
@@ -462,7 +421,17 @@ MonoBehaviour:
   isBlocking: 0
   isRotatingWithRootMotion: 0
   canRotate: 0
+  isDead: 0
   isInteracting: 0
+  inputHandler: {fileID: 0}
+  playerStatsManager: {fileID: 0}
+  playerCombatManager: {fileID: 0}
+  playerAnimatorManager: {fileID: 0}
+  playerLocomotionManager: {fileID: 0}
+  playerWeaponSlotManager: {fileID: 0}
+  playerEffectsManager: {fileID: 0}
+  cameraHandler: {fileID: 0}
+  blockingCollider: {fileID: 0}
   interactableUIGameObject: {fileID: 0}
 --- !u!114 &1041890825892287470
 MonoBehaviour:
@@ -508,7 +477,6 @@ MonoBehaviour:
   offensivePoiseBonus: 0
   totalPoiseResetTime: 15
   poiseResetTimer: 0
-  isDead: 0
 --- !u!114 &1041890825892287472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -521,8 +489,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55adb9a399db8c64fb538d3893f112d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  canRotate: 1
 --- !u!114 &1041890825892287475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -535,11 +501,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37769b7f55e02b74d9788b8edbba324b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rightWeapon: {fileID: 0}
+  leftWeapon: {fileID: 0}
+  attackingWeapon: {fileID: 0}
   leftHandSlot: {fileID: 0}
   rightHandSlot: {fileID: 0}
   leftHandDamageCollider: {fileID: 0}
   rightHandDamageCollider: {fileID: 0}
-  attackingWeapon: {fileID: 0}
 --- !u!114 &1041890825892287474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -568,6 +536,37 @@ MonoBehaviour:
   bloodSplaterFX: {fileID: 8718586458559291700, guid: af0672b1a4d754844948d420412207e6, type: 3}
   rightWeaponFX: {fileID: 0}
   leftWeaponFX: {fileID: 0}
+--- !u!114 &607173668559547282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041890825892287467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ccca0c1a3719d440a7ece1811376d6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _joystick: {fileID: 0}
+  _vectorTouch: {fileID: 0}
+  isJoystick: 0
+  horizontal: 0
+  vertical: 0
+  moveAmount: 0
+  mouseX: 0
+  mouseY: 0
+  rollFlag: 0
+  comboFlag: 0
+  lockOnFlag: 0
+  _space_Input: 0
+  tap_rb_Input: 0
+  hold_rbh_Input: 0
+  lb_Input: 0
+  a_Input: 0
+  lockOn_Input: 0
+  lockOnRight_Input: 0
+  lockOnLeft_Input: 0
 --- !u!1 &1676372496160358104
 GameObject:
   m_ObjectHideFlags: 0

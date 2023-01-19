@@ -8,6 +8,7 @@ public class CharacterManager : MonoBehaviour
     public CharacterWeaponSlotManager characterWeaponSlotManager;
     public CharacterEffectsManager characterEffectsManager;
     public CharacterStatsManager characterStatsManager;
+    public CharacterSFXManager characterSFXManager;
 
     public Transform lockOnTransform;
 
@@ -29,9 +30,10 @@ public class CharacterManager : MonoBehaviour
     protected virtual void Awake()
     {
         animator = GetComponent<Animator>();
+        characterSFXManager = GetComponent<CharacterSFXManager>();
+        characterStatsManager = GetComponent<CharacterStatsManager>();
+        characterEffectsManager = GetComponent<CharacterEffectsManager>();
         characterAnimatorManager = GetComponent<CharacterAnimatorManager>();
         characterWeaponSlotManager = GetComponent<CharacterWeaponSlotManager>();
-        characterEffectsManager = GetComponent<CharacterEffectsManager>();
-        characterStatsManager = GetComponent<CharacterStatsManager>();
     }
 }

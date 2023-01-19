@@ -25,3 +25,8 @@ MonoBehaviour:
   baseStamina: 25
   lightAttackMultiplier: 1
   heavyAttackMultiplier: 2
+  weaponWhooshes:
+  - {fileID: 8300000, guid: 8ea7092f6e4883e47b725074aad74226, type: 3}
+  - {fileID: 8300000, guid: 58ba15bb01b32b647b7e5058c89f9b2b, type: 3}
+  - {fileID: 8300000, guid: 8586f7952b215d64db97fbad919a84b9, type: 3}
+  - {fileID: 8300000, guid: 871d30c85899f824bb0312f16d65a964, type: 3}
