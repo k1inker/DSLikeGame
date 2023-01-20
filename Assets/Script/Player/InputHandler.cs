@@ -99,13 +99,13 @@ namespace DS
         {
             if(tap_rb_Input & _player.playerWeaponSlotManager.rightWeapon != null)
             {
-                _player.playerCombatManager.HandleRBAttack();
+                _player.playerCombatManager.HandleRBAttack(true);
             }
             if(hold_rbh_Input & _player.playerWeaponSlotManager.rightWeapon != null)
             {
                 if (_player.isInteracting)
                     return;
-                _player.playerCombatManager.HandleHeavyAttack(_player.playerWeaponSlotManager.rightWeapon);
+                _player.playerCombatManager.HandleRBAttack(false);
             }
             if(lb_Input)
             {

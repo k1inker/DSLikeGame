@@ -26436,13 +26436,13 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.33366668
-    functionName: DrainStaminaLightAttack
+    functionName: DrainStaminaBasedOnAttack
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.43376666
+  - time: 0.5005
     functionName: StopRotation
     data: 
     objectReferenceParameter: {fileID: 0}

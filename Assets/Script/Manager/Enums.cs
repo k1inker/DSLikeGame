@@ -9,6 +9,11 @@ namespace DS
         TwoHandHeavySword,
         Shield
     }
+    public enum AttackType
+    {
+        light,
+        heavy
+    }
     public class Enums : MonoBehaviour
     {
 

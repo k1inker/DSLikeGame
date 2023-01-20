@@ -35,7 +35,7 @@ namespace DS
 
             int randomvalue = Random.Range(0, _potentialDamageSound.Count);
             _lastDamageSoundPlayed = takingDamageSounds[randomvalue];
-            _audioSource.PlayOneShot(takingDamageSounds[randomvalue]);
+            _audioSource.PlayOneShot(takingDamageSounds[randomvalue], 0.4f);
         }
         public virtual void PlayRandomWeaponWhoosh()
         {
@@ -53,7 +53,7 @@ namespace DS
 
                 int randomvalue = Random.Range(0, _potentialWeaponWhooshes.Count);
                 _lastWeaponWhooshes = _character.characterWeaponSlotManager.rightWeapon.weaponWhooshes[randomvalue];
-                _audioSource.PlayOneShot(_character.characterWeaponSlotManager.rightWeapon.weaponWhooshes[randomvalue]);
+                _audioSource.PlayOneShot(_character.characterWeaponSlotManager.rightWeapon.weaponWhooshes[randomvalue], 0.4f);
             }
             else
             {
@@ -67,7 +67,7 @@ namespace DS
 
                 int randomvalue = Random.Range(0, _potentialWeaponWhooshes.Count);
                 _lastWeaponWhooshes = _character.characterWeaponSlotManager.leftWeapon.weaponWhooshes[randomvalue];
-                _audioSource.PlayOneShot(_character.characterWeaponSlotManager.leftWeapon.weaponWhooshes[randomvalue]);
+                _audioSource.PlayOneShot(_character.characterWeaponSlotManager.leftWeapon.weaponWhooshes[randomvalue], 0.4f);
             }
         }
     }

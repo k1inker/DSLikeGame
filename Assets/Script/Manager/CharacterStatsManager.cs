@@ -62,9 +62,9 @@ namespace DS
             currentHealth = currentHealth - damage;
             _characterManager.characterSFXManager.PlayRandomDamageSFX();
         }
-        public virtual void TakeStaminaDamage(float damage)
+        public virtual void DeductStamina(float staminaToDeduct)
         {
-            currentStamina = currentStamina - damage;
+            currentStamina = currentStamina - staminaToDeduct;
         }
     }
 }

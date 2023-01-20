@@ -20,8 +20,11 @@ MonoBehaviour:
   weaponType: 2
   baseDamage: 30
   criticalDamageMultiplier: 4
+  lightAttackDamageModifier: 1
+  heavyAttackDamageModifier: 2
   poiseBreak: 25
   offensivePoiseBonus: 75
-  baseStamina: 25
-  lightAttackMultiplier: 1
-  heavyAttackMultiplier: 2
+  baseStaminaCost: 0
+  lightAttackStaminaMultiplier: 0
+  heavyAttackStaminaMultiplier: 0
+  weaponWhooshes: []

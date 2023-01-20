@@ -138,13 +138,5 @@ namespace DS
                 LoadWeaponOnSlots(leftWeapon, true);
             }
         }
-        public virtual void DrainStaminaLightAttack()
-        {
-
-        }
-        public virtual void DrainStaminaHeavyAttack()
-        {
-
-        }
     }
 }

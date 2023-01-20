@@ -1,10 +1,13 @@
+using System;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 namespace DS
 {
     public class DamageCollider : MonoBehaviour
     {
         private Collider damageCollider;
+        private CharacterManager _character;
 
         [Header("Team I.D")]
         public int teamIDNumber = 0;
@@ -26,6 +29,7 @@ namespace DS
         }
         public void EnableDamageCollider()
         {
+            _character = GetComponentInParent<CharacterManager>();
             damageCollider.enabled = true;
         }
         public void DisableDamageCollider()
@@ -52,21 +56,14 @@ namespace DS
                 {
                     if(_shieldHasBeenHit)
                         return;
+
                     characterStatsManager.poiseResetTimer = characterStatsManager.totalPoiseResetTime;
                     characterStatsManager.currentPoiseDefence = characterStatsManager.currentPoiseDefence - poiseBreak;
 
                     Vector3 hitPoint = collision.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
                     playerEffectsManager.PlayBloodSplatterFX(hitPoint);
 
-                    if (characterStatsManager.currentPoiseDefence > poiseBreak)
-                    {
-                        characterStatsManager.TakeDamageNoAnimation(currentWeaponDamage);
-                    }
-                    else
-                    {
-                        characterStatsManager.TakeDamage(currentWeaponDamage);
-                        characterStatsManager.currentPoiseDefence = characterStatsManager.totalPoiseDefence;
-                    }
+                    DealDamage(characterStatsManager);
                 }
             }
         }
@@ -85,6 +82,42 @@ namespace DS
                     //characterStatsManager.TakeStaminaDamage(15);
                     return;
                 }
+            }
+        }
+        private void DealDamage(CharacterStatsManager characterStatsManager)
+        {
+            float finalDamage = currentWeaponDamage;
+            if(_character.isUsingRightHand)
+            {
+                CheckAttackType(_character.characterWeaponSlotManager.rightWeapon, ref finalDamage);
+            }
+            else if(_character.isUsingLeftHand)
+            {
+                CheckAttackType(_character.characterWeaponSlotManager.leftWeapon, ref finalDamage);
+            }
+
+
+            if (characterStatsManager.currentPoiseDefence > poiseBreak)
+            {
+                characterStatsManager.TakeDamageNoAnimation(Mathf.RoundToInt(finalDamage));
+            }
+            else
+            {
+                characterStatsManager.TakeDamage(Mathf.RoundToInt(finalDamage));
+                characterStatsManager.currentPoiseDefence = characterStatsManager.totalPoiseDefence;
+            }
+        }
+
+        private void CheckAttackType(WeaponItem weapon, ref float finalDamage)
+        {
+            if (_character.characterCombatManager.currentAttackType == AttackType.light)
+            {
+                finalDamage = finalDamage * weapon.lightAttackDamageModifier;
+            }
+            else if(_character.characterCombatManager.currentAttackType == AttackType.heavy)
+            {
+                Debug.Log(1);
+                finalDamage = finalDamage * weapon.heavyAttackDamageModifier;
             }
         }
     }

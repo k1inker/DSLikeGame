@@ -4,9 +4,10 @@ using UnityEngine;
 public class CharacterManager : MonoBehaviour
 {
     public Animator animator;
-    public CharacterAnimatorManager characterAnimatorManager;
     public CharacterWeaponSlotManager characterWeaponSlotManager;
+    public CharacterAnimatorManager characterAnimatorManager;
     public CharacterEffectsManager characterEffectsManager;
+    public CharacterCombatManager characterCombatManager;
     public CharacterStatsManager characterStatsManager;
     public CharacterSFXManager characterSFXManager;
 
@@ -32,6 +33,7 @@ public class CharacterManager : MonoBehaviour
         animator = GetComponent<Animator>();
         characterSFXManager = GetComponent<CharacterSFXManager>();
         characterStatsManager = GetComponent<CharacterStatsManager>();
+        characterCombatManager = GetComponent<CharacterCombatManager>();
         characterEffectsManager = GetComponent<CharacterEffectsManager>();
         characterAnimatorManager = GetComponent<CharacterAnimatorManager>();
         characterWeaponSlotManager = GetComponent<CharacterWeaponSlotManager>();

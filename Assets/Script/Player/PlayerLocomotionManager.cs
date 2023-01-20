@@ -75,7 +75,7 @@ namespace DS
                     rotation = Quaternion.LookRotation(moveDirection);
                     rigidbody.velocity = ProjectedVelocity(rollSpeed);
                     _player.transform.rotation = rotation;
-                    _player.playerStatsManager.TakeStaminaDamage(_rollStaminaCost);
+                    _player.playerStatsManager.DeductStamina(_rollStaminaCost);
                 }
                 else
                 {

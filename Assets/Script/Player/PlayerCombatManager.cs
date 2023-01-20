@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace DS
 {
-    public class PlayerCombatManager : MonoBehaviour
+    public class PlayerCombatManager : CharacterCombatManager
     {
         private PlayerManager _player;
 
@@ -17,12 +17,12 @@ namespace DS
         {
             _player = GetComponent<PlayerManager>();
         }
-        public void HandleRBAttack()
+        public void HandleRBAttack(bool isLightAttack)
         {
             if (_player.playerWeaponSlotManager.rightWeapon == null)
                 return;
             
-            PerformRBMeleeAction();
+            PerformRBMeleeAction(isLightAttack);
         }
         public void HandleLBAction()
         {
@@ -38,7 +38,7 @@ namespace DS
                 //do attack
             }
         }
-        private void PerformRBMeleeAction()
+        private void PerformRBMeleeAction(bool isLightAttack)
         {
             if (_player.canDoCombo)
             {
@@ -54,7 +54,17 @@ namespace DS
                     return;
 
                 _player.animator.SetBool("isUsingRightHand", true);
-                HandleLightAttack(_player.playerWeaponSlotManager.rightWeapon);
+
+                if (isLightAttack)
+                {
+                    HandleLightAttack(_player.playerWeaponSlotManager.rightWeapon);
+                    currentAttackType = AttackType.light;
+                }
+                else
+                {
+                    HandleHeavyAttack(_player.playerWeaponSlotManager.rightWeapon);
+                    currentAttackType = AttackType.heavy;
+                }
             }
             _player.playerEffectsManager.PlayWeaponFX(false);
         }
@@ -72,7 +82,7 @@ namespace DS
         }
         public void HandleWeaponCombo(WeaponItem weapon)
         {
-            if ((weapon.baseStamina * weapon.lightAttackMultiplier) > _player.playerStatsManager.currentStamina)
+            if ((weapon.baseStaminaCost * weapon.lightAttackStaminaMultiplier) > _player.playerStatsManager.currentStamina)
                 return;
             if (_player.inputHandler.comboFlag)
             {
@@ -89,7 +99,7 @@ namespace DS
         }
         public void HandleLightAttack(WeaponItem weapon)
         {
-            if ((weapon.baseStamina * weapon.lightAttackMultiplier) > _player.playerStatsManager.currentStamina)
+            if ((weapon.baseStaminaCost * weapon.lightAttackStaminaMultiplier) > _player.playerStatsManager.currentStamina)
                 return;
             if (weapon == null)
                 return;
@@ -99,13 +109,39 @@ namespace DS
         }
         public void HandleHeavyAttack(WeaponItem weapon)
         {
-            if (weapon.baseStamina * weapon.heavyAttackMultiplier > _player.playerStatsManager.currentStamina)
+            if (weapon.baseStaminaCost * weapon.heavyAttackStaminaMultiplier > _player.playerStatsManager.currentStamina)
                 return;
             if (weapon == null)
                 return;
             _player.playerWeaponSlotManager.attackingWeapon = weapon;
             _player.playerAnimatorManager.PlayTargetAnimationWithRootMotion(OH_Heavy_Attack_1, true);
             lastAttack = OH_Heavy_Attack_1;
+        }
+        public override void DrainStaminaBasedOnAttack()
+        {
+            if(_player.isUsingRightHand)
+            {
+                if(currentAttackType == AttackType.light)
+                {
+                    _player.playerStatsManager.DeductStamina(_player.characterWeaponSlotManager.rightWeapon.baseStaminaCost * _player.characterWeaponSlotManager.rightWeapon.lightAttackStaminaMultiplier);
+                }
+                else if(currentAttackType == AttackType.heavy)
+                {
+                    _player.playerStatsManager.DeductStamina(_player.characterWeaponSlotManager.rightWeapon.baseStaminaCost * _player.characterWeaponSlotManager.rightWeapon.heavyAttackStaminaMultiplier);
+                }
+            }
+            else if(_player.isUsingLeftHand)
+            {
+                if (currentAttackType == AttackType.light)
+                {
+                    _player.playerStatsManager.DeductStamina(_player.characterWeaponSlotManager.leftWeapon.baseStaminaCost * _player.characterWeaponSlotManager.leftWeapon.lightAttackStaminaMultiplier);
+                }
+                else if (currentAttackType == AttackType.heavy)
+                {
+                    _player.playerStatsManager.DeductStamina(_player.characterWeaponSlotManager.leftWeapon.baseStaminaCost * _player.characterWeaponSlotManager.leftWeapon.heavyAttackStaminaMultiplier);
+                }
+            }
+
         }
     }
 }
