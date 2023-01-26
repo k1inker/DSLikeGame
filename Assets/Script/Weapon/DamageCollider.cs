@@ -7,7 +7,7 @@ namespace DS
     public class DamageCollider : MonoBehaviour
     {
         private Collider damageCollider;
-        private CharacterManager _character;
+        private CharacterManager _characterManager;
 
         [Header("Team I.D")]
         public int teamIDNumber = 0;
@@ -19,6 +19,9 @@ namespace DS
         [Header("Damage")]
         public int currentWeaponDamage = 25;
 
+        [Header("Guard Break Modifier")]
+        public float guardBreakModifier = 1;
+
         private bool _shieldHasBeenHit;
         private void Awake()
         {
@@ -29,7 +32,7 @@ namespace DS
         }
         public void EnableDamageCollider()
         {
-            _character = GetComponentInParent<CharacterManager>();
+            _characterManager = GetComponentInParent<CharacterManager>();
             damageCollider.enabled = true;
         }
         public void DisableDamageCollider()
@@ -42,79 +45,74 @@ namespace DS
             {
                 _shieldHasBeenHit = false;
 
-                CharacterStatsManager characterStatsManager = collision.GetComponent<CharacterStatsManager>();
-                CharacterManager characterManager = collision.GetComponent<CharacterManager>();
-                BlockingCollider shield = collision.transform.GetComponentInChildren<BlockingCollider>();
+                CharacterStatsManager enemyStats = collision.GetComponent<CharacterStatsManager>();
+                CharacterManager enemyManager = collision.GetComponent<CharacterManager>();
                 CharacterEffectsManager playerEffectsManager = collision.GetComponent <CharacterEffectsManager>();
 
-                if (characterStatsManager.teamIDNumber == teamIDNumber)
+                if (enemyStats.teamIDNumber == teamIDNumber)
                     return;
 
-                CheckForBlock(characterManager, shield, characterStatsManager);
+                CheckForBlock(enemyManager);
 
-                if(characterStatsManager != null)
+                if(enemyStats != null)
                 {
                     if(_shieldHasBeenHit)
                         return;
 
-                    characterStatsManager.poiseResetTimer = characterStatsManager.totalPoiseResetTime;
-                    characterStatsManager.currentPoiseDefence = characterStatsManager.currentPoiseDefence - poiseBreak;
+                    enemyStats.poiseResetTimer = enemyStats.totalPoiseResetTime;
+                    enemyStats.currentPoiseDefence = enemyStats.currentPoiseDefence - poiseBreak;
 
                     Vector3 hitPoint = collision.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
                     playerEffectsManager.PlayBloodSplatterFX(hitPoint);
 
-                    DealDamage(characterStatsManager);
+                    DealDamage(enemyStats);
                 }
             }
         }
-        private void CheckForBlock(CharacterManager characterManager, BlockingCollider shield, CharacterStatsManager characterStatsManager)
+        private void CheckForBlock(CharacterManager enemyManager)
         {
-            if (characterManager != null)
+            CharacterStatsManager enemyShield = enemyManager.characterStatsManager;
+            Vector3 directionFromPlayerToEnemy = _characterManager.transform.position - enemyManager.transform.position;
+            float dorValueFromPlayerToEnemy = Vector3.Dot(directionFromPlayerToEnemy, enemyManager.transform.forward);
+
+            if (enemyManager.isBlocking && dorValueFromPlayerToEnemy > 0.3f)
             {
-                if (shield != null && characterManager.isBlocking && characterStatsManager != null)
-                {
-                    characterStatsManager.TakeDamage(0, "Block Guard");
-                    _shieldHasBeenHit = true;
-                    //if(characterStatsManager.currentStamina <= 0)
-                    //{
-                    //    characterStatsManager.TakeDamage(0, "Destroy Block Guard");
-                    //}
-                    //characterStatsManager.TakeStaminaDamage(15);
-                    return;
-                }
+                _shieldHasBeenHit = true;
+
+                enemyManager.characterCombatManager.AttemptBlock(this, currentWeaponDamage,"Block Guard");
+                return;
             }
         }
-        private void DealDamage(CharacterStatsManager characterStatsManager)
+        private void DealDamage(CharacterStatsManager enemyStats)
         {
             float finalDamage = currentWeaponDamage;
-            if(_character.isUsingRightHand)
+            if(_characterManager.isUsingRightHand)
             {
-                CheckAttackType(_character.characterWeaponSlotManager.rightWeapon, ref finalDamage);
+                CheckAttackType(_characterManager.characterWeaponSlotManager.rightWeapon, ref finalDamage);
             }
-            else if(_character.isUsingLeftHand)
+            else if(_characterManager.isUsingLeftHand)
             {
-                CheckAttackType(_character.characterWeaponSlotManager.leftWeapon, ref finalDamage);
+                CheckAttackType(_characterManager.characterWeaponSlotManager.leftWeapon, ref finalDamage);
             }
 
 
-            if (characterStatsManager.currentPoiseDefence > poiseBreak)
+            if (enemyStats.currentPoiseDefence > poiseBreak)
             {
-                characterStatsManager.TakeDamageNoAnimation(Mathf.RoundToInt(finalDamage));
+                enemyStats.TakeDamageNoAnimation(Mathf.RoundToInt(finalDamage));
             }
             else
             {
-                characterStatsManager.TakeDamage(Mathf.RoundToInt(finalDamage));
-                characterStatsManager.currentPoiseDefence = characterStatsManager.totalPoiseDefence;
+                enemyStats.TakeDamage(Mathf.RoundToInt(finalDamage));
+                enemyStats.currentPoiseDefence = enemyStats.totalPoiseDefence;
             }
         }
-
         private void CheckAttackType(WeaponItem weapon, ref float finalDamage)
         {
-            if (_character.characterCombatManager.currentAttackType == AttackType.light)
+            if (_characterManager.characterCombatManager.currentAttackType == AttackType.light)
             {
                 finalDamage = finalDamage * weapon.lightAttackDamageModifier;
             }
-            else if(_character.characterCombatManager.currentAttackType == AttackType.heavy)
+            else if(_characterManager.characterCombatManager.currentAttackType == AttackType.heavy)
             {
                 Debug.Log(1);
                 finalDamage = finalDamage * weapon.heavyAttackDamageModifier;

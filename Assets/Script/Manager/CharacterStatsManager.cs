@@ -23,6 +23,9 @@ namespace DS
         public float offensivePoiseBonus;
         public float totalPoiseResetTime = 15;
         public float poiseResetTimer = 0;
+
+        [Header("Blocking Absorptions")]
+        public float blockingStabilityRating;
         protected virtual void Awake()
         {
             _characterManager = GetComponent<CharacterManager>();

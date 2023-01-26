@@ -16,9 +16,6 @@ namespace DS
 
         [Header("Camera")]
         public CameraHandler cameraHandler;
-        
-        [Header("Colliders")]
-        public BlockingCollider blockingCollider;
 
         [Header("Interactable")]
         private InteractableUI _interactableUI;
@@ -38,7 +35,6 @@ namespace DS
             playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
             playerLocomotionManager = GetComponent<PlayerLocomotionManager>();
             playerWeaponSlotManager = GetComponent<PlayerWeaponSlotManager>();
-            blockingCollider = GetComponentInChildren<BlockingCollider>();
         }
         private void Update()
         {
@@ -46,8 +42,6 @@ namespace DS
 
             isInteracting = animator.GetBool("isInteracting");
             canDoCombo = animator.GetBool("canDoCombo");
-            isUsingLeftHand = animator.GetBool("isUsingLeftHand");
-            isUsingRightHand = animator.GetBool("isUsingRightHand");
             isInvulnerable = animator.GetBool("isInvulnerable");
             canRotate = animator.GetBool("canRotate");
 
@@ -56,7 +50,7 @@ namespace DS
 
             inputHandler.rollFlag = false;
 
-            inputHandler.TickInput(delta);
+            inputHandler.TickInput();
             playerLocomotionManager.HandleRolling(delta);
             playerStatsManager.RegenerateStamina();
             

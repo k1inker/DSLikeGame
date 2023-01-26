@@ -9,7 +9,6 @@ namespace DS
         [Header("Weapons")]
         public WeaponItem rightWeapon;
         public WeaponItem leftWeapon;
-        public WeaponItem attackingWeapon;
 
         [Header("Weapon Slots")]
         public WeaponHolderSlot leftHandSlot;
@@ -18,6 +17,9 @@ namespace DS
         [Header("Weapon Collider")]
         public DamageCollider leftHandDamageCollider;
         public DamageCollider rightHandDamageCollider;
+
+        [Header("Current Item Being Used")]
+        public Item currentItemBeingUsed;
 
         protected virtual void Awake()
         {
@@ -121,7 +123,8 @@ namespace DS
         }
         public virtual void GrantWeaponAttackingPoiseBonus()
         {
-            _character.characterStatsManager.currentPoiseDefence = _character.characterStatsManager.currentPoiseDefence + attackingWeapon.offensivePoiseBonus;
+            WeaponItem currentWeaponBeingUsed = currentItemBeingUsed as WeaponItem;
+            _character.characterStatsManager.currentPoiseDefence = _character.characterStatsManager.currentPoiseDefence + currentWeaponBeingUsed.offensivePoiseBonus;
         }
         public virtual void ResetWeaponAttackingPoiseBonus()
         {

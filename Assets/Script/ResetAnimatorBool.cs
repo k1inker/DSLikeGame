@@ -1,38 +1,42 @@
 using UnityEngine;
 
-public class ResetAnimatorBool : StateMachineBehaviour
+namespace DS
 {
-
-
-    [SerializeField] private string _isUsingRightHand = "isUsingRightHand";
-    [SerializeField] private bool _isUsingRightHandStatus = false;
-
-    [SerializeField] private string _isUsingLeftHand = "isUsingLeftHand";
-    [SerializeField] private bool _isUsingLeftHandStatus = false;
-
-    [SerializeField] private string _isInvulnerable = "isInvulnerable";
-    [SerializeField] private bool _isInvulnerableStatus = false;
-
-    [SerializeField] private string _isInteractingBool = "isInteracting";
-    [SerializeField] private bool _isInteractingStatus = false;
-
-    [SerializeField] private string _canRotateBool = "canRotate";
-    [SerializeField] private bool _canRotateStatus = true;
-
-    [SerializeField] private string _isRootPossition = "rootPosit";
-    [SerializeField] private bool _isRootPossitionStatus = false;
-
-    [SerializeField] private string _isRootRotation = "isRotatingWithRootMotion";
-    [SerializeField] private bool _isRootRotationStatus = false;
-
-    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public class ResetAnimatorBool : StateMachineBehaviour
     {
-        animator.SetBool(_isInteractingBool, _isInteractingStatus);
-        animator.SetBool(_canRotateBool, _canRotateStatus);
-        animator.SetBool(_isRootPossition, _isRootPossitionStatus);
-        animator.SetBool(_isRootRotation, _isRootRotationStatus);
-        animator.SetBool(_isInvulnerable, _isInvulnerableStatus);
-        animator.SetBool(_isUsingRightHand, _isUsingRightHandStatus);
-        animator.SetBool(_isUsingLeftHand, _isUsingLeftHandStatus);
+        //[SerializeField] private string _isUsingRightHand = "isUsingRightHand";
+        //[SerializeField] private bool _isUsingRightHandStatus = false;
+
+        //[SerializeField] private string _isUsingLeftHand = "isUsingLeftHand";
+        //[SerializeField] private bool _isUsingLeftHandStatus = false;
+
+        [SerializeField] private string _isInvulnerable = "isInvulnerable";
+        [SerializeField] private bool _isInvulnerableStatus = false;
+
+        [SerializeField] private string _isInteractingBool = "isInteracting";
+        [SerializeField] private bool _isInteractingStatus = false;
+
+        [SerializeField] private string _canRotateBool = "canRotate";
+        [SerializeField] private bool _canRotateStatus = true;
+
+        [SerializeField] private string _isRootPossition = "rootPosit";
+        [SerializeField] private bool _isRootPossitionStatus = false;
+
+        [SerializeField] private string _isRootRotation = "isRotatingWithRootMotion";
+        [SerializeField] private bool _isRootRotationStatus = false;
+
+        public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            CharacterManager character = animator.GetComponent<CharacterManager>();
+
+            character.isUsingLeftHand = false;
+            character.isUsingRightHand = false;
+
+            animator.SetBool(_isInteractingBool, _isInteractingStatus);
+            animator.SetBool(_canRotateBool, _canRotateStatus);
+            animator.SetBool(_isRootPossition, _isRootPossitionStatus);
+            animator.SetBool(_isRootRotation, _isRootRotationStatus);
+            animator.SetBool(_isInvulnerable, _isInvulnerableStatus);
+        }
     }
 }

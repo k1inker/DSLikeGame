@@ -70,7 +70,7 @@ namespace DS
         {
             _inputActions.Disable();
         }
-        public void HandleMoveInput(float delta)
+        public void HandleMoveInput()
         {
             horizontal = _movementInput.x;
             vertical = _movementInput.y;
@@ -78,45 +78,67 @@ namespace DS
             mouseX = _cameraInput.x;
             mouseY = _cameraInput.y;
         }
-        public void TickInput(float delta)
+        public void TickInput()
         {
             if (_player.isDead)
                 return;
+
             if(isJoystick)
                 MoveInputJoystick();
             else
-                HandleMoveInput(delta);
-            HandleRollInput(delta);
-            HandleCombatInput(delta);
+                HandleMoveInput();
+            HandleRollInput();
+            HandleTapRBInput();
+            HandleTapLBInput();
+            HandleHoldRBInput();
+            HandleHoldLBInput();
             HandleLockOnInput(); 
         }
-        private void HandleRollInput(float delta)
+        private void HandleRollInput()
         {
             if (_space_Input)
                 rollFlag = true;
         }
-        private void HandleCombatInput(float delta)
+        private void HandleTapRBInput()
         {
             if(tap_rb_Input & _player.playerWeaponSlotManager.rightWeapon != null)
             {
-                _player.playerCombatManager.HandleRBAttack(true);
+                _player.UpdateWichHandCharacterIsUsing(true);
+                _player.playerWeaponSlotManager.currentItemBeingUsed = _player.playerWeaponSlotManager.rightWeapon;
+                _player.playerWeaponSlotManager.rightWeapon.tap_RB_Action.PerformAction(_player);
             }
-            if(hold_rbh_Input & _player.playerWeaponSlotManager.rightWeapon != null)
+        }
+        private void HandleHoldRBInput()
+        {
+            if (hold_rbh_Input & _player.playerWeaponSlotManager.rightWeapon != null)
             {
-                if (_player.isInteracting)
-                    return;
-                _player.playerCombatManager.HandleRBAttack(false);
+                _player.UpdateWichHandCharacterIsUsing(true);
+                _player.playerWeaponSlotManager.currentItemBeingUsed = _player.playerWeaponSlotManager.rightWeapon;
+                _player.playerWeaponSlotManager.rightWeapon.hold_RB_Action.PerformAction(_player);
             }
-            if(lb_Input)
+        }
+        private void HandleTapLBInput()
+        {
+            //if(lb_Input & _player.playerWeaponSlotManager.leftWeapon != null)
+            //{
+            //    _player.UpdateWichHandCharacterIsUsing(false);
+            //    _player.playerWeaponSlotManager.currentItemBeingUsed = _player.playerWeaponSlotManager.leftWeapon;
+            //    _player.characterWeaponSlotManager.leftWeapon.tap_LB_Action.PerformAction(_player);
+            //}
+        }
+        private void HandleHoldLBInput()
+        {
+            if (lb_Input & _player.playerWeaponSlotManager.leftWeapon != null)
             {
-                _player.playerCombatManager.HandleLBAction();
+                _player.UpdateWichHandCharacterIsUsing(false);
+                _player.playerWeaponSlotManager.currentItemBeingUsed = _player.playerWeaponSlotManager.leftWeapon;
+                _player.characterWeaponSlotManager.leftWeapon.hold_LB_Action.PerformAction(_player);
             }
             else
             {
-                _player.isBlocking = false;
-                if(_player.blockingCollider.blockingCollider.enabled)
+                if (_player.isBlocking)
                 {
-                    _player.blockingCollider.DisableBlockingCollider();
+                    _player.isBlocking = false;
                 }
             }
         }

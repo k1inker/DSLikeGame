@@ -487,24 +487,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactableText: {fileID: 1969694333}
---- !u!1 &437328819 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 737588099542282184, guid: eed687a213a35c04c9ca9349b8a4bc26, type: 3}
-  m_PrefabInstance: {fileID: 1088431289}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &437328842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 437328819}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 406d4cf2726f0e844955f0120f9fa620, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentAttackType: 0
 --- !u!1 &481974659
 GameObject:
   m_ObjectHideFlags: 0
@@ -1904,24 +1886,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eed687a213a35c04c9ca9349b8a4bc26, type: 3}
---- !u!1 &1128997138 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6371553474860930339, guid: 51097473c9eb3c642b1515f15792635e, type: 3}
-  m_PrefabInstance: {fileID: 6371553474537859483}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1128997163
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1128997138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 406d4cf2726f0e844955f0120f9fa620, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentAttackType: 0
 --- !u!1 &1153986982
 GameObject:
   m_ObjectHideFlags: 0
@@ -2920,6 +2884,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1041890825892287475, guid: e3318d1206fa66d4fafd731aaa5d5bd0, type: 3}
+      propertyPath: leftWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: 81508d96a468c75458e80229b9b0161a, type: 2}
+    - target: {fileID: 1041890825892287475, guid: e3318d1206fa66d4fafd731aaa5d5bd0, type: 3}
+      propertyPath: rightWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: a9a60e17b95806c489f462ad52a99bd0, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3318d1206fa66d4fafd731aaa5d5bd0, type: 3}
 --- !u!1001 &6371553474537859483

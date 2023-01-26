@@ -38,4 +38,17 @@ public class CharacterManager : MonoBehaviour
         characterAnimatorManager = GetComponent<CharacterAnimatorManager>();
         characterWeaponSlotManager = GetComponent<CharacterWeaponSlotManager>();
     }
+    public virtual void UpdateWichHandCharacterIsUsing(bool usingRightHand)
+    {
+        if(usingRightHand)
+        {
+            isUsingLeftHand = false;
+            isUsingRightHand = true;
+        }
+        else
+        {
+            isUsingRightHand = false;
+            isUsingLeftHand = true;
+        }
+    }
 }
