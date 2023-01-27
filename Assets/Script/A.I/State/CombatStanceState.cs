@@ -23,7 +23,6 @@ namespace DS
         /// </returns>
         public override State Tick(EnemyManager enemy)
         {
-            float distanceFromTarget = Vector3.Distance(enemy.currentTarget.transform.position, enemy.transform.position);
             enemy.animator.SetFloat("Vertical", _verticalMovementValue, 0.2f, Time.deltaTime);
             enemy.animator.SetFloat("Horizontal", _horizontalMovementValue, 0.2f, Time.deltaTime);
             attackState.hasPerformedAttack = false;
@@ -36,7 +35,7 @@ namespace DS
                 return this;
             }
 
-            if(distanceFromTarget > enemy.maximumAggroRadius)
+            if(enemy.distanceFromTarget > enemy.maximumAggroRadius)
                 return pusueTargetState;
 
             if(!_randomDestinationSet)
@@ -45,7 +44,7 @@ namespace DS
                 DecideCirclingAction(enemy.enemyAnimatorManager);
             }
 
-            HandleRotateTowardsTarget(enemy,distanceFromTarget);
+            HandleRotateTowardsTarget(enemy);
 
 
             if (enemy.currentRecoveryTime <= 0 && attackState.currentAttack != null)
@@ -59,7 +58,7 @@ namespace DS
             }
             return this;
         }
-        protected void HandleRotateTowardsTarget(EnemyManager enemyManager, float distanceFromTarget)
+        protected void HandleRotateTowardsTarget(EnemyManager enemyManager)
         {
             //Rotate manualy
             if (enemyManager.isPerformingAction)
@@ -88,18 +87,13 @@ namespace DS
                 enemyManager.transform.rotation = Quaternion.Slerp(enemyManager.transform.rotation, enemyManager.navmeshAgent.transform.rotation, enemyManager.rotationSpeed / Time.deltaTime);
             }
         }
-        protected virtual void GetNewAttack(EnemyManager enemyManager)
+        protected virtual void GetNewAttack(EnemyManager enemy)
         {
-            Vector3 targetDirection = enemyManager.currentTarget.transform.position - transform.position;
-
-            float viewableAngle = Vector3.Angle(targetDirection, enemyManager.transform.forward);
-            float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
-
             int maxScore = 0;
             for (int i = 0; i < enemyAttacks.Length; i++)
             {
                 EnemyAttackAction enemyAttackAction = enemyAttacks[i];
-                if (InRange(enemyAttackAction, viewableAngle, distanceFromTarget))
+                if (InRange(enemyAttackAction, enemy.viewableAngle, enemy.distanceFromTarget))
                     maxScore += enemyAttackAction.attackScore;
             }
             int randomValue = Random.Range(0, maxScore);
@@ -108,7 +102,7 @@ namespace DS
             for (int i = 0; i < enemyAttacks.Length; i++)
             {
                 EnemyAttackAction enemyAttackAction = enemyAttacks[i];
-                if (InRange(enemyAttackAction, viewableAngle, distanceFromTarget))
+                if (InRange(enemyAttackAction, enemy.viewableAngle, enemy.distanceFromTarget))
                 {
                     if (attackState.currentAttack != null)
                         return;

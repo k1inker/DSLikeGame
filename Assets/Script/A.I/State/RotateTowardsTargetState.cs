@@ -11,28 +11,25 @@ namespace DS
             enemy.animator.SetFloat("Vertical", 0);
             enemy.animator.SetFloat("Horizontal", 0);
 
-            Vector3 targetDirection = enemy.currentTarget.transform.position - enemy.transform.position;
-            float viewableAngle = Vector3.SignedAngle(targetDirection, enemy.transform.forward, Vector3.up);
-
             if (enemy.isInteracting)
                 return this;
 
-            if(viewableAngle >= 100 && viewableAngle <= 180 && !enemy.isInteracting)
+            if(enemy.viewableAngle >= 100 && enemy.viewableAngle <= 180 && !enemy.isInteracting)
             {
                 enemy.enemyAnimatorManager.PlayTargetAnimationWithRootRotation("Turn Behind", true);
                 return combatStanceState;            
             }
-            else if (viewableAngle <= -101 && viewableAngle >= -180 && !enemy.isInteracting)
+            else if (enemy.viewableAngle <= -101 && enemy.viewableAngle >= -180 && !enemy.isInteracting)
             {
                 enemy.enemyAnimatorManager.PlayTargetAnimationWithRootRotation("Turn Behind", true);
                 return combatStanceState;
             }
-            else if (viewableAngle <= -45 && viewableAngle >= -100 && !enemy.isInteracting)
+            else if (enemy.viewableAngle <= -45 && enemy.viewableAngle >= -100 && !enemy.isInteracting)
             {
                 enemy.enemyAnimatorManager.PlayTargetAnimationWithRootRotation("Turn Right", true);
                 return combatStanceState;
             }
-            else if (viewableAngle >= 45 && viewableAngle <= 100 && !enemy.isInteracting)
+            else if (enemy.viewableAngle >= 45 && enemy.viewableAngle <= 100 && !enemy.isInteracting)
             {
                 enemy.enemyAnimatorManager.PlayTargetAnimationWithRootRotation("Turn Left", true);
                 return combatStanceState;

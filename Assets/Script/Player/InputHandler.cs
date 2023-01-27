@@ -26,8 +26,9 @@ namespace DS
 
         public bool _space_Input;
         public bool tap_rb_Input;
-        public bool hold_rbh_Input;
-        public bool lb_Input;
+        public bool tap_lb_Input;
+        public bool hold_rb_Input;
+        public bool hold_lb_Input;
         public bool a_Input;
         public bool lockOn_Input;
         public bool lockOnRight_Input;
@@ -50,13 +51,15 @@ namespace DS
                 _inputActions.PlayerMovement.Movement.performed += inputActions => _movementInput = inputActions.ReadValue<Vector2>();
                 _inputActions.PlayerMovement.Camera.performed += i => _cameraInput = i.ReadValue<Vector2>();
                 _inputActions.PlayerActions.Roll.performed += i => _space_Input = true;
+
                 _inputActions.PlayerActions.RB.performed += i => tap_rb_Input = true;
+                _inputActions.PlayerActions.LB.performed += i => tap_lb_Input = true;
 
-                _inputActions.PlayerActions.LB.performed += i => lb_Input = true;
-                _inputActions.PlayerActions.LB.canceled += i => lb_Input = false;
+                _inputActions.PlayerActions.LBH.performed += i => hold_lb_Input = true;
+                _inputActions.PlayerActions.LBH.canceled += i => hold_lb_Input = false;
 
-                _inputActions.PlayerActions.RBH.performed += i => hold_rbh_Input = true;
-                _inputActions.PlayerActions.RBH.canceled += i => hold_rbh_Input = false;
+                _inputActions.PlayerActions.RBH.performed += i => hold_rb_Input = true;
+                _inputActions.PlayerActions.RBH.canceled += i => hold_rb_Input = false;
 
                 _inputActions.PlayerActions.A.performed += i => a_Input = true;
                 _inputActions.PlayerActions.LockOn.performed += i => lockOn_Input = true;
@@ -101,7 +104,7 @@ namespace DS
         }
         private void HandleTapRBInput()
         {
-            if(tap_rb_Input & _player.playerWeaponSlotManager.rightWeapon != null)
+            if(tap_rb_Input & _player.playerWeaponSlotManager.rightWeapon.tap_RB_Action != null)
             {
                 _player.UpdateWichHandCharacterIsUsing(true);
                 _player.playerWeaponSlotManager.currentItemBeingUsed = _player.playerWeaponSlotManager.rightWeapon;
@@ -110,7 +113,7 @@ namespace DS
         }
         private void HandleHoldRBInput()
         {
-            if (hold_rbh_Input & _player.playerWeaponSlotManager.rightWeapon != null)
+            if (hold_rb_Input & _player.playerWeaponSlotManager.rightWeapon.hold_RB_Action != null)
             {
                 _player.UpdateWichHandCharacterIsUsing(true);
                 _player.playerWeaponSlotManager.currentItemBeingUsed = _player.playerWeaponSlotManager.rightWeapon;
@@ -119,16 +122,16 @@ namespace DS
         }
         private void HandleTapLBInput()
         {
-            //if(lb_Input & _player.playerWeaponSlotManager.leftWeapon != null)
-            //{
-            //    _player.UpdateWichHandCharacterIsUsing(false);
-            //    _player.playerWeaponSlotManager.currentItemBeingUsed = _player.playerWeaponSlotManager.leftWeapon;
-            //    _player.characterWeaponSlotManager.leftWeapon.tap_LB_Action.PerformAction(_player);
-            //}
+            if (tap_lb_Input & _player.playerWeaponSlotManager.leftWeapon.tap_LB_Action != null)
+            {
+                _player.UpdateWichHandCharacterIsUsing(false);
+                _player.playerWeaponSlotManager.currentItemBeingUsed = _player.playerWeaponSlotManager.leftWeapon;
+                _player.characterWeaponSlotManager.leftWeapon.tap_LB_Action.PerformAction(_player);
+            }
         }
         private void HandleHoldLBInput()
         {
-            if (lb_Input & _player.playerWeaponSlotManager.leftWeapon != null)
+            if (hold_lb_Input & _player.playerWeaponSlotManager.leftWeapon.hold_LB_Action != null)
             {
                 _player.UpdateWichHandCharacterIsUsing(false);
                 _player.playerWeaponSlotManager.currentItemBeingUsed = _player.playerWeaponSlotManager.leftWeapon;

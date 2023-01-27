@@ -67,7 +67,8 @@ namespace DS
             float delta = Time.deltaTime;
             inputHandler._space_Input = false;
             inputHandler.tap_rb_Input = false;
-            inputHandler.hold_rbh_Input = false;
+            inputHandler.tap_lb_Input = false;
+            inputHandler.hold_rb_Input = false;
             inputHandler.a_Input = false;
             if (cameraHandler != null)
             {

@@ -161,9 +161,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "LB",
+                    "name": "LBH",
                     "type": "Button",
                     "id": "c628dbaa-c4b1-469b-9826-df34d2a94b99",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LB",
+                    "type": "Button",
+                    "id": "9964222e-e77b-49a8-ab5b-2a94ab3ace56",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -252,6 +261,17 @@
                     "name": "",
                     "id": "8e118909-36f5-4d53-8cc0-e8b348b4a176",
                     "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LBH",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "98733854-e141-483c-9026-f91f0147cb46",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

@@ -42,7 +42,11 @@ namespace DS
                     _player.playerStatsManager.DeductStamina(_player.characterWeaponSlotManager.leftWeapon.baseStaminaCost * _player.characterWeaponSlotManager.leftWeapon.heavyAttackStaminaMultiplier);
                 }
             }
-
+        }
+        public override void AttemptBlock(DamageCollider attackingWeapon, float damage, string blockAnimation)
+        {
+            base.AttemptBlock(attackingWeapon, damage, blockAnimation);
+            _player.playerStatsManager.staminaBar.SetCurrentStamina(Mathf.RoundToInt(_player.playerStatsManager.currentStamina));
         }
     }
 }

@@ -18,11 +18,7 @@ namespace DS
         /// <returns>if target out of range return this state</returns>
         public override State Tick(EnemyManager enemy)
         {
-            Vector3 targetDirection = enemy.currentTarget.transform.position - enemy.transform.position;
-            float distanceFromTarget = Vector3.Distance(enemy.currentTarget.transform.position, enemy.transform.position);
-            float viewableAngle = Vector3.SignedAngle(targetDirection, enemy.transform.forward, Vector3.up);
-            
-            HandleRotateTowardsTarget(enemy, distanceFromTarget);
+            HandleRotateTowardsTarget(enemy);
 
             if (enemy.isInteracting)
                 return this;
@@ -34,17 +30,17 @@ namespace DS
             }
 
 
-            if (distanceFromTarget > enemy.maximumAggroRadius)
+            if (enemy.distanceFromTarget > enemy.maximumAggroRadius)
             {
                 enemy.animator.SetFloat("Vertical", 1, 0.1f, Time.deltaTime);
             }
 
-            if(distanceFromTarget <= enemy.maximumAggroRadius)
+            if(enemy.distanceFromTarget <= enemy.maximumAggroRadius)
                 return _combatStanceState;
             else 
                 return this;
         }
-        private void HandleRotateTowardsTarget(EnemyManager enemyManager, float distanceFromTarget)
+        private void HandleRotateTowardsTarget(EnemyManager enemyManager)
         {
             //Rotate manualy
             if (enemyManager.isPerformingAction)

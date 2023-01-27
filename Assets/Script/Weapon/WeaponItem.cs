@@ -9,7 +9,7 @@ namespace DS
 
         [Header("Animator Replacer")]
         public AnimatorOverrideController weaponController;
-        public string offHandIdleAnimation;
+        //public string offHandIdleAnimation;
 
         [Header("WeaponType")]
         public WeaponType weaponType;

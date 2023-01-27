@@ -23,6 +23,7 @@ namespace DS
         public float guardBreakModifier = 1;
 
         private bool _shieldHasBeenHit;
+        private bool _hasBeenParried;
         private void Awake()
         {
             damageCollider = GetComponent<Collider>();
@@ -30,9 +31,12 @@ namespace DS
             damageCollider.isTrigger = true;
             damageCollider.enabled = false;
         }
-        public void EnableDamageCollider()
+        private void Start()
         {
             _characterManager = GetComponentInParent<CharacterManager>();
+        }
+        public void EnableDamageCollider()
+        {
             damageCollider.enabled = true;
         }
         public void DisableDamageCollider()
@@ -44,6 +48,7 @@ namespace DS
             if(collision.tag == "Character")
             {
                 _shieldHasBeenHit = false;
+                _hasBeenParried = false;
 
                 CharacterStatsManager enemyStats = collision.GetComponent<CharacterStatsManager>();
                 CharacterManager enemyManager = collision.GetComponent<CharacterManager>();
@@ -52,11 +57,14 @@ namespace DS
                 if (enemyStats.teamIDNumber == teamIDNumber)
                     return;
 
+                CheckForParry(enemyManager);
                 CheckForBlock(enemyManager);
 
                 if(enemyStats != null)
                 {
                     if(_shieldHasBeenHit)
+                        return;
+                    if (_hasBeenParried)
                         return;
 
                     enemyStats.poiseResetTimer = enemyStats.totalPoiseResetTime;
@@ -69,18 +77,23 @@ namespace DS
                 }
             }
         }
+        private void CheckForParry(CharacterManager enemyManager)
+        {
+            if(enemyManager.isParrying)
+            {
+                _characterManager.characterAnimatorManager.PlayTargetAnimation("Parried", true);
+                _hasBeenParried = true;
+            }
+        }
         private void CheckForBlock(CharacterManager enemyManager)
         {
-            CharacterStatsManager enemyShield = enemyManager.characterStatsManager;
             Vector3 directionFromPlayerToEnemy = _characterManager.transform.position - enemyManager.transform.position;
             float dorValueFromPlayerToEnemy = Vector3.Dot(directionFromPlayerToEnemy, enemyManager.transform.forward);
 
             if (enemyManager.isBlocking && dorValueFromPlayerToEnemy > 0.3f)
             {
-                _shieldHasBeenHit = true;
-
                 enemyManager.characterCombatManager.AttemptBlock(this, currentWeaponDamage,"Block Guard");
-                return;
+                _shieldHasBeenHit = true;
             }
         }
         private void DealDamage(CharacterStatsManager enemyStats)

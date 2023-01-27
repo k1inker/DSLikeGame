@@ -26,6 +26,11 @@ namespace DS
         public bool isPhaseShifting;
         public float comboLikeliHood;
 
+        [Header("A.I Target Information")]
+        public float distanceFromTarget;
+        public float viewableAngle;
+        public Vector3 targetDirection;
+
         public bool isPerformingAction;
         public float maximumDetectionAngle = 50;
         public float minimumDetectionAngle = -50;
@@ -51,8 +56,8 @@ namespace DS
             HandleRecoveryTimer();
             HandleStateMachine();
 
-            isUsingLeftHand = animator.GetBool("isUsingLeftHand");
-            isUsingRightHand = animator.GetBool("isUsingRightHand");
+            //isUsingLeftHand = animator.GetBool("isUsingLeftHand");
+            //isUsingRightHand = animator.GetBool("isUsingRightHand");
             isRotatingWithRootMotion = animator.GetBool("isRotatingWithRootMotion");
             isInteracting = animator.GetBool("isInteracting");
             isInvulnerable = animator.GetBool("isInvulnerable");
@@ -61,7 +66,20 @@ namespace DS
             isPhaseShifting = animator.GetBool("isPhaseShifting");
 
             animator.SetBool("isDead", isDead);
+
+            UpdateInformationFromTarget();
         }
+
+        private void UpdateInformationFromTarget()
+        {
+            if (currentTarget != null)
+            {
+                targetDirection = currentTarget.transform.position - transform.position;
+                viewableAngle = Vector3.Angle(targetDirection, transform.forward);
+                distanceFromTarget = Vector3.Distance(currentTarget.transform.position, transform.position);
+            }
+        }
+
         private void LateUpdate()
         {
             navmeshAgent.transform.localPosition = Vector3.zero;

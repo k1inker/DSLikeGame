@@ -33,4 +33,4 @@ MonoBehaviour:
   hold_RB_Action: {fileID: 0}
   tap_RB_Action: {fileID: 0}
   hold_LB_Action: {fileID: 11400000, guid: e81e2fc129ac1a54394d576e9b7f50be, type: 2}
-  tap_LB_Action: {fileID: 0}
+  tap_LB_Action: {fileID: 11400000, guid: 60dadb815e1e3964689d750b221b0889, type: 2}

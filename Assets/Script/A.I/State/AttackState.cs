@@ -1,3 +1,4 @@
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 
 namespace DS
@@ -49,8 +50,9 @@ namespace DS
         }
         private void AttackTarget(EnemyManager enemy)
         {
-            enemy.animator.SetBool("isUsingRightHand", currentAttack.isRightHandedAction);
-            enemy.animator.SetBool("isUsingLeftHand", !currentAttack.isRightHandedAction);
+            enemy.isUsingRightHand = currentAttack.isRightHandedAction;
+            enemy.isUsingLeftHand = !currentAttack.isRightHandedAction;
+            Debug.Log(enemy.isUsingRightHand);
             enemy.enemyAnimatorManager.PlayTargetAnimation(currentAttack.actionAnimation, true);
             enemy.enemyAnimatorManager.PlayWeaponTrailFX();
             enemy.currentRecoveryTime = currentAttack.recoveryTime;
@@ -58,8 +60,8 @@ namespace DS
         }
         private void AttackTargetWithCombo(EnemyManager enemy)
         {
-            enemy.animator.SetBool("isUsingRightHand", currentAttack.isRightHandedAction);
-            enemy.animator.SetBool("isUsingLeftHand", !currentAttack.isRightHandedAction);
+            enemy.isUsingRightHand = currentAttack.isRightHandedAction;
+            enemy.isUsingLeftHand = !currentAttack.isRightHandedAction;
 
             _willDoCombo = false;
             enemy.enemyAnimatorManager.PlayTargetAnimation(currentAttack.actionAnimation, true);

@@ -56,5 +56,13 @@ namespace DS
         {
             _character.animator.SetBool("isInvulnerable", false);
         }
+        public virtual void EnableParrying()
+        {
+            _character.isParrying = true;
+        }
+        public virtual void DisableParrying()
+        {
+            _character.isParrying = false;
+        }
     }
 }

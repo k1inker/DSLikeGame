@@ -16,9 +16,11 @@ public class CharacterManager : MonoBehaviour
     [Header("Combat Flags")]
     public bool isInvulnerable;
     public bool canDoCombo;
+    public bool canBeParried;
     public bool isUsingRightHand;
     public bool isUsingLeftHand;
     public bool isBlocking;
+    public bool isParrying;
 
     [Header("Movement Flags")]
     public bool isRotatingWithRootMotion;

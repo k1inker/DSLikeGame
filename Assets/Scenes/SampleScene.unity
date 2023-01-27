@@ -1884,6 +1884,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6204533698391987718, guid: eed687a213a35c04c9ca9349b8a4bc26, type: 3}
+      propertyPath: _detectionLayer.m_Bits
+      value: 2560
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311667402728304403, guid: eed687a213a35c04c9ca9349b8a4bc26, type: 3}
+      propertyPath: rightWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: 443873b4a1328c441938caf02658acd1, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eed687a213a35c04c9ca9349b8a4bc26, type: 3}
 --- !u!1 &1153986982

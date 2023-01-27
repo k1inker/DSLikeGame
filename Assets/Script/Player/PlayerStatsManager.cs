@@ -7,16 +7,16 @@ namespace DS
     {
         private PlayerManager _player;
        
-        private HealthBar _healthBar;
-        private StaminaBar _staminaBar;
+        public HealthBar healthBar;
+        public StaminaBar staminaBar;
 
         private float _staminaRegenAmount = 30;
         private float _staminaRegenTimer = 0;
         protected override void Awake()
         {
             base.Awake();
-            _healthBar = FindObjectOfType<HealthBar>();
-            _staminaBar = FindObjectOfType<StaminaBar>();
+            healthBar = FindObjectOfType<HealthBar>();
+            staminaBar = FindObjectOfType<StaminaBar>();
 
             _player = GetComponent<PlayerManager>();
         }
@@ -24,11 +24,11 @@ namespace DS
         {
             maxHealth = SetMaxHealthFromHealthLevel();
             currentHealth = maxHealth;
-            _healthBar.SetMaxHealth(maxHealth);
+            healthBar.SetMaxHealth(maxHealth);
 
             maxStamina = SetMaxStaminaFromHealthLevel();
             currentStamina = maxStamina;
-            _staminaBar.SetMaxStamina(maxStamina);
+            staminaBar.SetMaxStamina(maxStamina);
 
         }
         private float SetMaxStaminaFromHealthLevel()
@@ -48,7 +48,7 @@ namespace DS
             if (_player.isDead)
                 return;
             base.TakeDamage(damage, damageAnimation = "Damage");
-            _healthBar.SetCurrentHealth(currentHealth);
+            healthBar.SetCurrentHealth(currentHealth);
             _player.playerAnimatorManager.PlayTargetAnimationWithRootMotion(damageAnimation, true);
 
             if (currentHealth <= 0)
@@ -61,12 +61,12 @@ namespace DS
         public override void TakeDamageNoAnimation(int damage)
         {
             base.TakeDamageNoAnimation(damage);
-            _healthBar.SetCurrentHealth(currentHealth);
+            healthBar.SetCurrentHealth(currentHealth);
         }
         public override void DeductStamina(float damage)
         {
             base.DeductStamina(damage);
-            _staminaBar.SetCurrentStamina(Mathf.RoundToInt(currentStamina));   
+            staminaBar.SetCurrentStamina(Mathf.RoundToInt(currentStamina));   
         }
         public void RegenerateStamina()
         {
@@ -79,8 +79,11 @@ namespace DS
                 _staminaRegenTimer += Time.deltaTime;
                 if (currentStamina < maxStamina && _staminaRegenTimer > 1f)
                 {
-                    currentStamina += _staminaRegenAmount * Time.deltaTime;
-                    _staminaBar.SetCurrentStamina(Mathf.RoundToInt(currentStamina));
+                    if (!_player.isBlocking)
+                    {
+                        currentStamina += _staminaRegenAmount * Time.deltaTime;
+                        staminaBar.SetCurrentStamina(Mathf.RoundToInt(currentStamina));
+                    }
                 }
             }
         }

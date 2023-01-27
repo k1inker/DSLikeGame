@@ -16,14 +16,15 @@ MonoBehaviour:
   itemName: Easy Sword
   modelPrefab: {fileID: 4870658549548040292, guid: e63761594266c894cb6804f0c1262e27, type: 3}
   weaponController: {fileID: 22100000, guid: 93d02c2c5179e9945be3df5783372f71, type: 2}
-  offHandIdleAnimation: Right_Arm_Idle
   weaponType: 0
   baseDamage: 25
   criticalDamageMultiplier: 4
   lightAttackDamageModifier: 1
   heavyAttackDamageModifier: 2
+  guardBreakModifier: 1
   poiseBreak: 20
   offensivePoiseBonus: 0
+  stability: 70
   baseStaminaCost: 0
   lightAttackStaminaMultiplier: 0
   heavyAttackStaminaMultiplier: 0
@@ -32,3 +33,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 58ba15bb01b32b647b7e5058c89f9b2b, type: 3}
   - {fileID: 8300000, guid: 8586f7952b215d64db97fbad919a84b9, type: 3}
   - {fileID: 8300000, guid: 871d30c85899f824bb0312f16d65a964, type: 3}
+  hold_RB_Action: {fileID: 11400000, guid: 3f30ae1f21512f8479e4b7b81c3ec795, type: 2}
+  tap_RB_Action: {fileID: 11400000, guid: d5ec6f24c450b3c4086cf7b47c89bc9c, type: 2}
+  hold_LB_Action: {fileID: 0}
+  tap_LB_Action: {fileID: 0}
