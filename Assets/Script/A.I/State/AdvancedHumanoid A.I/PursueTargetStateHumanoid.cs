@@ -1,21 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.AI;
-
 namespace DS
 {
-    public class PursueTargetState : State
+    public class PursueTargetStateHumanoid : State
     {
-        [SerializeField] private CombatStanceState _combatStanceState;
-        [SerializeField] private RotateTowardsTargetState _rotateTowardsTargetState;
-        
-        /// <summary>
-        /// Chase the target
-        /// if in attack range switch to Combat stance state
-        /// </summary>
-        /// <returns>if target out of range return this state</returns>
+        [SerializeField] private CombatStanceStateHumanoid _combatStanceState;
         public override State Tick(EnemyManager enemy)
         {
             HandleRotateTowardsTarget(enemy);
@@ -35,9 +23,9 @@ namespace DS
                 enemy.animator.SetFloat("Vertical", 1, 0.1f, Time.deltaTime);
             }
 
-            if(enemy.distanceFromTarget <= enemy.maximumAggroRadius)
+            if (enemy.distanceFromTarget <= enemy.maximumAggroRadius)
                 return _combatStanceState;
-            else 
+            else
                 return this;
         }
         private void HandleRotateTowardsTarget(EnemyManager enemyManager)

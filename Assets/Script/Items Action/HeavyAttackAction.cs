@@ -5,46 +5,44 @@ namespace DS
     [CreateAssetMenu(menuName = "Item Actions/Heavy Attack Action")]
     public class HeavyAttackAction : ItemAction
     {
-        public override void PerformAction(PlayerManager player)
+        public override void PerformAction(CharacterManager character)
         {
-            if ((player.characterWeaponSlotManager.rightWeapon.baseStaminaCost * player.characterWeaponSlotManager.rightWeapon.lightAttackStaminaMultiplier)
-                > player.playerStatsManager.currentStamina)
+            if ((character.characterWeaponSlotManager.rightWeapon.baseStaminaCost * character.characterWeaponSlotManager.rightWeapon.lightAttackStaminaMultiplier)
+                > character.characterStatsManager.currentStamina)
                 return;
 
-            player.playerEffectsManager.PlayWeaponFX(false);
+            character.characterEffectsManager.PlayWeaponFX(false);
 
-            if (player.canDoCombo)
+            if (character.canDoCombo)
             {
-                player.inputHandler.comboFlag = true;
-                HandleHeavyWeaponCombo(player);
-                player.inputHandler.comboFlag = false;
+                HandleHeavyWeaponCombo(character);
             }
             else
             {
-                if (player.isInteracting)
+                if (character.isInteracting)
                     return;
-                if (player.canDoCombo)
+                if (character.canDoCombo)
                     return;
 
-                HandleHeavyAttack(player);
-                player.characterCombatManager.currentAttackType = AttackType.light;
+                HandleHeavyAttack(character);
+                character.characterCombatManager.currentAttackType = AttackType.light;
 
             }
         }
-        private void HandleHeavyAttack(PlayerManager player)
+        private void HandleHeavyAttack(CharacterManager character)
         {
-            player.playerAnimatorManager.PlayTargetAnimationWithRootMotion(player.playerCombatManager.OH_Heavy_Attack_1, true);
-            player.playerCombatManager.lastAttack = player.playerCombatManager.OH_Heavy_Attack_1;
+            character.characterAnimatorManager.PlayTargetAnimationWithRootMotion(character.characterCombatManager.OH_Heavy_Attack_1, true);
+            character.characterCombatManager.lastAttack = character.characterCombatManager.OH_Heavy_Attack_1;
         }
-        private void HandleHeavyWeaponCombo(PlayerManager player)
+        private void HandleHeavyWeaponCombo(CharacterManager character)
         {
-            if (player.inputHandler.comboFlag)
+            if (character.canDoCombo)
             {
-                player.animator.SetBool("canDoCombo", false);
-                if (player.playerCombatManager.lastAttack == player.playerCombatManager.OH_Heavy_Attack_1)
+                character.animator.SetBool("canDoCombo", false);
+                if (character.characterCombatManager.lastAttack == character.characterCombatManager.OH_Heavy_Attack_1)
                 {
-                    player.playerAnimatorManager.PlayTargetAnimationWithRootMotion(player.playerCombatManager.OH_Heavy_Attack_2, true);
-                    player.playerCombatManager.lastAttack = player.playerCombatManager.OH_Heavy_Attack_2;
+                    character.characterAnimatorManager.PlayTargetAnimationWithRootMotion(character.characterCombatManager.OH_Heavy_Attack_2, true);
+                    character.characterCombatManager.lastAttack = character.characterCombatManager.OH_Heavy_Attack_2;
                 }
             }
         }

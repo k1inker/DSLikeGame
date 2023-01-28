@@ -12,7 +12,7 @@ namespace DS
         public NavMeshAgent navmeshAgent;
         public EnemyBossManager enemyBossManager;
         public EnemyStatsManager enemyStatsManager;
-        public CharacterStatsManager currentTarget;
+        public CharacterManager currentTarget;
         public EnemyEffectsManager enemyEffectsManager;
         public EnemyAnimatorManager enemyAnimatorManager;
 
@@ -21,10 +21,19 @@ namespace DS
         public float rotationSpeed = 15;
         public float maximumAggroRadius = 1.5f;
 
+        [Header("Advanced A.I settings")]
+        public bool allowAIToPreformBlock;
+        public int blockLikeHood = 50;
+        public bool allowAIToPreformDodge;
+        public int dodgeLikeHood = 50;
+        public bool allowAIToPreformParry;
+        public int parryLikeHood = 50;
+
         [Header("A.I Combat Settings")]
         public bool AIPerfomCombos;
         public bool isPhaseShifting;
         public float comboLikeliHood;
+        public AICombatStyle combatStyle;
 
         [Header("A.I Target Information")]
         public float distanceFromTarget;

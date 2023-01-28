@@ -6,13 +6,6 @@ namespace DS
     {
         private PlayerManager _player;
 
-        [Header("Attack Animations")]
-        public string OH_Light_Attack_1 = "1_Heavy_Light_attack_01";
-        public string OH_Light_Attack_2 = "1_Heavy_Light_attack_02";
-        public string OH_Heavy_Attack_1 = "1_Heavy_Heavy_attack_01";
-        public string OH_Heavy_Attack_2 = "1_Heavy_Heavy_attack_02";
-
-        public string lastAttack;
         protected override void Awake()
         {
             base.Awake();

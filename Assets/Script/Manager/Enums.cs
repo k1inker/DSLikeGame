@@ -14,6 +14,10 @@ namespace DS
         light,
         heavy
     }
+    public enum AICombatStyle
+    {
+        swordAndShield
+    }
     public class Enums : MonoBehaviour
     {
 

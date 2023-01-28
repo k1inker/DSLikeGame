@@ -5,16 +5,16 @@ namespace DS
     [CreateAssetMenu(menuName = "Item Actions/Parry Action")]
     public class ParringAction : ItemAction
     {
-        public override void PerformAction(PlayerManager player)
+        public override void PerformAction(CharacterManager character)
         {
-            if (player.isInteracting)
+            if (character.isInteracting)
                 return;
 
-            WeaponItem parryingWeapon = player.playerWeaponSlotManager.currentItemBeingUsed as WeaponItem;
+            WeaponItem parryingWeapon = character.characterWeaponSlotManager.currentItemBeingUsed as WeaponItem;
 
             if(parryingWeapon.weaponType == WeaponType.Shield)
             {
-                player.playerAnimatorManager.PlayTargetAnimation("Parry", true);
+                character.characterAnimatorManager.PlayTargetAnimation("Parry", true);
             }
         }
     }

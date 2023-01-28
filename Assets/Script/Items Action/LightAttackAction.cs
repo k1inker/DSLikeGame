@@ -5,46 +5,44 @@ namespace DS
     [CreateAssetMenu(menuName = "Item Actions/Light Attack Action")]
     public class LightAttackAction : ItemAction
     {
-        public override void PerformAction(PlayerManager player)
+        public override void PerformAction(CharacterManager character)
         {
-            if ((player.characterWeaponSlotManager.rightWeapon.baseStaminaCost * player.characterWeaponSlotManager.rightWeapon.lightAttackStaminaMultiplier) 
-                > player.playerStatsManager.currentStamina)
+            if ((character.characterWeaponSlotManager.rightWeapon.baseStaminaCost * character.characterWeaponSlotManager.rightWeapon.lightAttackStaminaMultiplier) 
+                > character.characterStatsManager.currentStamina)
                 return;
 
-            player.playerEffectsManager.PlayWeaponFX(false);
+            character.characterEffectsManager.PlayWeaponFX(false);
 
-            if (player.canDoCombo)
+            if (character.canDoCombo)
             {
-                player.inputHandler.comboFlag = true;
-                HandleLightWeaponCombo(player);
-                player.inputHandler.comboFlag = false;
+                HandleLightWeaponCombo(character);
             }
             else
             {
-                if (player.isInteracting)
+                if (character.isInteracting)
                     return;
-                if (player.canDoCombo)
+                if (character.canDoCombo)
                     return;
 
-                HandleLightAttack(player);
-                player.characterCombatManager.currentAttackType = AttackType.light;
+                HandleLightAttack(character);
+                character.characterCombatManager.currentAttackType = AttackType.light;
 
             }
         }
-        private void HandleLightAttack(PlayerManager player)
+        private void HandleLightAttack(CharacterManager character)
         {
-            player.playerAnimatorManager.PlayTargetAnimationWithRootMotion(player.playerCombatManager.OH_Light_Attack_1, true);
-            player.playerCombatManager.lastAttack = player.playerCombatManager.OH_Light_Attack_1;
+            character.characterAnimatorManager.PlayTargetAnimationWithRootMotion(character.characterCombatManager.OH_Light_Attack_1, true);
+            character.characterCombatManager.lastAttack = character.characterCombatManager.OH_Light_Attack_1;
         }
-        private void HandleLightWeaponCombo(PlayerManager player)
+        private void HandleLightWeaponCombo(CharacterManager character)
         {
-            if (player.inputHandler.comboFlag)
+            if (character.canDoCombo)
             {
-                player.animator.SetBool("canDoCombo", false);
-                if (player.playerCombatManager.lastAttack == player.playerCombatManager.OH_Light_Attack_1)
+                character.animator.SetBool("canDoCombo", false);
+                if (character.characterCombatManager.lastAttack == character.characterCombatManager.OH_Light_Attack_1)
                 {
-                    player.playerAnimatorManager.PlayTargetAnimationWithRootMotion(player.playerCombatManager.OH_Light_Attack_2, true);
-                    player.playerCombatManager.lastAttack = player.playerCombatManager.OH_Light_Attack_2;
+                    character.characterAnimatorManager.PlayTargetAnimationWithRootMotion(character.characterCombatManager.OH_Light_Attack_2, true);
+                    character.characterCombatManager.lastAttack = character.characterCombatManager.OH_Light_Attack_2;
                 }
             }
         }
