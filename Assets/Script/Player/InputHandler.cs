@@ -113,7 +113,7 @@ namespace DS
         }
         private void HandleHoldRBInput()
         {
-            if (hold_rb_Input & _player.playerWeaponSlotManager.rightWeapon.hold_RB_Action != null)
+            if (hold_rb_Input && _player.playerWeaponSlotManager.rightWeapon.hold_RB_Action != null)
             {
                 _player.UpdateWichHandCharacterIsUsing(true);
                 _player.playerWeaponSlotManager.currentItemBeingUsed = _player.playerWeaponSlotManager.rightWeapon;
@@ -122,26 +122,32 @@ namespace DS
         }
         private void HandleTapLBInput()
         {
-            if (tap_lb_Input & _player.playerWeaponSlotManager.leftWeapon.tap_LB_Action != null)
+            if (_player.playerWeaponSlotManager.leftWeapon != null)
             {
-                _player.UpdateWichHandCharacterIsUsing(false);
-                _player.playerWeaponSlotManager.currentItemBeingUsed = _player.playerWeaponSlotManager.leftWeapon;
-                _player.characterWeaponSlotManager.leftWeapon.tap_LB_Action.PerformAction(_player);
+                if (_player.playerWeaponSlotManager.leftWeapon.tap_LB_Action != null && tap_lb_Input)
+                {
+                    _player.UpdateWichHandCharacterIsUsing(false);
+                    _player.playerWeaponSlotManager.currentItemBeingUsed = _player.playerWeaponSlotManager.leftWeapon;
+                    _player.characterWeaponSlotManager.leftWeapon.tap_LB_Action.PerformAction(_player);
+                }
             }
         }
         private void HandleHoldLBInput()
         {
-            if (hold_lb_Input & _player.playerWeaponSlotManager.leftWeapon.hold_LB_Action != null)
+            if (_player.playerWeaponSlotManager.leftWeapon != null)
             {
-                _player.UpdateWichHandCharacterIsUsing(false);
-                _player.playerWeaponSlotManager.currentItemBeingUsed = _player.playerWeaponSlotManager.leftWeapon;
-                _player.characterWeaponSlotManager.leftWeapon.hold_LB_Action.PerformAction(_player);
-            }
-            else
-            {
-                if (_player.isBlocking)
+                if (hold_lb_Input & _player.playerWeaponSlotManager.leftWeapon.hold_LB_Action != null)
                 {
-                    _player.isBlocking = false;
+                    _player.UpdateWichHandCharacterIsUsing(false);
+                    _player.playerWeaponSlotManager.currentItemBeingUsed = _player.playerWeaponSlotManager.leftWeapon;
+                    _player.characterWeaponSlotManager.leftWeapon.hold_LB_Action.PerformAction(_player);
+                }
+                else
+                {
+                    if (_player.isBlocking)
+                    {
+                        _player.isBlocking = false;
+                    }
                 }
             }
         }

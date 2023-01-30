@@ -31,6 +31,8 @@ namespace DS
 
             character.isUsingLeftHand = false;
             character.isUsingRightHand = false;
+            character.isAttacking = false;
+            character.canBeParried = false;
 
             animator.SetBool(_isInteractingBool, _isInteractingStatus);
             animator.SetBool(_canRotateBool, _canRotateStatus);

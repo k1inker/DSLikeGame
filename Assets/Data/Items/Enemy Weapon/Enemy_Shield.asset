@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d2c730d7a6005646a3ca94d49eaa4a7, type: 3}
+  m_Name: Enemy_Shield
+  m_EditorClassIdentifier: 
+  itemIcon: {fileID: 0}
+  itemName: Shield
+  modelPrefab: {fileID: 3737415715194810486, guid: 0950731404ef9e44f9a91ad2d5f12994, type: 3}
+  weaponController: {fileID: 22100000, guid: d53b0a297810e834396aa0b43e5199a5, type: 2}
+  weaponType: 3
+  baseDamage: 25
+  criticalDamageMultiplier: 4
+  lightAttackDamageModifier: 1
+  heavyAttackDamageModifier: 2
+  guardBreakModifier: 1
+  poiseBreak: 0
+  offensivePoiseBonus: 0
+  stability: 70
+  baseStaminaCost: 25
+  lightAttackStaminaMultiplier: 1
+  heavyAttackStaminaMultiplier: 2
+  weaponWhooshes: []
+  hold_RB_Action: {fileID: 0}
+  tap_RB_Action: {fileID: 0}
+  hold_LB_Action: {fileID: 11400000, guid: e81e2fc129ac1a54394d576e9b7f50be, type: 2}
+  tap_LB_Action: {fileID: 11400000, guid: 60dadb815e1e3964689d750b221b0889, type: 2}

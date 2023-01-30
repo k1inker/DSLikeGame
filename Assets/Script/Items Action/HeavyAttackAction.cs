@@ -11,6 +11,7 @@ namespace DS
                 > character.characterStatsManager.currentStamina)
                 return;
 
+            character.isAttacking = true;
             character.characterEffectsManager.PlayWeaponFX(false);
 
             if (character.canDoCombo)

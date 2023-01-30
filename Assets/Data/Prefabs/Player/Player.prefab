@@ -420,9 +420,11 @@ MonoBehaviour:
   lockOnTransform: {fileID: 792651360}
   isInvulnerable: 0
   canDoCombo: 0
+  canBeParried: 0
   isUsingRightHand: 0
   isUsingLeftHand: 0
   isBlocking: 0
+  isParrying: 0
   isRotatingWithRootMotion: 0
   canRotate: 0
   isDead: 0
@@ -435,7 +437,6 @@ MonoBehaviour:
   playerLocomotionManager: {fileID: 0}
   playerWeaponSlotManager: {fileID: 0}
   cameraHandler: {fileID: 0}
-  blockingCollider: {fileID: 0}
   interactableUIGameObject: {fileID: 0}
 --- !u!114 &1041890825892287470
 MonoBehaviour:
@@ -481,6 +482,9 @@ MonoBehaviour:
   offensivePoiseBonus: 0
   totalPoiseResetTime: 15
   poiseResetTimer: 0
+  blockingStabilityRating: 0
+  healthBar: {fileID: 0}
+  staminaBar: {fileID: 0}
 --- !u!114 &1041890825892287472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -505,13 +509,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37769b7f55e02b74d9788b8edbba324b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rightWeapon: {fileID: 0}
-  leftWeapon: {fileID: 0}
-  attackingWeapon: {fileID: 0}
+  rightWeapon: {fileID: 11400000, guid: a9a60e17b95806c489f462ad52a99bd0, type: 2}
+  leftWeapon: {fileID: 11400000, guid: 81508d96a468c75458e80229b9b0161a, type: 2}
   leftHandSlot: {fileID: 0}
   rightHandSlot: {fileID: 0}
   leftHandDamageCollider: {fileID: 0}
   rightHandDamageCollider: {fileID: 0}
+  currentItemBeingUsed: {fileID: 0}
 --- !u!114 &1041890825892287474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -525,6 +529,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentAttackType: 0
+  OH_Light_Attack_1: 1_Heavy_Light_attack_01
+  OH_Light_Attack_2: 1_Heavy_Light_attack_02
+  OH_Heavy_Attack_1: 1_Heavy_Heavy_attack_01
+  OH_Heavy_Attack_2: 1_Heavy_Heavy_attack_02
   lastAttack: 
 --- !u!114 &6632851799119795744
 MonoBehaviour:
@@ -566,8 +574,9 @@ MonoBehaviour:
   lockOnFlag: 0
   _space_Input: 0
   tap_rb_Input: 0
-  hold_rbh_Input: 0
-  lb_Input: 0
+  tap_lb_Input: 0
+  hold_rb_Input: 0
+  hold_lb_Input: 0
   a_Input: 0
   lockOn_Input: 0
   lockOnRight_Input: 0

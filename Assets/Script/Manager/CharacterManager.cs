@@ -21,6 +21,7 @@ public class CharacterManager : MonoBehaviour
     public bool isUsingLeftHand;
     public bool isBlocking;
     public bool isParrying;
+    public bool isAttacking;
 
     [Header("Movement Flags")]
     public bool isRotatingWithRootMotion;

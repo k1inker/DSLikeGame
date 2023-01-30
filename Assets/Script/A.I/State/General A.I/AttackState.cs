@@ -53,7 +53,7 @@ namespace DS
             enemy.isUsingRightHand = currentAttack.isRightHandedAction;
             enemy.isUsingLeftHand = !currentAttack.isRightHandedAction;
             Debug.Log(enemy.isUsingRightHand);
-            enemy.enemyAnimatorManager.PlayTargetAnimation(currentAttack.actionAnimation, true);
+            enemy.enemyAnimatorManager.PlayTargetAnimationWithRootMotion(currentAttack.actionAnimation, true);
             enemy.enemyAnimatorManager.PlayWeaponTrailFX();
             enemy.currentRecoveryTime = currentAttack.recoveryTime;
             hasPerformedAttack = true;
@@ -64,7 +64,7 @@ namespace DS
             enemy.isUsingLeftHand = !currentAttack.isRightHandedAction;
 
             _willDoCombo = false;
-            enemy.enemyAnimatorManager.PlayTargetAnimation(currentAttack.actionAnimation, true);
+            enemy.enemyAnimatorManager.PlayTargetAnimationWithRootMotion(currentAttack.actionAnimation, true);
             enemy.enemyAnimatorManager.PlayWeaponTrailFX();
             enemy.currentRecoveryTime = currentAttack.recoveryTime;
             currentAttack = null;

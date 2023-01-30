@@ -4,14 +4,19 @@ namespace DS
 {
     public class AttackStateHumanoid : State
     {
-        [SerializeField] private CombatStanceStateHumanoid combatStanceState;
-        [SerializeField] private PursueTargetStateHumanoid pursueTargetState;
-        [SerializeField] private RotateTowardsTargetState rotateTowardsTargetState;
+        private CombatStanceStateHumanoid combatStanceState;
+        private PursueTargetStateHumanoid _pursueTargetState;
+        private RotateTowardsStateHumanoid _rotateTowardsTargetState;
 
         public ItemBasedAttackAction currentAttack;
         public bool hasPerformedAttack = false;
 
-        private bool _willDoCombo = false;
+        [SerializeField]private bool _willDoCombo = false;
+        private void Awake()
+        {
+            _pursueTargetState = GetComponent<PursueTargetStateHumanoid>();
+            _rotateTowardsTargetState = GetComponent<RotateTowardsStateHumanoid>();
+        }
         /// <summary>
         /// Select attack in attacks score
         /// if attack is not able on distance or angle, select A new attack
@@ -21,19 +26,17 @@ namespace DS
         /// <returns>combat stance state</returns>
         public override State Tick(EnemyManager enemy)
         {
-            float distanceFromTarget = Vector3.Distance(enemy.currentTarget.transform.position, enemy.transform.position);
-
             RotateTowardsTargetWhilstAttacking(enemy);
 
-            if (distanceFromTarget > enemy.maximumAggroRadius)
+            if (enemy.distanceFromTarget > enemy.maximumAggroRadius)
             {
-                return pursueTargetState;
+                ResetStateFlags();
+                return _pursueTargetState;
             }
 
             if (_willDoCombo && enemy.canDoCombo)
             {
                 AttackTargetWithCombo(enemy);
-
             }
             if (!hasPerformedAttack)
             {
@@ -45,7 +48,8 @@ namespace DS
                 return this;
             }
 
-            return rotateTowardsTargetState;
+            ResetStateFlags();
+            return _rotateTowardsTargetState;
         }
         private void AttackTarget(EnemyManager enemy)
         {
@@ -104,6 +108,11 @@ namespace DS
                 enemyManager.enemyRigidbody.velocity = targetVelocity;
                 enemyManager.transform.rotation = Quaternion.Slerp(enemyManager.transform.rotation, enemyManager.navmeshAgent.transform.rotation, enemyManager.rotationSpeed / Time.deltaTime);
             }
+        }
+        private void ResetStateFlags()
+        {
+            _willDoCombo = false;
+            hasPerformedAttack = false;
         }
     }
 }

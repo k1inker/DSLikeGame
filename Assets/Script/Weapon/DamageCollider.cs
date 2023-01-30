@@ -81,7 +81,7 @@ namespace DS
         {
             if(enemyManager.isParrying)
             {
-                _characterManager.characterAnimatorManager.PlayTargetAnimation("Parried", true);
+                _characterManager.characterAnimatorManager.PlayTargetAnimationWithRootMotion("Parried", true);
                 _hasBeenParried = true;
             }
         }

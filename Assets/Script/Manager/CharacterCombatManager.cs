@@ -43,11 +43,19 @@ public class CharacterCombatManager : MonoBehaviour
         if(_character.characterStatsManager.currentStamina <= 0)
         {
             _character.isBlocking = false;
-            _character.characterAnimatorManager.PlayTargetAnimation("Destroy Block Guard", true);
+            _character.characterAnimatorManager.PlayTargetAnimationWithRootMotion("Destroy Block Guard", true);
         }
         else
         {
-            _character.characterAnimatorManager.PlayTargetAnimation(blockAnimation, true);
+            _character.characterAnimatorManager.PlayTargetAnimationWithRootMotion(blockAnimation, true);
         }
+    }
+    public void EnableCanBeParried()
+    {
+        _character.canBeParried = true;
+    }
+    public void DisableCanBeParried()
+    {
+        _character.canBeParried = false;
     }
 }

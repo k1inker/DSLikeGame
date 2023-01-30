@@ -14,7 +14,7 @@ namespace DS
 
             if(parryingWeapon.weaponType == WeaponType.Shield)
             {
-                character.characterAnimatorManager.PlayTargetAnimation("Parry", true);
+                character.characterAnimatorManager.PlayTargetAnimationWithRootMotion("Parry", true);
             }
         }
     }

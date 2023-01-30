@@ -15,19 +15,16 @@ namespace DS
             _enemyHealthBar = FindObjectOfType<UIEnemyHealthBar>();
 
             _enemy = GetComponent<EnemyManager>();
-
-            maxHealth = SetMaxHealthFromHealthLevel();
-            currentHealth = maxHealth;
         }
         private void Start()
         {
             if(!isBoss)
                 _enemyHealthBar.SetMaxHealth(maxHealth);
-        }
-        private int SetMaxHealthFromHealthLevel()
-        {
-            maxHealth = healthLevel * 10;
-            return maxHealth;
+            maxHealth = SetMaxHealthFromHealthLevel();
+            currentHealth = maxHealth;
+
+            maxStamina = SetMaxStaminaFromHealthLevel();
+            currentStamina = maxStamina;
         }
         override public void TakeDamageNoAnimation(int damage)
         {

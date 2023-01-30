@@ -28974,6 +28974,13 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.75
+    functionName: DrainStaminaBasedOnAttack
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.7916667
     functionName: StopRotation
     data: 
     objectReferenceParameter: {fileID: 0}
@@ -28988,7 +28995,14 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.7916667
-    functionName: DrainStaminaBasedOnAttack
+    functionName: EnableCanBeParried
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.875
+    functionName: DisableCanBeParried
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d2c730d7a6005646a3ca94d49eaa4a7, type: 3}
-  m_Name: Enemy_1_HeavySword 1
+  m_Name: Enemy_1_HeavySword
   m_EditorClassIdentifier: 
   itemIcon: {fileID: 0}
   itemName: Heavy Sword

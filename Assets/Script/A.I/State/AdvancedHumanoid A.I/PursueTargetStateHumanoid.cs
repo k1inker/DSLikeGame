@@ -3,7 +3,11 @@ namespace DS
 {
     public class PursueTargetStateHumanoid : State
     {
-        [SerializeField] private CombatStanceStateHumanoid _combatStanceState;
+        private CombatStanceStateHumanoid _combatStanceState;
+        private void Awake()
+        {
+            _combatStanceState = GetComponent<CombatStanceStateHumanoid>();   
+        }
         public override State Tick(EnemyManager enemy)
         {
             HandleRotateTowardsTarget(enemy);

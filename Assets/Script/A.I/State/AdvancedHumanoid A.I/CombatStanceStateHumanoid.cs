@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace DS
 {
     public class CombatStanceStateHumanoid : State
     {
-        public AttackStateHumanoid attackState;
-        public PursueTargetStateHumanoid pusueTargetState;
+        private AttackStateHumanoid _attackState;
+        private PursueTargetStateHumanoid _pusueTargetState;
 
         [SerializeField] private ItemBasedAttackAction[] enemyAttacks;
 
@@ -14,12 +15,23 @@ namespace DS
         protected float _verticalMovementValue = 0;
 
         [Header("State Flags")]
-        private bool willPerformBlock = false;
-        private bool willPerformDodge = false;
-        private bool willPerformParry = false;
+        private bool _willPerformBlock = false;
+        private bool _willPerformDodge = false;
+        private bool _willPerformParry = false;
+
+        private bool _hasPreformedDodge = false;
+        private bool _hasRandomDodgeDirection = false;
+        private bool _hasPerformedParry = false;
+
+        private Quaternion _targetDodgeDirection;
+        private void Awake()
+        {
+            _attackState = GetComponent<AttackStateHumanoid>();
+            _pusueTargetState = GetComponent<PursueTargetStateHumanoid>();
+        }
         public override State Tick(EnemyManager enemy)
         {
-            if(enemy.combatStyle == AICombatStyle.swordAndShield)
+            if (enemy.combatStyle == AICombatStyle.swordAndShield)
             {
                 return ProcessSwordAndShieldCombatStyle(enemy);
             }
@@ -40,9 +52,18 @@ namespace DS
 
                 return this;
             }
+            if(enemy.currentTarget.isDead)
+            {
+                ResetStateFlags();
+                enemy.currentTarget = null;
+                return this;    
+            }
             // if the A.I has gotten to far from it`s target?, return to pursue state
             if (enemy.distanceFromTarget > enemy.maximumAggroRadius)
-                return pusueTargetState;
+            {
+                ResetStateFlags();  
+                return _pusueTargetState;
+            }
 
             //randomiez walking pattern of our A.I so they circle the player 
             if (!_randomDestinationSet)
@@ -55,10 +76,10 @@ namespace DS
 
             HandleRotateTowardsTarget(enemy);
 
-            if (enemy.currentRecoveryTime <= 0 && attackState.currentAttack != null)
+            if (enemy.currentRecoveryTime <= 0 && _attackState.currentAttack != null)
             {
-                _randomDestinationSet = false;
-                return attackState;
+                ResetStateFlags();
+                return _attackState;
             }
             else
             {
@@ -71,37 +92,41 @@ namespace DS
         {
             if (enemy.allowAIToPreformBlock)
             {
-                willPerformBlock = RollForActionChance(enemy.blockLikeHood);
+                _willPerformBlock = RollForActionChance(enemy.blockLikeHood);
             }
 
             if (enemy.allowAIToPreformDodge)
             {
-                willPerformDodge = RollForActionChance(enemy.dodgeLikeHood);
+                _willPerformDodge = RollForActionChance(enemy.dodgeLikeHood);
             }
 
             if (enemy.allowAIToPreformParry)
             {
-                willPerformParry = RollForActionChance(enemy.parryLikeHood);
+                _willPerformParry = RollForActionChance(enemy.parryLikeHood);
             }
 
-            if (willPerformBlock)
-            {
 
+            if (_willPerformBlock)
+            {
+                BlockingUsingOffHand(enemy);
             }
-            if (willPerformDodge)
+            if (enemy.currentTarget.isAttacking)
             {
-
-            }
-            if (willPerformParry)
-            {
-
+                if (_willPerformDodge)
+                {
+                    Dodge(enemy);
+                }
+                if (_willPerformParry && !_hasPerformedParry)
+                {
+                    ParryCurrentTarget(enemy);
+                }
             }
         }
 
         private bool RollForActionChance(int likeHood)
         {
             int actionChance = Random.Range(0, 100);
-            if(actionChance <= likeHood)
+            if (actionChance <= likeHood)
             {
                 return true;
             }
@@ -112,9 +137,15 @@ namespace DS
         }
         private void ResetStateFlags()
         {
-            willPerformBlock = false;
-            willPerformDodge = false;
-            willPerformParry = false;
+            _hasRandomDodgeDirection = false;
+            _hasPreformedDodge = false;
+            _hasPerformedParry = false;
+
+            _randomDestinationSet = false;
+            
+            _willPerformBlock = false;
+            _willPerformDodge = false;
+            _willPerformParry = false;
         }
         protected void HandleRotateTowardsTarget(EnemyManager enemyManager)
         {
@@ -162,14 +193,14 @@ namespace DS
                 ItemBasedAttackAction enemyAttackAction = enemyAttacks[i];
                 if (InRange(enemyAttackAction, enemy.viewableAngle, enemy.distanceFromTarget))
                 {
-                    if (attackState.currentAttack != null)
+                    if (_attackState.currentAttack != null)
                         return;
 
                     temporaryScore += enemyAttackAction.attackScore;
 
                     if (temporaryScore > randomValue)
                     {
-                        attackState.currentAttack = enemyAttackAction;
+                        _attackState.currentAttack = enemyAttackAction;
                     }
                 }
             }
@@ -191,6 +222,60 @@ namespace DS
             else if (_horizontalMovementValue >= -1 && _horizontalMovementValue < 0)
             {
                 _horizontalMovementValue = -0.5f;
+            }
+        }
+        private void BlockingUsingOffHand(EnemyManager enemy)
+        {
+            if(enemy.isBlocking == false)
+            {
+                if(enemy.allowAIToPreformBlock)
+                {
+                    enemy.isBlocking = true;
+                    enemy.characterWeaponSlotManager.currentItemBeingUsed = enemy.characterWeaponSlotManager.leftWeapon;
+                    enemy.characterCombatManager.SetBlockingAbsorptionsFromBlockingWeapon();
+                }
+            }
+        }
+        private void Dodge(EnemyManager enemy)
+        {
+            if(!_hasPreformedDodge)
+            {
+                if(!_hasRandomDodgeDirection)
+                {
+                    float randomDodgeDirection;
+
+                    _hasRandomDodgeDirection = true;
+                    randomDodgeDirection = Random.Range(0, 360);
+                    _targetDodgeDirection = Quaternion.Euler(enemy.transform.eulerAngles.x, randomDodgeDirection, enemy.transform.eulerAngles.z);
+                }
+                if(enemy.transform.rotation != _targetDodgeDirection)
+                {
+                    Quaternion targetRotation = Quaternion.Slerp(enemy.transform.rotation, _targetDodgeDirection, 1f);
+                    enemy.transform.rotation = targetRotation;
+
+                    float targetYRotation = _targetDodgeDirection.eulerAngles.y;
+                    float currentYRotation = enemy.transform.eulerAngles.y;
+                    float rotationDifference = Mathf.Abs(targetYRotation - currentYRotation);
+
+                    if(rotationDifference <= 5)
+                    {
+                        _hasPreformedDodge = true;
+                        enemy.transform.rotation = _targetDodgeDirection;
+                        enemy.enemyLocomotionManager.HandleRoll();
+                    }
+                }
+            }
+        }
+        private void ParryCurrentTarget(EnemyManager enemy)
+        {
+            if(enemy.currentTarget.canBeParried)
+            {
+                if(enemy.distanceFromTarget <= 2)
+                {
+                    _hasPerformedParry = true;
+                    enemy.isParrying = true;
+                    enemy.enemyAnimatorManager.PlayTargetAnimation("Parry", true);
+                }
             }
         }
         protected bool InRange(ItemBasedAttackAction enemyAttackAction, float viewableAngle, float distanceFromTarget)

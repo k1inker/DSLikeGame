@@ -31,16 +31,6 @@ namespace DS
             staminaBar.SetMaxStamina(maxStamina);
 
         }
-        private float SetMaxStaminaFromHealthLevel()
-        {
-            maxStamina = staminaLevel * 10;
-            return maxStamina;
-        }
-        private int SetMaxHealthFromHealthLevel()
-        {
-            maxHealth = healthLevel * 10;
-            return maxHealth;
-        }
         public override void TakeDamage(int damage, string damageAnimation = "Damage")
         {
             if (_player.isInvulnerable)

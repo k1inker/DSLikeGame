@@ -2,7 +2,8 @@ using UnityEngine;
 
 namespace DS
 {
-    public class ItemBasedAttackAction : MonoBehaviour
+    [CreateAssetMenu(menuName ="A.I/Item Based Attack Action")]
+    public class ItemBasedAttackAction : ScriptableObject
     {
         [Header("Attack Type")]
         public AttackType attackType = AttackType.light;

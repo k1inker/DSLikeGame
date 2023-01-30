@@ -69,5 +69,15 @@ namespace DS
         {
             currentStamina = currentStamina - staminaToDeduct;
         }
+        protected int SetMaxHealthFromHealthLevel()
+        {
+            maxHealth = healthLevel * 10;
+            return maxHealth;
+        }
+        protected float SetMaxStaminaFromHealthLevel()
+        {
+            maxStamina = staminaLevel * 10;
+            return maxStamina;
+        }
     }
 }

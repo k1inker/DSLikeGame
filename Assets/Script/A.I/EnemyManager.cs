@@ -15,6 +15,7 @@ namespace DS
         public CharacterManager currentTarget;
         public EnemyEffectsManager enemyEffectsManager;
         public EnemyAnimatorManager enemyAnimatorManager;
+        public EnemyLocomotionManager enemyLocomotionManager;
 
         [Header("A.I Setting")]
         public float detectionRadius = 10;
@@ -54,6 +55,7 @@ namespace DS
             navmeshAgent = GetComponentInChildren<NavMeshAgent>();
             enemyEffectsManager = GetComponent<EnemyEffectsManager>();
             enemyAnimatorManager = GetComponent<EnemyAnimatorManager>();
+            enemyLocomotionManager = GetComponent<EnemyLocomotionManager>();
             navmeshAgent.enabled = false;
         }
         private void Start()
@@ -75,6 +77,7 @@ namespace DS
             isPhaseShifting = animator.GetBool("isPhaseShifting");
 
             animator.SetBool("isDead", isDead);
+            animator.SetBool("isBlocking", isBlocking);
 
             UpdateInformationFromTarget();
         }

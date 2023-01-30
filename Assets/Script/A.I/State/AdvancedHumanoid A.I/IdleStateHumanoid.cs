@@ -4,8 +4,12 @@ namespace DS
 {
     public class IdleStateHumanoid : State
     {
-        [SerializeField] private PursueTargetStateHumanoid pursueTargetState;
+        private PursueTargetStateHumanoid _pursueTargetState;
         [SerializeField] private LayerMask _detectionLayer;
+        private void Awake()
+        {
+            _pursueTargetState = GetComponent<PursueTargetStateHumanoid>();
+        }
         public override State Tick(EnemyManager enemy)
         {
             #region Handle Enemy Target Detection
@@ -13,7 +17,6 @@ namespace DS
             for (int i = 0; i < colliders.Length; i++)
             {
                 CharacterManager character = colliders[i].GetComponent<CharacterManager>();
-
                 if (character != null)
                 {
                     if (character.characterStatsManager.teamIDNumber != enemy.enemyStatsManager.teamIDNumber)
@@ -33,7 +36,7 @@ namespace DS
             #region Handle Switching Next State
             if (enemy.currentTarget != null)
             {
-                return pursueTargetState;
+                return _pursueTargetState;
             }
             else
                 return this;

@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace DS
 {
@@ -22,6 +23,10 @@ namespace DS
         }
         private void OnAnimatorMove()
         {
+            if (_enemy.animator.GetBool("isInteracting") && !_enemy.animator.GetBool("rootPosit"))
+            {
+                return;
+            }
             _enemy.enemyRigidbody.drag = 0;
             Vector3 deltaPosition = _enemy.animator.deltaPosition;
             deltaPosition.y = 0;
