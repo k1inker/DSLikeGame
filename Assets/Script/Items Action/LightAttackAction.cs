@@ -10,7 +10,6 @@ namespace DS
             if ((character.characterWeaponSlotManager.rightWeapon.baseStaminaCost * character.characterWeaponSlotManager.rightWeapon.lightAttackStaminaMultiplier) 
                 > character.characterStatsManager.currentStamina)
                 return;
-
             character.isAttacking = true;
             character.characterEffectsManager.PlayWeaponFX(false);
 
@@ -21,10 +20,13 @@ namespace DS
             else
             {
                 if (character.isInteracting)
+                {
                     return;
+                }
                 if (character.canDoCombo)
+                {
                     return;
-
+                }
                 HandleLightAttack(character);
                 character.characterCombatManager.currentAttackType = AttackType.light;
 

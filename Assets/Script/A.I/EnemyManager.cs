@@ -21,6 +21,7 @@ namespace DS
         public float detectionRadius = 10;
         public float rotationSpeed = 15;
         public float maximumAggroRadius = 1.5f;
+        public float stoppingDistance = 1.2f;
 
         [Header("Advanced A.I settings")]
         public bool allowAIToPreformBlock;

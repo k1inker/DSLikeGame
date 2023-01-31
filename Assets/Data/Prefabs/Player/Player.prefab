@@ -74,7 +74,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.3
+  m_Radius: 0.4
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 607173668559547282}
   - component: {fileID: 1791927477}
   - component: {fileID: 1791927478}
-  m_Layer: 11
+  m_Layer: 9
   m_Name: Player
   m_TagString: Character
   m_Icon: {fileID: 0}
@@ -425,6 +425,7 @@ MonoBehaviour:
   isUsingLeftHand: 0
   isBlocking: 0
   isParrying: 0
+  isAttacking: 0
   isRotatingWithRootMotion: 0
   canRotate: 0
   isDead: 0
@@ -529,10 +530,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentAttackType: 0
-  OH_Light_Attack_1: 1_Heavy_Light_attack_01
-  OH_Light_Attack_2: 1_Heavy_Light_attack_02
-  OH_Heavy_Attack_1: 1_Heavy_Heavy_attack_01
-  OH_Heavy_Attack_2: 1_Heavy_Heavy_attack_02
+  OH_Light_Attack_1: Light_Attack_01
+  OH_Light_Attack_2: Light_Attack_02
+  OH_Heavy_Attack_1: Heavy_Attack_01
+  OH_Heavy_Attack_2: Heavy_Attack_02
   lastAttack: 
 --- !u!114 &6632851799119795744
 MonoBehaviour:

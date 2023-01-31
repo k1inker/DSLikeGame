@@ -48,10 +48,12 @@ namespace DS
         {
             if(attackType == AttackType.light)
             {
+                Debug.Log("WEAPON 1");
                 enemy.characterWeaponSlotManager.rightWeapon.tap_RB_Action.PerformAction(enemy);
             }
             else if(attackType == AttackType.heavy)
             {
+                Debug.Log("WEAPON 2");
                 enemy.characterWeaponSlotManager.rightWeapon.hold_RB_Action.PerformAction(enemy);
             }
         }    

@@ -32,6 +32,7 @@ namespace DS
         }
         private void HandleHeavyAttack(CharacterManager character)
         {
+            Debug.Log(character.characterCombatManager.OH_Heavy_Attack_1);
             character.characterAnimatorManager.PlayTargetAnimationWithRootMotion(character.characterCombatManager.OH_Heavy_Attack_1, true);
             character.characterCombatManager.lastAttack = character.characterCombatManager.OH_Heavy_Attack_1;
         }

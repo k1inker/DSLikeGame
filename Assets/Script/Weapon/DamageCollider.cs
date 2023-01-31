@@ -50,30 +50,28 @@ namespace DS
                 _shieldHasBeenHit = false;
                 _hasBeenParried = false;
 
-                CharacterStatsManager enemyStats = collision.GetComponent<CharacterStatsManager>();
                 CharacterManager enemyManager = collision.GetComponent<CharacterManager>();
-                CharacterEffectsManager playerEffectsManager = collision.GetComponent <CharacterEffectsManager>();
 
-                if (enemyStats.teamIDNumber == teamIDNumber)
+                if (enemyManager.characterStatsManager.teamIDNumber == teamIDNumber)
                     return;
 
                 CheckForParry(enemyManager);
                 CheckForBlock(enemyManager);
 
-                if(enemyStats != null)
+                if(enemyManager.characterStatsManager != null)
                 {
                     if(_shieldHasBeenHit)
                         return;
                     if (_hasBeenParried)
                         return;
 
-                    enemyStats.poiseResetTimer = enemyStats.totalPoiseResetTime;
-                    enemyStats.currentPoiseDefence = enemyStats.currentPoiseDefence - poiseBreak;
+                    enemyManager.characterStatsManager.poiseResetTimer = enemyManager.characterStatsManager.totalPoiseResetTime;
+                    enemyManager.characterStatsManager.currentPoiseDefence = enemyManager.characterStatsManager.currentPoiseDefence - poiseBreak;
 
                     Vector3 hitPoint = collision.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
-                    playerEffectsManager.PlayBloodSplatterFX(hitPoint);
+                    enemyManager.characterEffectsManager.PlayBloodSplatterFX(hitPoint);
 
-                    DealDamage(enemyStats);
+                    DealDamage(enemyManager.characterStatsManager);
                 }
             }
         }

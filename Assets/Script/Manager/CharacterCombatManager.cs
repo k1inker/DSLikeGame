@@ -9,10 +9,10 @@ public class CharacterCombatManager : MonoBehaviour
     public AttackType currentAttackType;
 
     [Header("Attack Animations")]
-    public string OH_Light_Attack_1 = "1_Heavy_Light_attack_01";
-    public string OH_Light_Attack_2 = "1_Heavy_Light_attack_02";
-    public string OH_Heavy_Attack_1 = "1_Heavy_Heavy_attack_01";
-    public string OH_Heavy_Attack_2 = "1_Heavy_Heavy_attack_02";
+    public string OH_Light_Attack_1 = "Light_Attack_01";
+    public string OH_Light_Attack_2 = "Light_Attack_02";
+    public string OH_Heavy_Attack_1 = "Heavy_Attack_01";
+    public string OH_Heavy_Attack_2 = "Heavy_Attack_02";
 
     public string lastAttack;
     protected virtual void Awake()

@@ -372,7 +372,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 1_Heavy_Light_attack_02
+  m_Name: Light_Attack_02
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -399,7 +399,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 1_Heavy_Light_attack_01
+  m_Name: Light_Attack_01
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1104,7 +1104,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 1_Heavy_Heavy_attack_01
+  m_Name: Heavy_Attack_01
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1322,7 +1322,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 1_Heavy_Heavy_attack_02
+  m_Name: Heavy_Attack_02
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:

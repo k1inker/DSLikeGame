@@ -10,6 +10,17 @@ namespace DS
         }
         public override State Tick(EnemyManager enemy)
         {
+            if (enemy.combatStyle == AICombatStyle.swordAndShield)
+            {
+                return ProcessSwordAndShieldCombatStyle(enemy);
+            }
+            else
+            {
+                return this;
+            }
+        }
+        private State ProcessSwordAndShieldCombatStyle(EnemyManager enemy)
+        {
             HandleRotateTowardsTarget(enemy);
 
             if (enemy.isInteracting)
@@ -34,32 +45,43 @@ namespace DS
         }
         private void HandleRotateTowardsTarget(EnemyManager enemyManager)
         {
-            //Rotate manualy
-            if (enemyManager.isPerformingAction)
+            Vector3 direction = enemyManager.currentTarget.transform.position - transform.position;
+            direction.y = 0;
+            direction.Normalize();
+
+            if (direction == Vector3.zero)
             {
-                Vector3 direction = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
-                direction.y = 0;
-                direction.Normalize();
-
-                if (direction == Vector3.zero)
-                {
-                    direction = enemyManager.transform.forward;
-                }
-
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-                enemyManager.transform.rotation = Quaternion.Slerp(enemyManager.transform.rotation, targetRotation, enemyManager.rotationSpeed / Time.deltaTime);
+                direction = transform.forward;
             }
-            //Rotate with navmesh
-            else
-            {
-                Vector3 relativeDirection = transform.InverseTransformDirection(enemyManager.navmeshAgent.desiredVelocity);
-                Vector3 targetVelocity = enemyManager.enemyRigidbody.velocity;
 
-                enemyManager.navmeshAgent.enabled = true;
-                enemyManager.navmeshAgent.SetDestination(enemyManager.currentTarget.transform.position);
-                enemyManager.enemyRigidbody.velocity = targetVelocity;
-                enemyManager.transform.rotation = Quaternion.Slerp(enemyManager.transform.rotation, enemyManager.navmeshAgent.transform.rotation, enemyManager.rotationSpeed / Time.deltaTime);
-            }
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            enemyManager.transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, enemyManager.rotationSpeed);
+            ////Rotate manualy
+            //if (enemyManager.isPerformingAction)
+            //{
+            //    Vector3 direction = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
+            //    direction.y = 0;
+            //    direction.Normalize();
+
+            //    if (direction == Vector3.zero)
+            //    {
+            //        direction = enemyManager.transform.forward;
+            //    }
+
+            //    Quaternion targetRotation = Quaternion.LookRotation(direction);
+            //    enemyManager.transform.rotation = Quaternion.Slerp(enemyManager.transform.rotation, targetRotation, enemyManager.rotationSpeed / Time.deltaTime);
+            //}
+            ////Rotate with navmesh
+            //else
+            //{
+            //    Vector3 relativeDirection = transform.InverseTransformDirection(enemyManager.navmeshAgent.desiredVelocity);
+            //    Vector3 targetVelocity = enemyManager.enemyRigidbody.velocity;
+
+            //    enemyManager.navmeshAgent.enabled = true;
+            //    enemyManager.navmeshAgent.SetDestination(enemyManager.currentTarget.transform.position);
+            //    enemyManager.enemyRigidbody.velocity = targetVelocity;
+            //    enemyManager.transform.rotation = Quaternion.Slerp(enemyManager.transform.rotation, enemyManager.navmeshAgent.transform.rotation, enemyManager.rotationSpeed / Time.deltaTime);
+            //}
         }
     }
 }

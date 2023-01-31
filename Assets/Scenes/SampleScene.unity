@@ -3032,10 +3032,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentAttackType: 0
-  OH_Light_Attack_1: 1_Heavy_Light_attack_01
-  OH_Light_Attack_2: 1_Heavy_Light_attack_02
-  OH_Heavy_Attack_1: 1_Heavy_Heavy_attack_01
-  OH_Heavy_Attack_2: 1_Heavy_Heavy_attack_02
+  OH_Light_Attack_1: Light_Attack_01
+  OH_Light_Attack_2: Light_Attack_02
+  OH_Heavy_Attack_1: Heavy_Attack_01
+  OH_Heavy_Attack_2: Heavy_Attack_02
   lastAttack: 
 --- !u!114 &731968298
 MonoBehaviour:
@@ -3223,11 +3223,12 @@ MonoBehaviour:
   detectionRadius: 10
   rotationSpeed: 15
   maximumAggroRadius: 6
+  stoppingDistance: 1.2
   allowAIToPreformBlock: 0
   blockLikeHood: 100
   allowAIToPreformDodge: 0
   dodgeLikeHood: 100
-  allowAIToPreformParry: 1
+  allowAIToPreformParry: 0
   parryLikeHood: 100
   AIPerfomCombos: 1
   isPhaseShifting: 0
@@ -3436,6 +3437,7 @@ MonoBehaviour:
   detectionRadius: 10
   rotationSpeed: 15
   maximumAggroRadius: 6
+  stoppingDistance: 1.2
   allowAIToPreformBlock: 0
   blockLikeHood: 50
   allowAIToPreformDodge: 0
@@ -5924,7 +5926,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fe0a00d5afa8e54db5a97565f4bdf36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyAttacks: []
+  enemyAttacks:
+  - {fileID: 11400000, guid: 2fe2b1fd517adff42932a8373d242421, type: 2}
+  - {fileID: 11400000, guid: fa115a92bbb15074987d4e70b9456c10, type: 2}
 --- !u!114 &1409729881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6556,10 +6560,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentAttackType: 0
-  OH_Light_Attack_1: 1_Heavy_Light_attack_01
-  OH_Light_Attack_2: 1_Heavy_Light_attack_02
-  OH_Heavy_Attack_1: 1_Heavy_Heavy_attack_01
-  OH_Heavy_Attack_2: 1_Heavy_Heavy_attack_02
+  OH_Light_Attack_1: Light_Attack_01
+  OH_Light_Attack_2: Light_Attack_02
+  OH_Heavy_Attack_1: Heavy_Attack_01
+  OH_Heavy_Attack_2: Heavy_Attack_02
   lastAttack: 
 --- !u!1 &1546974461
 GameObject:
@@ -8487,7 +8491,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.3
+  m_Radius: 0.4
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
@@ -11501,6 +11505,7 @@ MonoBehaviour:
   detectionRadius: 10
   rotationSpeed: 15
   maximumAggroRadius: 6
+  stoppingDistance: 1.2
   allowAIToPreformBlock: 0
   blockLikeHood: 50
   allowAIToPreformDodge: 0
@@ -11768,10 +11773,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentAttackType: 0
-  OH_Light_Attack_1: 1_Heavy_Light_attack_01
-  OH_Light_Attack_2: 1_Heavy_Light_attack_02
-  OH_Heavy_Attack_1: 1_Heavy_Heavy_attack_01
-  OH_Heavy_Attack_2: 1_Heavy_Heavy_attack_02
+  OH_Light_Attack_1: Light_Attack_01
+  OH_Light_Attack_2: Light_Attack_02
+  OH_Heavy_Attack_1: Heavy_Attack_01
+  OH_Heavy_Attack_2: Heavy_Attack_02
   lastAttack: 
 --- !u!1 &6371553476027347360
 GameObject:

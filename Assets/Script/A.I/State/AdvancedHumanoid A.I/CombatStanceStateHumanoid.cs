@@ -42,8 +42,6 @@ namespace DS
         }
         private State ProcessSwordAndShieldCombatStyle(EnemyManager enemy)
         {
-            enemy.animator.SetFloat("Vertical", _verticalMovementValue, 0.2f, Time.deltaTime);
-            enemy.animator.SetFloat("Horizontal", _horizontalMovementValue, 0.2f, Time.deltaTime);
 
             if (enemy.isInteracting)
             {
@@ -85,6 +83,8 @@ namespace DS
             {
                 GetNewAttack(enemy);
             }
+
+            HandleMovement(enemy);
             return this;
         }
 
@@ -149,32 +149,17 @@ namespace DS
         }
         protected void HandleRotateTowardsTarget(EnemyManager enemyManager)
         {
-            //Rotate manualy
-            if (enemyManager.isPerformingAction)
+            Vector3 direction = enemyManager.currentTarget.transform.position - transform.position;
+            direction.y = 0;
+            direction.Normalize();
+
+            if(direction == Vector3.zero)
             {
-                Vector3 direction = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
-                direction.y = 0;
-                direction.Normalize();
-
-                if (direction == Vector3.zero)
-                {
-                    direction = enemyManager.transform.forward;
-                }
-
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-                enemyManager.transform.rotation = Quaternion.Slerp(enemyManager.transform.rotation, targetRotation, enemyManager.rotationSpeed / Time.deltaTime);
+                direction = transform.forward;
             }
-            //Rotate with navmesh
-            else
-            {
-                Vector3 relativeDirection = transform.InverseTransformDirection(enemyManager.navmeshAgent.desiredVelocity);
-                Vector3 targetVelocity = enemyManager.enemyRigidbody.velocity;
-
-                enemyManager.navmeshAgent.enabled = true;
-                enemyManager.navmeshAgent.SetDestination(enemyManager.currentTarget.transform.position);
-                enemyManager.enemyRigidbody.velocity = targetVelocity;
-                enemyManager.transform.rotation = Quaternion.Slerp(enemyManager.transform.rotation, enemyManager.navmeshAgent.transform.rotation, enemyManager.rotationSpeed / Time.deltaTime);
-            }
+            
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            enemyManager.transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, enemyManager.rotationSpeed); 
         }
         protected virtual void GetNewAttack(EnemyManager enemy)
         {
@@ -276,6 +261,19 @@ namespace DS
                     enemy.isParrying = true;
                     enemy.enemyAnimatorManager.PlayTargetAnimation("Parry", true);
                 }
+            }
+        }
+        private void HandleMovement(EnemyManager enemy)
+        {
+            if(enemy.distanceFromTarget <= enemy.stoppingDistance)
+            {
+                enemy.animator.SetFloat("Vertical", 0, 0.2f, Time.deltaTime);
+                enemy.animator.SetFloat("Horizontal", _horizontalMovementValue, 0.2f, Time.deltaTime);
+            }
+            else
+            {
+                enemy.animator.SetFloat("Vertical", _verticalMovementValue, 0.2f, Time.deltaTime);
+                enemy.animator.SetFloat("Horizontal", _horizontalMovementValue, 0.2f, Time.deltaTime);
             }
         }
         protected bool InRange(ItemBasedAttackAction enemyAttackAction, float viewableAngle, float distanceFromTarget)
