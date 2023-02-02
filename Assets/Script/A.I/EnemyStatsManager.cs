@@ -7,12 +7,14 @@ namespace DS
         [SerializeField] private UIEnemyHealthBar _enemyHealthBar;
 
         private EnemyManager _enemy;
+        private LevelManager _levelManager;
 
         public bool isBoss;
         protected override void Awake()
         {
             base.Awake();
             _enemyHealthBar = FindObjectOfType<UIEnemyHealthBar>();
+            _levelManager = FindObjectOfType<LevelManager>();
 
             _enemy = GetComponent<EnemyManager>();
         }
@@ -20,6 +22,7 @@ namespace DS
         {
             if(!isBoss)
                 _enemyHealthBar.SetMaxHealth(maxHealth);
+
             maxHealth = SetMaxHealthFromHealthLevel();
             currentHealth = maxHealth;
 
@@ -68,10 +71,12 @@ namespace DS
 
         private void HandleDeath()
         {
+            _levelManager.DefeatEnemy();
             currentHealth = 0;
             _enemy.enemyAnimatorManager.PlayTargetAnimation("Death", true);
 
             _enemy.isDead = true;
+            Destroy(this.gameObject, 5f);
         }
     }
 }

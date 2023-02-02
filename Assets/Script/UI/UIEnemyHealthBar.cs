@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 namespace DS
@@ -9,7 +10,7 @@ namespace DS
 
         private void Awake()
         {
-            _slider = GetComponentInChildren<Slider>();    
+            _slider = GetComponentInChildren<Slider>();
         }
         public void SetHealth(int health)
         {
@@ -24,8 +25,8 @@ namespace DS
         private void Update()
         {
             _timeUntilBarisHidden -= Time.deltaTime;
-
-            if(_slider != null)
+            Debug.Log(_slider);
+            if (_slider != null)
             {
                 if( _timeUntilBarisHidden <= 0 )
                 {

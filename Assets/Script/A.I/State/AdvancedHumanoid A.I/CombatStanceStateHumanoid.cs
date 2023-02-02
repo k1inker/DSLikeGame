@@ -122,7 +122,6 @@ namespace DS
                 }
             }
         }
-
         private bool RollForActionChance(int likeHood)
         {
             int actionChance = Random.Range(0, 100);
@@ -215,9 +214,9 @@ namespace DS
             {
                 if(enemy.allowAIToPreformBlock)
                 {
-                    enemy.isBlocking = true;
                     enemy.characterWeaponSlotManager.currentItemBeingUsed = enemy.characterWeaponSlotManager.leftWeapon;
                     enemy.characterCombatManager.SetBlockingAbsorptionsFromBlockingWeapon();
+                    enemy.characterWeaponSlotManager.leftWeapon.hold_LB_Action.PerformAction(enemy);
                 }
             }
         }

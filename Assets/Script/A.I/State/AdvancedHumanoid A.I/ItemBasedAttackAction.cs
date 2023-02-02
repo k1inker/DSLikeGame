@@ -19,8 +19,8 @@ namespace DS
         public float recoveryTime = 2;
         public float maximumAttackAngle = 35;
         public float minimumAttackAngle = -35;
-        public float minimumDistanceToAttack = 0;
-        public float maximumDistanceToAttack = 2;
+        public float minimumDistanceToAttack = 0.4f;
+        public float maximumDistanceToAttack = 1.7f;
 
         public void PerformAttackAction(EnemyManager enemy)
         {
@@ -48,12 +48,10 @@ namespace DS
         {
             if(attackType == AttackType.light)
             {
-                Debug.Log("WEAPON 1");
                 enemy.characterWeaponSlotManager.rightWeapon.tap_RB_Action.PerformAction(enemy);
             }
             else if(attackType == AttackType.heavy)
             {
-                Debug.Log("WEAPON 2");
                 enemy.characterWeaponSlotManager.rightWeapon.hold_RB_Action.PerformAction(enemy);
             }
         }    

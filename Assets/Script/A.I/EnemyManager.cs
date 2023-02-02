@@ -17,6 +17,9 @@ namespace DS
         public EnemyAnimatorManager enemyAnimatorManager;
         public EnemyLocomotionManager enemyLocomotionManager;
 
+        [Header("Level settings")]
+        public float chanceSpawn = 100;
+
         [Header("A.I Setting")]
         public float detectionRadius = 10;
         public float rotationSpeed = 15;
@@ -57,6 +60,8 @@ namespace DS
             enemyEffectsManager = GetComponent<EnemyEffectsManager>();
             enemyAnimatorManager = GetComponent<EnemyAnimatorManager>();
             enemyLocomotionManager = GetComponent<EnemyLocomotionManager>();
+
+            currentTarget = FindObjectOfType<PlayerManager>();
             navmeshAgent.enabled = false;
         }
         private void Start()

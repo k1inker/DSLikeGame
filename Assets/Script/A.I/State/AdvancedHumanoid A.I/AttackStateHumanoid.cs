@@ -4,7 +4,7 @@ namespace DS
 {
     public class AttackStateHumanoid : State
     {
-        private CombatStanceStateHumanoid combatStanceState;
+        private CombatStanceStateHumanoid _combatStanceState;
         private PursueTargetStateHumanoid _pursueTargetState;
         private RotateTowardsStateHumanoid _rotateTowardsTargetState;
 
@@ -16,6 +16,7 @@ namespace DS
         {
             _pursueTargetState = GetComponent<PursueTargetStateHumanoid>();
             _rotateTowardsTargetState = GetComponent<RotateTowardsStateHumanoid>();
+            _combatStanceState = GetComponent<CombatStanceStateHumanoid>();
         }
         /// <summary>
         /// Select attack in attacks score
@@ -38,6 +39,12 @@ namespace DS
             {
                 AttackTargetWithCombo(enemy);
             }
+            //else if(_willDoCombo && !enemy.canDoCombo && !enemy.isAttacking)
+            //{
+            //    ResetStateFlags();
+            //    currentAttack = null;
+            //    return _rotateTowardsTargetState;
+            //}
             if (!hasPerformedAttack)
             {
                 AttackTarget(enemy);
@@ -100,13 +107,24 @@ namespace DS
             //Rotate with navmesh
             else
             {
-                Vector3 relativeDirection = transform.InverseTransformDirection(enemyManager.navmeshAgent.desiredVelocity);
-                Vector3 targetVelocity = enemyManager.enemyRigidbody.velocity;
+                //Vector3 relativeDirection = transform.InverseTransformDirection(enemyManager.navmeshAgent.desiredVelocity);
+                //Vector3 targetVelocity = enemyManager.enemyRigidbody.velocity;
 
-                enemyManager.navmeshAgent.enabled = true;
-                enemyManager.navmeshAgent.SetDestination(enemyManager.currentTarget.transform.position);
-                enemyManager.enemyRigidbody.velocity = targetVelocity;
-                enemyManager.transform.rotation = Quaternion.Slerp(enemyManager.transform.rotation, enemyManager.navmeshAgent.transform.rotation, enemyManager.rotationSpeed / Time.deltaTime);
+                //enemyManager.navmeshAgent.enabled = true;
+                //enemyManager.navmeshAgent.SetDestination(enemyManager.currentTarget.transform.position);
+                //enemyManager.enemyRigidbody.velocity = targetVelocity;
+                //enemyManager.transform.rotation = Quaternion.Slerp(enemyManager.transform.rotation, enemyManager.navmeshAgent.transform.rotation, enemyManager.rotationSpeed / Time.deltaTime);
+                Vector3 direction = enemyManager.currentTarget.transform.position - transform.position;
+                direction.y = 0;
+                direction.Normalize();
+
+                if (direction == Vector3.zero)
+                {
+                    direction = transform.forward;
+                }
+
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                enemyManager.transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, enemyManager.rotationSpeed);
             }
         }
         private void ResetStateFlags()

@@ -23,7 +23,6 @@ namespace DS
             _character.animator.SetBool("canRotate", false);
             _character.animator.SetBool("isInteracting", isInteracting);
             _character.animator.SetBool("rootPosit", true);
-            Debug.Log(targetAnim);
             _character.animator.CrossFade(targetAnim, 0.2f);
         }
         public void PlayTargetAnimationWithRootRotation(string targetAnim, bool isInteracting)
