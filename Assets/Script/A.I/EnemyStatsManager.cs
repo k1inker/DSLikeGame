@@ -8,8 +8,6 @@ namespace DS
 
         private EnemyManager _enemy;
         private LevelManager _levelManager;
-
-        public bool isBoss;
         protected override void Awake()
         {
             base.Awake();
@@ -20,7 +18,7 @@ namespace DS
         }
         private void Start()
         {
-            if(!isBoss)
+            if(!_enemy.isBoss)
                 _enemyHealthBar.SetMaxHealth(maxHealth);
 
             maxHealth = SetMaxHealthFromHealthLevel();
@@ -33,11 +31,11 @@ namespace DS
         {
             base.TakeDamageNoAnimation(damage);
 
-            if (!isBoss)
+            if (!_enemy.isBoss)
             {
                 _enemyHealthBar.SetHealth(currentHealth);
             }
-            else if(isBoss && _enemy.enemyBossManager != null)
+            else if(_enemy.isBoss && _enemy.enemyBossManager != null)
             {
                 _enemy.enemyBossManager.UpdateBossHealthBar(currentHealth, maxHealth);
             }
@@ -52,11 +50,11 @@ namespace DS
                 return;
             base.TakeDamage(damage, damageAnimation = "Damage");
 
-            if (!isBoss)
+            if (!_enemy.isBoss)
             {
                 _enemyHealthBar.SetHealth(currentHealth);
             }
-            else if(isBoss && _enemy.enemyBossManager != null)
+            else if(_enemy.isBoss && _enemy.enemyBossManager != null)
             {
                 _enemy.enemyBossManager.UpdateBossHealthBar(currentHealth, maxHealth);
             }
@@ -71,9 +69,16 @@ namespace DS
 
         private void HandleDeath()
         {
-            _levelManager.DefeatEnemy();
             currentHealth = 0;
             _enemy.enemyAnimatorManager.PlayTargetAnimation("Death", true);
+            if (_enemy.isBoss)
+            {
+                _levelManager.BossHasDefeated();
+            }
+            else
+            {
+                _levelManager.DefeatEnemy();
+            }
 
             _enemy.isDead = true;
             Destroy(this.gameObject, 5f);

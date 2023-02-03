@@ -25,7 +25,7 @@ namespace DS
         private void Update()
         {
             _timeUntilBarisHidden -= Time.deltaTime;
-            Debug.Log(_slider);
+
             if (_slider != null)
             {
                 if( _timeUntilBarisHidden <= 0 )

@@ -6,36 +6,50 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    public List<GameObject> enemyType;
-    
     public int currentWave = 0;
-
+    public UIBossHealthBar bossHealthBar;
+    
+    [SerializeField] private int countWave = 4;
     [SerializeField] private int enemiesPerWave = 1;
+    [SerializeField] private List<GameObject> enemyType;
+    [SerializeField] private GameObject boss;
     [SerializeField] private float timeBetweenWaves = 10f;
     [SerializeField] private float timeBetweenEnemies = 2f;
     [SerializeField] private float wallRiseSpeed = 2f;
-    [SerializeField] private float wallLowerSpeed = 2f;
+
+
     [SerializeField] private Transform wall;
     [SerializeField] private Vector3 volume;
+    [SerializeField] private Vector3 spawnPoint;
 
     private int countEnemy = 0;
-    private float _wallStartY;
     private float _wallEndY;
     private float _timeSinceLastWave;
     private bool _isWallRising;
-    private bool _isWallLowering;
+    private void Awake()
+    {
+        bossHealthBar = FindObjectOfType<UIBossHealthBar>();
+
+    }
     private void Start()
     {
-        _wallStartY = wall.position.y;
-        _wallEndY = wall.position.y * 2f;
+        spawnPoint = gameObject.transform.GetChild(0).position;
+        _wallEndY = wall.position.y * 2.5f;
         _timeSinceLastWave = timeBetweenWaves;
     }
 
     private void Update()
     {
+        if(currentWave == countWave && countEnemy == 0)
+        {
+            StopCoroutine(nameof(SpawnEnemies));
+            ActiveBossFight();
+        }
+
         _timeSinceLastWave += Time.deltaTime;
 
-        if (_timeSinceLastWave >= timeBetweenWaves)
+
+        if (_timeSinceLastWave >= timeBetweenWaves || countEnemy == 0)
         {
             StartNewWave();
         }
@@ -43,11 +57,6 @@ public class LevelManager : MonoBehaviour
         if (_isWallRising)
         {
             RaiseWall();
-        }
-
-        if (_isWallLowering)
-        {
-            LowerWall();
         }
     }
     public List<GameObject> ChoosingEnemyTypeSpawn()
@@ -79,9 +88,9 @@ public class LevelManager : MonoBehaviour
         for (int i = 0; i < enemiesPerWave; i++)
         {
             countEnemy++;
-            Vector3 possition = new Vector3(Random.Range(gameObject.transform.position.x - volume.x, gameObject.transform.position.x + volume.x), 
-                Random.Range(gameObject.transform.position.y - volume.y, gameObject.transform.position.y + volume.y),
-                Random.Range(gameObject.transform.position.z - volume.z, gameObject.transform.position.z + volume.z));
+            Vector3 possition = new Vector3(Random.Range(spawnPoint.x - volume.x, spawnPoint.x + volume.x),
+                spawnPoint.y,
+                Random.Range(spawnPoint.z - volume.z, spawnPoint.z + volume.z));
             Instantiate(enemyPrefab[i], possition, Quaternion.identity);
             yield return new WaitForSeconds(timeBetweenEnemies);
         }
@@ -99,24 +108,19 @@ public class LevelManager : MonoBehaviour
             _isWallRising = false;
         }
     }
-
-    private void LowerWall()
+    public void ActiveBossFight()
     {
-        wall.position = new Vector3(wall.position.x, wall.position.y - (wallLowerSpeed * Time.deltaTime), wall.position.z);
-
-        if (wall.position.y <= _wallStartY)
-        {
-            _isWallLowering = false;
-        }
+        Instantiate(boss, spawnPoint, Quaternion.identity);
+        bossHealthBar.SetHealthBarToActive();
+        countEnemy++;
+    }
+    public void BossHasDefeated()
+    {   
+        SceneManager.LoadScene("Level1");
     }
     public void DefeatEnemy()
     {
         countEnemy--;
         //add chance item droping
-        if (countEnemy == 0)
-        {
-            //instantiet transition next level
-            SceneManager.LoadScene("Level1");
-        }
     }
 }

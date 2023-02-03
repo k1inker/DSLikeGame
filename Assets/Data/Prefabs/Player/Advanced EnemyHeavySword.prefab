@@ -1048,7 +1048,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
 --- !u!1 &5446120277684512279
 GameObject:
@@ -2091,7 +2091,6 @@ MonoBehaviour:
   poiseResetTimer: 0
   blockingStabilityRating: 0
   _enemyHealthBar: {fileID: 5446120279097020644}
-  isBoss: 0
 --- !u!114 &5446120278378270829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2141,7 +2140,7 @@ MonoBehaviour:
   allowAIToPreformBlock: 0
   blockLikeHood: 50
   allowAIToPreformDodge: 1
-  dodgeLikeHood: 50
+  dodgeLikeHood: 40
   allowAIToPreformParry: 0
   parryLikeHood: 100
   AIPerfomCombos: 1
@@ -2155,6 +2154,7 @@ MonoBehaviour:
   maximumDetectionAngle: 50
   minimumDetectionAngle: -50
   currentRecoveryTime: 0
+  isBoss: 0
 --- !u!114 &5446120278378270830
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -472,10 +472,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamIDNumber: 0
-  healthLevel: 10
+  healthLevel: 40
   maxHealth: 0
   currentHealth: 0
-  staminaLevel: 10
+  staminaLevel: 40
   maxStamina: 0
   currentStamina: 0
   totalPoiseDefence: 0
