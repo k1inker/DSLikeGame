@@ -39,12 +39,12 @@ namespace DS
             {
                 AttackTargetWithCombo(enemy);
             }
-            //else if(_willDoCombo && !enemy.canDoCombo && !enemy.isAttacking)
-            //{
-            //    ResetStateFlags();
-            //    currentAttack = null;
-            //    return _rotateTowardsTargetState;
-            //}
+            else if (_willDoCombo && !enemy.canDoCombo && !enemy.isAttacking)
+            {
+                ResetStateFlags();
+                currentAttack = null;
+                return _combatStanceState;
+            }
             if (!hasPerformedAttack)
             {
                 AttackTarget(enemy);

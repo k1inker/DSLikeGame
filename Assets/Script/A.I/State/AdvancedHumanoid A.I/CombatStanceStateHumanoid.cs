@@ -21,6 +21,7 @@ namespace DS
 
         private bool _hasPreformedDodge = false;
         private bool _hasRandomDodgeDirection = false;
+
         private bool _hasPerformedParry = false;
 
         private Quaternion _targetDodgeDirection;
@@ -70,9 +71,9 @@ namespace DS
                 DecideCirclingAction(enemy.enemyAnimatorManager);
             }
 
-            RollDefenceAction(enemy);
-
             HandleRotateTowardsTarget(enemy);
+
+            RollDefenceAction(enemy);
 
             if (enemy.currentRecoveryTime <= 0 && _attackState.currentAttack != null)
             {

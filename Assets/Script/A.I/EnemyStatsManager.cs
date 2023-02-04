@@ -15,20 +15,23 @@ namespace DS
             _levelManager = FindObjectOfType<LevelManager>();
 
             _enemy = GetComponent<EnemyManager>();
+            
         }
         private void Start()
         {
-            if(!_enemy.isBoss)
-                _enemyHealthBar.SetMaxHealth(maxHealth);
-
             maxHealth = SetMaxHealthFromHealthLevel();
             currentHealth = maxHealth;
 
             maxStamina = SetMaxStaminaFromHealthLevel();
             currentStamina = maxStamina;
+            
+            if(!_enemy.isBoss)
+                _enemyHealthBar.SetMaxHealth(maxHealth);
         }
         override public void TakeDamageNoAnimation(int damage)
         {
+            if (_enemy.isDead)
+                return;
             base.TakeDamageNoAnimation(damage);
 
             if (!_enemy.isBoss)
@@ -48,6 +51,7 @@ namespace DS
         {
             if (_enemy.isDead)
                 return;
+
             base.TakeDamage(damage, damageAnimation = "Damage");
 
             if (!_enemy.isBoss)
@@ -81,6 +85,7 @@ namespace DS
             }
 
             _enemy.isDead = true;
+            _enemy.navmeshAgent.enabled = false;
             Destroy(this.gameObject, 5f);
         }
     }

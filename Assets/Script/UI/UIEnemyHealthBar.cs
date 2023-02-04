@@ -10,7 +10,7 @@ namespace DS
 
         private void Awake()
         {
-            _slider = GetComponentInChildren<Slider>();
+           _slider = GetComponentInChildren<Slider>();
         }
         public void SetHealth(int health)
         {
