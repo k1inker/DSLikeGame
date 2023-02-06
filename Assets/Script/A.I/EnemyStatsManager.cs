@@ -75,6 +75,9 @@ namespace DS
         {
             currentHealth = 0;
             _enemy.enemyAnimatorManager.PlayTargetAnimation("Death", true);
+            _enemy.isDead = true;
+            _enemy.navmeshAgent.enabled = false;
+            Destroy(this.gameObject, 5f);
             if (_enemy.isBoss)
             {
                 _levelManager.BossHasDefeated();
@@ -83,10 +86,6 @@ namespace DS
             {
                 _levelManager.DefeatEnemy();
             }
-
-            _enemy.isDead = true;
-            _enemy.navmeshAgent.enabled = false;
-            Destroy(this.gameObject, 5f);
         }
     }
 }

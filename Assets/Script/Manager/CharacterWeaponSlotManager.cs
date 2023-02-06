@@ -64,12 +64,15 @@ namespace DS
             {
                 leftHandSlot.LoadWeaponModel(weaponItem);
                 LoadLeftWeaponDamageCollider();
+                _character.animator.runtimeAnimatorController = weaponItem.weaponController;
+                //_character.characterAnimatorManager.PlayTargetAnimation(weaponItem.offHandIdleAnimation, false);
             }
             else
             {
                 rightHandSlot.LoadWeaponModel(weaponItem);
                 LoadRightWeaponDamageCollider();
                 _character.animator.runtimeAnimatorController = weaponItem.weaponController;
+                //_character.characterAnimatorManager.PlayTargetAnimation(weaponItem.offHandIdleAnimation, false);
             }
         }   
         protected virtual void LoadLeftWeaponDamageCollider()

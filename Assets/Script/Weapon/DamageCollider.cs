@@ -52,6 +52,9 @@ namespace DS
 
                 CharacterManager enemyManager = collision.GetComponent<CharacterManager>();
 
+                if (enemyManager.isDead || enemyManager.isInvulnerable)
+                    return;
+
                 if (enemyManager.characterStatsManager.teamIDNumber == teamIDNumber)
                     return;
 

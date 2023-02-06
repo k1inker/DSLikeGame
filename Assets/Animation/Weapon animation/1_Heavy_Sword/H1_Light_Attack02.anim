@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 1H_Comb_Atack.02
+  m_Name: H1_Light_Attack02
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -33636,7 +33636,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.43376666
-    functionName: DrainStaminaLightAttack
+    functionName: DrainStaminaBasedOnAttack
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -33649,7 +33649,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.7007
+  - time: 0.76743335
     functionName: OpenDamageCollider
     data: 
     objectReferenceParameter: {fileID: 0}

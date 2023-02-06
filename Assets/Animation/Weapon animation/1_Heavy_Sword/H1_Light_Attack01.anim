@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 1H_Comb_Atack.01
+  m_Name: H1_Light_Attack01
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -29981,22 +29981,22 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.46713334
+  - time: 0.5672333
     functionName: StopRotation
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5672333
-    functionName: OpenDamageCollider
+  - time: 0.6006
+    functionName: DrainStaminaBasedOnAttack
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.6006
-    functionName: DrainStaminaLightAttack
+  - time: 0.66733336
+    functionName: OpenDamageCollider
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -30016,15 +30016,15 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.0677333
-    functionName: DisableCombo
+  - time: 0.96763337
+    functionName: ResetWeaponAttackingPoiseBonus
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 1.0677333
-    functionName: ResetWeaponAttackingPoiseBonus
+    functionName: DisableCombo
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

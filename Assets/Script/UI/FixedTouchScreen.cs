@@ -1,4 +1,5 @@
-using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace DS
@@ -6,59 +7,80 @@ namespace DS
     public class FixedTouchScreen : MonoBehaviour
     {
         [SerializeField] private RectTransform _areaWindow;
-
-        private InputHandler _inputHandler;
         private RectTransform _areaTouch;
-        private Touch _initTouch = new Touch();
-        
         private float _area = 0;
-        private bool isSwiped = false;
+        private Vector2 _firstPoint;
+        private bool _isLockOn = false;
+        private InputHandler _inputHandler;
 
-        public Vector2 moveInput = new Vector2();
+        public bool IsLockOn { set { _isLockOn = value; } }
+        public Vector2 moveInput = Vector2.zero;
+        public bool isSwiped;
         private void Start()
         {
             _inputHandler = FindObjectOfType<InputHandler>();
             _areaTouch = GetComponent<RectTransform>();
+            //_areaWindow = GetComponentInParent<RectTransform>();
             _area = _areaWindow.rect.size.x - _areaTouch.rect.size.x;
         }
-        private void FixedUpdate()
+        void LateUpdate()
         {
-            float delta = Time.deltaTime;
+            TouchRotation();
+        }
+        private void TouchRotation()
+        {
             foreach (Touch touch in Input.touches)
             {
                 if (touch.position.x < _area)
                     continue;
                 if (touch.phase == TouchPhase.Began)
                 {
-                    _initTouch = touch;
+                    _firstPoint = touch.position;
                 }
                 else if (touch.phase == TouchPhase.Moved)
                 {
-                    if (_inputHandler.lockOnFlag && !isSwiped)
-                        HandlerLockOn(touch);
-                    else
+                    if (!_isLockOn)
+                    {
                         FreeAspectCamera(touch);
-                }
-                else if (touch.phase == TouchPhase.Ended)
-                {
-                    _initTouch = new Touch();
-                    isSwiped = false;
+                    }
+                    else if (_isLockOn && !isSwiped)
+                    {
+                        HandlerLockOn(touch);
+                    }
+                    moveInput.Normalize();
                 }
                 else
                 {
+                    isSwiped = false;
                     moveInput = Vector2.zero;
                 }
             }
-            if (Input.touches.Length == 0 || (Input.touches[0].position.x < _area && Input.touches.Length == 1))
-            {
-                moveInput = Vector2.zero;
-                isSwiped = false;
-            }
+        }
+        private void FreeAspectCamera(Touch touch)
+        {
+            Vector2 secondPoint = touch.position;
+
+            moveInput.x = FilterGyroValues(secondPoint.x - _firstPoint.x);
+
+            moveInput.y = FilterGyroValues(secondPoint.y - _firstPoint.y);
+            _firstPoint = secondPoint;
         }
 
+        private float FilterGyroValues(float axis)
+        {
+            float thresshold = 5f;
+            if (axis < -thresshold || axis > thresshold)
+            {
+                return axis;
+            }
+            else
+            {
+                return 0;
+            }
+        }
         private void HandlerLockOn(Touch touch)
         {
-            moveInput.x = _initTouch.position.x - touch.position.x;
+            moveInput.x = _firstPoint.x - touch.position.x;
             moveInput.Normalize();
             if (moveInput.x < 0)
             {
@@ -66,20 +88,9 @@ namespace DS
                 isSwiped = true;
             }
             else if (moveInput.x > 0)
-            { 
+            {
                 _inputHandler.SwipeLockOnLeft();
                 isSwiped = true;
-            }
-        }
-
-        private void FreeAspectCamera(Touch touch)
-        {
-            moveInput.x = _initTouch.position.x - touch.position.x;
-            moveInput.y = _initTouch.position.y - touch.position.y;
-            moveInput.Normalize();
-            if (Mathf.Abs(moveInput.x) <= 0.1 || Mathf.Abs(moveInput.y) <= 0.1)
-            {
-                moveInput = Vector2.zero;
             }
         }
     }

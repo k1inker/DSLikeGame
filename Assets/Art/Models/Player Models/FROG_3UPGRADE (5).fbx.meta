@@ -1,50 +1,17 @@
 fileFormatVersion: 2
-guid: 99aca7d9b85338546b60c8160a3c67db
+guid: 2b98dd57586246a4fb2739905359e2d8
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
   - first:
-      74: -1997266125988020937
-    second: 2H_Comb_Atack.02
+      74: -7319185347617680388
+    second: katana_Attack.02
   - first:
-      74: -6422682337394393969
-    second: 2H_Comb_Atack.01
+      74: 1837079124606349593
+    second: shield_DODGE.002
   - first:
-      74: 1086104262829850950
-    second: 90Rotation_left.01
-  - first:
-      74: -6470046024586484122
-    second: 90Rotation_right.01
-  - first:
-      74: -3652439350889488148
-    second: Easy_attack.01
-  - first:
-      74: 2710586524729576121
-    second: Easy_attack.02
-  - first:
-      74: 7946426149828491951
-    second: Es_idle.01
-  - first:
-      74: -447043467274877159
-    second: H_Idle
-  - first:
-      74: 823762154521039758
-    second: H_walk01
-  - first:
-      74: 3560112827672673566
-    second: katana_Attack.01
-  - first:
-      74: 7833791652713640628
-    second: katana_idle.01
-  - first:
-      74: 8204667826162459563
-    second: shield_damage.02
-  - first:
-      74: -6077396554709721358
-    second: shield_idle.01
-  - first:
-      74: -8819080007451306582
-    second: shield_UP.01
+      74: -124499452841925146
+    second: shield_END.01
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -61,43 +28,14 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
       copied configuration does not match position in animation file:\n\t'thigh.L'
-      : position error = 32.749165 mm\n\t'shin.L' : position error = 16.777454 mm\n\t'foot.L'
-      : position error = 47.656689 mm\n\t'thigh.R' : position error = 32.749279 mm\n\t'shin.R'
-      : position error = 16.777567 mm\n\t'foot.R' : position error = 47.656799 mm\n"
+      : position error = 32.749283 mm\n\t'shin.L' : position error = 16.777567 mm\n\t'foot.L'
+      : position error = 47.656658 mm\n\t'thigh.R' : position error = 32.749283 mm\n\t'shin.R'
+      : position error = 16.777397 mm\n\t'foot.R' : position error = 47.656883 mm\n"
     animationImportErrors: 
-    animationImportWarnings: "\nClip '2H_Comb_Atack.02' has import animation warnings
+    animationImportWarnings: "\nClip 'katana_Attack.02' has import animation warnings
       that might lower retargeting quality:\nNote: Activate translation DOF on avatar
-      to improve retargeting quality.\n\t'shoulder.L' has translation animation that
-      will be discarded.\n\t'shoulder.R' has translation animation that will be discarded.\n\nClip
-      '2H_Comb_Atack.01' has import animation warnings that might lower retargeting
-      quality:\nNote: Activate translation DOF on avatar to improve retargeting quality.\n\t'shoulder.L'
-      has translation animation that will be discarded.\n\t'shoulder.R' has translation
-      animation that will be discarded.\n\t'upper_arm.R' has translation animation
-      that will be discarded.\n\nClip '90Rotation_left.01' has import animation warnings
-      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
-      to improve retargeting quality.\n\t'spine.005' is inbetween humanoid transforms
-      and has rotation animation that will be discarded.\n\nClip '90Rotation_right.01'
-      has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'spine.005'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\nClip
-      'Easy_attack.01' has import animation warnings that might lower retargeting
-      quality:\nNote: Activate translation DOF on avatar to improve retargeting quality.\n\t'shoulder.L'
-      has translation animation that will be discarded.\n\t'shoulder.R' has translation
-      animation that will be discarded.\n\nClip 'Easy_attack.02' has import animation
-      warnings that might lower retargeting quality:\nNote: Activate translation
-      DOF on avatar to improve retargeting quality.\n\t'shoulder.L' has translation
-      animation that will be discarded.\n\t'shoulder.R' has translation animation
-      that will be discarded.\n\t'thigh.L' has translation animation that will be
-      discarded.\n\nClip 'katana_Attack.01' has import animation warnings that might
-      lower retargeting quality:\nNote: Activate translation DOF on avatar to improve
-      retargeting quality.\n\t'upper_arm.L' has translation animation that will be
-      discarded.\n\nClip 'katana_idle.01' has import animation warnings that might
-      lower retargeting quality:\nNote: Activate translation DOF on avatar to improve
-      retargeting quality.\n\t'spine.005' is inbetween humanoid transforms and has
-      rotation animation that will be discarded.\n\nClip 'shield_damage.02' has import
-      animation warnings that might lower retargeting quality:\nNote: Activate translation
-      DOF on avatar to improve retargeting quality.\n\t'spine.005' is inbetween humanoid
-      transforms and has rotation animation that will be discarded.\n"
+      to improve retargeting quality.\n\t'upper_arm.L' has translation animation
+      that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -111,11 +49,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: 2H_Comb_Atack.02
-      takeName: 2H_Comb_Atack.02
+      name: katana_Attack.02
+      takeName: katana_Attack.02
       internalID: 0
       firstFrame: 0
-      lastFrame: 34
+      lastFrame: 23
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -124,12 +62,12 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
+      keepOriginalPositionXZ: 1
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
@@ -140,37 +78,8 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: 2H_Comb_Atack.01
-      takeName: 2H_Comb_Atack.01
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 34
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: 90Rotation_left.01
-      takeName: 90Rotation_left.01
+      name: shield_DODGE.002
+      takeName: shield_DODGE.002
       internalID: 0
       firstFrame: 0
       lastFrame: 24
@@ -183,11 +92,11 @@ ModelImporter:
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
-      loopBlendPositionY: 0
+      loopBlendPositionY: 1
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
+      keepOriginalPositionXZ: 1
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
@@ -198,354 +107,8 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: 90Rotation_right.01
-      takeName: 90Rotation_right.01
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 24
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Easy_attack.01
-      takeName: Easy_attack.01
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 29
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Easy_attack.02
-      takeName: Easy_attack.02
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 29
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Es_idle.01
-      takeName: Es_idle.01
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 29
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: H_Idle
-      takeName: H_Idle
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 39
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 00000000000000000000000000000000000000000000000001000000000000000100000000000000000000000000000000000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Frog_01
-        weight: 1
-      - path: rig
-        weight: 1
-      - path: rig/spine
-        weight: 1
-      - path: rig/spine/pelvis.L
-        weight: 1
-      - path: rig/spine/pelvis.R
-        weight: 1
-      - path: rig/spine/spine.001
-        weight: 1
-      - path: rig/spine/spine.001/spine.002
-        weight: 1
-      - path: rig/spine/spine.001/spine.002/spine.003
-        weight: 1
-      - path: rig/spine/spine.001/spine.002/spine.003/shoulder.L
-        weight: 1
-      - path: rig/spine/spine.001/spine.002/spine.003/shoulder.L/upper_arm.L
-        weight: 1
-      - path: rig/spine/spine.001/spine.002/spine.003/shoulder.L/upper_arm.L/forearm.L
-        weight: 1
-      - path: rig/spine/spine.001/spine.002/spine.003/shoulder.L/upper_arm.L/forearm.L/hand.L
-        weight: 1
-      - path: rig/spine/spine.001/spine.002/spine.003/shoulder.R
-        weight: 1
-      - path: rig/spine/spine.001/spine.002/spine.003/shoulder.R/upper_arm.R
-        weight: 1
-      - path: rig/spine/spine.001/spine.002/spine.003/shoulder.R/upper_arm.R/forearm.R
-        weight: 1
-      - path: rig/spine/spine.001/spine.002/spine.003/shoulder.R/upper_arm.R/forearm.R/hand.R
-        weight: 1
-      - path: rig/spine/spine.001/spine.002/spine.003/spine.004
-        weight: 1
-      - path: rig/spine/spine.001/spine.002/spine.003/spine.004/spine.005
-        weight: 1
-      - path: rig/spine/spine.001/spine.002/spine.003/spine.004/spine.005/head
-        weight: 1
-      - path: rig/spine/thigh.L
-        weight: 1
-      - path: rig/spine/thigh.L/shin.L
-        weight: 1
-      - path: rig/spine/thigh.L/shin.L/foot.L
-        weight: 1
-      - path: rig/spine/thigh.L/shin.L/foot.L/toe.L
-        weight: 1
-      - path: rig/spine/thigh.R
-        weight: 1
-      - path: rig/spine/thigh.R/shin.R
-        weight: 1
-      - path: rig/spine/thigh.R/shin.R/foot.R
-        weight: 1
-      - path: rig/spine/thigh.R/shin.R/foot.R/toe.R
-        weight: 1
-      maskType: 1
-      maskSource: {fileID: 31900000, guid: f3f36b3909ecfa34482b27639eec7fd2, type: 2}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: H_walk01
-      takeName: H_walk01
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 31
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: katana_Attack.01
-      takeName: katana_Attack.01
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 37
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: katana_idle.01
-      takeName: katana_idle.01
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 39
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: shield_damage.02
-      takeName: shield_damage.02
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 39
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: shield_idle.01
-      takeName: shield_idle.01
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 1
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: shield_UP.01
-      takeName: shield_UP.01
+      name: shield_END.01
+      takeName: shield_END.01
       internalID: 0
       firstFrame: 0
       lastFrame: 14
@@ -558,11 +121,11 @@ ModelImporter:
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
-      loopBlendPositionY: 0
+      loopBlendPositionY: 1
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
+      keepOriginalPositionXZ: 1
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000

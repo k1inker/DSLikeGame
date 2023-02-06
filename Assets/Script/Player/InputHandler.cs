@@ -41,6 +41,7 @@ namespace DS
         {
             _player = GetComponent<PlayerManager>();
 
+            _vectorTouch = FindObjectOfType<FixedTouchScreen>();
             _joystick = FindObjectOfType<VariableJoystick>();
         }
         private void OnEnable() 
@@ -90,6 +91,7 @@ namespace DS
                 MoveInputJoystick();
             else
                 HandleMoveInput();
+
             HandleRollInput();
             HandleTapRBInput();
             HandleTapLBInput();
@@ -104,20 +106,26 @@ namespace DS
         }
         private void HandleTapRBInput()
         {
-            if(tap_rb_Input & _player.playerWeaponSlotManager.rightWeapon.tap_RB_Action != null)
+            if (_player.playerWeaponSlotManager.rightWeapon != null)
             {
-                _player.UpdateWichHandCharacterIsUsing(true);
-                _player.playerWeaponSlotManager.currentItemBeingUsed = _player.playerWeaponSlotManager.rightWeapon;
-                _player.playerWeaponSlotManager.rightWeapon.tap_RB_Action.PerformAction(_player);
+                if (tap_rb_Input & _player.playerWeaponSlotManager.rightWeapon.tap_RB_Action != null)
+                {
+                    _player.UpdateWichHandCharacterIsUsing(true);
+                    _player.playerWeaponSlotManager.currentItemBeingUsed = _player.playerWeaponSlotManager.rightWeapon;
+                    _player.playerWeaponSlotManager.rightWeapon.tap_RB_Action.PerformAction(_player);
+                }
             }
         }
         private void HandleHoldRBInput()
         {
-            if (hold_rb_Input && _player.playerWeaponSlotManager.rightWeapon.hold_RB_Action != null)
+            if (_player.playerWeaponSlotManager.rightWeapon != null)
             {
-                _player.UpdateWichHandCharacterIsUsing(true);
-                _player.playerWeaponSlotManager.currentItemBeingUsed = _player.playerWeaponSlotManager.rightWeapon;
-                _player.playerWeaponSlotManager.rightWeapon.hold_RB_Action.PerformAction(_player);
+                if (hold_rb_Input && _player.playerWeaponSlotManager.rightWeapon.hold_RB_Action != null)
+                {
+                    _player.UpdateWichHandCharacterIsUsing(true);
+                    _player.playerWeaponSlotManager.currentItemBeingUsed = _player.playerWeaponSlotManager.rightWeapon;
+                    _player.playerWeaponSlotManager.rightWeapon.hold_RB_Action.PerformAction(_player);
+                }
             }
         }
         private void HandleTapLBInput()
@@ -160,6 +168,7 @@ namespace DS
                 if(_player.cameraHandler.nearestLockOnTarget != null)
                 {
                     _player.cameraHandler.currentLockOnTarget = _player.cameraHandler.nearestLockOnTarget;
+                    _vectorTouch.IsLockOn = true;
                     lockOnFlag = true;
                 }
             }
@@ -167,6 +176,7 @@ namespace DS
             {
                 lockOn_Input = false;
                 lockOnFlag = false;
+                _vectorTouch.IsLockOn = false;
                 _player.cameraHandler.ClearLockOnTargets();
             }
             if(lockOnFlag && lockOnLeft_Input)
@@ -191,13 +201,16 @@ namespace DS
         }
 
         #region Handle Mobile Inputs
-        public void MoveInputJoystick()
+        private void MoveInputJoystick()
         {
             horizontal = _joystick.Horizontal;
             vertical = _joystick.Vertical;
             moveAmount = Mathf.Clamp01(Mathf.Abs(horizontal) + Mathf.Abs(vertical));
+
+            if (lockOnFlag)
+                return;
             mouseX = _vectorTouch.moveInput.x;
-            mouseY = _vectorTouch.moveInput.y; 
+            mouseY = _vectorTouch.moveInput.y;
         }
         public void ClickPickUpItem()
         {
