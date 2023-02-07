@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: H1_Light_Atack02
+  m_Name: H2_Light_Attack02
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -37863,6 +37863,20 @@ AnimationClip:
     messageOptions: 0
   - time: 0.41666666
     functionName: DrainStaminaBasedOnAttack
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.41666666
+    functionName: EnableCanBeParried
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.5
+    functionName: DisableCanBeParried
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

@@ -60,9 +60,9 @@ namespace DS
         {
             Vector2 secondPoint = touch.position;
 
-            moveInput.x = FilterGyroValues(secondPoint.x - _firstPoint.x);
+            moveInput.x = FilterGyroValues(_firstPoint.x - secondPoint.x);
 
-            moveInput.y = FilterGyroValues(secondPoint.y - _firstPoint.y);
+            moveInput.y = FilterGyroValues(_firstPoint.y - secondPoint.y);
             _firstPoint = secondPoint;
         }
 

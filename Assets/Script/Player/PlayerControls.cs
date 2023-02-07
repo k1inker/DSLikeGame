@@ -125,16 +125,16 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""id"": ""037a0792-c1bd-4b85-9543-9680d81a7403"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""interactions"": ""Hold"",
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""RBH"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""b9eb1f89-7eab-4d46-97ce-514b01a39880"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold(duration=0.5)"",
+                    ""interactions"": ""Hold(duration=0.3)"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -188,7 +188,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""id"": ""c628dbaa-c4b1-469b-9826-df34d2a94b99"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold(duration=0.3)"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -216,7 +216,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""956451c8-0576-4904-9b8a-609732e4ab9a"",
-                    ""path"": ""<Keyboard>/r"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -249,7 +249,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""8bbffc6c-5994-4164-8e84-60d452f51478"",
-                    ""path"": ""<Keyboard>/capsLock"",
+                    ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -293,7 +293,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""98733854-e141-483c-9026-f91f0147cb46"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

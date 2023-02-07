@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: katana_Attack.01
+  m_Name: H2_Heavy_Attack01
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -17818,12 +17818,12 @@ AnimationClip:
     m_HasAdditiveReferencePose: 0
     m_LoopTime: 0
     m_LoopBlend: 0
-    m_LoopBlendOrientation: 0
-    m_LoopBlendPositionY: 0
+    m_LoopBlendOrientation: 1
+    m_LoopBlendPositionY: 1
     m_LoopBlendPositionXZ: 0
-    m_KeepOriginalOrientation: 0
+    m_KeepOriginalOrientation: 1
     m_KeepOriginalPositionY: 1
-    m_KeepOriginalPositionXZ: 0
+    m_KeepOriginalPositionXZ: 1
     m_HeightFromFeet: 0
     m_Mirror: 0
   m_EditorCurves:
@@ -34722,15 +34722,29 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.6339667
+  - time: 0.7007
+    functionName: OpenDamageCollider
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.73406667
     functionName: StopRotation
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.7007
-    functionName: OpenDamageCollider
+  - time: 0.76743335
+    functionName: EnableCanBeParried
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.83416665
+    functionName: DisableCanBeParried
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

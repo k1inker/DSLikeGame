@@ -1,3 +1,4 @@
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 
 namespace DS
@@ -33,6 +34,14 @@ namespace DS
         public bool lockOn_Input;
         public bool lockOnRight_Input;
         public bool lockOnLeft_Input;
+
+        public float default_Qued_Input_Time;
+        public float current_Quad_Input_Timer;
+        public bool input_Has_Been_Qued;
+        public bool qued_tap_RB_Input;
+        public bool qued_hold_RB_Input;
+        public bool qued_tap_LB_Input;
+        public bool qued_hold_LB_Input;
 
         private Vector2 _movementInput;
         private Vector2 _cameraInput;
@@ -93,11 +102,15 @@ namespace DS
                 HandleMoveInput();
 
             HandleRollInput();
+            HandleQuedInput();
+
             HandleTapRBInput();
             HandleTapLBInput();
+
             HandleHoldRBInput();
             HandleHoldLBInput();
-            HandleLockOnInput(); 
+
+            HandleLockOnInput();
         }
         private void HandleRollInput()
         {
@@ -199,7 +212,56 @@ namespace DS
             }
             _player.cameraHandler.SetCameraHeight();
         }
+        private void QueInput(ref bool quedInput)
+        {
+            qued_tap_RB_Input = false;
+            qued_hold_RB_Input = false;
+            qued_tap_LB_Input = false;
+            qued_hold_LB_Input = false;
 
+            if(_player.isInteracting)
+            {
+                quedInput = true;
+                current_Quad_Input_Timer = default_Qued_Input_Time;
+                input_Has_Been_Qued = true;
+            }
+        }
+        private void HandleQuedInput()
+        {
+            if(input_Has_Been_Qued)
+            {
+                if(current_Quad_Input_Timer > 0)
+                {
+                    current_Quad_Input_Timer = current_Quad_Input_Timer - Time.deltaTime;
+                    ProcessQuedInput();
+                }
+                else
+                {
+                    Debug.Log(1);
+                    input_Has_Been_Qued = false;
+                    current_Quad_Input_Timer = 0;
+                }
+            }
+        }
+        private void ProcessQuedInput()
+        {
+            if(qued_tap_RB_Input)
+            {
+                tap_rb_Input = true;
+            }
+            if(qued_hold_RB_Input)
+            {
+                hold_rb_Input = true;
+            }
+            if(qued_tap_LB_Input)
+            {
+                tap_lb_Input = true;
+            }
+            if(qued_hold_LB_Input)
+            {
+                hold_lb_Input = true;
+            }
+        }
         #region Handle Mobile Inputs
         private void MoveInputJoystick()
         {
@@ -212,22 +274,6 @@ namespace DS
             mouseX = _vectorTouch.moveInput.x;
             mouseY = _vectorTouch.moveInput.y;
         }
-        public void ClickPickUpItem()
-        {
-            a_Input = true;
-        }
-        public void ClickAttack()
-        {
-            tap_rb_Input = true;
-        }
-        public void ClickRoll()
-        {
-            _space_Input = true;
-        }
-        public void ClickLockOn()
-        {
-            lockOn_Input = true;
-        }
         public void SwipeLockOnRight()
         {
             lockOnRight_Input = true;
@@ -235,6 +281,33 @@ namespace DS
         public void SwipeLockOnLeft()
         {
             lockOnLeft_Input = true;
+        }
+        public void TapClick(bool isAttack)
+        {
+            if (isAttack)
+            {
+                tap_rb_Input = true;
+                QueInput(ref qued_tap_RB_Input);
+            }
+
+            else
+            {
+                tap_lb_Input = true;
+                QueInput(ref qued_tap_LB_Input);
+            }
+        }
+        public void HoldClick(bool isAttack)
+        {
+            if (isAttack)
+            {
+                hold_rb_Input = true;
+                QueInput(ref qued_hold_RB_Input);
+            }
+            else
+            {
+                hold_lb_Input = true;
+                QueInput(ref qued_hold_LB_Input);
+            }
         }
         #endregion
     }
