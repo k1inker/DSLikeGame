@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace DS
 {
@@ -24,17 +23,17 @@ namespace DS
         protected override void Awake()
         {
             base.Awake();
-            cameraHandler = FindObjectOfType<CameraHandler>();
-            _interactableUI = FindObjectOfType<InteractableUI>();
-            interactableUIGameObject = _interactableUI.transform.GetChild(0).gameObject;
 
-            inputHandler = GetComponent<InputHandler>();
-            playerStatsManager = GetComponent<PlayerStatsManager>();
-            playerCombatManager = GetComponent<PlayerCombatManager>();
-            playerEffectsManager = GetComponent<PlayerEffectsManager>();
             playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
             playerLocomotionManager = GetComponent<PlayerLocomotionManager>();
+            inputHandler = GetComponent<InputHandler>();
+            playerStatsManager = GetComponent<PlayerStatsManager>();
+            cameraHandler = GetComponentInChildren<CameraHandler>();
+            playerCombatManager = GetComponent<PlayerCombatManager>();
+            playerEffectsManager = GetComponent<PlayerEffectsManager>();
             playerWeaponSlotManager = GetComponent<PlayerWeaponSlotManager>();
+            _interactableUI = GetComponentInChildren<InteractableUI>();
+            interactableUIGameObject = _interactableUI.transform.GetChild(0).gameObject;
         }
         private void Update()
         {

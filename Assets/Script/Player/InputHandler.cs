@@ -237,7 +237,6 @@ namespace DS
                 }
                 else
                 {
-                    Debug.Log(1);
                     input_Has_Been_Qued = false;
                     current_Quad_Input_Timer = 0;
                 }

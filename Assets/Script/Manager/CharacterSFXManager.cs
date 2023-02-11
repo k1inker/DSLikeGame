@@ -55,20 +55,6 @@ namespace DS
                 _lastWeaponWhooshes = _character.characterWeaponSlotManager.rightWeapon.weaponWhooshes[randomvalue];
                 _audioSource.PlayOneShot(_character.characterWeaponSlotManager.rightWeapon.weaponWhooshes[randomvalue], 0.4f);
             }
-            else
-            {
-                foreach (var whooshesSound in _character.characterWeaponSlotManager.leftWeapon.weaponWhooshes)
-                {
-                    if (whooshesSound != _lastWeaponWhooshes)
-                    {
-                        _potentialWeaponWhooshes.Add(whooshesSound);
-                    }
-                }
-
-                int randomvalue = Random.Range(0, _potentialWeaponWhooshes.Count);
-                _lastWeaponWhooshes = _character.characterWeaponSlotManager.leftWeapon.weaponWhooshes[randomvalue];
-                _audioSource.PlayOneShot(_character.characterWeaponSlotManager.leftWeapon.weaponWhooshes[randomvalue], 0.4f);
-            }
         }
     }
 }

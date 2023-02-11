@@ -12,7 +12,6 @@ namespace DS
         public LayerMask ignoreLayers;
 
         private PlayerManager _playerManager;
-        private InputHandler _inputHandler;
         private Transform _selfTransform;
         private Vector3 _cameraTransformPosition;
         private Vector3 _cameraFollowVelocity = Vector3.zero;
@@ -52,9 +51,8 @@ namespace DS
             _selfTransform = transform;
             _defaultPosition = cameraTransform.position.z;
             ignoreLayers = ~(1 << 8 | 1 << 9 | 1 << 10 | 1 << 11 | 1 << 12);
-            targetTransform = FindObjectOfType<PlayerManager>().transform;
-            _inputHandler = FindObjectOfType<InputHandler>();
-            _playerManager = FindObjectOfType<PlayerManager>();
+            _playerManager = GetComponentInParent<PlayerManager>();
+            targetTransform = _playerManager.transform;
         }
         private void Start()
         {
@@ -70,7 +68,7 @@ namespace DS
 
         public void HandleCameraRotation(float delta, float mouseXInput, float mouseYInput)
         {
-            if (!_inputHandler.lockOnFlag && currentLockOnTarget == null)
+            if (!_playerManager.inputHandler.lockOnFlag && currentLockOnTarget == null)
             {
                 _lookAngle -= mouseXInput * lookSpeed * delta;
                 _pivotAngle += mouseYInput * pivotSpeed * delta;
@@ -170,9 +168,9 @@ namespace DS
                     nearestLockOnTarget = _availableTargets[k];
                 }
 
-                if(_inputHandler.lockOnFlag)
+                if(_playerManager.inputHandler.lockOnFlag)
                 {
-                    Vector3 relativeEnemyPosition = _inputHandler.transform.InverseTransformDirection(_availableTargets[k].transform.position);
+                    Vector3 relativeEnemyPosition = _playerManager.inputHandler.transform.InverseTransformDirection(_availableTargets[k].transform.position);
                     float distanceFromLeftTarget = relativeEnemyPosition.x;
                     float distanceFromRightTarget = relativeEnemyPosition.x;
 

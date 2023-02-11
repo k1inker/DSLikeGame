@@ -9,9 +9,7 @@ AnimatorOverrideController:
   m_Name: EasySword controller
   m_Controller: {fileID: 9100000, guid: 0daf6eeb9d8c356438520a28ee229628, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: 7400000, guid: f0610142987256a438b22685f40f0f92, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 91c178b1dae705f488c2f6c065214f8f, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: 1593e6c236bd9a74e940566d0471b59e, type: 2}
-  - m_OriginalClip: {fileID: 7400000, guid: ce7cb4829a3f0ad40b98ea3c37b8588b, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 76f3bdfe4866c044aba28486e839c160, type: 2}
-  - m_OriginalClip: {fileID: 7400000, guid: 73814613df31c2e48935dfba0b6b550f, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: c3a5a148ca2a94c41aec84ecdeab9fdc, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: a36cc32ee086f3d46a7b262a846d95b7, type: 2}
