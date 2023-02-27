@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace DS
@@ -20,8 +18,7 @@ namespace DS
         {
             _inputHandler = FindObjectOfType<InputHandler>();
             _areaTouch = GetComponent<RectTransform>();
-            //_areaWindow = GetComponentInParent<RectTransform>();
-            _area = _areaWindow.rect.size.x - _areaTouch.rect.size.x;
+            _area = Screen.width - _areaTouch.rect.size.x;
         }
         void LateUpdate()
         {
