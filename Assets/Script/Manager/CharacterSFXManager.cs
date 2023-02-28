@@ -21,6 +21,11 @@ namespace DS
             _audioSource = GetComponent<AudioSource>();
             _character = GetComponent<CharacterManager>();
         }
+        private void Start()
+        {
+            //Data data = SaveSystem.LoadSettings();
+            //_audioSource.outputAudioMixerGroup.audioMixer.SetFloat("Volume", data.volume);
+        }
         public virtual void PlayRandomDamageSFX()
         {
             _potentialDamageSound = new List<AudioClip>();

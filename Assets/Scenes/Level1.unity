@@ -3486,6 +3486,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1791927477, guid: e3318d1206fa66d4fafd731aaa5d5bd0, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 49e84a47f165d1d48b2fa883d8cb643f, type: 2}
     - target: {fileID: 1990135310, guid: e3318d1206fa66d4fafd731aaa5d5bd0, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

@@ -35,6 +35,7 @@ namespace DS
             _interactableUI = GetComponentInChildren<InteractableUI>();
             interactableUIGameObject = _interactableUI.transform.GetChild(0).gameObject;
         }
+
         private void Update()
         {
             float delta = Time.deltaTime;

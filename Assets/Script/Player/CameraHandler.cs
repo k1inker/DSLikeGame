@@ -19,7 +19,7 @@ namespace DS
 
         public static CameraHandler singelton;
 
-        public float lookSpeed = 0.1f;
+        public float lookSpeed = 400f;
         public float followSpeed = 0.1f;
         public float pivotSpeed = 0.03f;
 
@@ -57,6 +57,9 @@ namespace DS
         private void Start()
         {
             _enviromentLayer = LayerMask.NameToLayer("Enviroment");
+            //Load settings variables
+            Data data = SaveSystem.LoadSettings();
+            lookSpeed = data.sensitivity;
         }
         public void FollowTarget(float delta)
         {
