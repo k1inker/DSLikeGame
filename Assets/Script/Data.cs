@@ -1,12 +1,14 @@
 [System.Serializable]
 public class Data
 {
-    public float volume;
+    public float effectsVolume;
+    public float musicVolume;
     public float sensitivity;
 
-    public Data(float volume, float sensitivity)
+    public Data(float volume, float sensitivity, float musicVolume)
     {
-        this.volume = volume;
+        this.effectsVolume = volume;
         this.sensitivity = sensitivity;
+        this.musicVolume = musicVolume;
     }
 }

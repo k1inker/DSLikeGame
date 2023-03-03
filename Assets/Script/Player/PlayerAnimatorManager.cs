@@ -42,7 +42,7 @@ namespace DS
         }
         private void OnAnimatorMove()
         {
-            if (_player.animator.GetBool("isInteracting") && !_player.animator.GetBool("rootPosit"))
+            if ((_player.animator.GetBool("isInteracting") && !_player.animator.GetBool("rootPosit")) || MenuManager.isPaused)
             {
                 return;
             }

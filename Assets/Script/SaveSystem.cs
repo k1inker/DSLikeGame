@@ -6,12 +6,12 @@ using System.Runtime.Serialization.Formatters.Binary;
 public static class SaveSystem
 {
     private static string _pathSettings = Application.persistentDataPath + "/settings.sun";
-    public static void SaveSettings(float volume, float sensativity)
+    public static void SaveSettings(float effectsVolume,float musicVolume, float sensativity)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         using (FileStream stream = new FileStream(_pathSettings, FileMode.Create))
         {
-            Data data = new Data(volume, sensativity);
+            Data data = new Data(effectsVolume, sensativity,musicVolume);
             formatter.Serialize(stream, data);
         }
     }
@@ -28,8 +28,8 @@ public static class SaveSystem
         }
         else
         {
-            data = new Data(5, 400);
-            SaveSettings(data.volume, data.sensitivity); 
+            data = new Data(0, 400, 0);
+            SaveSettings(data.effectsVolume,data.musicVolume, data.sensitivity); 
         }
         return data;
     }

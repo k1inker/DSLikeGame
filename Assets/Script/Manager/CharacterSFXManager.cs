@@ -6,31 +6,35 @@ namespace DS
     {
         private CharacterManager _character;
         private AudioSource _audioSource;
+        private AudioManager _audioManager;
 
         [Header("Taking Damage Sounds")]
-        public AudioClip[] takingDamageSounds;
-        private List<AudioClip> _potentialDamageSound;
-        private AudioClip _lastDamageSoundPlayed;
+        private Sound[] _takingDamageSounds;
+        private List<Sound> _potentialDamageSound;
+        private Sound _lastDamageSoundPlayed;
 
         [Header("Weapon Whooshes")]
-        private List<AudioClip> _potentialWeaponWhooshes;
-        private AudioClip _lastWeaponWhooshes;
+        private Sound[] _whooshesSounds;
+        private List<Sound> _potentialWeaponWhooshes;
+        private Sound _lastWeaponWhooshes;
 
         protected virtual void Awake()
         {
             _audioSource = GetComponent<AudioSource>();
             _character = GetComponent<CharacterManager>();
+
+            _audioManager = FindObjectOfType<AudioManager>();
         }
         private void Start()
         {
-            //Data data = SaveSystem.LoadSettings();
-            //_audioSource.outputAudioMixerGroup.audioMixer.SetFloat("Volume", data.volume);
+            _takingDamageSounds = _audioManager.hitSounds;
+            _whooshesSounds = _audioManager.weaponWhooshesSounds;
         }
         public virtual void PlayRandomDamageSFX()
         {
-            _potentialDamageSound = new List<AudioClip>();
+            _potentialDamageSound = new List<Sound>();
 
-            foreach(var damageSound in takingDamageSounds)
+            foreach(var damageSound in _takingDamageSounds)
             {
                 if(damageSound != _lastDamageSoundPlayed)
                 {
@@ -39,16 +43,21 @@ namespace DS
             }
 
             int randomvalue = Random.Range(0, _potentialDamageSound.Count);
-            _lastDamageSoundPlayed = takingDamageSounds[randomvalue];
-            _audioSource.PlayOneShot(takingDamageSounds[randomvalue], 0.4f);
+            _lastDamageSoundPlayed = _takingDamageSounds[randomvalue];
+
+            _audioSource.clip = _lastDamageSoundPlayed.clip;
+            _audioSource.volume = _lastDamageSoundPlayed.volume;
+            _audioSource.outputAudioMixerGroup = _audioManager.soundEffectsMixer;
+
+            _audioSource.Play();
         }
         public virtual void PlayRandomWeaponWhoosh()
         {
-            _potentialWeaponWhooshes = new List<AudioClip>();
-
-            if(_character.isUsingRightHand)
+            _potentialWeaponWhooshes = new List<Sound>();
+            Debug.Log(_audioManager);
+            if (_character.isUsingRightHand)
             {
-                foreach (var whooshesSound in _character.characterWeaponSlotManager.rightWeapon.weaponWhooshes)
+                foreach (var whooshesSound in _whooshesSounds)
                 { 
                     if (whooshesSound != _lastWeaponWhooshes)
                     {
@@ -57,8 +66,13 @@ namespace DS
                 }
 
                 int randomvalue = Random.Range(0, _potentialWeaponWhooshes.Count);
-                _lastWeaponWhooshes = _character.characterWeaponSlotManager.rightWeapon.weaponWhooshes[randomvalue];
-                _audioSource.PlayOneShot(_character.characterWeaponSlotManager.rightWeapon.weaponWhooshes[randomvalue], 0.4f);
+                _lastWeaponWhooshes = _whooshesSounds[randomvalue];
+
+                _audioSource.clip = _lastWeaponWhooshes.clip;
+                _audioSource.volume = _lastWeaponWhooshes.volume;
+                _audioSource.outputAudioMixerGroup = _audioManager.soundEffectsMixer;
+                //Debug.Log(_audioManager);
+                _audioSource.Play();
             }
         }
     }

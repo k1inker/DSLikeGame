@@ -33,6 +33,7 @@ namespace DS
             playerEffectsManager = GetComponent<PlayerEffectsManager>();
             playerWeaponSlotManager = GetComponent<PlayerWeaponSlotManager>();
             _interactableUI = GetComponentInChildren<InteractableUI>();
+
             interactableUIGameObject = _interactableUI.transform.GetChild(0).gameObject;
         }
 

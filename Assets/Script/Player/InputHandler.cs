@@ -95,6 +95,9 @@ namespace DS
             if (_player.isDead)
                 return;
 
+            if (MenuManager.isPaused)
+                return;
+
             if(isJoystick)
                 MoveInputJoystick();
             else

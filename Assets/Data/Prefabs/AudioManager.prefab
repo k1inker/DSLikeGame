@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2800933711682926528
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2800933711682926558}
+  - component: {fileID: 2800933711682926559}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2800933711682926558
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2800933711682926528}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -22.683277, y: 8.409973, z: -0.6974385}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2800933711682926559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2800933711682926528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b5db6c2b2bfbca4fb9083dc0fbd7ec2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - audioType: 1
+    name: Theme
+    clip: {fileID: 8300000, guid: 559ffa89c42a56040a8300783a5dbb32, type: 3}
+    volume: 0.5
+    isLoop: 1
+    onAwake: 1
+    source: {fileID: 0}
+  hitSounds:
+  - audioType: 0
+    name: SwordDamage01
+    clip: {fileID: 8300000, guid: 081f2af78fbf50f4b8073b293d19dfa6, type: 3}
+    volume: 1
+    isLoop: 0
+    onAwake: 0
+    source: {fileID: 0}
+  - audioType: 0
+    name: SwordDamage02
+    clip: {fileID: 8300000, guid: 1c77b4f4c9bf6864d99b720d92e07e38, type: 3}
+    volume: 0.5
+    isLoop: 0
+    onAwake: 0
+    source: {fileID: 0}
+  - audioType: 0
+    name: SwordDamage03
+    clip: {fileID: 8300000, guid: f38ad6eea1a972748970d0377a99f134, type: 3}
+    volume: 1
+    isLoop: 0
+    onAwake: 0
+    source: {fileID: 0}
+  weaponWhooshesSounds:
+  - audioType: 0
+    name: SwordSwoosh01
+    clip: {fileID: 8300000, guid: 8ea7092f6e4883e47b725074aad74226, type: 3}
+    volume: 0.5
+    isLoop: 0
+    onAwake: 0
+    source: {fileID: 0}
+  - audioType: 0
+    name: SwordSwoosh02
+    clip: {fileID: 8300000, guid: 58ba15bb01b32b647b7e5058c89f9b2b, type: 3}
+    volume: 1
+    isLoop: 0
+    onAwake: 0
+    source: {fileID: 0}
+  - audioType: 0
+    name: SwordSwoosh03
+    clip: {fileID: 8300000, guid: 8586f7952b215d64db97fbad919a84b9, type: 3}
+    volume: 1
+    isLoop: 0
+    onAwake: 0
+    source: {fileID: 0}
+  - audioType: 0
+    name: SwordSwoosh04
+    clip: {fileID: 8300000, guid: 871d30c85899f824bb0312f16d65a964, type: 3}
+    volume: 1
+    isLoop: 0
+    onAwake: 0
+    source: {fileID: 0}

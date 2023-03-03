@@ -35,8 +35,8 @@ namespace DS
         public float lightAttackStaminaMultiplier = 1;
         public float heavyAttackStaminaMultiplier = 2;
 
-        [Header("SFX")]
-        public AudioClip[] weaponWhooshes;
+        //[Header("SFX")]
+        //public AudioClip[] weaponWhooshes;
 
         [Header("Item Actions")]
         public ItemAction hold_RB_Action;

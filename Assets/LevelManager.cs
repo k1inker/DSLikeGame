@@ -74,6 +74,9 @@ namespace DS
                         enemyTypeSpawn.Add(enemy);
                     }
                 }
+                // if nobody win roll spawn
+                if (enemyTypeSpawn == null)
+                    i -= 1;
             }
             return enemyTypeSpawn;
         }
