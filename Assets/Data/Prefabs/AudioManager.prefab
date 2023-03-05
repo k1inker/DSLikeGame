@@ -44,11 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5db6c2b2bfbca4fb9083dc0fbd7ec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundMusicMixer: {fileID: 0}
+  soundEffectsMixer: {fileID: 0}
   sounds:
   - audioType: 1
     name: Theme
     clip: {fileID: 8300000, guid: 559ffa89c42a56040a8300783a5dbb32, type: 3}
-    volume: 0.5
+    volume: 1
     isLoop: 1
     onAwake: 1
     source: {fileID: 0}

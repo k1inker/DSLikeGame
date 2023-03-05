@@ -54,7 +54,6 @@ namespace DS
         public virtual void PlayRandomWeaponWhoosh()
         {
             _potentialWeaponWhooshes = new List<Sound>();
-            Debug.Log(_audioManager);
             if (_character.isUsingRightHand)
             {
                 foreach (var whooshesSound in _whooshesSounds)
@@ -71,7 +70,6 @@ namespace DS
                 _audioSource.clip = _lastWeaponWhooshes.clip;
                 _audioSource.volume = _lastWeaponWhooshes.volume;
                 _audioSource.outputAudioMixerGroup = _audioManager.soundEffectsMixer;
-                //Debug.Log(_audioManager);
                 _audioSource.Play();
             }
         }
