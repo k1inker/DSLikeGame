@@ -78,6 +78,7 @@ namespace DS
                 if (enemyTypeSpawn == null)
                     i -= 1;
             }
+            Debug.Log(enemyTypeSpawn);
             return enemyTypeSpawn;
         }
         private void StartNewWave()

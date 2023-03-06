@@ -3817,6 +3817,54 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 698539932, guid: e3318d1206fa66d4fafd731aaa5d5bd0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 709554117, guid: e3318d1206fa66d4fafd731aaa5d5bd0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 730059014, guid: e3318d1206fa66d4fafd731aaa5d5bd0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 840525235, guid: e3318d1206fa66d4fafd731aaa5d5bd0, type: 3}
+      propertyPath: m_Color.b
+      value: 0.3679245
+      objectReference: {fileID: 0}
+    - target: {fileID: 840525235, guid: e3318d1206fa66d4fafd731aaa5d5bd0, type: 3}
+      propertyPath: m_Color.g
+      value: 0.3679245
+      objectReference: {fileID: 0}
+    - target: {fileID: 840525235, guid: e3318d1206fa66d4fafd731aaa5d5bd0, type: 3}
+      propertyPath: m_Color.r
+      value: 0.3679245
+      objectReference: {fileID: 0}
+    - target: {fileID: 925802585, guid: e3318d1206fa66d4fafd731aaa5d5bd0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 925802587, guid: e3318d1206fa66d4fafd731aaa5d5bd0, type: 3}
+      propertyPath: m_Value
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 925802587, guid: e3318d1206fa66d4fafd731aaa5d5bd0, type: 3}
+      propertyPath: m_MaxValue
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1607430821, guid: e3318d1206fa66d4fafd731aaa5d5bd0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1607430821, guid: e3318d1206fa66d4fafd731aaa5d5bd0, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1607430823, guid: e3318d1206fa66d4fafd731aaa5d5bd0, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1638776933, guid: e3318d1206fa66d4fafd731aaa5d5bd0, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

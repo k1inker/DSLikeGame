@@ -7,35 +7,39 @@ namespace DS
     public class ButtonEventTrigger : EventTrigger
     {
         private InputHandler _inputHandler;
+        private Slider _attackSlider;
 
         private bool _isAttackButton;
         private bool _hold = false;
         private float _timeHold = 0;
 
-        public Slider attackSlider;
-        private void Start()    
+        private void Awake()    
         {
             _inputHandler = FindObjectOfType<InputHandler>();
-            attackSlider = FindObjectOfType<UIManager>().attackSlider;
+            _attackSlider = FindObjectOfType<UIManager>().attackSlider;
         }
         public void FixedUpdate()
         {
-            if (_hold)
+            if (!_hold)
+                return;
+
+            _timeHold += Time.deltaTime;
+            _attackSlider.value = _timeHold;
+
+            if(_timeHold >= 0.1 && _isAttackButton)
             {
-                _timeHold += Time.deltaTime;
-                attackSlider.value = _timeHold;
-            }
-            else if(!_hold && _isAttackButton)
-            {
-                _inputHandler.hold_rb_Input = false;
-                attackSlider.gameObject.SetActive(false);
-                attackSlider.value = 0;
+                _attackSlider.gameObject.SetActive(true);
             }
 
-            if(_timeHold > 0.5)
+            if(_timeHold >= 0.4)
             {
                 _inputHandler.HoldClick(_isAttackButton);
                 _hold = false;
+                if (_isAttackButton)
+                {
+                    _attackSlider.gameObject.SetActive(false);
+                    _attackSlider.value = 0;
+                }
             }
         }
         public void OnButtonDown(bool isAttackingButton)
@@ -51,17 +55,14 @@ namespace DS
                 _inputHandler.TapClick(_isAttackButton);
             }
 
+            _attackSlider.value = 0;
+            _timeHold = 0;
+            _hold = false;
+
             if (_inputHandler.hold_lb_Input)
             {
                 _inputHandler.hold_lb_Input = false;
             }
-            if(_inputHandler.hold_rb_Input)
-            {
-                _inputHandler.hold_rb_Input = false;
-            }
-            attackSlider.value = 0;
-            _timeHold = 0;
-            _hold = false;
         }
     }
 }
