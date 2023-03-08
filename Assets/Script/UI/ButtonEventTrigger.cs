@@ -34,11 +34,11 @@ namespace DS
             if(_timeHold >= 0.4)
             {
                 _inputHandler.HoldClick(_isAttackButton);
-                _hold = false;
                 if (_isAttackButton)
                 {
                     _attackSlider.gameObject.SetActive(false);
                     _attackSlider.value = 0;
+                    _hold = false;
                 }
             }
         }
@@ -54,15 +54,15 @@ namespace DS
             {
                 _inputHandler.TapClick(_isAttackButton);
             }
+            if (_inputHandler.hold_lb_Input)
+            {
+                _inputHandler.hold_lb_Input = false;
+            }
 
             _attackSlider.value = 0;
             _timeHold = 0;
             _hold = false;
 
-            if (_inputHandler.hold_lb_Input)
-            {
-                _inputHandler.hold_lb_Input = false;
-            }
         }
     }
 }

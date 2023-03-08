@@ -22,7 +22,12 @@ namespace DS
         }
         private void OnAnimatorMove()
         {
-            if ((_enemy.animator.GetBool("isInteracting") && !_enemy.animator.GetBool("rootPosit")) || MenuManager.isPaused)
+            if (_enemy.isRotatingWithRootMotion)
+            {
+                _enemy.transform.rotation *= _enemy.animator.deltaRotation;
+            }
+
+            if ((_enemy.isInteracting && !_enemy.animator.GetBool("rootPosit")) || MenuManager.isPaused)
             {
                 return;
             }
@@ -31,11 +36,6 @@ namespace DS
             deltaPosition.y = 0;
             Vector3 velocity = deltaPosition / Time.deltaTime;
             _enemy.enemyRigidbody.velocity = velocity;
-
-            if(_enemy.isRotatingWithRootMotion)
-            {
-                _enemy.transform.rotation *= _enemy.animator.deltaRotation;
-            }
         }
     }
 }

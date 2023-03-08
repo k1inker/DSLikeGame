@@ -697,7 +697,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 709bc3732b12c344a836ad51779f10e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rightWeapon: {fileID: 11400000, guid: a9a60e17b95806c489f462ad52a99bd0, type: 2}
+  rightWeapon: {fileID: 11400000, guid: 443873b4a1328c441938caf02658acd1, type: 2}
   leftWeapon: {fileID: 0}
   leftHandSlot: {fileID: 0}
   rightHandSlot: {fileID: 0}
@@ -779,7 +779,7 @@ MonoBehaviour:
   allowAIToPreformBlock: 0
   blockLikeHood: 50
   allowAIToPreformDodge: 1
-  dodgeLikeHood: 50
+  dodgeLikeHood: 20
   allowAIToPreformParry: 0
   parryLikeHood: 100
   AIPerfomCombos: 1
@@ -932,10 +932,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6d2599a8302d4849bcfefab28c28ebb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  takingDamageSounds:
-  - {fileID: 8300000, guid: 081f2af78fbf50f4b8073b293d19dfa6, type: 3}
-  - {fileID: 8300000, guid: 1c77b4f4c9bf6864d99b720d92e07e38, type: 3}
-  - {fileID: 8300000, guid: f38ad6eea1a972748970d0377a99f134, type: 3}
 --- !u!114 &2716357038358451181
 MonoBehaviour:
   m_ObjectHideFlags: 0

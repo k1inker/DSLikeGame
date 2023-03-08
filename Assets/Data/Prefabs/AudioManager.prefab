@@ -57,21 +57,21 @@ MonoBehaviour:
   hitSounds:
   - audioType: 0
     name: SwordDamage01
-    clip: {fileID: 8300000, guid: 081f2af78fbf50f4b8073b293d19dfa6, type: 3}
+    clip: {fileID: 8300000, guid: cae5d6d9f93edd24ba0871e2cd66bbe6, type: 3}
     volume: 1
     isLoop: 0
     onAwake: 0
     source: {fileID: 0}
   - audioType: 0
     name: SwordDamage02
-    clip: {fileID: 8300000, guid: 1c77b4f4c9bf6864d99b720d92e07e38, type: 3}
-    volume: 0.5
+    clip: {fileID: 8300000, guid: 0a6878c114628ea45b2da27c89f2b3c1, type: 3}
+    volume: 1
     isLoop: 0
     onAwake: 0
     source: {fileID: 0}
   - audioType: 0
     name: SwordDamage03
-    clip: {fileID: 8300000, guid: f38ad6eea1a972748970d0377a99f134, type: 3}
+    clip: {fileID: 8300000, guid: ae51ae1db676f1646bd51f12e4c90948, type: 3}
     volume: 1
     isLoop: 0
     onAwake: 0
@@ -79,28 +79,28 @@ MonoBehaviour:
   weaponWhooshesSounds:
   - audioType: 0
     name: SwordSwoosh01
-    clip: {fileID: 8300000, guid: 8ea7092f6e4883e47b725074aad74226, type: 3}
-    volume: 0.5
+    clip: {fileID: 8300000, guid: 9146732ec73360643a9d5e3280972dbd, type: 3}
+    volume: 1
     isLoop: 0
     onAwake: 0
     source: {fileID: 0}
   - audioType: 0
     name: SwordSwoosh02
-    clip: {fileID: 8300000, guid: 58ba15bb01b32b647b7e5058c89f9b2b, type: 3}
+    clip: {fileID: 8300000, guid: 489526b634a1c76409244066dd447b85, type: 3}
     volume: 1
     isLoop: 0
     onAwake: 0
     source: {fileID: 0}
   - audioType: 0
     name: SwordSwoosh03
-    clip: {fileID: 8300000, guid: 8586f7952b215d64db97fbad919a84b9, type: 3}
+    clip: {fileID: 8300000, guid: 20096a69f5524d843ac17fd3eaf9a0f8, type: 3}
     volume: 1
     isLoop: 0
     onAwake: 0
     source: {fileID: 0}
   - audioType: 0
     name: SwordSwoosh04
-    clip: {fileID: 8300000, guid: 871d30c85899f824bb0312f16d65a964, type: 3}
+    clip: {fileID: 8300000, guid: e0292e2502f9df84caeeb446a3493106, type: 3}
     volume: 1
     isLoop: 0
     onAwake: 0

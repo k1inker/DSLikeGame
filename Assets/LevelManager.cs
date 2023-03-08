@@ -18,10 +18,11 @@ namespace DS
         [SerializeField] private float timeBetweenEnemies = 2f;
         [SerializeField] private float wallRiseSpeed = 2f;
 
-
         [SerializeField] private Transform wall;
         [SerializeField] private Vector3 volume;
         [SerializeField] private Vector3 spawnPoint;
+
+        private UIManager _UIManager;
 
         private int countEnemy = 0;
         private float _wallEndY;
@@ -30,7 +31,7 @@ namespace DS
         private void Awake()
         {
             bossHealthBar = FindObjectOfType<UIBossHealthBar>();
-
+            _UIManager = FindObjectOfType<UIManager>();
         }
         private void Start()
         {
@@ -53,6 +54,7 @@ namespace DS
             if (_timeSinceLastWave >= timeBetweenWaves || countEnemy == 0)
             {
                 StartNewWave();
+                _UIManager.ShowWaveIndicator(currentWave);
             }
 
             if (_isWallRising)
@@ -75,10 +77,12 @@ namespace DS
                     }
                 }
                 // if nobody win roll spawn
-                if (enemyTypeSpawn == null)
+                if (enemyTypeSpawn.Count == 0)
+                {
                     i -= 1;
+                    Debug.Log(enemyTypeSpawn);
+                }
             }
-            Debug.Log(enemyTypeSpawn);
             return enemyTypeSpawn;
         }
         private void StartNewWave()
@@ -100,6 +104,7 @@ namespace DS
                 yield return new WaitForSeconds(timeBetweenEnemies);
             }
 
+            _UIManager.ShowWaveIndicator(currentWave);
             currentWave++;
             enemiesPerWave += 1;
         }
