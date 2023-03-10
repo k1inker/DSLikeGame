@@ -11,7 +11,9 @@ namespace DS
         private void Awake()
         {
             _slider = GetComponentInChildren<Slider>();
+            Debug.Log(_slider);
             bossName = GetComponentInChildren<Text>();
+            SetHealthBarInactive();
         }
         public void SetBossName(string name)
         {

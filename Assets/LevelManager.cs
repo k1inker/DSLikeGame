@@ -8,7 +8,6 @@ namespace DS
     public class LevelManager : MonoBehaviour
     {
         public int currentWave = 0;
-        public UIBossHealthBar bossHealthBar;
 
         [SerializeField] private int countWave = 4;
         [SerializeField] private int enemiesPerWave = 1;
@@ -28,9 +27,9 @@ namespace DS
         private float _wallEndY;
         private float _timeSinceLastWave;
         private bool _isWallRising;
+        private bool _isBossFightStart = false;
         private void Awake()
         {
-            bossHealthBar = FindObjectOfType<UIBossHealthBar>();
             _UIManager = FindObjectOfType<UIManager>();
         }
         private void Start()
@@ -65,7 +64,7 @@ namespace DS
         public List<GameObject> ChoosingEnemyTypeSpawn()
         {
             List<GameObject> enemyTypeSpawn = new List<GameObject>();
-            for (int i = 0; i < enemiesPerWave; i++)
+            do
             {
                 foreach (GameObject enemy in enemyType)
                 {
@@ -76,13 +75,7 @@ namespace DS
                         enemyTypeSpawn.Add(enemy);
                     }
                 }
-                // if nobody win roll spawn
-                if (enemyTypeSpawn.Count == 0)
-                {
-                    i -= 1;
-                    Debug.Log(enemyTypeSpawn);
-                }
-            }
+            } while (enemyTypeSpawn.Count < enemiesPerWave);
             return enemyTypeSpawn;
         }
         private void StartNewWave()
@@ -120,9 +113,9 @@ namespace DS
         }
         public void ActiveBossFight()
         {
-            Instantiate(boss, spawnPoint, Quaternion.identity);
-            bossHealthBar.SetHealthBarToActive();
             countEnemy++;
+            Instantiate(boss, spawnPoint, Quaternion.identity);
+            _UIManager.bossHealthBar.SetHealthBarToActive();
         }
         public void BossHasDefeated()
         {

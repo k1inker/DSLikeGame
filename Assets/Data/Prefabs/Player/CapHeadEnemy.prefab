@@ -779,13 +779,13 @@ MonoBehaviour:
   allowAIToPreformBlock: 0
   blockLikeHood: 50
   allowAIToPreformDodge: 1
-  dodgeLikeHood: 20
+  dodgeLikeHood: 50
   allowAIToPreformParry: 0
   parryLikeHood: 100
   AIPerfomCombos: 1
   isPhaseShifting: 0
   comboLikeliHood: 50
-  combatStyle: 0
+  combatStyle: 1
   distanceFromTarget: 0
   viewableAngle: 0
   targetDirection: {x: 0, y: 0, z: 0}

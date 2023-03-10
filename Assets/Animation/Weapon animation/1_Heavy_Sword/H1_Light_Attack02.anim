@@ -31249,14 +31249,14 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.7007
-    functionName: StopRotation
+    functionName: EnableCanBeParried
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.7007
-    functionName: EnableCanBeParried
+  - time: 0.73406667
+    functionName: StopRotation
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

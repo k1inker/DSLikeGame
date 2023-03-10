@@ -436,7 +436,7 @@ MonoBehaviour:
   maximumAggroRadius: 6
   stoppingDistance: 1.2
   allowAIToPreformBlock: 1
-  blockLikeHood: 30
+  blockLikeHood: 40
   allowAIToPreformDodge: 0
   dodgeLikeHood: 40
   allowAIToPreformParry: 1

@@ -51,7 +51,6 @@ namespace DS
         {
             enemy.isUsingRightHand = currentAttack.isRightHandedAction;
             enemy.isUsingLeftHand = !currentAttack.isRightHandedAction;
-            Debug.Log(enemy.isUsingRightHand);
             enemy.enemyAnimatorManager.PlayTargetAnimationWithRootMotion(currentAttack.actionAnimation, true);
             enemy.enemyAnimatorManager.PlayWeaponTrailFX();
             enemy.currentRecoveryTime = currentAttack.recoveryTime;

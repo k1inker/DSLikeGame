@@ -16,7 +16,8 @@ namespace DS
     }
     public enum AICombatStyle
     {
-        swordAndShield
+        swordAndShield,
+        heavySword
     }
     public class Enums : MonoBehaviour
     {

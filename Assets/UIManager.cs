@@ -7,6 +7,7 @@ namespace DS
     {
         public Slider attackSlider;
         public Text textWaveIndicator;
+        public UIBossHealthBar bossHealthBar;
         public void ShowWaveIndicator(int id)
         {
             textWaveIndicator.gameObject.SetActive(true);

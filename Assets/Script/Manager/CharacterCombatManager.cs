@@ -44,6 +44,10 @@ public class CharacterCombatManager : MonoBehaviour
         {
             _character.isBlocking = false;
             _character.characterAnimatorManager.PlayTargetAnimationWithRootMotion("Destroy Block Guard", true);
+            if(_character as EnemyManager is EnemyManager)
+            {
+                _character.characterStatsManager.currentStamina = _character.characterStatsManager.maxStamina;
+            }
         }
         else
         {

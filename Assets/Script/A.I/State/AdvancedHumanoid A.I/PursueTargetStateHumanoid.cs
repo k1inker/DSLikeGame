@@ -10,7 +10,7 @@ namespace DS
         }
         public override State Tick(EnemyManager enemy)
         {
-            if (enemy.combatStyle == AICombatStyle.swordAndShield)
+            if (enemy.combatStyle == AICombatStyle.swordAndShield || enemy.combatStyle == AICombatStyle.heavySword)
             {
                 return ProcessSwordAndShieldCombatStyle(enemy);
             }
@@ -63,7 +63,6 @@ namespace DS
             //Rotate with navmesh
             else
             {
-                Vector3 relativeDirection = transform.InverseTransformDirection(enemyManager.navmeshAgent.desiredVelocity);
                 Vector3 targetVelocity = enemyManager.enemyRigidbody.velocity;
 
                 enemyManager.navmeshAgent.enabled = true;

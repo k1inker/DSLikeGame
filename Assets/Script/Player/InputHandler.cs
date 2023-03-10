@@ -307,7 +307,6 @@ namespace DS
             else
             {
                 hold_lb_Input = true;
-                Debug.Log(1);
                 QueInput(ref qued_hold_LB_Input);
             }
         }

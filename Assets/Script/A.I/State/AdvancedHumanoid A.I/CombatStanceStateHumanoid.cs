@@ -21,8 +21,9 @@ namespace DS
 
         private bool _hasPreformedDodge = false;
         private bool _hasRandomDodgeDirection = false;
-
         private bool _hasPerformedParry = false;
+
+        private bool _hasBeenRoled;
 
         private Quaternion _targetDodgeDirection;
         private void Awake()
@@ -35,6 +36,10 @@ namespace DS
             if (enemy.combatStyle == AICombatStyle.swordAndShield)
             {
                 return ProcessSwordAndShieldCombatStyle(enemy);
+            }
+            else if(enemy.combatStyle == AICombatStyle.heavySword)
+            {
+                return ProcessHeavySwordCombatStyle(enemy);
             }
             else
             {
@@ -73,7 +78,22 @@ namespace DS
 
             HandleRotateTowardsTarget(enemy);
 
-            RollDefenceAction(enemy);
+            // roll defence chance
+            if (!_hasBeenRoled)
+            {
+                if (enemy.allowAIToPreformBlock)
+                {
+                    _willPerformBlock = RollForActionChance(enemy.blockLikeHood);
+                    _hasBeenRoled = true;
+                }
+                else if (enemy.allowAIToPreformParry)
+                {
+                    _willPerformParry = RollForActionChance(enemy.parryLikeHood);
+                    _hasBeenRoled = true;
+                }
+            }
+
+            DefenceAction(enemy);
 
             if (enemy.currentRecoveryTime <= 0 && _attackState.currentAttack != null)
             {
@@ -88,25 +108,64 @@ namespace DS
             HandleMovement(enemy);
             return this;
         }
-
-        private void RollDefenceAction(EnemyManager enemy)
+        private State ProcessHeavySwordCombatStyle(EnemyManager enemy)
         {
-            if (enemy.allowAIToPreformBlock)
+            if (enemy.isInteracting)
             {
-                _willPerformBlock = RollForActionChance(enemy.blockLikeHood);
+                enemy.animator.SetFloat("Vertical", 0);
+                enemy.animator.SetFloat("Horizontal", 0);
+
+                return this;
+            }
+            if (enemy.currentTarget.isDead)
+            {
+                ResetStateFlags();
+                enemy.currentTarget = null;
+                return this;
+            }
+            // if the A.I has gotten to far from it`s target?, return to pursue state
+            if (enemy.distanceFromTarget > enemy.maximumAggroRadius)
+            {
+                ResetStateFlags();
+                return _pusueTargetState;
             }
 
-            if (enemy.allowAIToPreformDodge)
+            //randomiez walking pattern of our A.I so they circle the player 
+            if (!_randomDestinationSet)
             {
-                _willPerformDodge = RollForActionChance(enemy.dodgeLikeHood);
+                _randomDestinationSet = true;
+                DecideCirclingAction(enemy.enemyAnimatorManager);
             }
 
-            if (enemy.allowAIToPreformParry)
+            HandleRotateTowardsTarget(enemy);
+
+            //Roll defence action
+            if (!_hasBeenRoled)
             {
-                _willPerformParry = RollForActionChance(enemy.parryLikeHood);
+                if (enemy.allowAIToPreformDodge)
+                {
+                    _willPerformDodge = RollForActionChance(enemy.dodgeLikeHood);
+                    _hasBeenRoled = true;
+                }
             }
 
+            DefenceAction(enemy);
 
+            if (enemy.currentRecoveryTime <= 0 && _attackState.currentAttack != null)
+            {
+                ResetStateFlags();
+                return _attackState;
+            }
+            else
+            {
+                GetNewAttack(enemy);
+            }
+
+            HandleMovement(enemy);
+            return this;
+        }
+        private void DefenceAction(EnemyManager enemy)
+        {
             if (_willPerformBlock)
             {
                 BlockingUsingOffHand(enemy);
@@ -142,7 +201,8 @@ namespace DS
             _hasPerformedParry = false;
 
             _randomDestinationSet = false;
-            
+            _hasBeenRoled = false;
+
             _willPerformBlock = false;
             _willPerformDodge = false;
             _willPerformParry = false;

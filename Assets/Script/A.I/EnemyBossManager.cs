@@ -8,26 +8,25 @@ namespace DS
 
         private EnemyManager _enemy;
         private BossCombatStanceState _bossCombatStanceState;
-        private UIBossHealthBar _bossHealthBar;
+        private UIManager bossUI;
 
         [Header("Second Phase FX")]
         public GameObject particleFX;
         private void Awake()
         {
-            _bossHealthBar = FindObjectOfType<UIBossHealthBar>();
+            bossUI = FindObjectOfType<UIManager>();
 
             _enemy = GetComponent<EnemyManager>();
             _bossCombatStanceState = GetComponentInChildren<BossCombatStanceState>();
         }
         private void Start()
         {
-            _bossHealthBar.SetBossName(_bossName);
-            _bossHealthBar.SetBossMaxHealth(_enemy.enemyStatsManager.maxHealth);
-            _bossHealthBar.SetHealthBarToActive();
+            bossUI.bossHealthBar.SetBossName(_bossName);
+            bossUI.bossHealthBar.SetBossMaxHealth(_enemy.enemyStatsManager.maxHealth);
         }
         public void UpdateBossHealthBar(int currentHealth, int maxHealth)
         {
-            _bossHealthBar.SetBossCurrentHealth(currentHealth);
+            bossUI.bossHealthBar.SetBossCurrentHealth(currentHealth);
 
             if (currentHealth <= maxHealth / 2 && !_bossCombatStanceState.hasPhaseShifted)
             {
