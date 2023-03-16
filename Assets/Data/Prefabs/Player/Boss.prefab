@@ -1354,10 +1354,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.3
-  m_Height: 2
+  m_Radius: 1.2
+  m_Height: 4
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!1 &6371553474837381457
 GameObject:
   m_ObjectHideFlags: 0
@@ -1445,7 +1445,7 @@ Transform:
   m_GameObject: {fileID: 6371553474860930339}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 3.48}
-  m_LocalScale: {x: 1.35, y: 1.35, z: 1.35}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9180371041913938179}
@@ -1468,7 +1468,7 @@ Animator:
   m_GameObject: {fileID: 6371553474860930339}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 963b49b27a3e0224f9bfd2f90840f3d9, type: 3}
-  m_Controller: {fileID: 9100000, guid: 1284de8511d7d78449566a01f5d3238e, type: 2}
+  m_Controller: {fileID: 22100000, guid: 0421f4db1002b4649ae62b5bbc0082f4, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1504,10 +1504,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.2
-  m_Height: 2
+  m_Radius: 1
+  m_Height: 4
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!114 &6371553474860930342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1532,7 +1532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 709bc3732b12c344a836ad51779f10e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rightWeapon: {fileID: 11400000, guid: 216682d4235a50b4385933d5159f79f6, type: 2}
+  rightWeapon: {fileID: 0}
   leftWeapon: {fileID: 0}
   leftHandSlot: {fileID: 0}
   rightHandSlot: {fileID: 0}
@@ -1922,11 +1922,10 @@ MonoBehaviour:
   attackState: {fileID: 6371553474837381463}
   pusueTargetState: {fileID: 6371553475184330437}
   enemyAttacks:
-  - {fileID: 11400000, guid: e377af1c552f1bd448c53263c8ab60cc, type: 2}
-  - {fileID: 11400000, guid: c33e9b5e136921b40b3fe36a926e51fb, type: 2}
+  - {fileID: 11400000, guid: 4269837ad248ff1479b463d5c9f63306, type: 2}
+  - {fileID: 11400000, guid: 8c54aa7af3cde484898c353dd68007a1, type: 2}
   secondPhaseAttacks:
-  - {fileID: 11400000, guid: ffba3893d7c71f445b29015a7f441a64, type: 2}
-  - {fileID: 11400000, guid: 72eec07400f9da2409db99e389519556, type: 2}
+  - {fileID: 11400000, guid: 8c1e3f072503c824e9e9c3a05ab2e629, type: 2}
   hasPhaseShifted: 0
 --- !u!1 &6371553475958635155
 GameObject:
@@ -1968,9 +1967,9 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6371553475958635155}
   m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
+  m_AgentTypeID: -1372625422
+  m_Radius: 1
+  m_Speed: 2
   m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 180
@@ -1978,7 +1977,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 4
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4

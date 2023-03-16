@@ -1,6 +1,6 @@
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace DS
@@ -27,7 +27,6 @@ namespace DS
         private float _wallEndY;
         private float _timeSinceLastWave;
         private bool _isWallRising;
-        private bool _isBossFightStart = false;
         private void Awake()
         {
             _UIManager = FindObjectOfType<UIManager>();
@@ -35,15 +34,15 @@ namespace DS
         private void Start()
         {
             spawnPoint = gameObject.transform.GetChild(0).position;
-            _wallEndY = wall.position.y * 1.5f;
+            _wallEndY = wall.position.y;
             _timeSinceLastWave = timeBetweenWaves;
         }
-
         private void Update()
         {
             if (currentWave == countWave && countEnemy == 0)
             {
                 StopCoroutine(nameof(SpawnEnemies));
+                spawnPoint = Vector3.zero;
                 ActiveBossFight();
             }
 
@@ -84,7 +83,6 @@ namespace DS
             _isWallRising = true;
             StartCoroutine(SpawnEnemies(ChoosingEnemyTypeSpawn()));
         }
-
         private IEnumerator SpawnEnemies(List<GameObject> enemyPrefab)
         {
             for (int i = 0; i < enemiesPerWave; i++)
@@ -101,7 +99,6 @@ namespace DS
             currentWave++;
             enemiesPerWave += 1;
         }
-
         private void RaiseWall()
         {
             wall.position = new Vector3(wall.position.x, wall.position.y + (wallRiseSpeed * Time.deltaTime), wall.position.z);

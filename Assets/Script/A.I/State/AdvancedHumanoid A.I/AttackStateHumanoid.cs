@@ -5,17 +5,17 @@ namespace DS
     public class AttackStateHumanoid : State
     {
         private CombatStanceStateHumanoid _combatStanceState;
-        private PursueTargetStateHumanoid _pursueTargetState;
-        private RotateTowardsStateHumanoid _rotateTowardsTargetState;
+        protected PursueTargetStateHumanoid pursueTargetState;
+        protected RotateTowardsStateHumanoid rotateTowardsTargetState;
 
         public ItemBasedAttackAction currentAttack;
         public bool hasPerformedAttack = false;
 
-        [SerializeField]private bool _willDoCombo = false;
+        [SerializeField] private bool _willDoCombo = false;
         private void Awake()
         {
-            _pursueTargetState = GetComponent<PursueTargetStateHumanoid>();
-            _rotateTowardsTargetState = GetComponent<RotateTowardsStateHumanoid>();
+            pursueTargetState = GetComponent<PursueTargetStateHumanoid>();
+            rotateTowardsTargetState = GetComponent<RotateTowardsStateHumanoid>();
             _combatStanceState = GetComponent<CombatStanceStateHumanoid>();
         }
         /// <summary>
@@ -32,7 +32,7 @@ namespace DS
             if (enemy.distanceFromTarget > enemy.maximumAggroRadius)
             {
                 ResetStateFlags();
-                return _pursueTargetState;
+                return pursueTargetState;
             }
 
             if (_willDoCombo && enemy.canDoCombo)
@@ -56,9 +56,9 @@ namespace DS
             }
 
             ResetStateFlags();
-            return _rotateTowardsTargetState;
+            return rotateTowardsTargetState;
         }
-        private void AttackTarget(EnemyManager enemy)
+        protected virtual void AttackTarget(EnemyManager enemy)
         {
             currentAttack.PerformAttackAction(enemy);
             enemy.currentRecoveryTime = currentAttack.recoveryTime;
@@ -87,7 +87,7 @@ namespace DS
                 }
             }
         }
-        private void RotateTowardsTargetWhilstAttacking(EnemyManager enemyManager)
+        protected void RotateTowardsTargetWhilstAttacking(EnemyManager enemyManager)
         {
             //Rotate manualy
             if (enemyManager.canRotate && enemyManager.isInteracting)
@@ -127,7 +127,7 @@ namespace DS
                 enemyManager.transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, enemyManager.rotationSpeed);
             }
         }
-        private void ResetStateFlags()
+        protected void ResetStateFlags()
         {
             _willDoCombo = false;
             hasPerformedAttack = false;

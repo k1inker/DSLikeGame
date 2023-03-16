@@ -23,8 +23,8 @@ namespace DS
         /// </returns>
         public override State Tick(EnemyManager enemy)
         {
-            enemy.animator.SetFloat("Vertical", _verticalMovementValue, 0.2f, Time.deltaTime);
-            enemy.animator.SetFloat("Horizontal", _horizontalMovementValue, 0.2f, Time.deltaTime);
+            enemy.animator.SetFloat("Vertical", _verticalMovementValue, 0.4f, Time.deltaTime);
+            enemy.animator.SetFloat("Horizontal", _horizontalMovementValue, 0.4f, Time.deltaTime);
             attackState.hasPerformedAttack = false;
 
             if (enemy.isInteracting)
@@ -45,7 +45,6 @@ namespace DS
             }
 
             HandleRotateTowardsTarget(enemy);
-
 
             if (enemy.currentRecoveryTime <= 0 && attackState.currentAttack != null)
             {
@@ -78,7 +77,6 @@ namespace DS
             //Rotate with navmesh
             else
             {
-                Vector3 relativeDirection = transform.InverseTransformDirection(enemyManager.navmeshAgent.desiredVelocity);
                 Vector3 targetVelocity = enemyManager.enemyRigidbody.velocity;
 
                 enemyManager.navmeshAgent.enabled = true;
@@ -122,17 +120,17 @@ namespace DS
         }
         protected void WalkAroundTarget(EnemyAnimatorManager enemyAnimatorManager)
         {
-            _verticalMovementValue = 0.5f;
+            _verticalMovementValue = 0.4f;
 
             _horizontalMovementValue = Random.Range(-1, 1);
 
             if(_horizontalMovementValue <= 1 && _horizontalMovementValue >= 0)
             {
-                _horizontalMovementValue = 0.5f;
+                _horizontalMovementValue = 0.4f;
             }
             else if(_horizontalMovementValue >= -1 && _horizontalMovementValue < 0)
             {
-                _horizontalMovementValue = -0.5f;
+                _horizontalMovementValue = -0.4f;
             }
         }
         protected bool InRange(EnemyAttackAction enemyAttackAction, float viewableAngle, float distanceFromTarget)

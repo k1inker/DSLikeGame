@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d409179a241972448b1ba47b50fde3f, type: 3}
-  m_Name: Attack 02
+  m_Name: MeleeBossAttack01
   m_EditorClassIdentifier: 
-  actionAnimation: 1_Heavy_Light_attack_02 1
+  actionAnimation: Light_Attack_01
+  isRightHandedAction: 0
   canCombo: 0
-  comboNextAction: {fileID: 11400000, guid: e377af1c552f1bd448c53263c8ab60cc, type: 2}
+  comboNextAction: {fileID: 0}
   attackScore: 3
-  recoveryTime: 5
-  maximumAttackAngle: 35
-  minimumAttackAngle: -35
-  minimumDistanceToAttack: 0
-  maximumDistanceToAttack: 2
+  recoveryTime: 2
+  maximumAttackAngle: 25
+  minimumAttackAngle: -25
+  minimumDistanceToAttack: 0.5
+  maximumDistanceToAttack: 1.7

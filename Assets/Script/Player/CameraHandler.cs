@@ -1,6 +1,5 @@
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace DS
 {
@@ -49,7 +48,7 @@ namespace DS
         {
             singelton = this;
             _selfTransform = transform;
-            _defaultPosition = cameraTransform.position.z;
+            _defaultPosition = cameraTransform.localPosition.z;
             ignoreLayers = ~(1 << 8 | 1 << 9 | 1 << 10 | 1 << 11 | 1 << 12);
             _playerManager = GetComponentInParent<PlayerManager>();
             targetTransform = _playerManager.transform;
@@ -68,7 +67,6 @@ namespace DS
 
             HandleCameraCollisions(delta);
         }
-
         public void HandleCameraRotation(float delta, float mouseXInput, float mouseYInput)
         {
             if (!_playerManager.inputHandler.lockOnFlag && currentLockOnTarget == null)
@@ -106,7 +104,6 @@ namespace DS
                 cameraPivotTransform.localEulerAngles = eulerAngle;
             }
         }  
-
         private void HandleCameraCollisions(float delta)
         {
             _targetPosition = _defaultPosition;

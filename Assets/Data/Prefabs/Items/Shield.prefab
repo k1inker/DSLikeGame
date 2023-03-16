@@ -146,6 +146,7 @@ MonoBehaviour:
   poiseBreak: 0
   offensivePoiseBonus: 0
   currentWeaponDamage: 25
+  guardBreakModifier: 1
 --- !u!1 &7772057405702921605
 GameObject:
   m_ObjectHideFlags: 0

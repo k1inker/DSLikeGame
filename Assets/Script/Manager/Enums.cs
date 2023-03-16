@@ -4,6 +4,7 @@ namespace DS
 {
     public enum WeaponType
     {
+        Unarmed,
         EasySword,
         OneHandHeavySword,
         TwoHandHeavySword,
@@ -17,7 +18,8 @@ namespace DS
     public enum AICombatStyle
     {
         swordAndShield,
-        heavySword
+        heavySword,
+        boss
     }
     public class Enums : MonoBehaviour
     {

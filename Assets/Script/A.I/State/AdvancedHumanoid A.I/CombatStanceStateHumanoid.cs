@@ -1,14 +1,13 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace DS
 {
     public class CombatStanceStateHumanoid : State
     {
         private AttackStateHumanoid _attackState;
-        private PursueTargetStateHumanoid _pusueTargetState;
+        protected PursueTargetStateHumanoid pusueTargetState;
 
-        [SerializeField] private ItemBasedAttackAction[] enemyAttacks;
+        [SerializeField] private ItemBasedAttackAction[] enemyAttacksBasedItem;
 
         protected bool _randomDestinationSet = false;
         protected float _horizontalMovementValue = 0;
@@ -26,10 +25,10 @@ namespace DS
         private bool _hasBeenRoled;
 
         private Quaternion _targetDodgeDirection;
-        private void Awake()
+        protected virtual void Awake()
         {
             _attackState = GetComponent<AttackStateHumanoid>();
-            _pusueTargetState = GetComponent<PursueTargetStateHumanoid>();
+            pusueTargetState = GetComponent<PursueTargetStateHumanoid>();
         }
         public override State Tick(EnemyManager enemy)
         {
@@ -40,6 +39,10 @@ namespace DS
             else if(enemy.combatStyle == AICombatStyle.heavySword)
             {
                 return ProcessHeavySwordCombatStyle(enemy);
+            }
+            else if(enemy.combatStyle == AICombatStyle.boss)
+            {
+                return ProcessBossCombatStyle(enemy);
             }
             else
             {
@@ -66,7 +69,7 @@ namespace DS
             if (enemy.distanceFromTarget > enemy.maximumAggroRadius)
             {
                 ResetStateFlags();  
-                return _pusueTargetState;
+                return pusueTargetState;
             }
 
             //randomiez walking pattern of our A.I so they circle the player 
@@ -127,7 +130,7 @@ namespace DS
             if (enemy.distanceFromTarget > enemy.maximumAggroRadius)
             {
                 ResetStateFlags();
-                return _pusueTargetState;
+                return pusueTargetState;
             }
 
             //randomiez walking pattern of our A.I so they circle the player 
@@ -150,6 +153,50 @@ namespace DS
             }
 
             DefenceAction(enemy);
+
+            if (enemy.currentRecoveryTime <= 0 && _attackState.currentAttack != null)
+            {
+                ResetStateFlags();
+                return _attackState;
+            }
+            else
+            {
+                GetNewAttack(enemy);
+            }
+
+            HandleMovement(enemy);
+            return this;
+        }
+        protected virtual State ProcessBossCombatStyle(EnemyManager enemy)
+        {
+            if (enemy.isInteracting)
+            {
+                enemy.animator.SetFloat("Vertical", 0);
+                enemy.animator.SetFloat("Horizontal", 0);
+
+                return this;
+            }
+            if (enemy.currentTarget.isDead)
+            {
+                ResetStateFlags();
+                enemy.currentTarget = null;
+                return this;
+            }
+            // if the A.I has gotten to far from it`s target?, return to pursue state
+            if (enemy.distanceFromTarget > enemy.maximumAggroRadius)
+            {
+                ResetStateFlags();
+                return pusueTargetState;
+            }
+
+            //randomiez walking pattern of our A.I so they circle the player 
+            if (!_randomDestinationSet)
+            {
+                _randomDestinationSet = true;
+                DecideCirclingAction(enemy.enemyAnimatorManager);
+            }
+
+            HandleRotateTowardsTarget(enemy);
 
             if (enemy.currentRecoveryTime <= 0 && _attackState.currentAttack != null)
             {
@@ -194,7 +241,7 @@ namespace DS
                 return false;
             }
         }
-        private void ResetStateFlags()
+        protected void ResetStateFlags()
         {
             _hasRandomDodgeDirection = false;
             _hasPreformedDodge = false;
@@ -224,18 +271,18 @@ namespace DS
         protected virtual void GetNewAttack(EnemyManager enemy)
         {
             int maxScore = 0;
-            for (int i = 0; i < enemyAttacks.Length; i++)
+            for (int i = 0; i < enemyAttacksBasedItem.Length; i++)
             {
-                ItemBasedAttackAction enemyAttackAction = enemyAttacks[i];
+                ItemBasedAttackAction enemyAttackAction = enemyAttacksBasedItem[i];
                 if (InRange(enemyAttackAction, enemy.viewableAngle, enemy.distanceFromTarget))
                     maxScore += enemyAttackAction.attackScore;
             }
             int randomValue = Random.Range(0, maxScore);
             int temporaryScore = 0;
 
-            for (int i = 0; i < enemyAttacks.Length; i++)
+            for (int i = 0; i < enemyAttacksBasedItem.Length; i++)
             {
-                ItemBasedAttackAction enemyAttackAction = enemyAttacks[i];
+                ItemBasedAttackAction enemyAttackAction = enemyAttacksBasedItem[i];
                 if (InRange(enemyAttackAction, enemy.viewableAngle, enemy.distanceFromTarget))
                 {
                     if (_attackState.currentAttack != null)
@@ -323,7 +370,7 @@ namespace DS
                 }
             }
         }
-        private void HandleMovement(EnemyManager enemy)
+        protected void HandleMovement(EnemyManager enemy)
         {
             if(enemy.distanceFromTarget <= enemy.stoppingDistance)
             {
@@ -336,7 +383,7 @@ namespace DS
                 enemy.animator.SetFloat("Horizontal", _horizontalMovementValue, 0.2f, Time.deltaTime);
             }
         }
-        protected bool InRange(ItemBasedAttackAction enemyAttackAction, float viewableAngle, float distanceFromTarget)
+        private bool InRange(ItemBasedAttackAction enemyAttackAction, float viewableAngle, float distanceFromTarget)
         {
             if (distanceFromTarget <= enemyAttackAction.maximumDistanceToAttack
                 && distanceFromTarget >= enemyAttackAction.minimumDistanceToAttack)

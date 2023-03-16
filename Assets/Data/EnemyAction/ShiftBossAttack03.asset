@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d409179a241972448b1ba47b50fde3f, type: 3}
-  m_Name: SecondPhaseAttack02
+  m_Name: ShiftBossAttack03
   m_EditorClassIdentifier: 
-  actionAnimation: 2_Heavy_Light_attack_02
+  actionAnimation: Heavy_Attack_01
+  isRightHandedAction: 1
   canCombo: 0
   comboNextAction: {fileID: 0}
   attackScore: 3
-  recoveryTime: 3
+  recoveryTime: 5
   maximumAttackAngle: 35
   minimumAttackAngle: -35
-  minimumDistanceToAttack: 0
-  maximumDistanceToAttack: 2
+  minimumDistanceToAttack: 4
+  maximumDistanceToAttack: 8

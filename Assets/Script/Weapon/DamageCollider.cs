@@ -108,6 +108,10 @@ namespace DS
             {
                 CheckAttackType(_characterManager.characterWeaponSlotManager.leftWeapon, ref finalDamage);
             }
+            else if((_characterManager as EnemyManager).isBoss)
+            {
+                finalDamage = currentWeaponDamage;
+            }
 
 
             if (enemyStats.currentPoiseDefence > poiseBreak)
@@ -128,7 +132,6 @@ namespace DS
             }
             else if(_characterManager.characterCombatManager.currentAttackType == AttackType.heavy)
             {
-                Debug.Log(1);
                 finalDamage = finalDamage * weapon.heavyAttackDamageModifier;
             }
         }

@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace DS
 {
@@ -30,7 +26,7 @@ namespace DS
 
             if (enemy.distanceFromTarget > enemy.maximumAggroRadius)
             {
-                enemy.animator.SetFloat("Vertical", 1, 0.1f, Time.deltaTime);
+                enemy.animator.SetFloat("Vertical", 0.2f, 0.1f, Time.deltaTime);
             }
 
             if(enemy.distanceFromTarget <= enemy.maximumAggroRadius)

@@ -7,6 +7,10 @@ namespace DS
         [Header("Second Phase Attacks")]
         [SerializeField] private EnemyAttackAction[] secondPhaseAttacks;
         public bool hasPhaseShifted;
+        public override State Tick(EnemyManager enemy)
+        {
+            return base.Tick(enemy);
+        }
         protected override void GetNewAttack(EnemyManager enemy)
         {
             if (hasPhaseShifted)

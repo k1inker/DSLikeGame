@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace DS
 {
     public class RotateTowardsStateHumanoid : State
@@ -16,6 +14,9 @@ namespace DS
 
             if (enemy.isInteracting)
                 return this;
+
+            if (enemy.isBoss)
+                _combatStanceState = _combatStanceState as BossCombatStanceStateHumanoid;
 
             if (enemy.viewableAngle >= 100 && enemy.viewableAngle <= 180 && !enemy.isInteracting)
             {

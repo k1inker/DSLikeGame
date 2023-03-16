@@ -1512,7 +1512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fe0a00d5afa8e54db5a97565f4bdf36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyAttacks:
+  enemyAttacksBasedItem:
   - {fileID: 11400000, guid: 2fe2b1fd517adff42932a8373d242421, type: 2}
   - {fileID: 11400000, guid: fa115a92bbb15074987d4e70b9456c10, type: 2}
 --- !u!114 &2716357039767935437

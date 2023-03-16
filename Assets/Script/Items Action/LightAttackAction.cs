@@ -10,6 +10,7 @@ namespace DS
             if ((character.characterWeaponSlotManager.rightWeapon.baseStaminaCost * character.characterWeaponSlotManager.rightWeapon.lightAttackStaminaMultiplier) 
                 > character.characterStatsManager.currentStamina)
                 return;
+
             character.isAttacking = true;
             character.characterEffectsManager.PlayWeaponFX(false);
 

@@ -1,5 +1,3 @@
-using System.Threading;
-using TMPro;
 using UnityEngine;
 namespace DS
 {
@@ -37,7 +35,8 @@ namespace DS
                 return;
             if (_player.isDead)
                 return;
-            base.TakeDamage(damage, damageAnimation = "Damage");
+
+            base.TakeDamage(damage, damageAnimation);
             healthBar.SetCurrentHealth(currentHealth);
             _player.playerAnimatorManager.PlayTargetAnimationWithRootMotion(damageAnimation, true);
 

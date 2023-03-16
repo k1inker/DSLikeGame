@@ -14,6 +14,13 @@ public class CharacterCombatManager : MonoBehaviour
     public string OH_Heavy_Attack_1 = "Heavy_Attack_01";
     public string OH_Heavy_Attack_2 = "Heavy_Attack_02";
 
+    [Header("Team ID")]
+    public int teamID = 0;
+
+    [Header("Explosive settings")]
+    public float radius = 0.0f;
+    public float explosiveDamage = 0.0f;
+
     public string lastAttack;
     protected virtual void Awake()
     {
@@ -61,5 +68,24 @@ public class CharacterCombatManager : MonoBehaviour
     public void DisableCanBeParried()
     {
         _character.canBeParried = false;
+    }
+    public void ExplosionDamage()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(this.gameObject.transform.position, radius);
+        foreach(var hitCollider in hitColliders)
+        {
+            if(hitCollider.tag == "Character")
+            {
+                CharacterManager enemyCharacter = hitCollider.GetComponent<CharacterManager>();
+
+                if (enemyCharacter.characterStatsManager.teamIDNumber == teamID)
+                    return;
+                if (enemyCharacter.isInvulnerable)
+                    return;
+
+                enemyCharacter.characterStatsManager.TakeDamage(Mathf.RoundToInt(explosiveDamage),"Falling");
+                enemyCharacter.characterStatsManager.currentPoiseDefence = enemyCharacter.characterStatsManager.totalPoiseDefence;  
+            }
+        }
     }
 }

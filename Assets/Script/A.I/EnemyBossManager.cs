@@ -5,6 +5,8 @@ namespace DS
     public class EnemyBossManager : MonoBehaviour
     {
         [SerializeField] private string _bossName;
+        [SerializeField] private float radiusExplosionAttack = 0.0f;
+        [SerializeField] private float damageExplosionAttack = 0.0f;
 
         private EnemyManager _enemy;
         private BossCombatStanceState _bossCombatStanceState;
@@ -23,6 +25,11 @@ namespace DS
         {
             bossUI.bossHealthBar.SetBossName(_bossName);
             bossUI.bossHealthBar.SetBossMaxHealth(_enemy.enemyStatsManager.maxHealth);
+
+            _enemy.characterCombatManager.teamID = _enemy.characterStatsManager.teamIDNumber;
+            _enemy.characterCombatManager.radius = radiusExplosionAttack;
+            _enemy.characterCombatManager.explosiveDamage = damageExplosionAttack;
+            _enemy.enemyAnimatorManager.PlayTargetAnimationWithRootMotion("Spawn Boss", true);
         }
         public void UpdateBossHealthBar(int currentHealth, int maxHealth)
         {

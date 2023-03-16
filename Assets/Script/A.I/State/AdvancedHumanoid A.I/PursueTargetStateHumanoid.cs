@@ -12,14 +12,18 @@ namespace DS
         {
             if (enemy.combatStyle == AICombatStyle.swordAndShield || enemy.combatStyle == AICombatStyle.heavySword)
             {
-                return ProcessSwordAndShieldCombatStyle(enemy);
+                return ProcessCombatStyle(enemy);
+            }
+            else if(enemy.combatStyle == AICombatStyle.boss)
+            {
+                return ProcessCombatStyle(enemy, 0.3f);
             }
             else
             {
                 return this;
             }
         }
-        private State ProcessSwordAndShieldCombatStyle(EnemyManager enemy)
+        private State ProcessCombatStyle(EnemyManager enemy, float defaultSpeed = 1f)
         {
             HandleRotateTowardsTarget(enemy);
 
@@ -35,7 +39,7 @@ namespace DS
 
             if (enemy.distanceFromTarget > enemy.maximumAggroRadius)
             {
-                enemy.animator.SetFloat("Vertical", 1, 0.1f, Time.deltaTime);
+                enemy.animator.SetFloat("Vertical", defaultSpeed, 0.1f, Time.deltaTime);
             }
 
             if (enemy.distanceFromTarget <= enemy.maximumAggroRadius)
