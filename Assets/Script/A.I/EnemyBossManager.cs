@@ -9,7 +9,7 @@ namespace DS
         [SerializeField] private float damageExplosionAttack = 0.0f;
 
         private EnemyManager _enemy;
-        private BossCombatStanceState _bossCombatStanceState;
+        private BossCombatStanceStateHumanoid _bossCombatStanceState;
         private UIManager bossUI;
 
         [Header("Second Phase FX")]
@@ -19,7 +19,7 @@ namespace DS
             bossUI = FindObjectOfType<UIManager>();
 
             _enemy = GetComponent<EnemyManager>();
-            _bossCombatStanceState = GetComponentInChildren<BossCombatStanceState>();
+            _bossCombatStanceState = GetComponentInChildren<BossCombatStanceStateHumanoid>();
         }
         private void Start()
         {

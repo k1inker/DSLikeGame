@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CharacterCombatManager : MonoBehaviour
 {
-    CharacterManager _character;
+    private CharacterManager _character;
 
     [Header("Attack Type")]
     public AttackType currentAttackType;
@@ -74,6 +74,10 @@ public class CharacterCombatManager : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(this.gameObject.transform.position, radius);
         foreach(var hitCollider in hitColliders)
         {
+            if(hitCollider.tag == "Ground")
+            {
+                _character.characterEffectsManager.PlaySandDustFX(this.gameObject.transform.position);
+            }
             if(hitCollider.tag == "Character")
             {
                 CharacterManager enemyCharacter = hitCollider.GetComponent<CharacterManager>();

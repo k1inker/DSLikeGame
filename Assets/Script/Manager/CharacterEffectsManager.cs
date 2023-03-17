@@ -6,6 +6,9 @@ public class CharacterEffectsManager : MonoBehaviour
     [Header("Damage FX")]
     public GameObject bloodSplaterFX;
 
+    [Header("Dust FX")]
+    public GameObject sandDustFX;
+
     [Header("WeaponFX")]
     public WeaponFX rightWeaponFX;
     public WeaponFX leftWeaponFX;
@@ -28,6 +31,10 @@ public class CharacterEffectsManager : MonoBehaviour
     }
     public virtual void PlayBloodSplatterFX(Vector3 bloodSplatterLocation)
     {
-        GameObject blood = Instantiate(bloodSplaterFX, bloodSplatterLocation, Quaternion.identity);
+        Instantiate(bloodSplaterFX, bloodSplatterLocation, Quaternion.identity);
+    }
+    public virtual void PlaySandDustFX(Vector3 sandDustLocation)
+    {
+        Instantiate(sandDustFX, sandDustLocation, Quaternion.LookRotation(Vector3.up));
     }
 }

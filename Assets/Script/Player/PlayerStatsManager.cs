@@ -1,4 +1,7 @@
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 namespace DS
 {
     public class PlayerStatsManager : CharacterStatsManager
@@ -45,7 +48,12 @@ namespace DS
                 currentHealth = 0;
                 _player.isDead = true;
                 _player.playerAnimatorManager.PlayTargetAnimationWithRootMotion("Death", true);
+                Invoke(nameof(LoadSceneAfterDeath), 3);
             }
+        }
+        private void LoadSceneAfterDeath()
+        {
+            SceneManager.LoadScene(0);
         }
         public override void TakeDamageNoAnimation(int damage)
         {

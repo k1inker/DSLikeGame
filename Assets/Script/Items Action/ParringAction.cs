@@ -10,12 +10,7 @@ namespace DS
             if (character.isInteracting)
                 return;
 
-            WeaponItem parryingWeapon = character.characterWeaponSlotManager.currentItemBeingUsed as WeaponItem;
-
-            if(parryingWeapon.weaponType == WeaponType.Shield)
-            {
-                character.characterAnimatorManager.PlayTargetAnimationWithRootMotion("Parry", true);
-            }
+            character.characterAnimatorManager.PlayTargetAnimationWithRootMotion("Parry", true);
         }
     }
 }

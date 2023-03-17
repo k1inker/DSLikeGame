@@ -27,6 +27,7 @@ namespace DS
         private float _wallEndY;
         private float _timeSinceLastWave;
         private bool _isWallRising;
+        private bool _isBossFight = false;
         private void Awake()
         {
             _UIManager = FindObjectOfType<UIManager>();
@@ -41,24 +42,26 @@ namespace DS
         {
             if (currentWave == countWave && countEnemy == 0)
             {
-                StopCoroutine(nameof(SpawnEnemies));
                 spawnPoint = Vector3.zero;
                 ActiveBossFight();
+                _isBossFight = true;
             }
 
-            _timeSinceLastWave += Time.deltaTime;
+            if (_isBossFight)
+                return;
 
+            _timeSinceLastWave += Time.deltaTime;
 
             if (_timeSinceLastWave >= timeBetweenWaves || countEnemy == 0)
             {
                 StartNewWave();
                 _UIManager.ShowWaveIndicator(currentWave);
             }
-
             if (_isWallRising)
             {
                 RaiseWall();
             }
+
         }
         public List<GameObject> ChoosingEnemyTypeSpawn()
         {
@@ -116,7 +119,7 @@ namespace DS
         }
         public void BossHasDefeated()
         {
-            SceneManager.LoadScene("Level1");
+            SceneManager.LoadScene(0);
         }
         public void DefeatEnemy()
         {

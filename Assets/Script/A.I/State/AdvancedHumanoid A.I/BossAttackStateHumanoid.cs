@@ -1,6 +1,3 @@
-
-using UnityEngine;
-
 namespace DS {
     public class BossAttackStateHumanoid : AttackStateHumanoid
     {
@@ -16,12 +13,13 @@ namespace DS {
             }
 
             AttackTarget(enemy);
-            Debug.Log(1);
             ResetStateFlags();
             return rotateTowardsTargetState;
         }
         protected override void AttackTarget(EnemyManager enemy)
         {
+            enemy.isUsingRightHand = currentAttackAction.isRightHandedAction;
+            enemy.isUsingLeftHand = !currentAttackAction.isRightHandedAction;
             enemy.enemyAnimatorManager.PlayTargetAnimationWithRootMotion(currentAttackAction.actionAnimation, true);
             enemy.currentRecoveryTime = currentAttackAction.recoveryTime;
             currentAttackAction = null;

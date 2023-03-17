@@ -78,6 +78,7 @@ namespace DS
             _enemy.isDead = true;
             _enemy.navmeshAgent.enabled = false;
             Destroy(this.gameObject, 5f);
+
             if (_enemy.isBoss)
             {
                 _levelManager.BossHasDefeated();

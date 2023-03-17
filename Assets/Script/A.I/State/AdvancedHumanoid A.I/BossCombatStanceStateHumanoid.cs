@@ -82,7 +82,6 @@ namespace DS
             for (int i = 0; i < enemyAttacks.Length; i++)
             {
                 EnemyAttackAction enemyAttackAction = enemyAttacks[i];
-                Debug.Log(enemy.distanceFromTarget);
                 if (InRange(enemyAttackAction, enemy.viewableAngle, enemy.distanceFromTarget))
                 {
                     if (_bossAttackState.currentAttack != null)
@@ -92,6 +91,7 @@ namespace DS
                     if (temporaryScore > randomValue)
                     {
                         _bossAttackState.currentAttackAction = enemyAttackAction;
+                        return;
                     }
                 }
             }

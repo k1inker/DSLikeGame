@@ -16,7 +16,7 @@ MonoBehaviour:
   isRightHandedAction: 0
   canCombo: 0
   comboNextAction: {fileID: 0}
-  attackScore: 3
+  attackScore: 1
   recoveryTime: 2
   maximumAttackAngle: 25
   minimumAttackAngle: -25
