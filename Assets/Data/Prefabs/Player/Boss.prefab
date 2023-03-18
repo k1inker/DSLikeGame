@@ -242,6 +242,7 @@ MonoBehaviour:
   poiseResetTimer: 0
   blockingStabilityRating: 0
   _enemyHealthBar: {fileID: 0}
+  _lockOnPoint: {fileID: 276050313916348211}
 --- !u!114 &276050313845272162
 MonoBehaviour:
   m_ObjectHideFlags: 0

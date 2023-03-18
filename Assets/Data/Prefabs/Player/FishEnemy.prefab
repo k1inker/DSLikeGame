@@ -389,6 +389,7 @@ MonoBehaviour:
   poiseResetTimer: 0
   blockingStabilityRating: 0
   _enemyHealthBar: {fileID: 99722458175677360}
+  _lockOnPoint: {fileID: 99722458078610866}
 --- !u!114 &99722458530603833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -481,6 +482,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bloodSplaterFX: {fileID: 8718586458559291700, guid: af0672b1a4d754844948d420412207e6, type: 3}
+  sandDustFX: {fileID: 0}
   rightWeaponFX: {fileID: 0}
   leftWeaponFX: {fileID: 0}
 --- !u!82 &99722458530603836
@@ -608,6 +610,9 @@ MonoBehaviour:
   OH_Light_Attack_2: Light_Attack_02
   OH_Heavy_Attack_1: Heavy_Attack_01
   OH_Heavy_Attack_2: Heavy_Attack_02
+  teamID: 0
+  radius: 0
+  explosiveDamage: 0
   lastAttack: 
 --- !u!1 &99722458882445010
 GameObject:

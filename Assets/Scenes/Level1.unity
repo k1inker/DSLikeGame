@@ -1965,10 +1965,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2716357038358451172, guid: fb641b44fa1fe1847a21799bf6a71dee, type: 3}
-      propertyPath: rightWeapon
-      value: 
-      objectReference: {fileID: 11400000, guid: 443873b4a1328c441938caf02658acd1, type: 2}
     - target: {fileID: 2716357038358451180, guid: fb641b44fa1fe1847a21799bf6a71dee, type: 3}
       propertyPath: m_Name
       value: CapHeadEnemy
@@ -2772,6 +2768,10 @@ PrefabInstance:
     - target: {fileID: 377838937545902417, guid: e3318d1206fa66d4fafd731aaa5d5bd0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 607173668559547282, guid: e3318d1206fa66d4fafd731aaa5d5bd0, type: 3}
+      propertyPath: isJoystick
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1041890825892287467, guid: e3318d1206fa66d4fafd731aaa5d5bd0, type: 3}
       propertyPath: m_Name

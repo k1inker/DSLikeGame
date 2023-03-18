@@ -24,7 +24,7 @@ namespace DS
         public bool comboFlag;
         public bool lockOnFlag;
 
-        public bool _space_Input;
+        public bool space_Input;
         public bool tap_rb_Input;
         public bool tap_lb_Input;
         public bool hold_rb_Input;
@@ -59,7 +59,7 @@ namespace DS
                 _inputActions = new PlayerControls();
                 _inputActions.PlayerMovement.Movement.performed += inputActions => _movementInput = inputActions.ReadValue<Vector2>();
                 _inputActions.PlayerMovement.Camera.performed += i => _cameraInput = i.ReadValue<Vector2>();
-                _inputActions.PlayerActions.Roll.performed += i => _space_Input = true;
+                _inputActions.PlayerActions.Roll.performed += i => space_Input = true;
 
                 _inputActions.PlayerActions.RB.performed += i => tap_rb_Input = true;
                 _inputActions.PlayerActions.LB.performed += i => tap_lb_Input = true;
@@ -116,7 +116,7 @@ namespace DS
         }
         private void HandleRollInput()
         {
-            if (_space_Input)
+            if (space_Input)
                 rollFlag = true;
         }
         private void HandleTapRBInput()

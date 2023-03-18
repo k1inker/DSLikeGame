@@ -67,7 +67,7 @@ namespace DS
         private void LateUpdate()
         {
             float delta = Time.deltaTime;
-            inputHandler._space_Input = false;
+            inputHandler.space_Input = false;
             inputHandler.tap_rb_Input = false;
             inputHandler.tap_lb_Input = false;
             inputHandler.hold_rb_Input = false;

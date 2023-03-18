@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using static TreeEditor.TreeGroup;
 
 namespace DS
 {
@@ -85,6 +86,10 @@ namespace DS
 
                 targetRotation = Quaternion.Euler(rotation);
                 cameraPivotTransform.localRotation = targetRotation;
+            }
+            else if(_playerManager.inputHandler.lockOnFlag && currentLockOnTarget == null)
+            {
+                _playerManager.inputHandler.lockOnFlag = false;
             }
             else
             {

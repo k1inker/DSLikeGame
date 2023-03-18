@@ -5,7 +5,7 @@ namespace DS
     public class EnemyStatsManager : CharacterStatsManager
     {
         [SerializeField] private UIEnemyHealthBar _enemyHealthBar;
-
+        
         private EnemyManager _enemy;
         private LevelManager _levelManager;
         protected override void Awake()
@@ -77,8 +77,6 @@ namespace DS
             _enemy.enemyAnimatorManager.PlayTargetAnimation("Death", true);
             _enemy.isDead = true;
             _enemy.navmeshAgent.enabled = false;
-            Destroy(this.gameObject, 5f);
-
             if (_enemy.isBoss)
             {
                 _levelManager.BossHasDefeated();
@@ -87,6 +85,10 @@ namespace DS
             {
                 _levelManager.DefeatEnemy();
             }
+
+            Destroy(_enemy);
+            Destroy(this.gameObject, 5f);
+
         }
     }
 }
