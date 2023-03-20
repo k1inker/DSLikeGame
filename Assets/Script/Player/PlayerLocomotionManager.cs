@@ -7,7 +7,7 @@ namespace DS
         private PlayerManager _player;
 
         public Vector3 moveDirection;
-        public new Rigidbody rigidbody;
+        public Rigidbody rigidbody;
         public GameObject normalCamera;
 
         [Header("Movement Stats")]

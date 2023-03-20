@@ -7,6 +7,7 @@ namespace DS
 {
     public class MenuManager : MonoBehaviour
     {
+        [Header("Canvas object")]
         [SerializeField] private AudioMixer _audioMixer;
         [SerializeField] private Slider _sensitivitySlider;
         [SerializeField] private Slider _effectsVolumeSlider;

@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using static TreeEditor.TreeGroup;
 
 namespace DS
 {

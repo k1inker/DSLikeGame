@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5db6c2b2bfbca4fb9083dc0fbd7ec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundMusicMixer: {fileID: 0}
-  soundEffectsMixer: {fileID: 0}
+  soundMusicMixer: {fileID: 4450617087227437295, guid: 49e84a47f165d1d48b2fa883d8cb643f, type: 2}
+  soundEffectsMixer: {fileID: -320139458804096648, guid: 49e84a47f165d1d48b2fa883d8cb643f, type: 2}
   sounds:
   - audioType: 1
     name: Theme
