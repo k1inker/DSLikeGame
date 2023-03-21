@@ -40,7 +40,7 @@ namespace DS
             if (!_randomDestinationSet)
             {
                 _randomDestinationSet = true;
-                DecideCirclingAction(enemy.enemyAnimatorManager);
+                DecideCirclingAction();
             }
 
             HandleRotateTowardsTarget(enemy);
@@ -66,6 +66,21 @@ namespace DS
             else
             {
                 ChooseAttackAction(enemy, enemyAttacks);
+            }
+        }
+        protected override void WalkAroundTarget()
+        {
+            _verticalMovementValue = 0.4f;
+
+            _horizontalMovementValue = Random.Range(-1, 1);
+
+            if (_horizontalMovementValue <= 1 && _horizontalMovementValue >= 0)
+            {
+                _horizontalMovementValue = 0.3f;
+            }
+            else if (_horizontalMovementValue >= -1 && _horizontalMovementValue < 0)
+            {
+                _horizontalMovementValue = -0.3f;
             }
         }
         private void ChooseAttackAction(EnemyManager enemy, EnemyAttackAction[] enemyAttacks)

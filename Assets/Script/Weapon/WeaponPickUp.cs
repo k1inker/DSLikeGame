@@ -17,14 +17,8 @@ namespace DS
         }
         private void PickUpItem(PlayerManager playerManager)
         {
-            PlayerWeaponSlotManager playerSlotManager;
-            PlayerAnimatorManager animatorHandler;
-
-            playerSlotManager = playerManager.GetComponent<PlayerWeaponSlotManager>();
-            animatorHandler = playerManager.GetComponentInChildren<PlayerAnimatorManager>();
-
-            animatorHandler.PlayTargetAnimationWithRootMotion("Pick Up Item", true);
-            playerSlotManager.LoadWeapon(_weaponRight, _weaponLeft);
+            playerManager.characterAnimatorManager.PlayTargetAnimationWithRootMotion("Pick Up Item", true);
+            playerManager.characterWeaponSlotManager.LoadWeapon(_weaponRight, _weaponLeft);
             Destroy(gameObject);
         }
     }

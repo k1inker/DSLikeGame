@@ -4,6 +4,7 @@ using UnityEngine;
 public class CharacterCombatManager : MonoBehaviour
 {
     private CharacterManager _character;
+    private AudioManager _audioManager;
 
     [Header("Attack Type")]
     public AttackType currentAttackType;
@@ -25,6 +26,7 @@ public class CharacterCombatManager : MonoBehaviour
     protected virtual void Awake()
     {
         _character = GetComponent<CharacterManager>();
+        _audioManager = FindObjectOfType<AudioManager>();
     }
     public virtual void SetBlockingAbsorptionsFromBlockingWeapon()
     {
@@ -72,6 +74,8 @@ public class CharacterCombatManager : MonoBehaviour
     public void ExplosionDamage()
     {
         Collider[] hitColliders = Physics.OverlapSphere(this.gameObject.transform.position, radius);
+        _audioManager.Play("Explosion");
+        Debug.Log(_audioManager);
         foreach(var hitCollider in hitColliders)
         {
             if(hitCollider.tag == "Ground")

@@ -16,10 +16,8 @@ namespace DS
         [Header("Camera")]
         public CameraHandler cameraHandler;
 
-        [Header("Interactable")]
-        private InteractableUI _interactableUI;
-        public GameObject interactableUIGameObject;
-
+        [Header("UI")]
+        private UIManager _uiManager;
         protected override void Awake()
         {
             base.Awake();
@@ -32,10 +30,8 @@ namespace DS
             playerCombatManager = GetComponent<PlayerCombatManager>();
             playerEffectsManager = GetComponent<PlayerEffectsManager>();
             playerWeaponSlotManager = GetComponent<PlayerWeaponSlotManager>();
-
-            _interactableUI = GetComponentInChildren<InteractableUI>();
-
-            interactableUIGameObject = _interactableUI.transform.GetChild(0).gameObject;
+            
+            _uiManager = GetComponentInChildren<UIManager>();
         }
 
         private void Update()
@@ -89,22 +85,13 @@ namespace DS
                     Interactable interactableObject = hit.collider.GetComponent<Interactable>();
                     if (interactableObject != null)
                     {
-                        string interactableText = interactableObject.interactableText;
-                        _interactableUI.interactableText.text = interactableText;
-                        interactableUIGameObject.SetActive(true);
-                        if (inputHandler.a_Input)
-                        {
-                            hit.collider.GetComponent<Interactable>().Interact(this);
-                        }
+                        _uiManager.ShowInteractMessageObject(interactableObject);
                     }
                 }
             }
             else
             {
-                if(interactableUIGameObject != null)
-                {
-                    interactableUIGameObject.SetActive(false);
-                }
+                _uiManager.HideInteractMessageObject();
             }
         }
     }

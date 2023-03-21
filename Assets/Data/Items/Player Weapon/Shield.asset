@@ -16,8 +16,7 @@ MonoBehaviour:
   itemName: Shield
   modelPrefab: {fileID: 3737415715194810486, guid: 0950731404ef9e44f9a91ad2d5f12994, type: 3}
   weaponController: {fileID: 22100000, guid: 92a8d5eeae22a764693a9972caa90e10, type: 2}
-  offHandIdleAnimation: Left Arm Empty
-  weaponType: 3
+  weaponType: 4
   baseDamage: 25
   criticalDamageMultiplier: 4
   lightAttackDamageModifier: 1
@@ -29,7 +28,6 @@ MonoBehaviour:
   baseStaminaCost: 25
   lightAttackStaminaMultiplier: 1
   heavyAttackStaminaMultiplier: 2
-  weaponWhooshes: []
   hold_RB_Action: {fileID: 0}
   tap_RB_Action: {fileID: 0}
   hold_LB_Action: {fileID: 11400000, guid: e81e2fc129ac1a54394d576e9b7f50be, type: 2}

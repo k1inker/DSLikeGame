@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: Heavy Sword
   modelPrefab: {fileID: 5577781858704980654, guid: 0b0a1f179f8d09447ad336f7ce91cc6b, type: 3}
   weaponController: {fileID: 22100000, guid: 5110955771a3dfe42a048d0618f97cb7, type: 2}
-  weaponType: 1
+  weaponType: 2
   baseDamage: 25
   criticalDamageMultiplier: 4
   lightAttackDamageModifier: 1
@@ -28,11 +28,6 @@ MonoBehaviour:
   baseStaminaCost: 25
   lightAttackStaminaMultiplier: 1
   heavyAttackStaminaMultiplier: 2
-  weaponWhooshes:
-  - {fileID: 8300000, guid: 8ea7092f6e4883e47b725074aad74226, type: 3}
-  - {fileID: 8300000, guid: 58ba15bb01b32b647b7e5058c89f9b2b, type: 3}
-  - {fileID: 8300000, guid: 8586f7952b215d64db97fbad919a84b9, type: 3}
-  - {fileID: 8300000, guid: 871d30c85899f824bb0312f16d65a964, type: 3}
   hold_RB_Action: {fileID: 11400000, guid: 3f30ae1f21512f8479e4b7b81c3ec795, type: 2}
   tap_RB_Action: {fileID: 11400000, guid: d5ec6f24c450b3c4086cf7b47c89bc9c, type: 2}
   hold_LB_Action: {fileID: 0}

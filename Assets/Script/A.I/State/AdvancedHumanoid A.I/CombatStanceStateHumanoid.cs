@@ -76,7 +76,7 @@ namespace DS
             if (!_randomDestinationSet)
             {
                 _randomDestinationSet = true;
-                DecideCirclingAction(enemy.enemyAnimatorManager);
+                DecideCirclingAction();
             }
 
             HandleRotateTowardsTarget(enemy);
@@ -101,6 +101,10 @@ namespace DS
             if (enemy.currentRecoveryTime <= 0 && _attackState.currentAttack != null)
             {
                 ResetStateFlags();
+
+                if(enemy.isBlocking)
+                    enemy.isBlocking = false;
+
                 return _attackState;
             }
             else
@@ -137,7 +141,7 @@ namespace DS
             if (!_randomDestinationSet)
             {
                 _randomDestinationSet = true;
-                DecideCirclingAction(enemy.enemyAnimatorManager);
+                DecideCirclingAction();
             }
 
             HandleRotateTowardsTarget(enemy);
@@ -193,7 +197,7 @@ namespace DS
             if (!_randomDestinationSet)
             {
                 _randomDestinationSet = true;
-                DecideCirclingAction(enemy.enemyAnimatorManager);
+                DecideCirclingAction();
             }
 
             HandleRotateTowardsTarget(enemy);
@@ -297,11 +301,12 @@ namespace DS
                 }
             }
         }
-        protected void DecideCirclingAction(EnemyAnimatorManager enemyAnimatorManager)
+        protected void DecideCirclingAction()
         {
-            WalkAroundTarget(enemyAnimatorManager);
+            
+            WalkAroundTarget();
         }
-        protected void WalkAroundTarget(EnemyAnimatorManager enemyAnimatorManager)
+        protected virtual void WalkAroundTarget()
         {
             _verticalMovementValue = 0.5f;
 

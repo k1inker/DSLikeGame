@@ -16,7 +16,7 @@ namespace DS
             }
             else if(enemy.combatStyle == AICombatStyle.boss)
             {
-                return ProcessCombatStyle(enemy, 0.3f);
+                return ProcessCombatStyle(enemy, 0.4f);
             }
             else
             {

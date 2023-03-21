@@ -13,13 +13,16 @@ namespace DS
         [SerializeField] private int _countWave = 4;
         [SerializeField] private int _enemiesPerWave = 1;
         [SerializeField] private List<GameObject> _enemyType;
-        [SerializeField] private GameObject _boss;
         [SerializeField] private float _timeBetweenEnemies = 2f;
         [SerializeField] private Animator _animatorGate;
 
         [Header("Settings spawn area")]
         [SerializeField] private Vector3 _volume;
         [SerializeField] private Vector3 _spawnPoint;
+
+        [Header("Settings Boss spawn")]
+        [SerializeField] private GameObject _boss;
+        [SerializeField] private Material _skyboxMat;
 
         private UIManager _UIManager;
 
@@ -74,6 +77,8 @@ namespace DS
         public void ActiveBossFight()
         {
             _countEnemy++;
+            RenderSettings.skybox.Lerp(RenderSettings.skybox, _skyboxMat, 10f);
+            DynamicGI.UpdateEnvironment();
             Instantiate(_boss, _spawnPoint, Quaternion.identity);
             _UIManager.bossHealthBar.SetHealthBarToActive();
         }

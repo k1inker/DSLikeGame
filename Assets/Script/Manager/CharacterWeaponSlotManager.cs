@@ -47,6 +47,9 @@ namespace DS
         }
         public void LoadWeapon(WeaponItem weaponItemRight, WeaponItem weaponItemLeft)
         {
+            if (weaponItemRight.weaponType == WeaponType.TwoHandHeavySword)
+                leftWeapon = weaponItemRight;
+
             if (weaponItemLeft != null)
             {
                 leftWeapon = weaponItemLeft;
