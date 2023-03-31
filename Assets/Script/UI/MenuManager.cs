@@ -19,7 +19,7 @@ namespace DS
         public static bool isPaused { get; private set; }
         private void Start()
         {
-            Data data = SaveSystem.LoadSettings();
+            SettingsData data = SaveSystem.LoadSettings();
             _sensitivitySlider.value = data.sensitivity;
             _musicVolumeSlider.value = data.musicVolume;
             _effectsVolumeSlider.value = data.effectsVolume;

@@ -1339,7 +1339,7 @@ MonoBehaviour:
   staminaLevel: 10
   maxStamina: 0
   currentStamina: 0
-  totalPoiseDefence: 100
+  totalPoiseDefence: 200
   currentPoiseDefence: 0
   offensivePoiseBonus: 0
   totalPoiseResetTime: 3

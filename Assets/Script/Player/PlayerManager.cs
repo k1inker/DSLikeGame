@@ -51,8 +51,6 @@ namespace DS
             inputHandler.TickInput();
             playerLocomotionManager.HandleRolling(delta);
             playerStatsManager.RegenerateStamina();
-            
-            CheckForInteractableObject();   
         }
         private void FixedUpdate()
         {
@@ -72,26 +70,6 @@ namespace DS
             {
                 cameraHandler.FollowTarget(delta);
                 cameraHandler.HandleCameraRotation(delta, inputHandler.mouseX, inputHandler.mouseY);
-            }
-        }
-
-        public void CheckForInteractableObject()
-        {
-            RaycastHit hit;
-            if(Physics.SphereCast(transform.position, 0.3f,transform.forward, out hit,1f, cameraHandler.ignoreLayers))
-            {
-                if(hit.collider.tag == "Interactable")
-                {
-                    Interactable interactableObject = hit.collider.GetComponent<Interactable>();
-                    if (interactableObject != null)
-                    {
-                        _uiManager.ShowInteractMessageObject(interactableObject);
-                    }
-                }
-            }
-            else
-            {
-                _uiManager.HideInteractMessageObject();
             }
         }
     }

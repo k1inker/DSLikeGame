@@ -1102,7 +1102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamIDNumber: 1
-  healthLevel: 10
+  healthLevel: 20
   maxHealth: 0
   currentHealth: 10
   staminaLevel: 10
@@ -1164,7 +1164,7 @@ MonoBehaviour:
   allowAIToPreformBlock: 0
   blockLikeHood: 50
   allowAIToPreformDodge: 1
-  dodgeLikeHood: 50
+  dodgeLikeHood: 30
   allowAIToPreformParry: 0
   parryLikeHood: 100
   AIPerfomCombos: 1

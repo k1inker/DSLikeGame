@@ -85,7 +85,7 @@ namespace DS
             {
                 _levelManager.DefeatEnemy();
             }
-
+            GetComponent<CapsuleCollider>().isTrigger = true;
             Destroy(_enemy);
             Destroy(this.gameObject, 5f);
 

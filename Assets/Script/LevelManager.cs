@@ -32,6 +32,10 @@ namespace DS
         {
             _UIManager = FindObjectOfType<UIManager>();
         }
+        private void Start()
+        {
+            StartLevel();
+        }
         public void StartLevel()
         {
             _spawnPoint = gameObject.transform.GetChild(0).position;
@@ -57,6 +61,7 @@ namespace DS
         }
         private void StartNewWave()
         {
+            _UIManager.ShowWaveIndicator(currentWave);
             StartCoroutine(SpawnEnemies(ChoosingEnemyTypeSpawn()));
         }
         private IEnumerator SpawnEnemies(List<GameObject> enemyPrefab)
@@ -109,7 +114,6 @@ namespace DS
                 return;
 
             StartNewWave();
-            _UIManager.ShowWaveIndicator(currentWave);
         }
     }
 }

@@ -57,7 +57,7 @@ namespace DS
         {
             _enviromentLayer = LayerMask.NameToLayer("Enviroment");
             //Load settings variables
-            Data data = SaveSystem.LoadSettings();
+            SettingsData data = SaveSystem.LoadSettings();
             lookSpeed = data.sensitivity;
         }
         public void FollowTarget(float delta)

@@ -20,14 +20,13 @@ namespace DS
 
         [Header("Current Item Being Used")]
         public Item currentItemBeingUsed;
-
         protected virtual void Awake()
         {
             _character = GetComponent<CharacterManager>();
-            LoadWeaponHolderSlots();
         }
         private void Start()
         {
+            LoadWeaponHolderSlots();
             LoadWeapon(rightWeapon, leftWeapon);
         }
         protected virtual void LoadWeaponHolderSlots()
@@ -48,7 +47,9 @@ namespace DS
         public void LoadWeapon(WeaponItem weaponItemRight, WeaponItem weaponItemLeft)
         {
             if (weaponItemRight.weaponType == WeaponType.TwoHandHeavySword)
+            {
                 leftWeapon = weaponItemRight;
+            }
 
             if (weaponItemLeft != null)
             {

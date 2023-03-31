@@ -4860,8 +4860,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 2.01
   interactableText: Pick up item
-  _weaponRight: {fileID: 11400000, guid: a9a60e17b95806c489f462ad52a99bd0, type: 2}
+  _weaponRight: {fileID: 11400000, guid: c806912c22dc1ec4894d22a3e40a27fe, type: 2}
   _weaponLeft: {fileID: 0}
+  _easyWeapon: {fileID: 11400000, guid: c806912c22dc1ec4894d22a3e40a27fe, type: 2}
+  _shieldWeapon: {fileID: 11400000, guid: 81508d96a468c75458e80229b9b0161a, type: 2}
+  _heavyWeapon: {fileID: 11400000, guid: a9a60e17b95806c489f462ad52a99bd0, type: 2}
+  _katanaWeapon: {fileID: 11400000, guid: 3de608076eb4392448357e33c00bc324, type: 2}
 --- !u!135 &1701977475
 SphereCollider:
   m_ObjectHideFlags: 0

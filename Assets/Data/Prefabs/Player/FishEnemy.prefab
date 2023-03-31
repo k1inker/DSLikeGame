@@ -594,13 +594,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamIDNumber: 1
-  healthLevel: 10
+  healthLevel: 16
   maxHealth: 0
   currentHealth: 10
   staminaLevel: 10
   maxStamina: 0
   currentStamina: 0
-  totalPoiseDefence: 50
+  totalPoiseDefence: 100
   currentPoiseDefence: 0
   offensivePoiseBonus: 0
   totalPoiseResetTime: 15

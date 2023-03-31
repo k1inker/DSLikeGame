@@ -59,7 +59,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 59366be775a7b4f48aec90f1030eddc0, type: 3}
     volume: 0.5
     isLoop: 0
-    onAwake: 1
+    onAwake: 0
     source: {fileID: 0}
   hitSounds:
   - audioType: 0

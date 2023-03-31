@@ -16,25 +16,13 @@ namespace DS
         [Header("Interactable UI")]
         [SerializeField] private Text _interactableText;
         [SerializeField] private GameObject _interactable;
-        private Interactable _interactableObject = null;
         private void Awake()
         {
             _levelManager = FindObjectOfType<LevelManager>();
         }
-        public void ShowInteractMessageObject(Interactable interactableObject)
-        {
-            _interactableObject = interactableObject;
-            string interactableText = interactableObject.interactableText;
-            _interactableText.text = interactableText;
-            _interactable.SetActive(true);
-        }
         public void HideInteractMessageObject()
         {
             _interactable.SetActive(false);
-        }
-        public void InteractObject()
-        {
-            _interactableObject.Interact(GetComponentInParent<PlayerManager>());
         }
         public void ShowWaveIndicator(int id)
         {

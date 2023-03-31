@@ -24,7 +24,7 @@ MonoBehaviour:
   guardBreakModifier: 1
   poiseBreak: 0
   offensivePoiseBonus: 0
-  stability: 70
+  stability: 150
   baseStaminaCost: 25
   lightAttackStaminaMultiplier: 1
   heavyAttackStaminaMultiplier: 2

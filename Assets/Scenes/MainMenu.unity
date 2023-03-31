@@ -224,7 +224,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 0, b: 0, a: 0.9254902}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -242,7 +242,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 54829475}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 746638289}
+        m_TargetAssemblyTypeName: DS.WeaponChanger, Assembly-CSharp
+        m_MethodName: SetTypeBtn
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &54829475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1029,7 +1041,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -275, y: -50}
+  m_AnchoredPosition: {x: -275, y: -135.20001}
   m_SizeDelta: {x: 250, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &323255110
@@ -2198,7 +2210,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -275, y: 25}
+  m_AnchoredPosition: {x: -275, y: -60.2}
   m_SizeDelta: {x: 250, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &578800341
@@ -2392,6 +2404,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 746638288}
+  - component: {fileID: 746638289}
   m_Layer: 5
   m_Name: RightPart
   m_TagString: Untagged
@@ -2423,6 +2436,21 @@ RectTransform:
   m_AnchoredPosition: {x: -150, y: 0}
   m_SizeDelta: {x: 300, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &746638289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 746638287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a37669768da4c324da89d3254a0851de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _heavyWeaponBtn: {fileID: 54829474}
+  _katanaWeaponBtn: {fileID: 1845690849}
+  _easyWeaponBtn: {fileID: 1693726723}
 --- !u!1 &776883093
 GameObject:
   m_ObjectHideFlags: 0
@@ -2460,7 +2488,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -275, y: 100}
+  m_AnchoredPosition: {x: -275, y: 14.799988}
   m_SizeDelta: {x: 250, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &776883095
@@ -3469,8 +3497,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 180, y: -70}
-  m_SizeDelta: {x: 300, y: 100}
+  m_AnchoredPosition: {x: 200, y: -120}
+  m_SizeDelta: {x: 366.2664, y: 179.5563}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1208972824
 MonoBehaviour:
@@ -4679,13 +4707,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d90b9d52ddd6934458f79e93b75e8ad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  info:
-  - inStock: 0
-    isChosen: 0
-    index: 0
-  - inStock: 0
-    isChosen: 0
-    index: 1
   parentObject: {fileID: 523390754}
   buyButton: {fileID: 392708589}
   index: 0
@@ -4829,7 +4850,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.85169584, g: 0.5647059, b: 1, a: 0.8862745}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -4847,7 +4868,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1693726724}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 746638289}
+        m_TargetAssemblyTypeName: DS.WeaponChanger, Assembly-CSharp
+        m_MethodName: SetTypeBtn
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1693726724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5375,7 +5408,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0, g: 1, b: 0.77914286, a: 0.9411765}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -5393,7 +5426,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1845690850}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 746638289}
+        m_TargetAssemblyTypeName: DS.WeaponChanger, Assembly-CSharp
+        m_MethodName: SetTypeBtn
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1845690850
 MonoBehaviour:
   m_ObjectHideFlags: 0

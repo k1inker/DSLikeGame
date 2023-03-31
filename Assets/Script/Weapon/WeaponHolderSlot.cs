@@ -1,5 +1,4 @@
 using UnityEngine;
-
 namespace DS
 {
     public class WeaponHolderSlot : MonoBehaviour
@@ -34,6 +33,7 @@ namespace DS
                 UnloadWeapon();
                 return;
             }
+
             GameObject model = Instantiate(weaponItem.modelPrefab) as GameObject;
             if(model != null)
             {

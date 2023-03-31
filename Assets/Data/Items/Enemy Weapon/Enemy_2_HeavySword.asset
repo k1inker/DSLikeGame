@@ -17,15 +17,15 @@ MonoBehaviour:
   modelPrefab: {fileID: 3268690295800217633, guid: de74834f3364813488d6be8d88dbb396, type: 3}
   weaponController: {fileID: 22100000, guid: a786ff4637e64c2489e65ee9a867c9db, type: 2}
   weaponType: 3
-  baseDamage: 30
+  baseDamage: 40
   criticalDamageMultiplier: 4
   lightAttackDamageModifier: 1
-  heavyAttackDamageModifier: 2
+  heavyAttackDamageModifier: 1.7
   guardBreakModifier: 1
   poiseBreak: 25
   offensivePoiseBonus: 75
   stability: 70
-  baseStaminaCost: 25
+  baseStaminaCost: 50
   lightAttackStaminaMultiplier: 1
   heavyAttackStaminaMultiplier: 2
   hold_RB_Action: {fileID: 11400000, guid: 3f30ae1f21512f8479e4b7b81c3ec795, type: 2}
