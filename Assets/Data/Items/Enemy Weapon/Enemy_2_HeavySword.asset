@@ -23,7 +23,7 @@ MonoBehaviour:
   heavyAttackDamageModifier: 1.7
   guardBreakModifier: 1
   poiseBreak: 25
-  offensivePoiseBonus: 75
+  offensivePoiseBonus: 45
   stability: 70
   baseStaminaCost: 50
   lightAttackStaminaMultiplier: 1

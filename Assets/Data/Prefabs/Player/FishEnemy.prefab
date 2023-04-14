@@ -600,13 +600,14 @@ MonoBehaviour:
   staminaLevel: 10
   maxStamina: 0
   currentStamina: 0
-  totalPoiseDefence: 100
+  totalPoiseDefence: 50
   currentPoiseDefence: 0
   offensivePoiseBonus: 0
   totalPoiseResetTime: 15
   poiseResetTimer: 0
   blockingStabilityRating: 0
   _enemyHealthBar: {fileID: 2381350650123152693}
+  _characterBlocker: {fileID: 2381350650959504550}
 --- !u!114 &2381350649705311676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -635,6 +636,7 @@ MonoBehaviour:
   isBlocking: 0
   isParrying: 0
   isAttacking: 0
+  isParied: 0
   isRotatingWithRootMotion: 0
   canRotate: 0
   isDead: 0
@@ -648,7 +650,7 @@ MonoBehaviour:
   enemyEffectsManager: {fileID: 0}
   enemyAnimatorManager: {fileID: 0}
   enemyLocomotionManager: {fileID: 0}
-  chanceSpawn: 50
+  chanceSpawn: 40
   detectionRadius: 10
   rotationSpeed: 15
   maximumAggroRadius: 6
@@ -658,10 +660,10 @@ MonoBehaviour:
   allowAIToPreformDodge: 0
   dodgeLikeHood: 40
   allowAIToPreformParry: 1
-  parryLikeHood: 20
+  parryLikeHood: 30
   AIPerfomCombos: 1
   isPhaseShifting: 0
-  comboLikeliHood: 50
+  comboLikeliHood: 30
   combatStyle: 0
   distanceFromTarget: 0
   viewableAngle: 0
@@ -669,7 +671,7 @@ MonoBehaviour:
   isPerformingAction: 0
   maximumDetectionAngle: 50
   minimumDetectionAngle: -50
-  currentRecoveryTime: 0
+  currentRecoveryTime: 1
   isBoss: 0
 --- !u!114 &2381350649705311679
 MonoBehaviour:

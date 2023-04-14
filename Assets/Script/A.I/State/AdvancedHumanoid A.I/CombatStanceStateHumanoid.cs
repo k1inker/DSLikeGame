@@ -303,7 +303,6 @@ namespace DS
         }
         protected void DecideCirclingAction()
         {
-            
             WalkAroundTarget();
         }
         protected virtual void WalkAroundTarget()

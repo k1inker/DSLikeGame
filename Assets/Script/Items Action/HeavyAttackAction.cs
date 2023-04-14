@@ -26,7 +26,7 @@ namespace DS
                     return;
 
                 HandleHeavyAttack(character);
-                character.characterCombatManager.currentAttackType = AttackType.light;
+                character.characterCombatManager.currentAttackType = AttackType.heavy;
 
             }
         }

@@ -28966,6 +28966,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0.41666666
+    functionName: PlayRandomWeaponWhoosh
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.5416667
     functionName: CanRotate
     data: 
@@ -28975,13 +28982,6 @@ AnimationClip:
     messageOptions: 0
   - time: 0.75
     functionName: DrainStaminaBasedOnAttack
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.7916667
-    functionName: StopRotation
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -29001,7 +29001,14 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.875
+  - time: 0.8333333
+    functionName: StopRotation
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.9166667
     functionName: DisableCanBeParried
     data: 
     objectReferenceParameter: {fileID: 0}

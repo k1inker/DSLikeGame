@@ -30100,6 +30100,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0.375
+    functionName: PlayRandomWeaponWhoosh
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.5416667
     functionName: GrantWeaponAttackingPoiseBonus
     data: 
@@ -30107,14 +30114,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5833333
-    functionName: StopRotation
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.5833333
+  - time: 0.625
     functionName: OpenDamageCollider
     data: 
     objectReferenceParameter: {fileID: 0}
@@ -30130,6 +30130,13 @@ AnimationClip:
     messageOptions: 0
   - time: 0.625
     functionName: DrainStaminaBasedOnAttack
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.6666667
+    functionName: StopRotation
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

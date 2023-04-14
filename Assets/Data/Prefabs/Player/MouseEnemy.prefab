@@ -1463,6 +1463,7 @@ MonoBehaviour:
   poiseResetTimer: 0
   blockingStabilityRating: 0
   _enemyHealthBar: {fileID: 3832168461607582446}
+  _characterBlocker: {fileID: 3832168461657637913}
 --- !u!114 &3832168463031913222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1491,6 +1492,7 @@ MonoBehaviour:
   isBlocking: 0
   isParrying: 0
   isAttacking: 0
+  isParied: 0
   isRotatingWithRootMotion: 0
   canRotate: 0
   isDead: 0
@@ -1512,7 +1514,7 @@ MonoBehaviour:
   allowAIToPreformBlock: 1
   blockLikeHood: 25
   allowAIToPreformDodge: 1
-  dodgeLikeHood: 15
+  dodgeLikeHood: 40
   allowAIToPreformParry: 0
   parryLikeHood: 100
   AIPerfomCombos: 1

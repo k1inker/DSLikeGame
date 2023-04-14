@@ -68,7 +68,6 @@ namespace DS
                 }
             }
         }
-
         private void SwitchCurrentToNextImg(short dirX)
         {
             parentObject.GetChild(index).gameObject.SetActive(false);

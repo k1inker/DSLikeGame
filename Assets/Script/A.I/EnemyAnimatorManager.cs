@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 namespace DS
@@ -22,6 +23,9 @@ namespace DS
         }
         private void OnAnimatorMove()
         {
+            if (MenuManager.isPaused)
+                return;
+
             if (_enemy.isRotatingWithRootMotion)
             {
                 _enemy.transform.rotation *= _enemy.animator.deltaRotation;
@@ -35,7 +39,8 @@ namespace DS
             Vector3 deltaPosition = _enemy.animator.deltaPosition;
             deltaPosition.y = 0;
             Vector3 velocity = deltaPosition / Time.deltaTime;
-            _enemy.enemyRigidbody.velocity = velocity;
+            if (!(float.IsNaN(velocity.x) || float.IsNaN(velocity.y) || float.IsNaN(velocity.z)))
+                _enemy.enemyRigidbody.velocity = velocity;
         }
     }
 }

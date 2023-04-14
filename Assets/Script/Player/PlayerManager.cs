@@ -17,7 +17,10 @@ namespace DS
         public CameraHandler cameraHandler;
 
         [Header("UI")]
-        private UIManager _uiManager;
+        public UIManager uiManager;
+
+        [Header("Ads")]
+        public InterAds interAds;
         protected override void Awake()
         {
             base.Awake();
@@ -31,7 +34,8 @@ namespace DS
             playerEffectsManager = GetComponent<PlayerEffectsManager>();
             playerWeaponSlotManager = GetComponent<PlayerWeaponSlotManager>();
             
-            _uiManager = GetComponentInChildren<UIManager>();
+            uiManager = GetComponentInChildren<UIManager>();
+            interAds = GetComponent<InterAds>();
         }
 
         private void Update()
@@ -69,7 +73,7 @@ namespace DS
             if (cameraHandler != null)
             {
                 cameraHandler.FollowTarget(delta);
-                cameraHandler.HandleCameraRotation(delta, inputHandler.mouseX, inputHandler.mouseY);
+                cameraHandler.HandleCameraRotation();
             }
         }
     }

@@ -1333,10 +1333,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamIDNumber: 1
-  healthLevel: 15
+  healthLevel: 40
   maxHealth: 0
   currentHealth: 10
-  staminaLevel: 10
+  staminaLevel: 15
   maxStamina: 0
   currentStamina: 0
   totalPoiseDefence: 200
@@ -1346,6 +1346,7 @@ MonoBehaviour:
   poiseResetTimer: 0
   blockingStabilityRating: 0
   _enemyHealthBar: {fileID: 0}
+  _characterBlocker: {fileID: 0}
 --- !u!114 &4537682339073327469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1374,6 +1375,7 @@ MonoBehaviour:
   isBlocking: 0
   isParrying: 0
   isAttacking: 0
+  isParied: 0
   isRotatingWithRootMotion: 0
   canRotate: 0
   isDead: 0

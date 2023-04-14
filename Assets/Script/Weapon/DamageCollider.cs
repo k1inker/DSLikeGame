@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 namespace DS
 {
@@ -48,9 +46,10 @@ namespace DS
             if(collision.tag == "Character")
             {
                 _shieldHasBeenHit = false;
-                _hasBeenParried = false;
 
                 CharacterManager enemyManager = collision.GetComponent<CharacterManager>();
+
+                _hasBeenParried = false;
 
                 if (enemyManager.isDead || enemyManager.isInvulnerable)
                     return;
@@ -84,6 +83,11 @@ namespace DS
             {
                 _characterManager.characterAnimatorManager.PlayTargetAnimationWithRootMotion("Parried", true);
                 _hasBeenParried = true;
+                //for advanced attack ai
+                if(!(enemyManager is EnemyManager))
+                {
+                    _characterManager.isParied = true;
+                }    
             }
         }
         private void CheckForBlock(CharacterManager enemyManager)

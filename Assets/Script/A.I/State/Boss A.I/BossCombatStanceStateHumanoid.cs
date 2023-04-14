@@ -72,8 +72,6 @@ namespace DS
         {
             _verticalMovementValue = 0.4f;
 
-            _horizontalMovementValue = Random.Range(-1, 1);
-
             if (_horizontalMovementValue <= 1 && _horizontalMovementValue >= 0)
             {
                 _horizontalMovementValue = 0.3f;

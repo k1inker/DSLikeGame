@@ -70,6 +70,8 @@ namespace DS
         }
         private void Update()
         {
+            if (MenuManager.isPaused)
+                return;
             HandleRecoveryTimer();
             HandleStateMachine();
 

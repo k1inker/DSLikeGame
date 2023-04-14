@@ -34,6 +34,7 @@ namespace DS
             character.isAttacking = false;
             character.canBeParried = false;
             character.isBlocking = false;
+            character.isParied = false;
 
             animator.SetBool(_isInteractingBool, _isInteractingStatus);
             animator.SetBool(_canRotateBool, _canRotateStatus);

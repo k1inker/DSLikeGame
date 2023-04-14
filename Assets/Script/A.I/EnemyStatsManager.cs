@@ -5,6 +5,7 @@ namespace DS
     public class EnemyStatsManager : CharacterStatsManager
     {
         [SerializeField] private UIEnemyHealthBar _enemyHealthBar;
+        [SerializeField] private GameObject _characterBlocker;
         
         private EnemyManager _enemy;
         private LevelManager _levelManager;
@@ -83,9 +84,9 @@ namespace DS
             }
             else
             {
-                _levelManager.DefeatEnemy();
+                _levelManager.DefeatEnemy(healthLevel * 3);
             }
-            GetComponent<CapsuleCollider>().isTrigger = true;
+            Destroy(_characterBlocker);
             Destroy(_enemy);
             Destroy(this.gameObject, 5f);
 

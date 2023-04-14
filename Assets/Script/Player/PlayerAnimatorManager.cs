@@ -42,6 +42,9 @@ namespace DS
         }
         private void OnAnimatorMove()
         {
+            if (MenuManager.isPaused)
+                return;
+
             if ((_player.animator.GetBool("isInteracting") && !_player.animator.GetBool("rootPosit")) || MenuManager.isPaused)
             {
                 return;
@@ -51,7 +54,8 @@ namespace DS
             Vector3 deltaPosition = _player.animator.deltaPosition;
             deltaPosition.y = 0;
             Vector3 velocity = deltaPosition / Time.deltaTime;
-            _player.playerLocomotionManager.rigidbody.velocity = velocity;
+            if(!(float.IsNaN(velocity.x) || float.IsNaN(velocity.y) || float.IsNaN(velocity.z)))
+                _player.playerLocomotionManager.rigidbody.velocity = velocity;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace DS
         public HealthBar healthBar;
         public StaminaBar staminaBar;
 
-        private float _staminaRegenAmount = 30;
+        private float _staminaRegenAmount = 60;
         private float _staminaRegenTimer = 0;
         protected override void Awake()
         {
@@ -47,8 +47,21 @@ namespace DS
                 currentHealth = 0;
                 _player.isDead = true;
                 _player.playerAnimatorManager.PlayTargetAnimationWithRootMotion("Death", true);
+                Invoke(nameof(ShowAdAfterDeath), 2.9f);
                 Invoke(nameof(LoadSceneAfterDeath), 3);
             }
+        }
+        public void HealHealth(int healCount)
+        {
+            if(currentHealth + healCount > maxHealth)
+                currentHealth = maxHealth;
+            else
+                currentHealth += healCount;
+            healthBar.SetCurrentHealth(currentHealth);
+        }
+        private void ShowAdAfterDeath()
+        {
+            _player.interAds.ShowAd();
         }
         private void LoadSceneAfterDeath()
         {

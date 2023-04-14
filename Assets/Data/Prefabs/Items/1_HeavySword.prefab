@@ -207,8 +207,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.0022069393, y: 0.016873827, z: 0.0006879576}
-  m_Center: {x: -0.011744784, y: 0.007568866, z: -0.00002202403}
+  m_Size: {x: 0.0046064164, y: 0.021909192, z: 0.0006879576}
+  m_Center: {x: -0.011504783, y: 0.0050511872, z: -0.000022055348}
 --- !u!114 &7609610356895542087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,6 +225,7 @@ MonoBehaviour:
   poiseBreak: 0
   offensivePoiseBonus: 0
   currentWeaponDamage: 25
+  guardBreakModifier: 1
 --- !u!1001 &7832399936441818799
 PrefabInstance:
   m_ObjectHideFlags: 0

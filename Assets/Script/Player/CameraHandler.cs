@@ -24,26 +24,20 @@ namespace DS
 
         private float _targetPosition;
         private float _defaultPosition;
-        private float _lookAngle;
-        private float _pivotAngle;
-
-        [SerializeField] private float minimumPivot = -35;
-        [SerializeField] private float maximumPivot = 35;
 
         [SerializeField] private float cameraSphereRadius = 0.2f;
         [SerializeField] private float cameraCollisionOffset = 0.2f;
         [SerializeField] private float minimumCollisionOffset = 0.2f;
         [SerializeField] private float lockedPivotRotationX = 12;
         [SerializeField] private float lockedPivotPosition = 2.25f;
-        [SerializeField] private float unlockedPivotPosition = 1.65f;
 
         public CharacterManager currentLockOnTarget;
 
         private List<CharacterManager> _availableTargets = new List<CharacterManager>();
-        public CharacterManager leftLockTarget;
-        public CharacterManager rightLockTarget;
+        //public CharacterManager leftLockTarget;
+        //public CharacterManager rightLockTarget;
         public CharacterManager nearestLockOnTarget;
-        public float maximumLockOnDisctance = 30;
+        public float maximumLockOnDisctance = 50;
         private void Awake()
         {
             singelton = this;
@@ -56,9 +50,6 @@ namespace DS
         private void Start()
         {
             _enviromentLayer = LayerMask.NameToLayer("Enviroment");
-            //Load settings variables
-            SettingsData data = SaveSystem.LoadSettings();
-            lookSpeed = data.sensitivity;
         }
         public void FollowTarget(float delta)
         {
@@ -67,24 +58,13 @@ namespace DS
 
             HandleCameraCollisions(delta);
         }
-        public void HandleCameraRotation(float delta, float mouseXInput, float mouseYInput)
+        public void HandleCameraRotation()
         {
             if (!_playerManager.inputHandler.lockOnFlag && currentLockOnTarget == null)
             {
-                _lookAngle -= mouseXInput * lookSpeed * delta;
-                _pivotAngle += mouseYInput * pivotSpeed * delta;
-                _pivotAngle = Mathf.Clamp(_pivotAngle, minimumPivot, maximumPivot);
 
-                Vector3 rotation = Vector3.zero;
-                rotation.y = _lookAngle;
-                Quaternion targetRotation = Quaternion.Euler(rotation);
+                Quaternion targetRotation = Quaternion.Euler(Vector3.zero);
                 _selfTransform.rotation = targetRotation;
-
-                rotation = Vector3.zero;
-                rotation.x = _pivotAngle;
-
-                targetRotation = Quaternion.Euler(rotation);
-                cameraPivotTransform.localRotation = targetRotation;
             }
             else if(_playerManager.inputHandler.lockOnFlag && currentLockOnTarget == null)
             {
@@ -135,8 +115,6 @@ namespace DS
             _availableTargets.Clear();
 
             float shortestDistance = Mathf.Infinity;
-            float shortestDistanceOfLeftTarget = -Mathf.Infinity;
-            float shortestDistanceOfRightTarget = Mathf.Infinity;
 
             Collider[] colliders = Physics.OverlapSphere(targetTransform.position, 13);
 
@@ -148,11 +126,10 @@ namespace DS
                 {
                     Vector3 lockTargetDirection = character.transform.position - targetTransform.position;
                     float distanceFromTarget = Vector3.Distance(targetTransform.position, character.transform.position);
-                    float vievwableAngle = Vector3.Angle(lockTargetDirection, cameraTransform.forward);
+                    
                     RaycastHit hit;
 
                     if(character.transform.root != targetTransform.transform.root
-                        && vievwableAngle > -70 && vievwableAngle < 70
                         && distanceFromTarget <= maximumLockOnDisctance)
                     {
                         if (Physics.Linecast(_playerManager.lockOnTransform.position, character.lockOnTransform.position, out hit))
@@ -163,34 +140,13 @@ namespace DS
                     }
                 }
             }
-            for(int k = 0; k < _availableTargets.Count; k++)
+            for (int k = 0; k < _availableTargets.Count; k++)
             {
                 float distanceFromTarget = Vector3.Distance(targetTransform.position, _availableTargets[k].transform.position);
-                if(distanceFromTarget < shortestDistance)
+                if (distanceFromTarget < shortestDistance)
                 {
                     shortestDistance = distanceFromTarget;
                     nearestLockOnTarget = _availableTargets[k];
-                }
-
-                if(_playerManager.inputHandler.lockOnFlag)
-                {
-                    Vector3 relativeEnemyPosition = _playerManager.inputHandler.transform.InverseTransformDirection(_availableTargets[k].transform.position);
-                    float distanceFromLeftTarget = relativeEnemyPosition.x;
-                    float distanceFromRightTarget = relativeEnemyPosition.x;
-
-                    if (relativeEnemyPosition.x <= 0.00 && distanceFromLeftTarget > shortestDistanceOfLeftTarget
-                        && _availableTargets[k] != currentLockOnTarget)
-                    {
-                        shortestDistanceOfLeftTarget = distanceFromLeftTarget;
-                        leftLockTarget = _availableTargets[k];
-                    }
-                    else  if (relativeEnemyPosition.x >= 0.00 && distanceFromRightTarget < shortestDistanceOfRightTarget
-                        && _availableTargets[k] != currentLockOnTarget)
-                    {
-                        shortestDistanceOfRightTarget = distanceFromRightTarget;
-                        rightLockTarget = _availableTargets[k];
-                    }
-
                 }
             }
         }
@@ -203,14 +159,13 @@ namespace DS
         {
             Vector3 velocity = Vector3.zero;
             Vector3 newLockedPosition = new Vector3(0, lockedPivotPosition);
-            Vector3 newUnlockedPosition = new Vector3(0, unlockedPivotPosition);
             if(currentLockOnTarget != null)
             {
                 cameraPivotTransform.transform.localPosition = Vector3.SmoothDamp(cameraPivotTransform.transform.localPosition, newLockedPosition, ref velocity, Time.deltaTime);
             }
             else
             {
-                cameraPivotTransform.transform.localPosition = Vector3.SmoothDamp(cameraPivotTransform.transform.localPosition, newUnlockedPosition, ref velocity, Time.deltaTime);
+                cameraPivotTransform.transform.localPosition = Vector3.SmoothDamp(cameraPivotTransform.transform.localPosition, newLockedPosition, ref velocity, Time.deltaTime);
             }
         }
     }

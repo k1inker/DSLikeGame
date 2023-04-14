@@ -31241,6 +31241,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0.33366668
+    functionName: PlayRandomWeaponWhoosh
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.46713334
     functionName: DrainStaminaBasedOnAttack
     data: 
@@ -31256,21 +31263,14 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.73406667
-    functionName: StopRotation
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.73406667
     functionName: OpenDamageCollider
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.8008
-    functionName: DisableCanBeParried
+  - time: 0.76743335
+    functionName: StopRotation
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -31278,6 +31278,13 @@ AnimationClip:
     messageOptions: 0
   - time: 0.83416665
     functionName: CloseDamageCollider
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.83416665
+    functionName: DisableCanBeParried
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

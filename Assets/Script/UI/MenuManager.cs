@@ -9,18 +9,16 @@ namespace DS
     {
         [Header("Canvas object")]
         [SerializeField] private AudioMixer _audioMixer;
-        [SerializeField] private Slider _sensitivitySlider;
         [SerializeField] private Slider _effectsVolumeSlider;
         [SerializeField] private Slider _musicVolumeSlider;
         [SerializeField] private CameraHandler _cameraHandler;
         
         //Settings pause
         private float previousTimeScale = 1f;
-        public static bool isPaused { get; private set; }
+        public static bool isPaused { get; private set; } = false;
         private void Start()
         {
             SettingsData data = SaveSystem.LoadSettings();
-            _sensitivitySlider.value = data.sensitivity;
             _musicVolumeSlider.value = data.musicVolume;
             _effectsVolumeSlider.value = data.effectsVolume;
             SetVolumeMusic();
@@ -28,13 +26,13 @@ namespace DS
         }
         public void PauseGame()
         {
-            if(Time.timeScale > 0)
+            if(!isPaused)
             {
                 previousTimeScale = Time.timeScale;
-                Time.timeScale = 0;
+                Time.timeScale = 0f;
                 isPaused = true;
             }
-            else if(Time.timeScale == 0)
+            else
             {
                 Time.timeScale = previousTimeScale;
                 isPaused = false;
@@ -48,13 +46,9 @@ namespace DS
         {
             _audioMixer.SetFloat("Effects", Mathf.Log10(_effectsVolumeSlider.value) * 20);
         }
-        public void SetSensitivityOnGame()
-        {
-            _cameraHandler.lookSpeed = _sensitivitySlider.value;
-        }
         public void SaveSettings()
         {
-            SaveSystem.SaveSettings(_effectsVolumeSlider.value, _musicVolumeSlider.value, _sensitivitySlider.value);
+            SaveSystem.SaveSettings(_effectsVolumeSlider.value, _musicVolumeSlider.value);
         }
         public void ChangeScene(int idScene)
         {

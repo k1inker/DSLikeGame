@@ -35,6 +35,13 @@ namespace DS
                 return pursueTargetState;
             }
 
+            if(enemy.isParied)
+            {
+                Debug.Log(1);
+                ResetStateFlags();
+                return rotateTowardsTargetState;
+            }
+
             if (_willDoCombo && enemy.canDoCombo)
             {
                 AttackTargetWithCombo(enemy);
@@ -45,11 +52,13 @@ namespace DS
                 currentAttack = null;
                 return _combatStanceState;
             }
+
             if (!hasPerformedAttack)
             {
                 AttackTarget(enemy);
                 RollComboChance(enemy);
             }
+
             if (_willDoCombo && hasPerformedAttack)
             {
                 return this;
@@ -131,6 +140,7 @@ namespace DS
         {
             _willDoCombo = false;
             hasPerformedAttack = false;
+            currentAttack = null;
         }
     }
 }

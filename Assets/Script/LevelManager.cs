@@ -24,13 +24,13 @@ namespace DS
         [SerializeField] private GameObject _boss;
         [SerializeField] private Material _skyboxMat;
 
-        private UIManager _UIManager;
+        private PlayerManager _playerManager;
 
         private int _countEnemy = 0;
         private bool _isBossFight = false;
         private void Awake()
         {
-            _UIManager = FindObjectOfType<UIManager>();
+            _playerManager = FindObjectOfType<PlayerManager>();
         }
         private void Start()
         {
@@ -61,7 +61,7 @@ namespace DS
         }
         private void StartNewWave()
         {
-            _UIManager.ShowWaveIndicator(currentWave);
+            _playerManager.uiManager.ShowWaveIndicator(currentWave);
             StartCoroutine(SpawnEnemies(ChoosingEnemyTypeSpawn()));
         }
         private IEnumerator SpawnEnemies(List<GameObject> enemyPrefab)
@@ -85,16 +85,16 @@ namespace DS
             RenderSettings.skybox.Lerp(RenderSettings.skybox, _skyboxMat, 10f);
             DynamicGI.UpdateEnvironment();
             Instantiate(_boss, _spawnPoint, Quaternion.identity);
-            _UIManager.bossHealthBar.SetHealthBarToActive();
+            _playerManager.uiManager.bossHealthBar.SetHealthBarToActive();
         }
         public void BossHasDefeated()
         {
             SceneManager.LoadScene(0);
         }
-        public void DefeatEnemy()
+        public void DefeatEnemy(int setPlayerHealth)
         {
             _countEnemy--;
-
+            _playerManager.playerStatsManager.HealHealth(setPlayerHealth);
             HandleActiveNewWave();
             //add chance item droping
         }

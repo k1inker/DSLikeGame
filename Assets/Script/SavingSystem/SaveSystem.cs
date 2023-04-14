@@ -10,12 +10,12 @@ namespace DS
         private static string _pathSettings = Application.persistentDataPath + "/settings.sun";
         private static string _pathSkin = Application.persistentDataPath + "/skin.sun";
         private static string _pathWeapon = Application.persistentDataPath + "/weapon.sun";
-        public static void SaveSettings(float effectsVolume, float musicVolume, float sensativity)
+        public static void SaveSettings(float effectsVolume, float musicVolume)
         {
             BinaryFormatter formatter = new BinaryFormatter();
             using (FileStream stream = new FileStream(_pathSettings, FileMode.Create))
             {
-                SettingsData data = new SettingsData(effectsVolume, sensativity, musicVolume);
+                SettingsData data = new SettingsData(effectsVolume, musicVolume);
                 formatter.Serialize(stream, data);
             }
         }
@@ -49,8 +49,8 @@ namespace DS
             }
             else
             {
-                data = new SettingsData(0, 400, 0);
-                SaveSettings(data.effectsVolume, data.musicVolume, data.sensitivity);
+                data = new SettingsData(0, 0);
+                SaveSettings(data.effectsVolume, data.musicVolume);
             }
             return data;
         }

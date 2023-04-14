@@ -6,13 +6,16 @@ namespace DS
 {
     public class ButtonEventTrigger : EventTrigger
     {
+        private static float timeHoldAttack = 0.4f;
+        private static float timeHoldBlock = 0.1f;
+
         private InputHandler _inputHandler;
         private Slider _attackSlider;
 
         private bool _isAttackButton;
         private bool _hold = false;
         private float _timeHold = 0;
-
+        private float _holdTime = 0;
         private void Awake()    
         {
             _inputHandler = FindObjectOfType<InputHandler>();
@@ -31,7 +34,7 @@ namespace DS
                 _attackSlider.gameObject.SetActive(true);
             }
 
-            if(_timeHold >= 0.4)
+            if(_timeHold >= _holdTime)
             {
                 _inputHandler.HoldClick(_isAttackButton);
                 if (_isAttackButton)
@@ -47,10 +50,18 @@ namespace DS
             _timeHold = 0;
             _hold = true;
             _isAttackButton = isAttackingButton;
+            if(isAttackingButton)
+            {
+                _holdTime = timeHoldAttack;
+            }
+            else
+            {
+                _holdTime = timeHoldBlock;
+            }
         }
         public void OnButtonUp()
         {
-            if (_timeHold <= 0.2)
+            if (_timeHold <= 0.1)
             {
                 _inputHandler.TapClick(_isAttackButton);
             }

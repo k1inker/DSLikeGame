@@ -6,7 +6,6 @@ namespace DS
     {
 
         [SerializeField] private VariableJoystick _joystick;
-        [SerializeField] private FixedTouchScreen _vectorTouch;
         
         private PlayerControls _inputActions;
         private PlayerManager _player;
@@ -17,8 +16,6 @@ namespace DS
         public float horizontal;
         public float vertical;
         public float moveAmount;
-        public float mouseX;
-        public float mouseY;
 
         public bool rollFlag;
         public bool comboFlag;
@@ -31,8 +28,6 @@ namespace DS
         public bool hold_lb_Input;
         public bool a_Input;
         public bool lockOn_Input;
-        public bool lockOnRight_Input;
-        public bool lockOnLeft_Input;
 
         public float default_Qued_Input_Time;
         public float current_Quad_Input_Timer;
@@ -49,7 +44,6 @@ namespace DS
         {
             _player = GetComponent<PlayerManager>();
 
-            _vectorTouch = FindObjectOfType<FixedTouchScreen>();
             _joystick = FindObjectOfType<VariableJoystick>();
         }
         private void OnEnable() 
@@ -72,8 +66,6 @@ namespace DS
 
                 _inputActions.PlayerActions.A.performed += i => a_Input = true;
                 _inputActions.PlayerActions.LockOn.performed += i => lockOn_Input = true;
-                _inputActions.PlayerActions.LockOnTargetLeft.performed += i => lockOnLeft_Input = true;
-                _inputActions.PlayerActions.LockOnTargetRight.performed += i => lockOnRight_Input = true;
             }
 
             _inputActions.Enable();
@@ -87,8 +79,6 @@ namespace DS
             horizontal = _movementInput.x;
             vertical = _movementInput.y;
             moveAmount = Mathf.Clamp01(Mathf.Abs(horizontal) + Mathf.Abs(vertical));
-            mouseX = _cameraInput.x;
-            mouseY = _cameraInput.y;
         }
         public void TickInput()
         {
@@ -183,7 +173,6 @@ namespace DS
                 if(_player.cameraHandler.nearestLockOnTarget != null)
                 {
                     _player.cameraHandler.currentLockOnTarget = _player.cameraHandler.nearestLockOnTarget;
-                    _vectorTouch.IsLockOn = true;
                     lockOnFlag = true;
                 }
             }
@@ -191,26 +180,7 @@ namespace DS
             {
                 lockOn_Input = false;
                 lockOnFlag = false;
-                _vectorTouch.IsLockOn = false;
                 _player.cameraHandler.ClearLockOnTargets();
-            }
-            if(lockOnFlag && lockOnLeft_Input)
-            {
-                lockOnLeft_Input = false;
-                _player.cameraHandler.HandleLockOn();
-                if(_player.cameraHandler.leftLockTarget != null)
-                {
-                    _player.cameraHandler.currentLockOnTarget = _player.cameraHandler.leftLockTarget;
-                }
-            }
-            if(lockOnFlag && lockOnRight_Input)
-            {
-                lockOnRight_Input = false;
-                _player.cameraHandler.HandleLockOn();
-                if(_player.cameraHandler.rightLockTarget != null)
-                {
-                    _player.cameraHandler.currentLockOnTarget = _player.cameraHandler.rightLockTarget;
-                }
             }
             _player.cameraHandler.SetCameraHeight();
         }
@@ -269,19 +239,6 @@ namespace DS
             horizontal = _joystick.Horizontal;
             vertical = _joystick.Vertical;
             moveAmount = Mathf.Clamp01(Mathf.Abs(horizontal) + Mathf.Abs(vertical));
-
-            if (lockOnFlag)
-                return;
-            mouseX = _vectorTouch.moveInput.x;
-            mouseY = _vectorTouch.moveInput.y;
-        }
-        public void SwipeLockOnRight()
-        {
-            lockOnRight_Input = true;
-        }
-        public void SwipeLockOnLeft()
-        {
-            lockOnLeft_Input = true;
         }
         public void TapClick(bool isAttack)
         {

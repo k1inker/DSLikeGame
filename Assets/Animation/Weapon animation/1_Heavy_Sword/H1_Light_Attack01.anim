@@ -28919,6 +28919,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0.4004
+    functionName: PlayRandomWeaponWhoosh
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.5005
     functionName: DrainStaminaBasedOnAttack
     data: 
@@ -28940,7 +28947,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.7007
+  - time: 0.66733336
     functionName: EnableCanBeParried
     data: 
     objectReferenceParameter: {fileID: 0}
