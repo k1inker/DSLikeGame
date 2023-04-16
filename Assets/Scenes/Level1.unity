@@ -2205,7 +2205,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1225274452
 MonoBehaviour:
@@ -3958,10 +3958,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 947689033913313081, guid: b68d55dc920c6d541927f57593926b7a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5077369380472943680, guid: b68d55dc920c6d541927f57593926b7a, type: 3}
       propertyPath: m_Name
       value: Player
@@ -3992,7 +3988,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5565780775782625018, guid: b68d55dc920c6d541927f57593926b7a, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5565780775782625018, guid: b68d55dc920c6d541927f57593926b7a, type: 3}
       propertyPath: m_LocalPosition.x

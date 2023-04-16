@@ -47,8 +47,8 @@ namespace DS
                 currentHealth = 0;
                 _player.isDead = true;
                 _player.playerAnimatorManager.PlayTargetAnimationWithRootMotion("Death", true);
-                Invoke(nameof(ShowAdAfterDeath), 2.9f);
-                Invoke(nameof(LoadSceneAfterDeath), 3);
+                _player.interAds.ShowAd();
+                _player.uiManager.ShowResultPanel(true);
             }
         }
         public void HealHealth(int healCount)
@@ -58,14 +58,6 @@ namespace DS
             else
                 currentHealth += healCount;
             healthBar.SetCurrentHealth(currentHealth);
-        }
-        private void ShowAdAfterDeath()
-        {
-            _player.interAds.ShowAd();
-        }
-        private void LoadSceneAfterDeath()
-        {
-            SceneManager.LoadScene(0);
         }
         public override void TakeDamageNoAnimation(int damage)
         {

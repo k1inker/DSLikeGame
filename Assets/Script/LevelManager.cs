@@ -89,7 +89,7 @@ namespace DS
         }
         public void BossHasDefeated()
         {
-            SceneManager.LoadScene(0);
+            _playerManager.uiManager.ShowResultPanel(false);
         }
         public void DefeatEnemy(int setPlayerHealth)
         {

@@ -5,24 +5,20 @@ namespace DS
 {
     public class UIManager : MonoBehaviour
     {
-        public Slider attackSlider;
+        [SerializeField] private GameObject resultPanel;
+        [SerializeField] private GameObject victoryText;
+        [SerializeField] private GameObject lossText;
 
-        public Text textWaveIndicator;
-
-        public UIBossHealthBar bossHealthBar;
 
         private LevelManager _levelManager;
 
-        [Header("Interactable UI")]
-        [SerializeField] private Text _interactableText;
-        [SerializeField] private GameObject _interactable;
+        public Slider attackSlider;
+        public Text textWaveIndicator;
+
+        public UIBossHealthBar bossHealthBar;
         private void Awake()
         {
             _levelManager = FindObjectOfType<LevelManager>();
-        }
-        public void HideInteractMessageObject()
-        {
-            _interactable.SetActive(false);
         }
         public void ShowWaveIndicator(int id)
         {
@@ -37,6 +33,12 @@ namespace DS
         public void StartLevelBtn()
         {
             _levelManager.StartLevel();
+        }
+        public void ShowResultPanel(bool isLose)
+        {
+            resultPanel.gameObject.SetActive(true);
+            victoryText.gameObject.SetActive(!isLose);
+            lossText.gameObject.SetActive(isLose);
         }
     }
 }
