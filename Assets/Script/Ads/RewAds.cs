@@ -4,7 +4,7 @@ namespace DS
 {
     public class RewAds : MonoBehaviour
     {
-        private string _rewardedUnitId = "ca-app-pub-3940256099942544/5224354917";
+        private string _rewardedUnitId = "***************************";
         private RewardedAd _rewardedAd;
         private SkinChanger _skinChanger;
         private void Awake()
